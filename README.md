@@ -11,8 +11,6 @@ Hàm debug,upload ảnh,genId,chuyển đổi định giá, chuyển đổi tr�
 
 Công việc cần làm trong tuần 1:
 
-- ROUTER
-
 - CRUD model:
 
 * admin
@@ -22,3 +20,12 @@ Công việc cần làm trong tuần 1:
 
 * admin
 * client
+
+\*\*\* Việc quan trọng:
+
+- ROUTER
+
+\*\*\* Việc khó:
+
+- Admin: Biến thể của sản phẩm
+- Client: Thanh toán
