@@ -1,1 +1,24 @@
 # Du_an_1_ecommerce
+
+Tên tên biến tiếng anh kiếu Camel
+Khi viết form phải viết tên theo database và quan sát controller
+Khi viết xong 1 function phải comment
+Khi thêm dữ liệu phải comment vào file text và backup database về gửi vào zalo
+Sau 1 ngày phải commit lên git
+Sau một tuần merge code
+sang tuần mới phải kéo base mới về
+Hàm debug,upload ảnh,genId,chuyển đổi định giá, chuyển đổi trạng thái
+
+Công việc cần làm trong tuần 1:
+
+- ROUTER
+
+- CRUD model:
+
+* admin
+* client
+
+- CONTROLLER CƠ BẢN:
+
+* admin
+* client
