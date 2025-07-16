@@ -29,3 +29,18 @@ Công việc cần làm trong tuần 1:
 
 - Admin: Biến thể của sản phẩm
 - Client: Thanh toán
+  <<<<<<< HEAD
+  =======
+
+\\16/07/25
+Dương Trường Giang:
+-việc đã làm:
+*\*\*admin
+*model: basemodel kết nối database, các hàm dùng chung cho các bảng do admin quản lý
+\*controller: controller cơ bản cho admin
+
+**_index: -hàm spl autoload file từ model, controller
+_**config: file env định nghĩa các đường dẫn và các biến dùng trong kết nối database
+\*\*\*routes: phân chia admin, client
+
+> > > > > > > giang
