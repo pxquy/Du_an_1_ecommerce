@@ -1,5 +1,5 @@
 <table class="table">
-    <?php foreach($user as $key => $value) : ?>
+    <?php foreach($category as $key => $value) : ?>
         <tr>
             <td><?= strtoupper($key) ?></td>
             <td><?php 
@@ -22,9 +22,9 @@
         </tr>
         <?php endforeach; ?>
 </table>
-<a href="<?= BASE_URL_ADMIN . '&action=users-edit&id='. $user['id'] ?>"
+<a href="<?= BASE_URL_ADMIN . '&action=categories-edit&id='. $category['id'] ?>"
                     class="btn btn-warning">Sua</a>
-                <a href="<?= BASE_URL_ADMIN . '&action=users-delete&id='. $user['id'] ?>"
+                <a href="<?= BASE_URL_ADMIN . '&action=categories-delete&id='. $category['id'] ?>"
                     onclick="return confirm('co chac xoa khong?')"
                     class="btn btn-danger">Xoa</a>
-<a href="<?=BASE_URL_ADMIN . '&action=users-index' ?>" class="btn btn-secondary">Quay Lại danh sách</a>
+<a href="<?=BASE_URL_ADMIN . '&action=categories-index' ?>" class="btn btn-secondary">Quay Lại danh sách</a>

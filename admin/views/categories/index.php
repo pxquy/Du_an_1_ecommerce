@@ -14,35 +14,35 @@ if(isset($_SESSION['success'])) {
 <table class="table">
     <tr>
         <th class="text-uppercase">ID</th>
-        <th class="text-uppercase">avatar</th>
-        <th class="text-uppercase">Full Name</th>
-        <th class="text-uppercase">email</th>
-        <th class="text-uppercase">password</th>
-        <th class="text-uppercase">role</th>
+        <th class="text-uppercase">logoUrl</th>
+        <th class="text-uppercase">title</th>
+        <th class="text-uppercase">slug</th>
+        <th class="text-uppercase">seoTitle</th>
+        <th class="text-uppercase">SeoDescription</th>
         <th class="text-uppercase">is Active</th>
         <th class="text-uppercase">Action</th>
     </tr>
-    <?php foreach ($data as $user): ?> 
+    <?php foreach ($data as $category): ?> 
         <tr>
-            <td><?= $user['id']?></td>
+            <td><?= $category['id']?></td>
             <td>
-                <?php if(!empty($user['avatarUrl'])) : ?>
-                <img src="<?= PATH_ASSETS_UPLOADS . $user['avatarUrl'] ?>" alt="" width="100px">
+                <?php if(!empty($category['logoUrl'])) : ?>
+                <img src="<?= PATH_ASSETS_UPLOADS . $category['logoUrl'] ?>" alt="" width="100px">
                 <?php else : ?>
                 <img src="<?= PATH_ASSETS_UPLOADS . 'users/placehold.png' ?>" alt="" width="100px">
                 <?php endif ?>
             </td>
-            <td><?= $user['fullname']?></td>
-            <td><?= $user['email']?></td>
-            <td><?= $user['password']?></td>
-            <td><?= $user['role']?></td>
-            <td><?= $user['isActive']?></td>
+            <td><?= $category['title']?></td>
+            <td><?= $category['slug']?></td>
+            <td><?= $category['seoTitle']?></td>
+            <td><?= $category['seoDescription']?></td>
+            <td><?= $category['isActive']?></td>
             <td>
-                <a href="<?= BASE_URL_ADMIN . '&action=users-show&id='. $user['id'] ?>"
+                <a href="<?= BASE_URL_ADMIN . '&action=categories-show&id='. $category['id'] ?>"
                     class="btn btn-info">Xem chi tiet</a>
-                <a href="<?= BASE_URL_ADMIN . '&action=users-edit&id='. $user['id'] ?>"
+                <a href="<?= BASE_URL_ADMIN . '&action=categories-edit&id='. $category['id'] ?>"
                     class="btn btn-warning ms-3 me-3">Sua</a>
-                <a href="<?= BASE_URL_ADMIN . '&action=users-delete&id='. $user['id'] ?>"
+                <a href="<?= BASE_URL_ADMIN . '&action=categories-delete&id='. $category['id'] ?>"
                     onclick="return confirm('co chac xoa khong?')"
                     class="btn btn-danger">Xoa</a>
             </td>

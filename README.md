@@ -40,3 +40,12 @@ Dương Trường Giang:
 ***index: -hàm spl autoload file từ model, controller
 ***config: file env định nghĩa các đường dẫn và các biến dùng trong kết nối database
 ***routes: phân chia admin, client
+
+\\17/07/25
+Dương Trường Giang:
+-việc đã làm:
+***admin:
+*views: viết test view cho các bảng theo 4 trang index create edit show cho admin
+
+***routes: viết test router cho các bảng sẽ quản lý
+***config: sửa lại một số PATH bị định nghĩa sai
