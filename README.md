@@ -44,3 +44,24 @@ _**config: file env định nghĩa các đường dẫn và các biến dùng tr
 \*\*\*routes: phân chia admin, client
 
 > > > > > > > giang
+
+\*\*\* Quy ước chung:
+
+- Quy ước phân quyền:
+
+* 0: user
+* 1: admin
+* 2: Quản lý
+
+- Quy ước giới tính:
+
+* 1: nam
+* 2: nữ
+
+- Quy ước trạng thái đơn hàng
+
+* 1: Chờ xác nhận
+* 2: Đang xử lý
+* 3: đang giao hàng
+* 4: Thành công
+* 5: Huỷ
