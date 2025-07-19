@@ -6,6 +6,7 @@ if (isset($_SESSION['success'])) {
 }
 ?>
 
+<<<<<<< HEAD
 <!-- Bộ lọc và hành động -->
 <div class="user-actions d-flex align-items-center justify-content-between gap-4 mb-3">
     <div class="d-flex flex-row align-items-center gap-3 flex-grow-1">
@@ -176,3 +177,42 @@ if (isset($_SESSION['success'])) {
     document.getElementById('deleteSelected').addEventListener('click', deleteSelectedUsers);
     document.addEventListener('DOMContentLoaded', () => loadUsers());
 </script>
+=======
+<table class="table">
+    <tr>
+        <th class="text-uppercase">ID</th>
+        <th class="text-uppercase">avatar</th>
+        <th class="text-uppercase">Full Name</th>
+        <th class="text-uppercase">email</th>
+        <th class="text-uppercase">password</th>
+        <th class="text-uppercase">role</th>
+        <th class="text-uppercase">is Active</th>
+        <th class="text-uppercase">Action</th>
+    </tr>
+    <?php foreach ($data as $user): ?>
+        <tr>
+            <td><?= $user['id'] ?></td>
+            <td>
+                <?php if (!empty($user['avatarUrl'])): ?>
+                    <img src="<?= BASE_ASSETS_UPLOADS . $user['avatarUrl'] ?>" alt="" width="100px">
+                <?php else: ?>
+                    <img src="<?= BASE_ASSETS_UPLOADS . 'users/placehold.png' ?>" alt="" width="100px">
+                <?php endif ?>
+            </td>
+            <td><?= $user['fullname'] ?></td>
+            <td><?= $user['email'] ?></td>
+            <td><?= $user['password'] ?></td>
+            <td><?= $user['role'] ?></td>
+            <td><?= $user['isActive'] ?></td>
+            <td>
+                <a href="<?= BASE_URL_ADMIN . '&action=users-show&id=' . $user['id'] ?>" class="btn btn-info">Xem chi
+                    tiet</a>
+                <a href="<?= BASE_URL_ADMIN . '&action=users-edit&id=' . $user['id'] ?>"
+                    class="btn btn-warning ms-3 me-3">Sua</a>
+                <a href="<?= BASE_URL_ADMIN . '&action=users-delete&id=' . $user['id'] ?>"
+                    onclick="return confirm('co chac xoa khong?')" class="btn btn-danger">Xoa</a>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+</table>
+>>>>>>> 4ce1e49 (fix một số đường dẫn env bị sai)
