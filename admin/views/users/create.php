@@ -54,8 +54,8 @@ if (!empty($_SESSION['errors'])): ?>
             value="<?= $_SESSION['data']['address'] ?? null ?>">
     </div>
     <div class="mb-3 mt-3">
-        <label for="avatar" class="form-label">Avatar:</label>
-        <input type="file" class="form-control" id="avatar" name="avatar">
+        <label for="avatarUrl" class="form-label">Avatar:</label>
+        <input type="file" class="form-control" id="avatarUrl" name="avatarUrl">
     </div>
     <div class="mb-3 mt-3">
         <label for="bio" class="form-label">Bio:</label>

@@ -1,7 +1,7 @@
 <a href="<?= BASE_URL_ADMIN . '&action=users-create' ?>" class="btn btn-primary mb-3">Them moi</a>
 
 <?php
-if(isset($_SESSION['success'])) {
+if (isset($_SESSION['success'])) {
     $class = $_SESSION['success'] ? 'alert-success' : 'alert-danger';
 
     echo "<div class='alert $class'>{$_SESSION['msg']}</div>";
@@ -22,31 +22,29 @@ if(isset($_SESSION['success'])) {
         <th class="text-uppercase">is Active</th>
         <th class="text-uppercase">Action</th>
     </tr>
-    <?php foreach ($data as $user): ?> 
+    <?php foreach ($data as $user): ?>
         <tr>
-            <td><?= $user['id']?></td>
+            <td><?= $user['id'] ?></td>
             <td>
-                <?php if(!empty($user['avatarUrl'])) : ?>
-                <img src="<?= PATH_ASSETS_UPLOADS . $user['avatarUrl'] ?>" alt="" width="100px">
-                <?php else : ?>
-                <img src="<?= PATH_ASSETS_UPLOADS . 'users/placehold.png' ?>" alt="" width="100px">
+                <?php if (!empty($user['avatarUrl'])): ?>
+                    <img src="<?= BASE_ASSETS_UPLOADS . $user['avatarUrl'] ?>" alt="" width="100px">
+                <?php else: ?>
+                    <img src="<?= BASE_ASSETS_UPLOADS . 'users/placehold.png' ?>" alt="" width="100px">
                 <?php endif ?>
             </td>
-            <td><?= $user['fullname']?></td>
-            <td><?= $user['email']?></td>
-            <td><?= $user['password']?></td>
-            <td><?= $user['role']?></td>
-            <td><?= $user['isActive']?></td>
+            <td><?= $user['fullname'] ?></td>
+            <td><?= $user['email'] ?></td>
+            <td><?= $user['password'] ?></td>
+            <td><?= $user['role'] ?></td>
+            <td><?= $user['isActive'] ?></td>
             <td>
-                <a href="<?= BASE_URL_ADMIN . '&action=users-show&id='. $user['id'] ?>"
-                    class="btn btn-info">Xem chi tiet</a>
-                <a href="<?= BASE_URL_ADMIN . '&action=users-edit&id='. $user['id'] ?>"
+                <a href="<?= BASE_URL_ADMIN . '&action=users-show&id=' . $user['id'] ?>" class="btn btn-info">Xem chi
+                    tiet</a>
+                <a href="<?= BASE_URL_ADMIN . '&action=users-edit&id=' . $user['id'] ?>"
                     class="btn btn-warning ms-3 me-3">Sua</a>
-                <a href="<?= BASE_URL_ADMIN . '&action=users-delete&id='. $user['id'] ?>"
-                    onclick="return confirm('co chac xoa khong?')"
-                    class="btn btn-danger">Xoa</a>
+                <a href="<?= BASE_URL_ADMIN . '&action=users-delete&id=' . $user['id'] ?>"
+                    onclick="return confirm('co chac xoa khong?')" class="btn btn-danger">Xoa</a>
             </td>
         </tr>
-    <?php endforeach;?>
+    <?php endforeach; ?>
 </table>
-

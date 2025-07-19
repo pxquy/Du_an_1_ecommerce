@@ -8,6 +8,8 @@ if (!function_exists('debug')) {
     }
 }
 
+
+
 if (!function_exists('upload_file')) {
     function upload_file($folder, $file)
     {
@@ -115,4 +117,15 @@ function uploadImage($file, $uploadDir)
         array_push($payload, $status);
         return $payload; // khi lỗi trả về một mảng gồm 2 phần tử
     }
+}
+
+function genId($n, $prefix = null)
+{
+    $character = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    $id = $prefix;
+    $maxIndex = strlen($character) - 1;
+    for ($i = 0; $i < $n - 1; $i++) {
+        $id .= $character[random_int(0, $maxIndex)];
+    }
+    return $id;
 }

@@ -6,7 +6,7 @@ spl_autoload_register(function ($class) {
 
     $fileModelAdmin = PATH_MODEL_ADMIN . $fileName;
     $fileModelClient = PATH_MODEL_CLIENT . $fileName;
-    $fileControllerClient = PATH_CONTROLLER_CLIENT . $fileName;
+    $fileControllerClient = PATH_CONTROLLER_CLIENT . $class. '/'. $fileName;
     $fileControllerAdmin = PATH_CONTROLLER_ADMIN . $fileName;
 
     if (is_readable($fileModelClient)) {

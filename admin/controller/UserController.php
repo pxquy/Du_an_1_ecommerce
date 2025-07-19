@@ -77,46 +77,90 @@ class UserController
                 $_SESSION['errors']['password'] = 'Truong password bat buoc do dai trong khoang tu 6 - 30 ky tu';
             }
 
-            if ($data['avatar']['size'] > 0) {
+            if ($data['avatarUrl']['size'] > 0) {
 
-                if ($data['avatar']['size'] > 2 * 1024 * 1024) {
-                    $_SESSION['errors']['avatar_size'] = 'Truong avatar co dung luong toi da 2MB';
+                if ($data['avatarUrl']['size'] > 2 * 1024 * 1024) {
+                    $_SESSION['errors']['avatarUrl_size'] = 'Truong avatarUrl co dung luong toi da 2MB';
                 }
 
-                $fileType = $data['avatar']['type'];
+                $fileType = $data['avatarUrl']['type'];
                 $allowedType = ['image/jpg', 'image/jpeg', 'image/png', 'image/gif'];
                 if (!in_array($fileType, $allowedType)) {
-                    $_SESSION['errors']['avatar_type'] = "xin loi chi chap nhan cac loai file JPG, JPEG, PNG, GIF. ";
+                    $_SESSION['errors']['avatarUrl_type'] = "xin loi chi chap nhan cac loai file JPG, JPEG, PNG, GIF. ";
                 }
             }
 
             if (!empty($_SESSION['errors'])) {
-
+                $data['id'] = genId(4, 'user-');
                 $_SESSION['data'] = $data;
 
                 throw new Exception('Du lieu loi');
             }
 
-            if ($data['avatar']['size'] > 0) {
-                $data['avatar'] = upload_file('users', $data['avatar']);
+            if ($data['avatarUrl']['size'] > 0) {
+                $data['avatarUrl'] = upload_file('users', $data['avatarUrl']);
             } else {
-                $data['avatar'] = null;
+                $data['avatarUrl'] = null;
             }
 
-            debug($data);
+            $rowCount = $this->user->insert($data);
 
+            if ($rowCount > 0) {
+                $_SESSION['success'] = true;
+                $_SESSION['msg'] = 'Thao tac thanh cong';
+            } else {
+                throw new Exception('Thao tac khong thanh cong');
+            }
         } catch (\Throwable $th) {
             $_SESSION['success'] = false;
             $_SESSION['msg'] = $th->getMessage();
         }
-        header('Location: ' . BASE_URL_ADMIN . '&action=users-create');
+        header('Location: ' . BASE_URL_ADMIN . '&action=users-index');
         exit();
     }
     public function edit()
     {
+        try {
+            if(!isset($_GET['id'])) {
+                throw new Exception('Thieu tham so id', 99);
+            }
+
+            $id = $_GET['id'];
+
+            $user = $this->user->find('*', 'id = :id', ['id' => $id]);
+
+            if(empty($user)) {
+                throw new Exception("User co ID = $id khong ton tai");
+            }
+
+            $view = 'users/edit';
+            $title = "Cap nhat USER co ID = $id";
+
+            require_once PATH_VIEW_ADMIN_MAIN;
+
+        } catch (\Throwable $th) {
+            $_SESSION['success'] = false;
+            $_SESSION['msg'] = $th->getMessage();
+
+            header('Location: ' . BASE_URL_ADMIN . '&action=users-index');
+            exit();
+        }
     }
     public function update()
     {
+        try {
+            
+        } catch (\Throwable $th) {
+            $_SESSION['success'] = false;
+            $_SESSION['msg'] = $th->getMessage() . ' - Line: ' . $th->getLine();
+
+            if($th->getCode() == 99) {
+                header('Location :' . BASE_URL_ADMIN . '&action=users-index');
+                exit();
+            }
+        }
+
+        header('Location :' . BASE_URL_ADMIN . '&action=users-edit&id=' . $id);
     }
 
     public function softDelete()
@@ -142,8 +186,8 @@ class UserController
 
             if ($rowCount > 0) {
 
-                if (!empty($user['avatar']) && file_exists(PATH_ASSETS_UPLOADS . $user['avatarUrl'])) {
-                    unlink(PATH_ASSETS_UPLOADS . $user['avatarUrl']);
+                if (!empty($user['avatarUrl']) && file_exists(PATH_ASSETS_UPLOADS . $user['avatarUrlUrl'])) {
+                    unlink(PATH_ASSETS_UPLOADS . $user['avatarUrlUrl']);
                 }
 
                 $_SESSION['success'] = true;
