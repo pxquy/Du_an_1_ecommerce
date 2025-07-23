@@ -130,4 +130,24 @@ class BaseModel
         $stmt->execute($params);
         return $stmt->rowCount();
     }
+
+    public function softDelete($id)
+    {
+        $data = [
+            'isActive' => 0,
+            'deletedAt' => date('Y-m-d H:i:s')
+        ];
+
+        return $this->update($data, 'id = :id', ['id' => $id]);
+    }
+    public function restore($id)
+    {
+        $data = [
+            'isActive' => 1,
+            'updatedAt' => date('Y-m-d H:i:s'),
+            'deletedAt' => null,
+        ];
+
+        return $this->update($data, 'id = :id', ['id' => $id]);
+    }
 }

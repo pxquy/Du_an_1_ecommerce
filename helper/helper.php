@@ -129,3 +129,25 @@ function genId($n, $prefix = null)
     }
     return $id;
 }
+
+function slugify($string)
+{
+    // Chuyển về chữ thường
+    $string = mb_strtolower($string, 'UTF-8');
+
+    // Loại bỏ dấu tiếng Việt
+    $string = preg_replace('/[áàảãạăắằẳẵặâấầẩẫậ]/u', 'a', $string);
+    $string = preg_replace('/[éèẻẽẹêếềểễệ]/u', 'e', $string);
+    $string = preg_replace('/[íìỉĩị]/u', 'i', $string);
+    $string = preg_replace('/[óòỏõọôốồổỗộơớờởỡợ]/u', 'o', $string);
+    $string = preg_replace('/[úùủũụưứừửữự]/u', 'u', $string);
+    $string = preg_replace('/[ýỳỷỹỵ]/u', 'y', $string);
+    $string = preg_replace('/[đ]/u', 'd', $string);
+
+    // Loại bỏ ký tự không hợp lệ
+    $string = preg_replace('/[^a-z0-9\-]/', '-', $string);
+    $string = preg_replace('/-+/', '-', $string); // bỏ trùng dấu -
+    $string = trim($string, '-');
+
+    return $string;
+}

@@ -1,16 +1,16 @@
 <?php
-class CategoryController
+class BrandController
 {
-    private $category;
+    private $brand;
     public function __construct()
     {
-        $this->category = new Category();
+        $this->brand = new Brand();
     }
     public function index()
     {
-        $view = 'categories/index';
-        $title = 'Danh sách category';
-        $data = $this->category->select('*', '1 = 1 ORDER BY id ASC');
+        $view = 'brands/index';
+        $title = 'Danh sách brand';
+        $data = $this->brand->select('*', '1 = 1 ORDER BY id ASC');
         require_once PATH_VIEW_ADMIN_MAIN;
     }
     public function show()
@@ -22,15 +22,15 @@ class CategoryController
 
             $id = $_GET['id'];
 
-            $category = $this->category->find('*', 'id = :id', ['id' => $id]);
+            $brand = $this->brand->find('*', 'id = :id', ['id' => $id]);
 
-            if (empty($category)) {
-                throw new Exception("Category co ID = $id khong ton tai!");
+            if (empty($brand)) {
+                throw new Exception("Brand co ID = $id khong ton tai!");
             }
 
-            $view = 'categories/show';
+            $view = 'brands/show';
 
-            $title = "Chi tiet Category co Id = $id";
+            $title = "Chi tiet Brand co Id = $id";
 
             require_once PATH_VIEW_ADMIN_MAIN;
 
@@ -38,14 +38,14 @@ class CategoryController
             $_SESSION['success'] = false;
             $_SESSION['msg'] = $th->getMessage();
 
-            header('Location: ' . BASE_URL_ADMIN . '&action=categories-index');
+            header('Location: ' . BASE_URL_ADMIN . '&action=brands-index');
             exit();
         }
     }
     public function create()
     {
-        $view = 'categories/create';
-        $title = 'Them moi category';
+        $view = 'brands/create';
+        $title = 'Them moi brand';
 
         require_once PATH_VIEW_ADMIN_MAIN;
     }
@@ -84,14 +84,14 @@ class CategoryController
             }
 
             if ($data['logoUrl']['size'] > 0) {
-                $data['logoUrl'] = upload_file('categories', $data['logoUrl']);
+                $data['logoUrl'] = upload_file('brands', $data['logoUrl']);
             } else {
                 $data['logoUrl'] = null;
             }
 
             $data['slug'] = slugify($data['title']);
 
-            $rowCount = $this->category->insert($data);
+            $rowCount = $this->brand->insert($data);
 
             if ($rowCount > 0) {
                 $_SESSION['success'] = true;
@@ -103,7 +103,7 @@ class CategoryController
             $_SESSION['success'] = false;
             $_SESSION['msg'] = $th->getMessage();
         }
-        header('Location: ' . BASE_URL_ADMIN . '&action=categories-index');
+        header('Location: ' . BASE_URL_ADMIN . '&action=brands-index');
         exit();
     }
     public function edit()
@@ -115,14 +115,14 @@ class CategoryController
 
             $id = $_GET['id'];
 
-            $category = $this->category->find('*', 'id = :id', ['id' => $id]);
+            $brand = $this->brand->find('*', 'id = :id', ['id' => $id]);
 
-            if (empty($category)) {
-                throw new Exception("Category co ID = $id khong ton tai");
+            if (empty($brand)) {
+                throw new Exception("Brand co ID = $id khong ton tai");
             }
 
-            $view = 'categories/edit';
-            $title = "Cap nhat Category co ID = $id";
+            $view = 'brands/edit';
+            $title = "Cap nhat Brand co ID = $id";
 
             require_once PATH_VIEW_ADMIN_MAIN;
 
@@ -130,7 +130,7 @@ class CategoryController
             $_SESSION['success'] = false;
             $_SESSION['msg'] = $th->getMessage();
 
-            header('Location: ' . BASE_URL_ADMIN . '&action=categories-index');
+            header('Location: ' . BASE_URL_ADMIN . '&action=brands-index');
             exit();
         }
     }
@@ -147,10 +147,10 @@ class CategoryController
 
             $id = $_GET['id'];
 
-            $category = $this->category->find('*', 'id = :id', ['id' => $id]);
+            $brand = $this->brand->find('*', 'id = :id', ['id' => $id]);
 
-            if (empty($category)) {
-                throw new Exception("Category co id  = $id khong ton tai");
+            if (empty($brand)) {
+                throw new Exception("Brand co id  = $id khong ton tai");
             }
 
             $data = $_POST + $_FILES;
@@ -165,7 +165,7 @@ class CategoryController
 
             if (
                 !empty(
-                $this->category->find(
+                $this->brand->find(
                     '*',
                     'slug = :slug AND id != :id',
                     [
@@ -197,22 +197,22 @@ class CategoryController
             }
 
             if ($data['logoUrl']['size'] > 0) {
-                $data['logoUrl'] = upload_file('categories', $data['logoUrl']);
+                $data['logoUrl'] = upload_file('brands', $data['logoUrl']);
             } else {
-                $data['logoUrl'] = $category['logoUrl'];
+                $data['logoUrl'] = $brand['logoUrl'];
             }
 
             $data['updatedAt'] = date('Y-m-d H:i:s');
 
-            $rowCount = $this->category->update($data, 'id = :id', ['id' => $id]);
+            $rowCount = $this->brand->update($data, 'id = :id', ['id' => $id]);
 
             if ($rowCount > 0) {
                 if (
                     $_FILES['logoUrl']['size'] > 0
-                    && !empty($category['logoUrl'])
-                    && file_exists(PATH_ASSETS_UPLOADS . $category['logoUrl'])
+                    && !empty($brand['logoUrl'])
+                    && file_exists(PATH_ASSETS_UPLOADS . $brand['logoUrl'])
                 ) {
-                    unlink(PATH_ASSETS_UPLOADS . $category['logoUrl']);
+                    unlink(PATH_ASSETS_UPLOADS . $brand['logoUrl']);
                 }
 
                 $_SESSION['success'] = true;
@@ -226,12 +226,12 @@ class CategoryController
             $_SESSION['msg'] = $th->getMessage() . ' - Line: ' . $th->getLine();
 
             if ($th->getCode() == 99) {
-                header('Location: ' . BASE_URL_ADMIN . '&action=categories-index');
+                header('Location: ' . BASE_URL_ADMIN . '&action=brands-index');
                 exit();
             }
         }
 
-        header('Location: ' . BASE_URL_ADMIN . '&action=categories-edit&id=' . $id);
+        header('Location: ' . BASE_URL_ADMIN . '&action=brands-edit&id=' . $id);
     }
 
     public function restore()
@@ -243,13 +243,13 @@ class CategoryController
 
             $id = $_GET['id'];
 
-            $category = $this->category->find('*', 'id = :id', ['id' => $id]);
+            $brand = $this->brand->find('*', 'id = :id', ['id' => $id]);
 
-            if (empty($category)) {
-                throw new Exception("Category co id = $id Khong ton tai!");
+            if (empty($brand)) {
+                throw new Exception("Brand co id = $id Khong ton tai!");
             }
 
-            $rowCount = $this->category->restore($id);
+            $rowCount = $this->brand->restore($id);
 
             if ($rowCount > 0) {
 
@@ -263,7 +263,7 @@ class CategoryController
             $_SESSION['msg'] = $th->getMessage();
         }
 
-        header('Location: ' . BASE_URL_ADMIN . '&action=categories-index');
+        header('Location: ' . BASE_URL_ADMIN . '&action=brands-index');
         exit();
     }
 
@@ -276,13 +276,13 @@ class CategoryController
 
             $id = $_GET['id'];
 
-            $category = $this->category->find('*', 'id = :id', ['id' => $id]);
+            $brand = $this->brand->find('*', 'id = :id', ['id' => $id]);
 
-            if (empty($category)) {
-                throw new Exception("Category co id = $id Khong ton tai!");
+            if (empty($brand)) {
+                throw new Exception("Brand co id = $id Khong ton tai!");
             }
 
-            $rowCount = $this->category->softDelete($id);
+            $rowCount = $this->brand->softDelete($id);
 
             if ($rowCount > 0) {
 
@@ -296,7 +296,7 @@ class CategoryController
             $_SESSION['msg'] = $th->getMessage();
         }
 
-        header('Location: ' . BASE_URL_ADMIN . '&action=categories-index');
+        header('Location: ' . BASE_URL_ADMIN . '&action=brands-index');
         exit();
     }
 
@@ -309,18 +309,18 @@ class CategoryController
 
             $id = $_GET['id'];
 
-            $category = $this->category->find('*', 'id = :id', ['id' => $id]);
+            $brand = $this->brand->find('*', 'id = :id', ['id' => $id]);
 
-            if (empty($category)) {
-                throw new Exception("Category co id = $id Khong ton tai!");
+            if (empty($brand)) {
+                throw new Exception("Brand co id = $id Khong ton tai!");
             }
 
-            $rowCount = $this->category->delete('id = :id', ['id' => $id]);
+            $rowCount = $this->brand->delete('id = :id', ['id' => $id]);
 
             if ($rowCount > 0) {
 
-                if (!empty($category['logoUrl']) && file_exists(PATH_ASSETS_UPLOADS . $category['logoUrl'])) {
-                    unlink(PATH_ASSETS_UPLOADS . $category['logoUrl']);
+                if (!empty($brand['logoUrl']) && file_exists(PATH_ASSETS_UPLOADS . $brand['logoUrl'])) {
+                    unlink(PATH_ASSETS_UPLOADS . $brand['logoUrl']);
                 }
 
                 $_SESSION['success'] = true;
@@ -333,7 +333,7 @@ class CategoryController
             $_SESSION['msg'] = $th->getMessage();
         }
 
-        header('Location: ' . BASE_URL_ADMIN . '&action=categories-index');
+        header('Location: ' . BASE_URL_ADMIN . '&action=brands-index');
         exit();
     }
 }

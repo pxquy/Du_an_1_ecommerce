@@ -1,4 +1,5 @@
 <?php
-class Comment extends BaseModel {
-    protected $table = 'comments';
+class Order extends BaseModel
+{
+    protected $table = 'Orders';
 }

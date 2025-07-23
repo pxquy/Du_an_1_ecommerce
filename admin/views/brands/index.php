@@ -1,7 +1,7 @@
-<a href="<?= BASE_URL_ADMIN . '&action=users-create' ?>" class="btn btn-primary mb-3">Them moi</a>
+<a href="<?= BASE_URL_ADMIN . '&action=brands-create' ?>" class="btn btn-primary mb-3">Them moi</a>
 
 <?php
-if(isset($_SESSION['success'])) {
+if (isset($_SESSION['success'])) {
     $class = $_SESSION['success'] ? 'alert-success' : 'alert-danger';
 
     echo "<div class='alert $class'>{$_SESSION['msg']}</div>";
@@ -14,39 +14,42 @@ if(isset($_SESSION['success'])) {
 <table class="table">
     <tr>
         <th class="text-uppercase">ID</th>
-        <th class="text-uppercase">avatar</th>
-        <th class="text-uppercase">Full Name</th>
-        <th class="text-uppercase">email</th>
-        <th class="text-uppercase">password</th>
-        <th class="text-uppercase">role</th>
+        <th class="text-uppercase">logoUrl</th>
+        <th class="text-uppercase">title </th>
+        <th class="text-uppercase">description</th>
+        <th class="text-uppercase">slug </th>
         <th class="text-uppercase">is Active</th>
         <th class="text-uppercase">Action</th>
     </tr>
-    <?php foreach ($data as $user): ?> 
+    <?php foreach ($data as $brand): ?>
         <tr>
-            <td><?= $user['id']?></td>
+            <td><?= $brand['id'] ?></td>
             <td>
-                <?php if(!empty($user['avatarUrl'])) : ?>
-                <img src="<?= PATH_ASSETS_UPLOADS . $user['avatarUrl'] ?>" alt="" width="100px">
-                <?php else : ?>
-                <img src="<?= PATH_ASSETS_UPLOADS . 'users/placehold.png' ?>" alt="" width="100px">
+                <?php if (!empty($brand['logoUrl'])): ?>
+                    <img src="<?= BASE_ASSETS_UPLOADS . $brand['logoUrl'] ?>" alt="" width="100px">
+                <?php else: ?>
+                    <img src="<?= BASE_ASSETS_UPLOADS . 'brands/placehold.png' ?>" alt="" width="100px">
                 <?php endif ?>
             </td>
-            <td><?= $user['fullname']?></td>
-            <td><?= $user['email']?></td>
-            <td><?= $user['password']?></td>
-            <td><?= $user['role']?></td>
-            <td><?= $user['isActive']?></td>
+            <td><?= $brand['title'] ?></td>
+            <td><?= $brand['description'] ?></td>
+            <td><?= $brand['slug'] ?></td>
+            <td><?= $brand['isActive'] ?></td>
             <td>
-                <a href="<?= BASE_URL_ADMIN . '&action=users-show&id='. $user['id'] ?>"
-                    class="btn btn-info">Xem chi tiet</a>
-                <a href="<?= BASE_URL_ADMIN . '&action=users-edit&id='. $user['id'] ?>"
+                <a href="<?= BASE_URL_ADMIN . '&action=brands-show&id=' . $brand['id'] ?>" class="btn btn-info">Xem chi
+                    tiet</a>
+                <a href="<?= BASE_URL_ADMIN . '&action=brands-edit&id=' . $brand['id'] ?>"
                     class="btn btn-warning ms-3 me-3">Sua</a>
-                <a href="<?= BASE_URL_ADMIN . '&action=users-delete&id='. $user['id'] ?>"
-                    onclick="return confirm('co chac xoa khong?')"
-                    class="btn btn-danger">Xoa</a>
+                <?php if ($brand['isActive'] == 1): ?>
+                    <a href="<?= BASE_URL_ADMIN . '&action=brands-softDelete&id=' . $brand['id'] ?>"
+                        onclick="return confirm('co chac xoa khong?')" class="btn btn-danger">Xoa Mem</a>
+                <?php else: ?>
+                    <a href="<?= BASE_URL_ADMIN . '&action=brands-restore&id=' . $brand['id'] ?>"
+                        onclick="return confirm('co chac khoi phuc khong?')" class="btn btn-success">Khoi phuc</a>
+                    <a href="<?= BASE_URL_ADMIN . '&action=brands-delete&id=' . $brand['id'] ?>"
+                        onclick="return confirm('co chac xoa khong?')" class="btn btn-danger">Xoa Cung</a>
+                <?php endif ?>
             </td>
         </tr>
-    <?php endforeach;?>
+    <?php endforeach; ?>
 </table>
-

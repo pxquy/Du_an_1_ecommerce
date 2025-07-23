@@ -1,4 +1,4 @@
 <?php
-class AttributeValues extends BaseModel {
+class AttributeValue extends BaseModel {
     protected $table = 'attribute_values';
 }

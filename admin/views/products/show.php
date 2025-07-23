@@ -1,5 +1,5 @@
 <table class="table">
-    <?php foreach($user as $key => $value) : ?>
+    <?php foreach($product as $key => $value) : ?>
         <tr>
             <td><?= strtoupper($key) ?></td>
             <td><?php 
@@ -9,7 +9,7 @@
                             $link = PATH_ASSETS_UPLOADS . $value;
                             echo "<img src = '$link' width='100px'/>";
                         } else {
-                            $link = PATH_ASSETS_UPLOADS . 'users/placehold.png';
+                            $link = PATH_ASSETS_UPLOADS . 'products/placehold.png';
                             echo "<img src = '$link' width = '100px'/>";
                         }
                         break;
@@ -22,9 +22,9 @@
         </tr>
         <?php endforeach; ?>
 </table>
-<a href="<?= BASE_URL_ADMIN . '&action=users-edit&id='. $user['id'] ?>"
+<a href="<?= BASE_URL_ADMIN . '&action=products-edit&id='. $product['id'] ?>"
                     class="btn btn-warning">Sua</a>
-                <a href="<?= BASE_URL_ADMIN . '&action=users-delete&id='. $user['id'] ?>"
+                <a href="<?= BASE_URL_ADMIN . '&action=products-delete&id='. $product['id'] ?>"
                     onclick="return confirm('co chac xoa khong?')"
                     class="btn btn-danger">Xoa</a>
-<a href="<?=BASE_URL_ADMIN . '&action=users-index' ?>" class="btn btn-secondary">Quay Lại danh sách</a>
+<a href="<?=BASE_URL_ADMIN . '&action=products-index' ?>" class="btn btn-secondary">Quay Lại danh sách</a>
