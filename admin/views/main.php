@@ -31,7 +31,7 @@
         <div class="row">
             <?php
             if (isset($view)) {
-                debug($view);
+                // debug($view);
                 require_once PATH_VIEW_ADMIN . $view . '.php';
             }
             ?>

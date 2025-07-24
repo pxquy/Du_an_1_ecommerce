@@ -46,13 +46,14 @@
     </nav>
 
     <section class="hero">
+        <?php
+        if (isset($view)) {
+            // $link = PATH_VIEW_CLIENT . $view . '.php';
+            // debug($link);
+            require_once PATH_VIEW_CLIENT . $view . '.php';
+        }
+        ?>
         <div class="container">
-            <?php
-            if (isset($view)) {
-                // debug($view);
-                require_once PATH_VIEW_CLIENT . $view . '.php';
-            }
-            ?>
             <table class="table">
                 <thead>
                     <tr>
@@ -62,23 +63,17 @@
                         <th class="text-uppercase">Slug</th>
                         <th class="text-uppercase">Created At</th>
                         <th class="text-uppercase">Updated At</th>
-                        <th class="text-uppercase">Details</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($products as $product): ?>
-                        <tr>
-                            <td class="text-uppercase"><?= $product['title'] ?></td>
-                            <td class="text-uppercase"><?= $product['priceDefault'] ?></td>
-                            <td class="text-uppercase"><?= $product['discountPercentage'] ?></td>
-                            <td class="text-uppercase"><?= $product['slug'] ?></td>
-                            <td class="text-uppercase"><?= $product['createdAt'] ?></td>
-                            <td class="text-uppercase"><?= $product['updatedAt'] ?></td>
-                            <td class="text-uppercase"><a
-                                    href="<?= BASE_URL . '?action=productDetail&id=' . $product['id']  ?>">Chi tiết</a></td>
-                        </tr>
-                    <?php endforeach;
-                    ?>
+                    <tr>
+                        <td class="text-uppercase"><?= $productDetail['title'] ?></td>
+                        <td class="text-uppercase"><?= $productDetail['priceDefault'] ?></td>
+                        <td class="text-uppercase"><?= $productDetail['discountPercentage'] ?></td>
+                        <td class="text-uppercase"><?= $productDetail['slug'] ?></td>
+                        <td class="text-uppercase"><?= $productDetail['createdAt'] ?></td>
+                        <td class="text-uppercase"><?= $tags[0] ?></td>
+                    </tr>
                 </tbody>
             </table>
         </div>

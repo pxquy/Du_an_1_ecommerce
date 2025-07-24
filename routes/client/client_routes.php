@@ -4,4 +4,5 @@ $action = $_GET['action'] ?? '/';
 
 match ($action) {
     '/' => (new ProductController)->home(),
+    'productDetail' => (new ProductController())->productDetail(),
 };
