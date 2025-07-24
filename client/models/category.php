@@ -1,5 +1,5 @@
 <?php
-class category extends BaseModel
+class Category extends BaseModel
 {
     protected $table = 'categories';
 }

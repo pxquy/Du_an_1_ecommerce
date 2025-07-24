@@ -1,5 +1,5 @@
 <?php
-class cart extends BaseModel
+class Cart extends BaseModel
 {
     protected $table = 'carts';
 }

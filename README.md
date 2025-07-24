@@ -44,3 +44,9 @@ _**config: file env định nghĩa các đường dẫn và các biến dùng tr
 \*\*\*routes: phân chia admin, client
 
 > > > > > > > giang
+// 20/7 
+Hiếu:
+việc đã làm: lấy dữ liệu product và product detail
+22/7:
+Hiếu:
+hoàn thiện phần login logout

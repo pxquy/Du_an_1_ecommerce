@@ -1,11 +1,16 @@
 <?php
-class BaseModel {
+class BaseModel
+{
     protected $table;
     protected $pdo;
-    
-    public function __construct(){
+
+    public function __construct()
+    {
         $dsn = sprintf(
-            'mysql:host=%s;port=%s;dbname=%s;charset=utf8', DB_HOST,DB_PORT,DB_NAME,
+            'mysql:host=%s;port=%s;dbname=%s;charset=utf8',
+            DB_HOST,
+            DB_PORT,
+            DB_NAME,
         );
         try {
             $this->pdo = new PDO(
@@ -14,18 +19,20 @@ class BaseModel {
                 DB_PASSWORD,
                 DB_OPTIONS,
             );
-        } catch (PDOException $e){
+        } catch (PDOException $e) {
             die("ket noi co so du lieu that bai: {$e->getMessage()}. Vui long thu lai sau");
         }
     }
 
-    public function __destruct(){
+    public function __destruct()
+    {
         $this->pdo = null;
     }
 
-    public function select($column = '*', $condition = null, $params = []){
+    public function select($column = '*', $condition = null, $params = [])
+    {
         $sql = "SELECT $column FROM {$this->table}";
-        if($condition){
+        if ($condition) {
             $sql .= " WHERE $condition";
         }
         $stmt = $this->pdo->prepare($sql);
@@ -33,9 +40,10 @@ class BaseModel {
         return $stmt->fetchAll();
     }
 
-    public function count ($condition = null, $params = []){
+    public function count($condition = null, $params = [])
+    {
         $sql = "SELECT COUNT(*) FROM {$this->table}";
-        if($condition){
+        if ($condition) {
             $sql .= " WHERE $condition";
         }
         $stmt = $this->pdo->prepare($sql);
@@ -43,9 +51,10 @@ class BaseModel {
         return $stmt->fetchColumn();
     }
 
-    public function paginate($page = 0, $perPage = 5, $column='*',$condition=null,$params = []){
+    public function paginate($page = 0, $perPage = 5, $column = '*', $condition = null, $params = [])
+    {
         $sql = "SELECT $column FROM {$this->table}";
-        if($condition){
+        if ($condition) {
             $sql .= " WHERE $condition";
         }
 
@@ -56,9 +65,10 @@ class BaseModel {
         return $stmt->fetchAll();
     }
 
-    public function find($column='*',$condition=null,$params=[]){
+    public function find($column = '*', $condition = null, $params = [])
+    {
         $sql = "SELECT $column FROM {$this->table}";
-        if($condition){
+        if ($condition) {
             $sql .= " WHERE $condition";
         }
         $stmt = $this->pdo->prepare($sql);
@@ -66,38 +76,42 @@ class BaseModel {
         return $stmt->fetch();
     }
 
-    public function insert($data){
+    public function insert($data)
+    {
         $keys = array_keys($data);
         $column = implode(',', $keys);
         $placeholders = ':' . implode(', :', $keys);
         $sql = "INSERT INTO {$this->table} ($column) VALUES ($placeholders)";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute($data);
-        return $this->pdo->lastInsertId();
+        return $stmt->rowCount();
     }
 
-    public function update($data, $condition = null, $params = []){
+
+    public function update($data, $condition = null, $params = [])
+    {
         $sets = implode(',', array_map(fn($key) => "$key =:set_$key", array_keys($data)));
         $sql = "UPDATE {$this->table} SET $sets";
-        if($condition){
+        if ($condition) {
             $sql .= " WHERE $condition";
         }
         $stmt = $this->pdo->prepare($sql);
-        
-        foreach($data as $key =>&$value){
+
+        foreach ($data as $key => &$value) {
             $stmt->bindParam(":set_$key", $value);
         }
-        
-        foreach($params as $key=>&$value){
+
+        foreach ($params as $key => &$value) {
             $stmt->bindParam(":$key", $value);
         }
         $stmt->execute();
         return $stmt->rowCount();
     }
 
-    public function delete($condition = null, $params=[]){
+    public function delete($condition = null, $params = [])
+    {
         $sql = "DELETE FROM {$this->table}";
-        if($condition){
+        if ($condition) {
             $sql .= " WHERE $condition";
         }
         $stmt = $this->pdo->prepare($sql);

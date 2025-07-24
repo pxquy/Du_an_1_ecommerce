@@ -13,30 +13,6 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-xxl bg-light justify-content-center">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link text-uppercase" href="<?= BASE_URL_ADMIN ?>"><b>dashboard</b></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-uppercase" href="<?= BASE_URL_ADMIN . '&action=users-index' ?>"><b>Quan ly
-                        user</b></a>
-            </li>
-        </ul>
-    </nav>
-
-
-    <div class="container">
-        <h1 class="mt-3"><?= $title ?? 'Admin Dashboard' ?></h1>
-        <div class="row">
-            <?php
-            if (isset($view)) {
-                // debug($view);
-                require_once PATH_VIEW_ADMIN . $view . '.php';
-            }
-            ?>
-        </div>
-    </div>
 
 </body>
 

@@ -1,5 +1,5 @@
 <?php
-class comment extends BaseModel
+class Comment extends BaseModel
 {
     protected $table = 'comments';
 }
