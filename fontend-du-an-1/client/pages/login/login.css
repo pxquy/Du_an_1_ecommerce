@@ -40,7 +40,7 @@
 }
 
 .logo img {
-  height: 50px;
+  height: 100px;
 }
 
 /* Desktop Navigation */
@@ -781,6 +781,10 @@
 
 .footer-logo {
   margin-bottom: 20px;
+}
+
+.footer-logo img {
+  height: 150px;
 }
 
 .footer-description {
