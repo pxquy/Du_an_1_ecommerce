@@ -37,7 +37,6 @@ session_start();
 require_once './config/env.php';
 require_once './helper/helper.php';
 
-
 $mode = $_GET['mode'] ?? 'client';
 
 spl_autoload_register(function ($class) use ($mode) {

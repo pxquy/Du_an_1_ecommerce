@@ -29,7 +29,6 @@
             <div class="dashboard">
                 <div class="dashboard-header">
                     <h1 class="dashboard-title"><?= $title ?? 'Admin Dashboard' ?></h1>
-
                     </p>
 
                     <?php
@@ -102,40 +101,52 @@
                         Orders</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-uppercase" href="<?= BASE_URL_ADMIN .'&action=categories-index' ?>"><b>Quan ly category</b></a>
+                <a class="nav-link text-uppercase" href="<?= BASE_URL_ADMIN . '&action=categories-index' ?>"><b>Quan ly
+                        category</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-uppercase" href="<?= BASE_URL_ADMIN .'&action=products-index' ?>"><b>Quan ly product</b></a>
+                <a class="nav-link text-uppercase" href="<?= BASE_URL_ADMIN . '&action=products-index' ?>"><b>Quan ly
+                        product</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-uppercase" href="<?= BASE_URL_ADMIN .'&action=brands-index' ?>"><b>Quan ly brand</b></a>
+                <a class="nav-link text-uppercase" href="<?= BASE_URL_ADMIN . '&action=brands-index' ?>"><b>Quan ly
+                        brand</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-uppercase" href="<?= BASE_URL_ADMIN .'&action=banners-index' ?>"><b>Quan ly banner</b></a>
+                <a class="nav-link text-uppercase" href="<?= BASE_URL_ADMIN . '&action=banners-index' ?>"><b>Quan ly
+                        banner</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-uppercase" href="<?= BASE_URL_ADMIN .'&action=slideshows-index' ?>"><b>Quan ly slideshow</b></a>
+                <a class="nav-link text-uppercase" href="<?= BASE_URL_ADMIN . '&action=slideshows-index' ?>"><b>Quan ly
+                        slideshow</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-uppercase" href="<?= BASE_URL_ADMIN .'&action=comments-index' ?>"><b>Quan ly comment</b></a>
+                <a class="nav-link text-uppercase" href="<?= BASE_URL_ADMIN . '&action=comments-index' ?>"><b>Quan ly
+                        comment</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-uppercase" href="<?= BASE_URL_ADMIN .'&action=vouchers-index' ?>"><b>Quan ly voucher</b></a>
+                <a class="nav-link text-uppercase" href="<?= BASE_URL_ADMIN . '&action=vouchers-index' ?>"><b>Quan ly
+                        voucher</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-uppercase" href="<?= BASE_URL_ADMIN .'&action=news-index' ?>"><b>Quan ly news</b></a>
+                <a class="nav-link text-uppercase" href="<?= BASE_URL_ADMIN . '&action=news-index' ?>"><b>Quan ly
+                        news</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-uppercase" href="<?= BASE_URL_ADMIN .'&action=attributes-index' ?>"><b>Quan ly attribute</b></a>
+                <a class="nav-link text-uppercase" href="<?= BASE_URL_ADMIN . '&action=attributes-index' ?>"><b>Quan ly
+                        attribute</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-uppercase" href="<?= BASE_URL_ADMIN .'&action=attributesValues-index' ?>"><b>Quan ly attribute values</b></a>
+                <a class="nav-link text-uppercase" href="<?= BASE_URL_ADMIN . '&action=attributeValues-index' ?>"><b>Quan
+                        ly attribute values</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-uppercase" href="<?= BASE_URL_ADMIN .'&action=variants-index' ?>"><b>Quan ly variant</b></a>
+                <a class="nav-link text-uppercase" href="<?= BASE_URL_ADMIN . '&action=variants-index' ?>"><b>Quan ly
+                        variant</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-uppercase" href="<?= BASE_URL_ADMIN .'&action=orders-index' ?>"><b>Quan ly Orders</b></a>
+                <a class="nav-link text-uppercase" href="<?= BASE_URL_ADMIN . '&action=orders-index' ?>"><b>Quan ly
+                        Orders</b></a>
             </li>
         </ul>
     </nav> -->
