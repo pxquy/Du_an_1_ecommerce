@@ -20,44 +20,65 @@ if(!empty($_SESSION['errors'])): ?>
     <?php unset($_SESSION['errors']); ?>
 <?php endif; ?>
 
-<form action="<?= BASE_URL_ADMIN . '&action=users-store'?>" method="post" enctype="multipart/form-data">
+<form action="<?= BASE_URL_ADMIN . '&action=products-store' ?>" method="post" enctype="multipart/form-data">
     <div class="mb-3 mt-3">
-        <label for="fullname" class="form-label">Name:</label>
-        <input type="text" class="form-control" id="fullname" name="fullname">
+        <label for="title" class="form-label">title:</label>
+        <input type="text" class="form-control" id="title" name="title">
     </div>
     <div class="mb-3 mt-3">
-        <label for="email" class="form-label">Email:</label>
-        <input type="text" class="form-control" id="email" name="email">
+        <label for="description" class="form-label">description:</label>
+        <input type="text" class="form-control" id="description" name="description">
     </div>
     <div class="mb-3 mt-3">
-        <label for="Password" class="form-label">Password:</label>
-        <input type="text" class="form-control" id="Password" name="Password">
+        <label for="shortDescription" class="form-label">short description:</label>
+        <input type="text" class="form-control" id="shortDescription" name="shortDescription">
     </div>
     <div class="mb-3 mt-3">
-        <label for="phone_number" class="form-label">phone:</label>
-        <input type="text" class="form-control" id="phone_number" name="phone_number">
+        <label for="priceDefault" class="form-label">Price Default:</label>
+        <input type="number" class="form-control" id="priceDefault" name="priceDefault" step="0.01" min="0"
+            max="99999999.99">
     </div>
     <div class="mb-3 mt-3">
-        <label for="gender" class="form-label">gender:</label>
-        <input type="radio" id="male" name="gender" value="1">
-        <label for="male">Nam</label>
-        <input type="radio" id="female" name="gender" value="2">
-        <label for="female">Nữ</label>
+        <label for="discountPercentage" class="form-label">Discount Percentage:</label>
+        <input type="number" class="form-control" id="discountPercentage" name="discountPercentage" step="0.01" min="0"
+            max="99.99">
     </div>
     <div class="mb-3 mt-3">
-        <label for="address" class="form-label">address:</label>
-        <input type="text" class="form-control" id="address" name="address">
+        <label for="categoryId" class="form-label">Category: </label>
+        <select name="categoryId" id="categoryId">
+            <?php foreach ($categoryPluck as $id => $title): ?>
+                <option value="<?= $id ?>"><?= $title ?></option>
+            <?php endforeach ?>
+        </select>
     </div>
     <div class="mb-3 mt-3">
-        <label for="avatar" class="form-label">Avatar:</label>
-        <input type="file" class="form-control" id="avatar" name="avatar">
+        <label for="brandId" class="form-label">Brand: </label>
+        <select name="brandId" id="brandId">
+            <?php foreach ($brandPluck as $id => $title): ?>
+                <option value="<?= $id ?>"><?= $title ?></option>
+            <?php endforeach ?>
+        </select>
     </div>
     <div class="mb-3 mt-3">
-        <label for="bio" class="form-label">Bio:</label>
-        <input type="textarea" class="form-control" id="bio" name="bio">
+        <label for="seoTitle" class="form-label">Seo Title:</label>
+        <input type="text" class="form-control" id="seoTitle" name="seoTitle">
     </div>
-
+    <div class="mb-3 mt-3">
+        <label for="seoDescription" class="form-label">Seo Description</label>
+        <input type="text" class="form-control" id="seoDescription" name="seoDescription">
+    </div>
+    <div class="mb-3 mt-3">
+        <label for="isActive" class="form-label">is Active:</label>
+        <input type="radio" id="disabled" name="isActive" value="0">
+        <label for="disabled">disabled</label>
+        <input type="radio" id="active" name="isActive" value="1" checked>
+        <label for="active">active</label>
+    </div>
+    <div class="mb-3 mt-3">
+        <label for="thumbnail" class="form-label">Thumbnail:</label>
+        <input type="file" class="form-control" id="thumbnail" name="thumbnail">
+    </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 
-    <a href="<?= BASE_URL_ADMIN . '&action=users-index' ?>" class="btn btn-secondary">Quay lai</a>
+    <a href="<?= BASE_URL_ADMIN . '&action=products-index' ?>" class="btn btn-secondary">Quay lai</a>
 </form>

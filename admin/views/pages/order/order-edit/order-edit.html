@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trang cập nhật trạng thái đơn hàng</title>
+    <link rel="stylesheet" href="../../../layout/dashboards.css" />
+    <link rel="stylesheet" href="order-edit.css" />
+    <!-- Font Awesome for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <!-- Add overlay div -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <div class="admin-container">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <div class="logo">
+            <i class="fas fa-chart-bar"></i>
+            <span class="logo-text">Admin Panel</span>
+          </div>
+        </div>
+        <div class="sidebar-content">
+          <nav class="sidebar-menu">
+            <div class="menu-group">
+              <h3 class="menu-title">DANH MỤC</h3>
+              <ul class="menu-list">
+                <li class="menu-item">
+                  <a href="../../../layout/dashborads.html" class="menu-link">
+                    <i class="fas fa-home"></i>
+                    <span class="menu-text">Dashboard</span>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="#" class="menu-link">
+                    <i class="fas fa-chart-line"></i>
+                    <span class="menu-text">Thống kê</span>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a
+                    href="../../user/user-list/user-list.html"
+                    class="menu-link"
+                  >
+                    <i class="fas fa-users"></i>
+                    <span class="menu-text">Người dùng</span>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a
+                    href="../../slideShow/slideShow-list/slideShow-list.html"
+                    class="menu-link"
+                  >
+                    <i class="fa-regular fa-images"></i>
+                    <span class="menu-text">Trình chiếu</span>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a
+                    href="../../banners/banner-list/banner-list.html"
+                    class="menu-link"
+                  >
+                    <i class="fa-regular fa-image"></i>
+                    <span class="menu-text">banners</span>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a
+                    href="../../categories/category-list/category-list.html"
+                    class="menu-link"
+                  >
+                    <i class="fa-regular fa-rectangle-list"></i>
+                    <span class="menu-text">Danh mục</span>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a
+                    href="../../brands/brand-list/brand-list.html"
+                    class="menu-link"
+                  >
+                    <i class="fa-regular fa-copyright"></i>
+                    <span class="menu-text">Thương hiệu</span>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a
+                    href="../pages/user/user-list/user-list.html"
+                    class="menu-link"
+                  >
+                    <i class="fa-regular fa-file-powerpoint"></i>
+                    <span class="menu-text">Khuyến mãi</span>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a
+                    href="../pages/user/user-list/user-list.html"
+                    class="menu-link"
+                  >
+                    <i class="fa-regular fa-file-video"></i>
+                    <span class="menu-text">Tin tức</span>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a
+                    href="../../products/products-list/products.html"
+                    class="menu-link"
+                  >
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="menu-text">Sản phẩm</span>
+                  </a>
+                </li>
+                <li class="menu-item active">
+                  <a href="../order-list/order.html" class="menu-link">
+                    <i class="fas fa-file-alt"></i>
+                    <span class="menu-text">Đơn hàng</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="menu-group">
+              <h3 class="menu-title">HỆ THỐNG</h3>
+              <ul class="menu-list">
+                <li class="menu-item">
+                  <a href="#" class="menu-link">
+                    <i class="fas fa-cog"></i>
+                    <span class="menu-text">Cài đặt</span>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="#" class="menu-link">
+                    <i class="fas fa-question-circle"></i>
+                    <span class="menu-text">Hỗ trợ</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+        <div class="sidebar-footer">
+          <div class="user-profile">
+            <div class="avatar">
+              <img src="https://via.placeholder.com/40" alt="User" />
+            </div>
+            <div class="user-info">
+              <span class="user-name">John Doe</span>
+              <span class="user-role">Admin</span>
+            </div>
+            <i class="fas fa-sign-out-alt logout-icon"></i>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <div class="main-content">
+        <!-- Edit Product Content -->
+        <header class="header">
+          <button class="sidebar-toggle" id="sidebarToggle">
+            <i class="fas fa-bars"></i>
+          </button>
+          <div class="header-right">
+            <div class="search-container">
+              <i class="fas fa-search search-icon"></i>
+              <input
+                type="search"
+                class="search-input"
+                placeholder="Search..."
+              />
+            </div>
+            <div class="notification-container">
+              <button class="notification-button">
+                <i class="fas fa-bell"></i>
+                <span class="notification-badge"></span>
+              </button>
+            </div>
+            <div class="mobile-avatar">
+              <img src="https://via.placeholder.com/32" alt="User" />
+            </div>
+          </div>
+        </header>
+
+        <div class="content-header">
+          <div class="breadcrumb">
+            <a href="../order-list/order.html" class="breadcrumb-link"
+              >Quản lý đơn hàng</a
+            >
+            <i class="fas fa-chevron-right breadcrumb-separator"></i>
+            <span class="breadcrumb-current">Cập nhật đơn hàng</span>
+          </div>
+          <div class="content-wrapper">
+            <div class="content-text">
+              <h1 class="content-title">Cập nhật đơn hàng</h1>
+              <p class="content-description">Cập nhật trạng thái đơn hàng.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Order Details -->
+        <div class="order-details">
+          <div class="order-details-header">
+            <h2>Chi tiết đơn hàng</h2>
+          </div>
+
+          <div class="order-details-content">
+            <!-- Order Info -->
+            <div class="order-info">
+              <div class="info-column">
+                <h3>Thông tin đơn hàng</h3>
+                <ul class="info-list">
+                  <li>
+                    <span>Mã đơn hàng: <strong>AAA-55</strong></span>
+                  </li>
+                  <li>
+                    <span>Ngày đặt hàng: <strong>24/07/2025</strong></span>
+                  </li>
+                  <li>
+                    <span>Tổng tiền: <strong>9000$</strong></span>
+                  </li>
+                  <li>
+                    <span>Trạng thái đơn hàng: <strong>Chờ xử lý</strong></span>
+                  </li>
+                  <li>
+                    <span
+                      >Phương thức thanh toán:
+                      <strong>Thanh toán khi nhận hàng(COD)</strong></span
+                    >
+                  </li>
+                </ul>
+              </div>
+
+              <div class="info-column">
+                <h3>Thông tin giao hàng</h3>
+                <ul class="info-list">
+                  <li>
+                    <span>Họ tên: <strong>Phùng Xuân Quí</strong></span>
+                  </li>
+                  <li>
+                    <span>Địa chỉ: <strong>Hà Nội</strong> </span>
+                  </li>
+                  <li>
+                    <span>Số điện thoại: <strong>0399013389</strong></span>
+                  </li>
+                  <li>
+                    <span
+                      >Email: <strong>phungxuanquy24741@gmail.com</strong></span
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Order Items -->
+            <div class="order-items">
+              <h3>Sản phẩm đã đặt</h3>
+              <div class="order-items-table">
+                <div class="order-items-header">
+                  <div class="item-product">Sản phẩm</div>
+                  <div class="item-price">Đơn giá</div>
+                  <div class="item-quantity">Số lượng</div>
+                  <div class="item-total">Thành tiền</div>
+                </div>
+
+                <div class="order-item">
+                  <div class="item-product">
+                    <div class="item-image">
+                      <img src="" alt="Sản phẩm" />
+                    </div>
+                    <div class="item-details">
+                      <h4 class="item-title"></h4>
+                    </div>
+                  </div>
+                  <div class="item-price">9000$</div>
+                  <div class="item-quantity">1</div>
+                  <div class="item-total">9000$</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Order Summary -->
+            <div class="order-summary">
+              <div class="summary-row total-row">
+                <div class="summary-label">Tổng cộng: 9000$</div>
+                <div class="summary-value"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product Form -->
+        <div class="product-form-container">
+          <form
+            id="editProduct"
+            method="post"
+            enctype="multipart/form-data"
+            class="product-form"
+          >
+            <div class="form-card">
+              <select class="select" name="select" id="select">
+                <option value="" hidden>Trạng thái đơn hàng</option>
+                <option value="">Chờ xử lý</option>
+                <option value="">Đang xử lý</option>
+                <option value="">Đang giao hàng</option>
+                <option value="">Đã giao hàng</option>
+                <option value="">Thành công</option>
+                <option value="">Huỷ</option>
+              </select>
+            </div>
+
+            <div class="form-actions">
+              <a href="../order-list/order.html" class="btn-cancel">Quay lại</a>
+              <button type="submit" name="edit-order" class="btn-save">
+                Cập nhật
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="product-form.js"></script>
+  </body>
+</html>

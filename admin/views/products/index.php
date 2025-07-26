@@ -16,7 +16,6 @@ if (isset($_SESSION['success'])) {
         <th class="text-uppercase">ID</th>
         <th class="text-uppercase">thumbnail</th>
         <th class="text-uppercase">title</th>
-        <th class="text-uppercase">short description</th>
         <th class="text-uppercase">price</th>
         <th class="text-uppercase">category</th>
         <th class="text-uppercase">brand</th>
@@ -36,20 +35,24 @@ if (isset($_SESSION['success'])) {
                 <?php endif ?>
             </td>
             <td><?= $product['title'] ?></td>
-            <td><?= $product['shortDescription'] ?></td>
             <td><?= $product['priceDefault'] ?></td>
-            <td><?= $product['categoryId'] ?></td>
-            <td><?= $product['brandId'] ?></td>
-            <td><?= $product['averageRating'] ?></td>
-            <td><?= $product['stockTotal'] ?></td>
+            <td><?= $product['categoryTitle'] ?></td>
+            <td><?= $product['brandTitle'] ?></td>
+            <td><?= $product['rating'] ?></td>
+            <td><?= $product['stock'] ?></td>
             <td><?= $product['isActive'] ?></td>
             <td>
                 <a href="<?= BASE_URL_ADMIN . '&action=products-show&id=' . $product['id'] ?>" class="btn btn-info">Xem chi
                     tiet</a>
                 <a href="<?= BASE_URL_ADMIN . '&action=products-edit&id=' . $product['id'] ?>"
                     class="btn btn-warning ms-3 me-3">Sua</a>
-                <a href="<?= BASE_URL_ADMIN . '&action=products-delete&id=' . $product['id'] ?>"
-                    onclick="return confirm('co chac xoa khong?')" class="btn btn-danger">Xoa</a>
+                <?php if ($product['isActive'] == 1): ?>
+                    <a href="<?= BASE_URL_ADMIN . '&action=products-softDelete&id=' . $product['id'] ?>"
+                        onclick="return confirm('co chac xoa khong?')" class="btn btn-danger">Xoa Mem</a>
+                <?php else: ?>
+                    <a href="<?= BASE_URL_ADMIN . '&action=products-restore&id=' . $product['id'] ?>"
+                        onclick="return confirm('co chac khoi phuc khong?')" class="btn btn-success">Khoi phuc</a>
+                <?php endif ?>
             </td>
         </tr>
     <?php endforeach; ?>

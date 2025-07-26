@@ -44,60 +44,8 @@ match ($action) {
     'products-edit' => (new ProductController)->edit(), //hiển thị form cập nhật theo ID
     'products-update' => (new ProductController)->update(), //lưu dữ liệu cập nhật theo ID
     'products-delete' => (new ProductController)->delete(), //Xóa dữ liệu theo ID
-
-    //CRUD banners
-    'banners-index' => (new BannerController)->index(), //hiển thị danh sách
-    'banners-show' => (new BannerController)->show(), //hiển thị chi tiết ID
-    'banners-create' => (new BannerController)->create(), //hiển thị form thêm mới
-    'banners-store' => (new BannerController)->store(), //lưu dữ liệu thêm mới
-    'banners-edit' => (new BannerController)->edit(), //hiển thị form cập nhật theo ID
-    'banners-update' => (new BannerController)->update(), //lưu dữ liệu cập nhật theo ID
-    'banners-delete' => (new BannerController)->delete(), //Xóa dữ liệu theo ID
-
-    //CRUD slideshows
-    'slideshows-index' => (new SlideshowController)->index(), //hiển thị danh sách
-    'slideshows-show' => (new SlideshowController)->show(), //hiển thị chi tiết ID
-    'slideshows-create' => (new SlideshowController)->create(), //hiển thị form thêm mới
-    'slideshows-store' => (new SlideshowController)->store(), //lưu dữ liệu thêm mới
-    'slideshows-edit' => (new SlideshowController)->edit(), //hiển thị form cập nhật theo ID
-    'slideshows-update' => (new SlideshowController)->update(), //lưu dữ liệu cập nhật theo ID
-    'slideshows-delete' => (new SlideshowController)->delete(), //Xóa dữ liệu theo ID
-
-    //CRUD news
-    'news-index' => (new NewsController)->index(), //hiển thị danh sách
-    'news-show' => (new NewsController)->show(), //hiển thị chi tiết ID
-    'news-create' => (new NewsController)->create(), //hiển thị form thêm mới
-    'news-store' => (new NewsController)->store(), //lưu dữ liệu thêm mới
-    'news-edit' => (new NewsController)->edit(), //hiển thị form cập nhật theo ID
-    'news-update' => (new NewsController)->update(), //lưu dữ liệu cập nhật theo ID
-    'news-delete' => (new NewsController)->delete(), //Xóa dữ liệu theo ID
-
-    //CRUD orders
-    'orders-index' => (new OrderController)->index(), //hiển thị danh sách
-    'orders-show' => (new OrderController)->show(), //hiển thị chi tiết ID
-    'orders-create' => (new OrderController)->create(), //hiển thị form thêm mới
-    'orders-store' => (new OrderController)->store(), //lưu dữ liệu thêm mới
-    'orders-edit' => (new OrderController)->edit(), //hiển thị form cập nhật theo ID
-    'orders-update' => (new OrderController)->update(), //lưu dữ liệu cập nhật theo ID
-    'orders-delete' => (new OrderController)->delete(), //Xóa dữ liệu theo ID
-
-    //CRUD comments
-    'comments-index' => (new CommentController)->index(), //hiển thị danh sách
-    'comments-show' => (new CommentController)->show(), //hiển thị chi tiết ID
-    'comments-create' => (new CommentController)->create(), //hiển thị form thêm mới
-    'comments-store' => (new CommentController)->store(), //lưu dữ liệu thêm mới
-    'comments-edit' => (new CommentController)->edit(), //hiển thị form cập nhật theo ID
-    'comments-update' => (new CommentController)->update(), //lưu dữ liệu cập nhật theo ID
-    'comments-delete' => (new CommentController)->delete(), //Xóa dữ liệu theo ID
-
-    //CRUD vouchers
-    'vouchers-index' => (new VoucherController)->index(), //hiển thị danh sách
-    'vouchers-show' => (new VoucherController)->show(), //hiển thị chi tiết ID
-    'vouchers-create' => (new VoucherController)->create(), //hiển thị form thêm mới
-    'vouchers-store' => (new VoucherController)->store(), //lưu dữ liệu thêm mới
-    'vouchers-edit' => (new VoucherController)->edit(), //hiển thị form cập nhật theo ID
-    'vouchers-update' => (new VoucherController)->update(), //lưu dữ liệu cập nhật theo ID
-    'vouchers-delete' => (new VoucherController)->delete(), //Xóa dữ liệu theo ID
+    'products-softDelete' => (new ProductController)->softDelete(), //Xóa mềm dữ liệu theo ID
+    'products-restore' => (new ProductController)->restore(), //Xóa dữ liệu theo ID
 
     //CRUD attributes
     'attributes-index' => (new AttributeController)->index(), //hiển thị danh sách
@@ -117,7 +65,7 @@ match ($action) {
     'attributeValues-update' => (new AttributeValueController)->update(), //lưu dữ liệu cập nhật theo ID
     'attributeValues-delete' => (new AttributeValueController)->delete(), //Xóa dữ liệu theo ID
 
-    //CRUD variants
+    //CRUD attributeValues
     'variants-index' => (new VariantController)->index(), //hiển thị danh sách
     'variants-show' => (new VariantController)->show(), //hiển thị chi tiết ID
     'variants-create' => (new VariantController)->create(), //hiển thị form thêm mới
@@ -125,4 +73,6 @@ match ($action) {
     'variants-edit' => (new VariantController)->edit(), //hiển thị form cập nhật theo ID
     'variants-update' => (new VariantController)->update(), //lưu dữ liệu cập nhật theo ID
     'variants-delete' => (new VariantController)->delete(), //Xóa dữ liệu theo ID
+
+
 };

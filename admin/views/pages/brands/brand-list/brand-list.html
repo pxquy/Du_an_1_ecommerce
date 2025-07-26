@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Danh sách thương hiệu</title>
+    <link rel="stylesheet" href="../../../layout/dashboards.css" />
+    <link rel="stylesheet" href="brand-list.css" />
+    <!-- Font Awesome for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <!-- Add overlay div -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <div class="admin-container">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <div class="logo">
+            <i class="fas fa-chart-bar"></i>
+            <span class="logo-text">Admin Panel</span>
+          </div>
+        </div>
+        <div class="sidebar-content">
+          <nav class="sidebar-menu">
+            <div class="menu-group">
+              <h3 class="menu-title">DANH MỤC</h3>
+              <ul class="menu-list">
+                <li class="menu-item">
+                  <a href="../../../layout/dashborads.html" class="menu-link">
+                    <i class="fas fa-home"></i>
+                    <span class="menu-text">Dashboard</span>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="#" class="menu-link">
+                    <i class="fas fa-chart-line"></i>
+                    <span class="menu-text">Thống kê</span>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a
+                    href="../../user/user-list/user-list.html"
+                    class="menu-link"
+                  >
+                    <i class="fas fa-users"></i>
+                    <span class="menu-text">Người dùng</span>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a
+                    href="../../slideShow/slideShow-list/slideShow-list.html"
+                    class="menu-link"
+                  >
+                    <i class="fa-regular fa-images"></i>
+                    <span class="menu-text">Trình chiếu</span>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a
+                    href="../../banners/banner-list/banner-list.html"
+                    class="menu-link"
+                  >
+                    <i class="fa-regular fa-image"></i>
+                    <span class="menu-text">banners</span>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a
+                    href="../../categories/category-list/category-list.html"
+                    class="menu-link"
+                  >
+                    <i class="fa-regular fa-rectangle-list"></i>
+                    <span class="menu-text">Danh mục</span>
+                  </a>
+                </li>
+                <li class="menu-item active">
+                  <a href="../brand-list/brand-list.html" class="menu-link">
+                    <i class="fa-regular fa-copyright"></i>
+                    <span class="menu-text">Thương hiệu</span>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a
+                    href="../../voucher/voucher-list/voucher-list.html"
+                    class="menu-link"
+                  >
+                    <i class="fa-regular fa-file-powerpoint"></i>
+                    <span class="menu-text">Khuyến mãi</span>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a
+                    href="../pages/user/user-list/user-list.html"
+                    class="menu-link"
+                  >
+                    <i class="fa-regular fa-file-video"></i>
+                    <span class="menu-text">Tin tức</span>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a
+                    href="../../products/products-list/products.html"
+                    class="menu-link"
+                  >
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="menu-text">Sản phẩm</span>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="#" class="menu-link">
+                    <i class="fas fa-file-alt"></i>
+                    <span class="menu-text">Đơn hàng</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="menu-group">
+              <h3 class="menu-title">HỆ THỐNG</h3>
+              <ul class="menu-list">
+                <li class="menu-item">
+                  <a href="#" class="menu-link">
+                    <i class="fas fa-cog"></i>
+                    <span class="menu-text">Cài đặt</span>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="#" class="menu-link">
+                    <i class="fas fa-question-circle"></i>
+                    <span class="menu-text">Hỗ trợ</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+        <div class="sidebar-footer">
+          <div class="user-profile">
+            <div class="avatar">
+              <img src="https://via.placeholder.com/40" alt="User" />
+            </div>
+            <div class="user-info">
+              <span class="user-name">John Doe</span>
+              <span class="user-role">Admin</span>
+            </div>
+            <i class="fas fa-sign-out-alt logout-icon"></i>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <!-- Header -->
+        <header class="header">
+          <button class="sidebar-toggle" id="sidebarToggle">
+            <i class="fas fa-bars"></i>
+          </button>
+          <div class="header-right">
+            <div class="search-container">
+              <i class="fas fa-search search-icon"></i>
+              <input
+                type="search"
+                class="search-input"
+                placeholder="Search..."
+              />
+            </div>
+            <div class="notification-container">
+              <button class="notification-button">
+                <i class="fas fa-bell"></i>
+                <span class="notification-badge"></span>
+              </button>
+            </div>
+            <div class="mobile-avatar">
+              <img src="https://via.placeholder.com/32" alt="User" />
+            </div>
+          </div>
+        </header>
+
+        <!-- User Manager Content -->
+        <div class="dashboard">
+          <div class="dashboard-header">
+            <h1 class="dashboard-title">Danh sách thương hiệu</h1>
+            <p class="dashboard-description">
+              Danh sách và quản lý thương hiệu.
+            </p>
+          </div>
+
+          <!-- User Actions -->
+          <div class="user-actions">
+            <div class="user-filters">
+              <div class="filter-group">
+                <div class="search-container user-search">
+                  <i class="fas fa-search search-icon"></i>
+                  <input
+                    type="search"
+                    class="search-input"
+                    id="userSearch"
+                    placeholder="Tìm kiếm thương hiệu..."
+                  />
+                </div>
+              </div>
+            </div>
+            <a href="../brand-add/brand-add.html" class="add-user-btn">
+              <i class="fas fa-plus"></i>Thêm thương hiệu mới
+            </a>
+          </div>
+
+          <!-- Users Table -->
+          <div class="table-container">
+            <table class="users-table">
+              <thead>
+                <tr>
+                  <th>
+                    <div class="checkbox-container">
+                      <input type="checkbox" id="selectAll" />
+                      <label for="selectAll"></label>
+                    </div>
+                  </th>
+                  <th>Tên thương hiệu</th>
+                  <th>slug</th>
+                  <th>Mô tả</th>
+                  <th>Hành động</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="checkbox-container">
+                      <input type="checkbox" id="user1" />
+                      <label for="user1"></label>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="user-info-cell">
+                      <div class="user-avatar">
+                        <img
+                          src="https://via.placeholder.com/40"
+                          alt="Thương hiệu"
+                        />
+                      </div>
+                      <div class="user-details">
+                        <p class="user-name">Thương hiệu 1</p>
+                        <p class="user-id">ID: #USR001</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span>Thuong-hieu</span></td>
+                  <td>Mô tả thương hiệu</td>
+                  <td>
+                    <div class="action-buttons">
+                      <a
+                        href="../brand-edit/brand-edit.html"
+                        class="action-btn edit-btn"
+                        data-id="1"
+                      >
+                        <i class="fas fa-edit"></i>
+                      </a>
+                      <button class="action-btn delete-btn" data-id="1">
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="checkbox-container">
+                      <input type="checkbox" id="user2" />
+                      <label for="user2"></label>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="user-info-cell">
+                      <div class="user-avatar">
+                        <img
+                          src="https://via.placeholder.com/40"
+                          alt="Thương hiệu"
+                        />
+                      </div>
+                      <div class="user-details">
+                        <p class="user-name">Thương hiệu 2</p>
+                        <p class="user-id">ID: #USR002</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span>Thuong-hieu</span></td>
+                  <td>Mô tả thương hiệu</td>
+                  <td>
+                    <div class="action-buttons">
+                      <a
+                        href="../brand-edit/brand-edit.html"
+                        class="action-btn edit-btn"
+                        data-id="2"
+                      >
+                        <i class="fas fa-edit"></i>
+                      </a>
+                      <button class="action-btn delete-btn" data-id="2">
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="checkbox-container">
+                      <input type="checkbox" id="user3" />
+                      <label for="user3"></label>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="user-info-cell">
+                      <div class="user-avatar">
+                        <img
+                          src="https://via.placeholder.com/40"
+                          alt="Thương hiệu"
+                        />
+                      </div>
+                      <div class="user-details">
+                        <p class="user-name">Thương hiệu 3</p>
+                        <p class="user-id">ID: #USR003</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <span>Thuong-hieu</span>
+                  </td>
+                  <td>Mô tả thương hiệu</td>
+                  <td>
+                    <div class="action-buttons">
+                      <a
+                        href="edit-user.html?id=3"
+                        class="action-btn edit-btn"
+                        data-id="3"
+                      >
+                        <i class="fas fa-edit"></i>
+                      </a>
+                      <button class="action-btn delete-btn" data-id="3">
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="checkbox-container">
+                      <input type="checkbox" id="user4" />
+                      <label for="user4"></label>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="user-info-cell">
+                      <div class="user-avatar">
+                        <img
+                          src="https://via.placeholder.com/40"
+                          alt="Thương hiệu"
+                        />
+                      </div>
+                      <div class="user-details">
+                        <p class="user-name">Thương hiệu 4</p>
+                        <p class="user-id">ID: #USR004</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <span>Thuong-hieu</span>
+                  </td>
+                  <td>Mô tả thương hiệu</td>
+                  <td>
+                    <div class="action-buttons">
+                      <a
+                        href="edit-user.html?id=4"
+                        class="action-btn edit-btn"
+                        data-id="4"
+                      >
+                        <i class="fas fa-edit"></i>
+                      </a>
+                      <button class="action-btn delete-btn" data-id="4">
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="checkbox-container">
+                      <input type="checkbox" id="user5" />
+                      <label for="user5"></label>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="user-info-cell">
+                      <div class="user-avatar">
+                        <img
+                          src="https://via.placeholder.com/40"
+                          alt="Thương hiệu"
+                        />
+                      </div>
+                      <div class="user-details">
+                        <p class="user-name">Thương hiệu 5</p>
+                        <p class="user-id">ID: #USR005</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <span>Thuong-hieu</span>
+                  </td>
+                  <td>Mô tả thương hiệu</td>
+                  <td>
+                    <div class="action-buttons">
+                      <a
+                        href="edit-user.html?id=5"
+                        class="action-btn edit-btn"
+                        data-id="5"
+                      >
+                        <i class="fas fa-edit"></i>
+                      </a>
+                      <button class="action-btn delete-btn" data-id="5">
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Pagination -->
+          <div class="pagination">
+            <button class="pagination-btn" disabled>
+              <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="pagination-btn active">1</button>
+            <button class="pagination-btn">2</button>
+            <button class="pagination-btn">3</button>
+            <span class="pagination-ellipsis">...</span>
+            <button class="pagination-btn">10</button>
+            <button class="pagination-btn">
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal" id="deleteModal">
+      <div class="modal-content delete-modal">
+        <div class="modal-header">
+          <h2 class="modal-title">Delete User</h2>
+          <button class="modal-close" id="closeDeleteModal">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="delete-icon">
+            <i class="fas fa-exclamation-triangle"></i>
+          </div>
+          <p class="delete-message">Bạn thật sự muốn xoá không.</p>
+          <div class="form-actions">
+            <button type="button" class="btn-cancel" id="cancelDelete">
+              Cancel
+            </button>
+            <button type="button" class="btn-delete" id="confirmDelete">
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="user-manager.js"></script>
+  </body>
+</html>

@@ -8,6 +8,24 @@ class CategoryController
     }
     public function index()
     {
+        // // 1. Xác định class thực sự đang dùng
+        // echo '<pre>';
+        // echo '[DEBUG] Class của $this->attribute: ' . get_class($this->category) . PHP_EOL;
+
+        // // 2. Xem file khai báo class đó (nếu có __FILE__ trong model)
+        // if (method_exists($this->category, '__debugInfo')) {
+        //     var_dump($this->category->__debugInfo());
+        // }
+
+        // // 3. Liệt kê tất cả method mà instance đó có
+        // $methods = get_class_methods($this->category);
+        // echo "[DEBUG] Phương thức có sẵn trong class " . get_class($this->category) . ': ' . PHP_EOL;
+        // print_r($methods);
+
+        // echo '</pre>';
+
+        // // Dừng lại để bạn đọc output
+        // die;
         $view = 'categories/index';
         $title = 'Danh sách category';
         $data = $this->category->select('*', '1 = 1 ORDER BY id ASC');

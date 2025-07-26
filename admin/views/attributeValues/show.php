@@ -1,18 +1,9 @@
 <table class="table">
-    <?php foreach($user as $key => $value) : ?>
+    <?php foreach ($attributeValue as $key => $value): ?>
         <tr>
             <td><?= strtoupper($key) ?></td>
             <td><?php 
-                switch($key){
-                    case 'avatarUrl':
-                        if(!empty($value)){
-                            $link = PATH_ASSETS_UPLOADS . $value;
-                            echo "<img src = '$link' width='100px'/>";
-                        } else {
-                            $link = PATH_ASSETS_UPLOADS . 'users/placehold.png';
-                            echo "<img src = '$link' width = '100px'/>";
-                        }
-                        break;
+            switch ($key) {
                     default:
                         echo $value;
                         break;
@@ -22,9 +13,8 @@
         </tr>
         <?php endforeach; ?>
 </table>
-<a href="<?= BASE_URL_ADMIN . '&action=users-edit&id='. $user['id'] ?>"
+<a href="<?= BASE_URL_ADMIN . '&action=attributeValues-edit&id=' . $attributeValue['id'] ?>"
                     class="btn btn-warning">Sua</a>
-                <a href="<?= BASE_URL_ADMIN . '&action=users-delete&id='. $user['id'] ?>"
-                    onclick="return confirm('co chac xoa khong?')"
-                    class="btn btn-danger">Xoa</a>
-<a href="<?=BASE_URL_ADMIN . '&action=users-index' ?>" class="btn btn-secondary">Quay Lại danh sách</a>
+<a href="<?= BASE_URL_ADMIN . '&action=attributeValues-delete&id=' . $attributeValue['id'] ?>"
+    onclick="return confirm('co chac xoa khong?')" class="btn btn-danger">Xoa</a>
+<a href="<?= BASE_URL_ADMIN . '&action=attributeValues-index' ?>" class="btn btn-secondary">Quay Lại danh sách</a>
