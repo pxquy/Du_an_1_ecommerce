@@ -28,7 +28,7 @@
             <?php unset($_SESSION['error']); ?>
         <?php endif; ?>
 
-        <form action="<?= BASE_URL . '?action=createUser' ?>" method="post" enctype="multipart/form-data">
+        <form action="<?= BASE_URL . '?action=create_user' ?>" method="post" enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="fullname" class="form-label">Name:</label>
                 <input type="text" class="form-control" id="fullname" name="fullname"

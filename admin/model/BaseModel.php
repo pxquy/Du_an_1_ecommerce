@@ -4,6 +4,12 @@ class BaseModel
     protected $table;
     protected $pdo;
 
+    protected function genId($prefix = 'ID')
+    {
+        return $prefix . '-' . date('YmdHis') . '-' . substr(md5(uniqid()), 0, 6);
+    }
+
+
     public function __construct()
     {
         $dsn = sprintf(
@@ -28,6 +34,7 @@ class BaseModel
     {
         $this->pdo = null;
     }
+
 
     public function select($column = '*', $condition = null, $params = [])
     {
@@ -78,15 +85,20 @@ class BaseModel
 
     public function insert($data)
     {
+
+        if (empty($data['id'])) {
+            $prefix = strtoupper(substr($this->table, 0, 3));
+            $data['id'] = $this->genId($prefix);
+        }
+
         $keys = array_keys($data);
         $column = implode(',', $keys);
         $placeholders = ':' . implode(', :', $keys);
         $sql = "INSERT INTO {$this->table} ($column) VALUES ($placeholders)";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute($data);
-        return $stmt->rowCount();
+        return $data['id'];
     }
-
 
     public function update($data, $condition = null, $params = [])
     {
@@ -117,5 +129,25 @@ class BaseModel
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute($params);
         return $stmt->rowCount();
+    }
+
+    public function softDelete($id)
+    {
+        $data = [
+            'isActive' => 0,
+            'deletedAt' => date('Y-m-d H:i:s')
+        ];
+
+        return $this->update($data, 'id = :id', ['id' => $id]);
+    }
+    public function restore($id)
+    {
+        $data = [
+            'isActive' => 1,
+            'updatedAt' => date('Y-m-d H:i:s'),
+            'deletedAt' => null,
+        ];
+
+        return $this->update($data, 'id = :id', ['id' => $id]);
     }
 }

@@ -40,6 +40,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">Contact</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= BASE_URL . "?action=logout" ?>">logout</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -75,7 +78,8 @@
                             <td class="text-uppercase"><?= $product['createdAt'] ?></td>
                             <td class="text-uppercase"><?= $product['updatedAt'] ?></td>
                             <td class="text-uppercase"><a
-                                    href="<?= BASE_URL . '?action=productDetail&id=' . $product['id']  ?>">Chi tiết</a></td>
+                                    href="<?= BASE_URL . '?action=product_detail&id=' . $product['id']  ?>">Chi tiết</a>
+                            </td>
                         </tr>
                     <?php endforeach;
                     ?>

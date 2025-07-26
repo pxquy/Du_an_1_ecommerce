@@ -13,23 +13,6 @@ class SignupController
         $title = "Signup";
         require_once PATH_VIEW_CLIENT . $view . ".php";
     }
-    //hàm tạo id mới theo định dạng sẵn trong base "user- ..."
-    private function generateUserId()
-    {
-        $lastUser = $this->client->select('id', "id LIKE 'user-%'", []);
-
-        if (empty($lastUser)) {
-            return 'user-001';
-        }
-        $ids = array_map(function ($user) {
-            return (int) str_replace('user-', '', $user['id']);
-        }, $lastUser);
-
-        $maxId = max($ids);
-        $newId = $maxId + 1;
-        return 'user-' . str_pad($newId, 3, '0', STR_PAD_LEFT);
-    }
-
     public function createUser()
     {
         try {
@@ -73,7 +56,7 @@ class SignupController
             } else {
                 $data['avatarUrl'] = null;
             }
-            $data['id'] = $this->generateUserId();
+            // $data['id'] = $this->generateUserId();
             $rowCount = $this->client->insert($data);
             // debug($rowCount);
 

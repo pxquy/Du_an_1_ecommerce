@@ -26,6 +26,7 @@ class ProductController
 
     public function productDetail()
     {
+        require_Login();
         $id = $_GET['id'] ?? null;
         $title = "Chi tiết sản phẩm";
         $view = 'productDetail';
