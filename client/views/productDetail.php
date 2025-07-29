@@ -54,28 +54,24 @@
         }
         ?>
         <div class="container">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th class="text-uppercase">Title</th>
-                        <th class="text-uppercase">Price</th>
-                        <th class="text-uppercase">Discount</th>
-                        <th class="text-uppercase">Slug</th>
-                        <th class="text-uppercase">Created At</th>
-                        <th class="text-uppercase">Updated At</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="text-uppercase"><?= $productDetail['title'] ?></td>
-                        <td class="text-uppercase"><?= $productDetail['priceDefault'] ?></td>
-                        <td class="text-uppercase"><?= $productDetail['discountPercentage'] ?></td>
-                        <td class="text-uppercase"><?= $productDetail['slug'] ?></td>
-                        <td class="text-uppercase"><?= $productDetail['createdAt'] ?></td>
-                        <td class="text-uppercase"><?= $tags[0] ?></td>
-                    </tr>
-                </tbody>
-            </table>
+            <?php
+            $attributeOptions = []; // Tạo các lựa chọn duy nhất
+            foreach ($variantAttributes as $variant) {
+                foreach ($variant as $attr) {
+                    $attributeOptions[$attr['attributeName']][$attr['valueId']] = $attr['attributeValue'];
+                }
+            }
+            ?>
+
+            <?php foreach ($attributeOptions as $attributeName => $values): ?>
+                <label><?= $attributeName ?></label>
+                <select name="<?= $attributeName ?>" class="variant-select" data-attribute="<?= $attributeName ?>">
+                    <?php foreach ($values as $valueId => $value): ?>
+                        <option value="<?= $valueId ?>"><?= $value ?></option>
+                    <?php endforeach; ?>
+                </select>
+            <?php endforeach; ?>
+
         </div>
     </section>
 

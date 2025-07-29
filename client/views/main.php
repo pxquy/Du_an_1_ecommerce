@@ -61,7 +61,7 @@
                     <tr>
                         <th class="text-uppercase">Title</th>
                         <th class="text-uppercase">Price</th>
-                        <th class="text-uppercase">Discount</th>
+
                         <th class="text-uppercase">Slug</th>
                         <th class="text-uppercase">Created At</th>
                         <th class="text-uppercase">Updated At</th>
@@ -73,7 +73,7 @@
                         <tr>
                             <td class="text-uppercase"><?= $product['title'] ?></td>
                             <td class="text-uppercase"><?= $product['priceDefault'] ?></td>
-                            <td class="text-uppercase"><?= $product['discountPercentage'] ?></td>
+
                             <td class="text-uppercase"><?= $product['slug'] ?></td>
                             <td class="text-uppercase"><?= $product['createdAt'] ?></td>
                             <td class="text-uppercase"><?= $product['updatedAt'] ?></td>
