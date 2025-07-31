@@ -84,8 +84,6 @@ class ProductController
             ];
         }
         // debug($variantAttributes);
-
-        // ===== 5. Gọi view =====
         require_once PATH_VIEW_CLIENT . $view . ".php";
     }
 }

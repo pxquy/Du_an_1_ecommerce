@@ -86,19 +86,20 @@ class BaseModel
     public function insert($data)
     {
 
-        if (empty($data['id'])) {
-            $prefix = strtoupper(substr($this->table, 0, 3));
-            $data['id'] = $this->genId($prefix);
+        if (isset($data['id']) && empty($data['id'])) {
+            unset($data['id']);
         }
 
         $keys = array_keys($data);
-        $column = implode(',', $keys);
+        $columns = implode(',', $keys);
         $placeholders = ':' . implode(', :', $keys);
-        $sql = "INSERT INTO {$this->table} ($column) VALUES ($placeholders)";
+
+        $sql = "INSERT INTO {$this->table} ($columns) VALUES ($placeholders)";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute($data);
-        return $data['id'];
+        return $this->pdo->lastInsertId();
     }
+
 
     public function update($data, $condition = null, $params = [])
     {

@@ -156,7 +156,27 @@
 .product-info {
   width: 50%;
 }
-
+.color-option input[type="radio"] {
+  display: none;
+}
+.color-swatch {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+.size-option input[type="radio"] {
+  display: none;
+}
+.size-box {
+  display: inline-block;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  margin-right: 5px;
+  cursor: pointer;
+}
 .product-title {
   font-size: 28px;
   font-weight: 700;
