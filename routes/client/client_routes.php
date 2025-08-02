@@ -1,5 +1,6 @@
 <?php
 // require_once("./client/controller/client/product-controller/products.php");
+// require_once './client/controller/CartController.php';
 $action = $_GET['action'] ?? '/';
 
 match ($action) {
@@ -10,5 +11,9 @@ match ($action) {
     'form_signin' => (new SigninController())->locationSignin(), //chuyển hướng form dăng nhập
     'signin' => (new SigninController())->signin(), //dăng nhập
     'logout' => (new SigninController())->logout(), //đăng xuất
+    'add_to_cart' => (new CartController())->addToCart(), //Thêm vào giỏ hàng
+    'my_cart' => (new CartController())->myCart(), //Xe,m giỏ hàng
+    'categories' => (new CategoryController())->listCategory() //Danh mục sản phẩm
+
 
 };

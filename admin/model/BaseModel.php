@@ -34,7 +34,10 @@ class BaseModel
     {
         $this->pdo = null;
     }
-
+    public function setTable($tableName)
+    {
+        $this->table = $tableName;
+    }
 
     public function select($column = '*', $condition = null, $params = [])
     {
@@ -150,5 +153,11 @@ class BaseModel
         ];
 
         return $this->update($data, 'id = :id', ['id' => $id]);
+    }
+    public function selectRaw(string $sql, array $params = []): array
+    {
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute($params);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }

@@ -32,7 +32,7 @@ class ProductController
     {
         $id = $_GET['id'] ?? null;
         $title = "Chi tiết sản phẩm";
-        $view = 'pages/products-detail/product-detail';
+        $view = 'pages/products-detail/test_detail';
 
         // ===== 1. Lấy thông tin sản phẩm + các ảnh =====
         $this->client->setTable("
