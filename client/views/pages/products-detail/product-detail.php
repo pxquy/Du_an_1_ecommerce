@@ -1,0 +1,2047 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trang chi tiết - ARROWWAI</title>
+  <link rel="stylesheet" href="<?= BASE_URL . "/client/views/layout/home.css" ?>" />
+  <link rel="stylesheet" href="<?= BASE_URL . "/client/views/pages/login/login.css" ?>" />
+  <link rel="stylesheet" href="<?= BASE_URL . "/client/views/pages/products-detail/product-detail.css" ?>" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
+</head>
+
+<body>
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="container">
+      <div class="top-bar-content">
+        <div class="top-bar-left">
+          <span>DANH SÁCH CỬA HÀNG</span>
+        </div>
+        <div class="top-bar-right">
+          <span>Hotline liên hệ: 1900 4510</span>
+          <span class="divider">|</span>
+          <span>cskh@mulgati.com</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <div class="logo">
+          <a href="../../layout/home.html">
+            <img src="../../images/logoShop.png" alt="rowwai Logo" />
+          </a>
+        </div>
+
+        <!-- Danh mục -->
+        <nav class="main-nav">
+          <ul class="nav-list">
+            <li class="nav-item"><a href="#">GIÀY THỂ THAO</a></li>
+            <li class="nav-item"><a href="#">GIÀY CHAY BỘ</a></li>
+            <li class="nav-item dropdown">
+              <a href="#">GIÀY BÓNG ĐÁ</a>
+            </li>
+            <li class="nav-item"><a href="#">GIÀY BÓNG RỔ</a></li>
+            <li class="nav-item dropdown">
+              <a href="#">GIÀY TẬP GYM</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a href="#">PHỤ KIỆN THỂ THAO</a>
+            </li>
+          </ul>
+        </nav>
+
+        <div class="header-actions">
+          <!-- Search Icon with Dropdown -->
+          <div class="search-dropdown">
+            <button class="search-icon-btn">
+              <i class="fas fa-search"></i>
+            </button>
+            <div class="search-dropdown-content">
+              <form class="search-form">
+                <input type="text" class="search-input" placeholder="Tìm kiếm sản phẩm..." />
+                <button type="submit" class="search-submit">
+                  <i class="fas fa-search"></i>
+                </button>
+              </form>
+              <div class="search-suggestions">
+                <h4>Tìm kiếm phổ biến:</h4>
+                <div class="suggestion-tags">
+                  <a href="#" class="suggestion-tag">Giày tây</a>
+                  <a href="#" class="suggestion-tag">Giày lười</a>
+                  <a href="#" class="suggestion-tag">Giày da bò</a>
+                  <a href="#" class="suggestion-tag">Giày công sở</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <a href="#" class="cart-icon"><i class="fas fa-shopping-bag"></i>
+            <span class="cart-count">0</span></a>
+
+          <!-- User Account Dropdown -->
+          <div class="user-dropdown">
+            <button class="user-dropdown-toggle">
+              <div class="user-icon">
+                <i class="fas fa-user"></i>
+              </div>
+            </button>
+
+            <div class="user-dropdown-menu">
+              <a href="login.html" class="dropdown-item">Đăng nhập</a>
+              <a href="register.html" class="dropdown-item">Đăng ký</a>
+            </div>
+          </div>
+
+          <!-- Mobile Menu Toggle Button -->
+          <button class="mobile-menu-toggle">
+            <span class="hamburger-icon">
+              <span class="bar"></span>
+              <span class="bar"></span>
+              <span class="bar"></span>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Search Overlay -->
+  <div class="search-overlay"></div>
+
+  <!-- Mobile Navigation Menu -->
+  <div class="mobile-menu">
+    <div class="mobile-menu-header">
+      <div class="logo">
+        <img src="/placeholder.svg?height=40&width=120" alt="Arrowwai Logo" />
+      </div>
+      <button class="mobile-menu-close">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <nav class="mobile-nav">
+      <ul class="mobile-nav-list">
+        <li class="mobile-nav-item"><a href="#">MỚI</a></li>
+        <li class="mobile-nav-item"><a href="#">SALE</a></li>
+        <li class="mobile-nav-item mobile-dropdown">
+          <a href="#" class="mobile-dropdown-toggle">
+            GIÀY DA NAM <i class="fas fa-chevron-down"></i>
+          </a>
+          <ul class="mobile-dropdown-menu">
+            <li><a href="#">Giày Tây</a></li>
+            <li><a href="#">Giày Lười</a></li>
+            <li><a href="#">Giày Sneaker</a></li>
+            <li><a href="#">Giày Boots</a></li>
+          </ul>
+        </li>
+        <li class="mobile-nav-item"><a href="#">DÉP DA NAM</a></li>
+        <li class="mobile-nav-item mobile-dropdown">
+          <a href="#" class="mobile-dropdown-toggle">
+            PHỤ KIỆN <i class="fas fa-chevron-down"></i>
+          </a>
+          <ul class="mobile-dropdown-menu">
+            <li><a href="#">Thắt Lưng</a></li>
+            <li><a href="#">Ví Da</a></li>
+            <li><a href="#">Túi Xách</a></li>
+          </ul>
+        </li>
+        <li class="mobile-nav-item mobile-dropdown">
+          <a href="#" class="mobile-dropdown-toggle">
+            BỘ SƯU TẬP <i class="fas fa-chevron-down"></i>
+          </a>
+          <ul class="mobile-dropdown-menu">
+            <li><a href="#">BST Xuân Hè</a></li>
+            <li><a href="#">BST Thu Đông</a></li>
+            <li><a href="#">BST Đặc Biệt</a></li>
+          </ul>
+        </li>
+        <li class="mobile-nav-item"><a href="#">MULGATI</a></li>
+        <li class="mobile-nav-item mobile-dropdown">
+          <a href="#" class="mobile-dropdown-toggle">
+            BLOGS <i class="fas fa-chevron-down"></i>
+          </a>
+          <ul class="mobile-dropdown-menu">
+            <li><a href="#">Tin Tức</a></li>
+            <li><a href="#">Phong Cách</a></li>
+            <li><a href="#">Mẹo Bảo Quản</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+    <div class="mobile-menu-footer">
+      <div class="mobile-contact">
+        <p><i class="fas fa-phone"></i> 1900 4510</p>
+        <p><i class="fas fa-envelope"></i> cskh@mulgati.com</p>
+      </div>
+      <div class="mobile-social">
+        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Overlay for Mobile Menu -->
+  <div class="mobile-menu-overlay"></div>
+
+  <!-- Đường dẫn trang -->
+  <main class="main-content">
+    <!-- Breadcrumbs -->
+    <div class="breadcrumbs">
+      <div class="container">
+        <ul class="breadcrumb-list">
+          <li><a href="index.html">Trang chủ</a></li>
+          <li><i class="fas fa-chevron-right"></i></li>
+          <li><a href="products.html">Giày thể thao</a></li>
+          <li><i class="fas fa-chevron-right"></i></li>
+          <li>Giày thể thao ARROWWAI Classic</li>
+        </ul>
+      </div>
+    </div>
+    <?php
+    $attributesGrouped = [];
+    // debug($variantAttributes);
+    foreach ($variantAttributes as $variantId => $attrs) {
+      foreach ($attrs as $attr) {
+        $attributesGrouped[$attr['attributeName']][$attr['valueId']] = $attr['attributeValue'];
+      }
+    }
+    // debug($attributesGrouped['Color']);
+    ?>
+    <!-- Hình ảnh chính và ảnh nhỏ -->
+    <section class="product-detail-section">
+      <div class="container">
+        <div class="product-detail-container">
+          <!-- Product Gallery -->
+          <div class="product-gallery">
+            <!-- Main Gallery -->
+            <div class="gallery-main">
+              <div class="swiper gallery-main-swiper">
+                <div class="swiper-wrapper">
+                  <div class="swiper-slide">
+                    <div class="gallery-image">
+                      <img src="<?= $productDetail['thumbnail'] ?>"
+                        alt="<?= $productDetail['thumbnail'] ?>" id="zoom-image" />
+                      <div class="image-zoom-lens" id="zoom-lens"></div>
+                    </div>
+                  </div>
+                  <?php foreach ($images as $img): ?>
+                    <div class="swiper-slide">
+                      <div class="gallery-image">
+                        <img src="<?= $img ?>" alt="Ảnh sản phẩm" />
+                      </div>
+                    </div>
+                    <?= debug($images); ?>
+                  <?php endforeach; ?>
+                </div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+              </div>
+              <div class="image-zoom-result" id="zoom-result"></div>
+            </div>
+
+            <!-- Thumbnails -->
+            <div class="gallery-thumbs">
+              <div class="swiper gallery-thumbs-swiper">
+                <div class="swiper-wrapper">
+                  <div class="swiper-slide">
+                    <div class="thumb-image">
+                      <img src="/placeholder.svg?height=120&width=120" alt="Thumbnail 1" />
+                    </div>
+                  </div>
+                  <div class="swiper-slide">
+                    <div class="thumb-image">
+                      <img src="/placeholder.svg?height=120&width=120" alt="Thumbnail 2" />
+                    </div>
+                  </div>
+                  <div class="swiper-slide">
+                    <div class="thumb-image">
+                      <img src="/placeholder.svg?height=120&width=120" alt="Thumbnail 3" />
+                    </div>
+                  </div>
+                  <div class="swiper-slide">
+                    <div class="thumb-image">
+                      <img src="/placeholder.svg?height=120&width=120" alt="Thumbnail 4" />
+                    </div>
+                  </div>
+                  <div class="swiper-slide">
+                    <div class="thumb-image">
+                      <img src="/placeholder.svg?height=120&width=120" alt="Thumbnail 5" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product Info -->
+          <div class="product-info">
+            <h1 class="product-title"><?= $productDetail['title'] ?></h1>
+
+            <div class="product-meta">
+              <div class="product-sku">
+                Mã sản phẩm: <span><?= $productDetail['sku'] ?></span>
+              </div>
+              <div class="product-availability in-stock">
+                <i class="fas fa-check-circle"></i> Còn hàng
+              </div>
+            </div>
+
+            <div class="product-rating">
+              <div class="rating-stars">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+              </div>
+              <div class="rating-count">
+                <a href="#reviews-tab">24 đánh giá</a>
+              </div>
+            </div>
+
+            <div class="product-price">
+              <span
+                class="current-price"><?= number_format($productDetail['priceDefault'], 0, ',', '.') ?>₫</span>
+            </div>
+
+            <div class="product-short-description">
+              <p>
+                <?= $productDetail['shortDescription'] ?>
+              </p>
+            </div>
+
+
+            <?php if (!empty($attributesGrouped['Color'])): ?>
+              <div class="product-colors">
+                <h3 class="option-title">Màu sắc:</h3>
+                <div class="color-options">
+                  <?php foreach ($attributesGrouped['Color'] as $valueId => $colorName): ?>
+                    <?php
+                    $colorMap = [
+                      'đen' => '#000',
+                      'nâu' => '#5d4037',
+                      'trắng' => '#fff',
+                      'đỏ' => '#f00',
+                      'xanh' => '#2196f3',
+                      'tím' => '#720fe4ff',
+                      'vàng' => '#eddd29ff',
+                    ];
+                    $colorHex = $colorMap[$colorName] ?? '#ccc';
+                    ?>
+                    <label class="color-option">
+                      <input type="radio" name="color" value="<?= $valueId ?>" />
+                      <span class="color-swatch" style="background-color: <?= $colorHex ?>"
+                        data-color-name="<?= $colorName ?>"></span>
+                    </label>
+                  <?php endforeach; ?>
+                </div>
+                <div class="selected-color">
+                  Đã chọn: <span id="selectedColor">---</span>
+                </div>
+              </div>
+            <?php endif; ?>
+
+
+            <?php if (!empty($attributesGrouped['Size'])): ?>
+              <div class="product-sizes">
+                <h3 class="option-title">Kích cỡ:</h3>
+                <div class="size-guide">
+                  <a href="#size-guide-modal" class="size-guide-link" id="sizeGuideBtn">
+                    <i class="fas fa-ruler"></i> Hướng dẫn chọn size
+                  </a>
+                </div>
+                <div class="size-options">
+                  <?php foreach ($attributesGrouped['Size'] as $valueId => $size): ?>
+                    <label class="size-option">
+                      <input type="radio" name="size" value="<?= $valueId ?>" />
+                      <span class="size-box"><?= $size ?></span>
+                    </label>
+                  <?php endforeach; ?>
+                </div>
+                <div class="selected-size">
+                  Đã chọn: <span id="selectedSize">---</span>
+                </div>
+              </div>
+            <?php endif; ?>
+
+            <div class="product-quantity">
+              <h3 class="option-title">Số lượng:</h3>
+              <div class="quantity-selector">
+                <button class="quantity-btn minus" id="quantityMinus">
+                  -
+                </button>
+                <input type="number" id="quantityInput" class="quantity-input" value="1" min="1"
+                  max="10" />
+                <button class="quantity-btn plus" id="quantityPlus">+</button>
+              </div>
+            </div>
+
+            <div class="product-actions">
+              <button class="add-to-cart-btn" id="addToCartBtn">
+                <i class="fas fa-shopping-bag"></i> Thêm vào giỏ hàng
+              </button>
+              <button class="buy-now-btn" id="buyNowBtn">Mua ngay</button>
+              <button class="wishlist-btn" id="wishlistBtn">
+                <i class="far fa-heart"></i>
+              </button>
+            </div>
+
+            <div class="product-guarantee">
+              <div class="guarantee-item">
+                <div class="guarantee-icon">
+                  <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="guarantee-content">
+                  <h4>Bảo hành 12 tháng</h4>
+                  <p>Đổi mới trong 30 ngày đầu tiên</p>
+                </div>
+              </div>
+              <div class="guarantee-item">
+                <div class="guarantee-icon">
+                  <i class="fas fa-truck"></i>
+                </div>
+                <div class="guarantee-content">
+                  <h4>Giao hàng toàn quốc</h4>
+                  <p>Miễn phí với đơn hàng trên 1 triệu</p>
+                </div>
+              </div>
+              <div class="guarantee-item">
+                <div class="guarantee-icon">
+                  <i class="fas fa-undo"></i>
+                </div>
+                <div class="guarantee-content">
+                  <h4>Đổi trả dễ dàng</h4>
+                  <p>Trong vòng 7 ngày nếu lỗi nhà sản xuất</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="product-share">
+              <span class="share-label">Chia sẻ:</span>
+              <div class="share-buttons">
+                <a href="#" class="share-btn facebook">
+                  <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="share-btn twitter">
+                  <i class="fab fa-twitter"></i>
+                </a>
+                <a href="#" class="share-btn pinterest">
+                  <i class="fab fa-pinterest-p"></i>
+                </a>
+                <a href="#" class="share-btn email">
+                  <i class="fas fa-envelope"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product Tabs -->
+        <div class="product-tabs">
+          <div class="tabs-header">
+            <button class="tab-btn active" data-tab="description">
+              Mô tả sản phẩm
+            </button>
+            <button class="tab-btn" data-tab="specifications">
+              Thông số kỹ thuật
+            </button>
+            <button class="tab-btn" data-tab="reviews" id="reviews-tab">
+              Đánh giá (24)
+            </button>
+            <button class="tab-btn" data-tab="shipping">
+              Vận chuyển & Đổi trả
+            </button>
+          </div>
+
+          <div class="tabs-content">
+            <!-- Description Tab -->
+            <div class="tab-pane active" id="description">
+              <div class="tab-content-inner">
+                <h3>Giày thể thao ARROWWAI Classic - Đẳng cấp phái mạnh</h3>
+                <p>Giày thể thao Arrowwai</p>
+
+                <div class="product-features">
+                  <h4>Đặc điểm nổi bật:</h4>
+                  <ul>
+                    <li>
+                      Chất liệu da bò thật 100%, mềm mại, bền đẹp theo thời
+                      gian
+                    </li>
+                    <li>
+                      Thiết kế thanh lịch, phù hợp với trang phục công sở và
+                      các sự kiện trang trọng
+                    </li>
+                    <li>
+                      Đế giày cao su chống trượt, đảm bảo an toàn khi di
+                      chuyển
+                    </li>
+                    <li>
+                      Lót giày êm ái, thoáng khí, hạn chế mùi hôi và tạo cảm
+                      giác thoải mái khi mang
+                    </li>
+                    <li>
+                      Đường may tỉ mỉ, chắc chắn, thể hiện sự tinh tế trong
+                      từng chi tiết
+                    </li>
+                    <li>
+                      Màu sắc đa dạng, dễ dàng phối với nhiều trang phục khác
+                      nhau
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="product-image-desc">
+                  <img src="/placeholder.svg?height=400&width=800"
+                    alt="Giày thể thao Arrowwai Classic - Chi tiết" />
+                </div>
+
+                <h4>Phong cách và sự thoải mái</h4>
+                <p>Giày thể thao Arrowwai</p>
+
+                <h4>Sự kết hợp hoàn hảo</h4>
+                <p>Giày thể thao Arrowwai</p>
+
+                <div class="product-image-desc">
+                  <img src="/placeholder.svg?height=400&width=800"
+                    alt="Giày thể thao Arrowwai Classic - Phối đồ" />
+                </div>
+
+                <h4>Chăm sóc và bảo quản</h4>
+                <p>
+                  Để giữ cho đôi giày luôn đẹp và bền, bạn nên vệ sinh thường
+                  xuyên bằng khăn mềm, sử dụng các sản phẩm chăm sóc da chuyên
+                  dụng, tránh tiếp xúc với nước và các chất tẩy rửa mạnh. Khi
+                  không sử dụng, nên nhồi giấy vào bên trong giày để giữ form
+                  và bảo quản trong hộp ở nơi khô ráo, thoáng mát.
+                </p>
+              </div>
+            </div>
+
+            <!-- Specifications Tab -->
+            <div class="tab-pane" id="specifications">
+              <div class="tab-content-inner">
+                <h3>Thông số kỹ thuật</h3>
+                <div class="specifications-table">
+                  <table>
+                    <tbody>
+                      <tr>
+                        <th>Tên sản phẩm</th>
+                        <td>Giày thể thao Arrowwai Classic</td>
+                      </tr>
+                      <tr>
+                        <th>Mã sản phẩm</th>
+                        <td>MG-CL-001</td>
+                      </tr>
+                      <tr>
+                        <th>Thương hiệu</th>
+                        <td>Arrowwai</td>
+                      </tr>
+                      <tr>
+                        <th>Xuất xứ</th>
+                        <td>Việt Nam</td>
+                      </tr>
+                      <tr>
+                        <th>Chất liệu mặt ngoài</th>
+                        <td>Da bò thật 100%</td>
+                      </tr>
+                      <tr>
+                        <th>Chất liệu lót trong</th>
+                        <td>Da thật + vải canvas thoáng khí</td>
+                      </tr>
+                      <tr>
+                        <th>Chất liệu đế</th>
+                        <td>Cao su tổng hợp chống trượt</td>
+                      </tr>
+                      <tr>
+                        <th>Chiều cao đế</th>
+                        <td>2.5 cm</td>
+                      </tr>
+                      <tr>
+                        <th>Kiểu dáng</th>
+                        <td>Oxford</td>
+                      </tr>
+                      <tr>
+                        <th>Màu sắc</th>
+                        <td>Đen, Nâu</td>
+                      </tr>
+                      <tr>
+                        <th>Kích cỡ</th>
+                        <td>39, 40, 41, 42, 43</td>
+                      </tr>
+                      <tr>
+                        <th>Trọng lượng</th>
+                        <td>Khoảng 450g/chiếc (size 41)</td>
+                      </tr>
+                      <tr>
+                        <th>Phong cách</th>
+                        <td>Formal, Business</td>
+                      </tr>
+                      <tr>
+                        <th>Bảo hành</th>
+                        <td>12 tháng</td>
+                      </tr>
+                      <tr>
+                        <th>Đóng gói</th>
+                        <td>
+                          Hộp giày Arrowwai, túi vải bảo quản, phiếu bảo hành
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div class="size-chart">
+                  <h3>Bảng kích cỡ</h3>
+                  <div class="size-chart-table">
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>Size</th>
+                          <th>Chiều dài bàn chân (cm)</th>
+                          <th>Tương đương EU</th>
+                          <th>Tương đương UK</th>
+                          <th>Tương đương US</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>39</td>
+                          <td>24.5 - 25.0</td>
+                          <td>39</td>
+                          <td>6</td>
+                          <td>6.5</td>
+                        </tr>
+                        <tr>
+                          <td>40</td>
+                          <td>25.0 - 25.5</td>
+                          <td>40</td>
+                          <td>6.5</td>
+                          <td>7</td>
+                        </tr>
+                        <tr>
+                          <td>41</td>
+                          <td>25.5 - 26.0</td>
+                          <td>41</td>
+                          <td>7</td>
+                          <td>8</td>
+                        </tr>
+                        <tr>
+                          <td>42</td>
+                          <td>26.0 - 26.5</td>
+                          <td>42</td>
+                          <td>8</td>
+                          <td>9</td>
+                        </tr>
+                        <tr>
+                          <td>43</td>
+                          <td>26.5 - 27.0</td>
+                          <td>43</td>
+                          <td>9</td>
+                          <td>10</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <p class="size-note">
+                    Lưu ý: Bảng kích cỡ chỉ mang tính chất tham khảo. Kích cỡ
+                    chân mỗi người có thể khác nhau, bạn nên đo chân của mình
+                    để chọn size phù hợp nhất.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Reviews Tab -->
+            <div class="tab-pane" id="reviews">
+              <div class="tab-content-inner">
+                <div class="reviews-summary">
+                  <div class="reviews-average">
+                    <div class="average-rating">4.5</div>
+                    <div class="rating-stars">
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <div class="total-reviews">Dựa trên 24 đánh giá</div>
+                  </div>
+
+                  <div class="reviews-breakdown">
+                    <div class="rating-bar">
+                      <div class="rating-label">5 sao</div>
+                      <div class="rating-progress">
+                        <div class="progress-bar" style="width: 75%"></div>
+                      </div>
+                      <div class="rating-count">18</div>
+                    </div>
+                    <div class="rating-bar">
+                      <div class="rating-label">4 sao</div>
+                      <div class="rating-progress">
+                        <div class="progress-bar" style="width: 15%"></div>
+                      </div>
+                      <div class="rating-count">4</div>
+                    </div>
+                    <div class="rating-bar">
+                      <div class="rating-label">3 sao</div>
+                      <div class="rating-progress">
+                        <div class="progress-bar" style="width: 5%"></div>
+                      </div>
+                      <div class="rating-count">1</div>
+                    </div>
+                    <div class="rating-bar">
+                      <div class="rating-label">2 sao</div>
+                      <div class="rating-progress">
+                        <div class="progress-bar" style="width: 5%"></div>
+                      </div>
+                      <div class="rating-count">1</div>
+                    </div>
+                    <div class="rating-bar">
+                      <div class="rating-label">1 sao</div>
+                      <div class="rating-progress">
+                        <div class="progress-bar" style="width: 0%"></div>
+                      </div>
+                      <div class="rating-count">0</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="reviews-list">
+                  <!-- Review Item 1 -->
+                  <div class="review-item">
+                    <div class="review-header">
+                      <div class="reviewer-info">
+                        <div class="reviewer-avatar">
+                          <img src="/placeholder.svg?height=50&width=50" alt="Nguyễn Văn A" />
+                        </div>
+                        <div class="reviewer-details">
+                          <div class="reviewer-name">Nguyễn Văn A</div>
+                          <div class="review-date">15/03/2023</div>
+                        </div>
+                      </div>
+                      <div class="review-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                      </div>
+                    </div>
+                    <div class="review-content">
+                      <h4 class="review-title">
+                        Chất lượng tuyệt vời, đáng đồng tiền
+                      </h4>
+                      <p class="review-text">
+                        Tôi đã mua đôi giày này cách đây 2 tháng và rất hài
+                        lòng với chất lượng. Da thật 100%, đường may tỉ mỉ, đi
+                        rất êm chân. Đặc biệt là phần đế giày chống trượt tốt,
+                        tôi đã đi trong những ngày mưa mà không bị trơn trượt.
+                        Rất đáng đồng tiền bát gạo!
+                      </p>
+                      <div class="review-photos">
+                        <div class="review-photo">
+                          <img src="/placeholder.svg?height=100&width=100"
+                            alt="Review photo 1" />
+                        </div>
+                        <div class="review-photo">
+                          <img src="/placeholder.svg?height=100&width=100"
+                            alt="Review photo 2" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Review Item 2 -->
+                  <div class="review-item">
+                    <div class="review-header">
+                      <div class="reviewer-info">
+                        <div class="reviewer-avatar">
+                          <img src="/placeholder.svg?height=50&width=50" alt="Trần Văn B" />
+                        </div>
+                        <div class="reviewer-details">
+                          <div class="reviewer-name">Trần Văn B</div>
+                          <div class="review-date">02/04/2023</div>
+                        </div>
+                      </div>
+                      <div class="review-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                      </div>
+                    </div>
+                    <div class="review-content">
+                      <h4 class="review-title">Giày đẹp, nhưng hơi chật</h4>
+                      <p class="review-text">
+                        Giày có thiết kế đẹp, chất liệu tốt, nhưng tôi thấy
+                        size hơi nhỏ so với chân. Nên chọn size lớn hơn 1 số
+                        so với bình thường. Sau khi đổi size lớn hơn thì đi
+                        rất thoải mái. Dịch vụ chăm sóc khách hàng tốt, đổi
+                        size nhanh chóng.
+                      </p>
+                    </div>
+                  </div>
+
+                  <!-- Review Item 3 -->
+                  <div class="review-item">
+                    <div class="review-header">
+                      <div class="reviewer-info">
+                        <div class="reviewer-avatar">
+                          <img src="/placeholder.svg?height=50&width=50" alt="Lê Văn C" />
+                        </div>
+                        <div class="reviewer-details">
+                          <div class="reviewer-name">Lê Văn C</div>
+                          <div class="review-date">18/04/2023</div>
+                        </div>
+                      </div>
+                      <div class="review-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                      </div>
+                    </div>
+                    <div class="review-content">
+                      <h4 class="review-title">
+                        Sản phẩm chất lượng, giao hàng nhanh
+                      </h4>
+                      <p class="review-text">
+                        Đặt hàng vào chiều thứ 6, sáng thứ 2 đã nhận được.
+                        Giày đúng như mô tả, đẹp và chất lượng. Đi làm ai cũng
+                        khen, hỏi mua ở đâu. Sẽ ủng hộ shop dài dài.
+                      </p>
+                      <div class="review-photos">
+                        <div class="review-photo">
+                          <img src="/placeholder.svg?height=100&width=100"
+                            alt="Review photo 1" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="reviews-pagination">
+                  <button class="pagination-btn prev" disabled>
+                    <i class="fas fa-chevron-left"></i>
+                  </button>
+                  <div class="pagination-numbers">
+                    <button class="pagination-number active">1</button>
+                    <button class="pagination-number">2</button>
+                    <button class="pagination-number">3</button>
+                  </div>
+                  <button class="pagination-btn next">
+                    <i class="fas fa-chevron-right"></i>
+                  </button>
+                </div>
+
+                <div class="write-review">
+                  <h3>Viết đánh giá của bạn</h3>
+                  <form class="review-form">
+                    <div class="form-group">
+                      <label>Đánh giá của bạn:</label>
+                      <div class="rating-select">
+                        <i class="far fa-star" data-rating="1"></i>
+                        <i class="far fa-star" data-rating="2"></i>
+                        <i class="far fa-star" data-rating="3"></i>
+                        <i class="far fa-star" data-rating="4"></i>
+                        <i class="far fa-star" data-rating="5"></i>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="reviewTitle">Tiêu đề:</label>
+                      <input type="text" id="reviewTitle" placeholder="Nhập tiêu đề đánh giá" />
+                    </div>
+                    <div class="form-group">
+                      <label for="reviewContent">Nội dung:</label>
+                      <textarea id="reviewContent" rows="5"
+                        placeholder="Chia sẻ trải nghiệm của bạn với sản phẩm này"></textarea>
+                    </div>
+                    <div class="form-group">
+                      <label>Thêm ảnh (tùy chọn):</label>
+                      <div class="photo-upload">
+                        <input type="file" id="reviewPhotos" multiple accept="image/*" />
+                        <label for="reviewPhotos" class="upload-btn">
+                          <i class="fas fa-camera"></i> Chọn ảnh
+                        </label>
+                        <div class="upload-preview"></div>
+                      </div>
+                    </div>
+                    <button type="submit" class="submit-review-btn">
+                      Gửi đánh giá
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            <!-- Shipping Tab -->
+            <div class="tab-pane" id="shipping">
+              <div class="tab-content-inner">
+                <h3>Chính sách vận chuyển</h3>
+                <div class="shipping-info">
+                  <div class="info-item">
+                    <h4>
+                      <i class="fas fa-truck"></i> Phương thức vận chuyển
+                    </h4>
+                    <p>
+                      Arrowwai sử dụng các đơn vị vận chuyển uy tín như Giao
+                      Hàng Nhanh, Giao Hàng Tiết Kiệm, Viettel Post để đảm bảo
+                      sản phẩm đến tay khách hàng an toàn và nhanh chóng.
+                    </p>
+                  </div>
+
+                  <div class="info-item">
+                    <h4>
+                      <i class="fas fa-money-bill-wave"></i> Phí vận chuyển
+                    </h4>
+                    <ul>
+                      <li>
+                        Miễn phí vận chuyển với đơn hàng từ 1.000.000đ trở lên
+                      </li>
+                      <li>
+                        Đơn hàng dưới 1.000.000đ: Phí vận chuyển từ 30.000đ -
+                        50.000đ tùy khu vực
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div class="info-item">
+                    <h4><i class="fas fa-clock"></i> Thời gian giao hàng</h4>
+                    <ul>
+                      <li>
+                        Nội thành Hà Nội và TP. Hồ Chí Minh: 1-2 ngày làm việc
+                      </li>
+                      <li>Các tỉnh thành khác: 2-5 ngày làm việc</li>
+                      <li>Vùng sâu, vùng xa: 5-7 ngày làm việc</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <h3>Chính sách đổi trả</h3>
+                <div class="return-info">
+                  <div class="info-item">
+                    <h4>
+                      <i class="fas fa-exchange-alt"></i> Điều kiện đổi trả
+                    </h4>
+                    <ul>
+                      <li>Sản phẩm còn nguyên tem, nhãn, hộp đóng gói</li>
+                      <li>Sản phẩm chưa qua sử dụng, còn mới 100%</li>
+                      <li>Có hóa đơn mua hàng hoặc phiếu bảo hành</li>
+                    </ul>
+                  </div>
+
+                  <div class="info-item">
+                    <h4>
+                      <i class="fas fa-calendar-alt"></i> Thời hạn đổi trả
+                    </h4>
+                    <ul>
+                      <li>
+                        Đổi size/màu: trong vòng 7 ngày kể từ ngày nhận hàng
+                      </li>
+                      <li>
+                        Đổi sản phẩm lỗi do nhà sản xuất: trong vòng 30 ngày
+                        kể từ ngày nhận hàng
+                      </li>
+                      <li>Bảo hành sản phẩm: 12 tháng kể từ ngày mua hàng</li>
+                    </ul>
+                  </div>
+
+                  <div class="info-item">
+                    <h4>
+                      <i class="fas fa-info-circle"></i> Quy trình đổi trả
+                    </h4>
+                    <ol>
+                      <li>
+                        Liên hệ với Arrowwai qua hotline 1900 4510 hoặc email
+                        cskh@mulgati.com để được hướng dẫn
+                      </li>
+                      <li>
+                        Đóng gói sản phẩm cần đổi trả kèm hóa đơn/phiếu bảo
+                        hành
+                      </li>
+                      <li>
+                        Gửi sản phẩm về địa chỉ của Arrowwai theo hướng dẫn
+                      </li>
+                      <li>
+                        Arrowwai sẽ kiểm tra và xử lý yêu cầu trong vòng 3-5
+                        ngày làm việc
+                      </li>
+                      <li>
+                        Khách hàng nhận sản phẩm mới hoặc hoàn tiền (tùy
+                        trường hợp)
+                      </li>
+                    </ol>
+                  </div>
+
+                  <div class="info-item">
+                    <h4>
+                      <i class="fas fa-exclamation-triangle"></i> Trường hợp
+                      không áp dụng đổi trả
+                    </h4>
+                    <ul>
+                      <li>
+                        Sản phẩm đã qua sử dụng, có dấu hiệu hư hỏng do người
+                        dùng
+                      </li>
+                      <li>
+                        Sản phẩm không còn nguyên vẹn tem, nhãn, hộp đóng gói
+                      </li>
+                      <li>
+                        Sản phẩm thuộc chương trình khuyến mãi, giảm giá đặc
+                        biệt (trừ trường hợp lỗi nhà sản xuất)
+                      </li>
+                      <li>Quá thời hạn đổi trả quy định</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Related Products -->
+        <div class="related-products">
+          <h2 class="section-title">Sản phẩm liên quan</h2>
+          <div class="products-slider">
+            <div class="swiper related-products-swiper">
+              <div class="swiper-wrapper">
+                <!-- Related Product 1 -->
+                <div class="swiper-slide">
+                  <div class="product-card">
+                    <div class="product-image">
+                      <a href="product-detail.html">
+                        <img src="/placeholder.svg?height=300&width=300"
+                          alt="Giày thể thao Arrowwai Business" />
+                      </a>
+                      <div class="product-actions">
+                        <button class="quick-view-btn" title="Xem nhanh">
+                          <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="add-to-wishlist-btn" title="Thêm vào yêu thích">
+                          <i class="far fa-heart"></i>
+                        </button>
+                        <button class="add-to-cart-btn" title="Thêm vào giỏ hàng">
+                          <i class="fas fa-shopping-bag"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="product-info">
+                      <h3 class="product-title">
+                        <a href="product-detail.html">Giày thể thao Arrowwai Business</a>
+                      </h3>
+                      <div class="product-price">
+                        <span class="current-price">2.190.000₫</span>
+                      </div>
+                      <div class="product-colors">
+                        <span class="color-swatch" style="background-color: #000"
+                          title="Đen"></span>
+                        <span class="color-swatch" style="background-color: #5d4037"
+                          title="Nâu"></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Related Product 2 -->
+                <div class="swiper-slide">
+                  <div class="product-card">
+                    <div class="product-badge sale">-15%</div>
+                    <div class="product-image">
+                      <a href="product-detail.html">
+                        <img src="/placeholder.svg?height=300&width=300"
+                          alt="Giày thể thao Arrowwai Premium" />
+                      </a>
+                      <div class="product-actions">
+                        <button class="quick-view-btn" title="Xem nhanh">
+                          <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="add-to-wishlist-btn" title="Thêm vào yêu thích">
+                          <i class="far fa-heart"></i>
+                        </button>
+                        <button class="add-to-cart-btn" title="Thêm vào giỏ hàng">
+                          <i class="fas fa-shopping-bag"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="product-info">
+                      <h3 class="product-title">
+                        <a href="product-detail.html">Giày thể thao Arrowwai Premium</a>
+                      </h3>
+                      <div class="product-price">
+                        <span class="current-price">2.790.000₫</span>
+                        <span class="old-price">3.290.000₫</span>
+                      </div>
+                      <div class="product-colors">
+                        <span class="color-swatch" style="background-color: #800020"
+                          title="Nâu đỏ"></span>
+                        <span class="color-swatch" style="background-color: #000"
+                          title="Đen"></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Related Product 3 -->
+                <div class="swiper-slide">
+                  <div class="product-card">
+                    <div class="product-image">
+                      <a href="product-detail.html">
+                        <img src="/placeholder.svg?height=300&width=300"
+                          alt="Giày thể thao Arrowwai Elegant" />
+                      </a>
+                      <div class="product-actions">
+                        <button class="quick-view-btn" title="Xem nhanh">
+                          <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="add-to-wishlist-btn" title="Thêm vào yêu thích">
+                          <i class="far fa-heart"></i>
+                        </button>
+                        <button class="add-to-cart-btn" title="Thêm vào giỏ hàng">
+                          <i class="fas fa-shopping-bag"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="product-info">
+                      <h3 class="product-title">
+                        <a href="product-detail.html">Giày thể thao Arrowwai Elegant</a>
+                      </h3>
+                      <div class="product-price">
+                        <span class="current-price">2.690.000₫</span>
+                      </div>
+                      <div class="product-colors">
+                        <span class="color-swatch" style="background-color: #5d4037"
+                          title="Nâu"></span>
+                        <span class="color-swatch" style="background-color: #000"
+                          title="Đen"></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Related Product 4 -->
+                <div class="swiper-slide">
+                  <div class="product-card">
+                    <div class="product-badge bestseller">Bán chạy</div>
+                    <div class="product-image">
+                      <a href="product-detail.html">
+                        <img src="/placeholder.svg?height=300&width=300"
+                          alt="Giày thể thao Arrowwai Luxury" />
+                      </a>
+                      <div class="product-actions">
+                        <button class="quick-view-btn" title="Xem nhanh">
+                          <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="add-to-wishlist-btn" title="Thêm vào yêu thích">
+                          <i class="far fa-heart"></i>
+                        </button>
+                        <button class="add-to-cart-btn" title="Thêm vào giỏ hàng">
+                          <i class="fas fa-shopping-bag"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="product-info">
+                      <h3 class="product-title">
+                        <a href="product-detail.html">Giày thể thao Arrowwai Luxury</a>
+                      </h3>
+                      <div class="product-price">
+                        <span class="current-price">3.490.000₫</span>
+                      </div>
+                      <div class="product-colors">
+                        <span class="color-swatch" style="background-color: #800020"
+                          title="Nâu đỏ"></span>
+                        <span class="color-swatch" style="background-color: #000"
+                          title="Đen"></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-button-next"></div>
+              <div class="swiper-button-prev"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recently Viewed Products -->
+        <div class="recently-viewed">
+          <h2 class="section-title">Sản phẩm đã xem</h2>
+          <div class="products-slider">
+            <div class="swiper recently-viewed-swiper">
+              <div class="swiper-wrapper">
+                <!-- Recently Viewed Product 1 -->
+                <div class="swiper-slide">
+                  <div class="product-card">
+                    <div class="product-image">
+                      <a href="product-detail.html">
+                        <img src="/placeholder.svg?height=300&width=300"
+                          alt="Giày lười nam Arrowwai Comfort" />
+                      </a>
+                      <div class="product-actions">
+                        <button class="quick-view-btn" title="Xem nhanh">
+                          <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="add-to-wishlist-btn" title="Thêm vào yêu thích">
+                          <i class="far fa-heart"></i>
+                        </button>
+                        <button class="add-to-cart-btn" title="Thêm vào giỏ hàng">
+                          <i class="fas fa-shopping-bag"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="product-info">
+                      <h3 class="product-title">
+                        <a href="product-detail.html">Giày lười nam Arrowwai Comfort</a>
+                      </h3>
+                      <div class="product-price">
+                        <span class="current-price">1.990.000₫</span>
+                      </div>
+                      <div class="product-colors">
+                        <span class="color-swatch" style="background-color: #5d4037"
+                          title="Nâu"></span>
+                        <span class="color-swatch" style="background-color: #000"
+                          title="Đen"></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Recently Viewed Product 2 -->
+                <div class="swiper-slide">
+                  <div class="product-card">
+                    <div class="product-image">
+                      <a href="product-detail.html">
+                        <img src="/placeholder.svg?height=300&width=300"
+                          alt="Giày sneaker nam Arrowwai Urban" />
+                      </a>
+                      <div class="product-actions">
+                        <button class="quick-view-btn" title="Xem nhanh">
+                          <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="add-to-wishlist-btn" title="Thêm vào yêu thích">
+                          <i class="far fa-heart"></i>
+                        </button>
+                        <button class="add-to-cart-btn" title="Thêm vào giỏ hàng">
+                          <i class="fas fa-shopping-bag"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="product-info">
+                      <h3 class="product-title">
+                        <a href="product-detail.html">Giày sneaker nam Arrowwai Urban</a>
+                      </h3>
+                      <div class="product-price">
+                        <span class="current-price">1.790.000₫</span>
+                      </div>
+                      <div class="product-colors">
+                        <span class="color-swatch" style="background-color: #000080"
+                          title="Xanh navy"></span>
+                        <span class="color-swatch" style="background-color: #000"
+                          title="Đen"></span>
+                        <span class="color-swatch" style="background-color: #808080"
+                          title="Xám"></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Recently Viewed Product 3 -->
+                <div class="swiper-slide">
+                  <div class="product-card">
+                    <div class="product-image">
+                      <a href="product-detail.html">
+                        <img src="/placeholder.svg?height=300&width=300"
+                          alt="Giày boots nam Arrowwai Vintage" />
+                      </a>
+                      <div class="product-actions">
+                        <button class="quick-view-btn" title="Xem nhanh">
+                          <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="add-to-wishlist-btn" title="Thêm vào yêu thích">
+                          <i class="far fa-heart"></i>
+                        </button>
+                        <button class="add-to-cart-btn" title="Thêm vào giỏ hàng">
+                          <i class="fas fa-shopping-bag"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="product-info">
+                      <h3 class="product-title">
+                        <a href="product-detail.html">Giày boots nam Arrowwai Vintage</a>
+                      </h3>
+                      <div class="product-price">
+                        <span class="current-price">2.890.000₫</span>
+                      </div>
+                      <div class="product-colors">
+                        <span class="color-swatch" style="background-color: #5d4037"
+                          title="Nâu"></span>
+                        <span class="color-swatch" style="background-color: #000"
+                          title="Đen"></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-button-next"></div>
+              <div class="swiper-button-prev"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-column">
+          <div class="footer-logo">
+            <img src="" alt="Arrowwai Logo" />
+          </div>
+          <p class="footer-description">
+            Arrowwai - Thương hiệu giày da nam cao cấp, mang đến phong cách
+            lịch lãm và đẳng cấp cho quý ông Việt.
+          </p>
+          <div class="footer-contact">
+            <p>
+              <i class="fas fa-map-marker-alt"></i> 123 Nguyễn Trãi, Quận 1,
+              TP. Hồ Chí Minh
+            </p>
+            <p><i class="fas fa-phone"></i> 1900 4510</p>
+            <p><i class="fas fa-envelope"></i> cskh@mulgati.com</p>
+          </div>
+        </div>
+
+        <div class="footer-column">
+          <h3 class="footer-title">CHÍNH SÁCH</h3>
+          <ul class="footer-links">
+            <li><a href="#">Chính sách bảo hành</a></li>
+            <li><a href="#">Chính sách đổi trả</a></li>
+            <li><a href="#">Chính sách vận chuyển</a></li>
+            <li><a href="#">Chính sách thanh toán</a></li>
+            <li><a href="#">Chính sách bảo mật</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h3 class="footer-title">THÔNG TIN</h3>
+          <ul class="footer-links">
+            <li><a href="#">Giới thiệu</a></li>
+            <li><a href="#">Tin tức</a></li>
+            <li><a href="#">Tuyển dụng</a></li>
+            <li><a href="#">Hệ thống cửa hàng</a></li>
+            <li><a href="#">Liên hệ</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h3 class="footer-title">ĐĂNG KÝ NHẬN TIN</h3>
+          <p class="newsletter-text">
+            Đăng ký nhận bản tin để cập nhật những sản phẩm mới, nhận thông
+            tin ưu đãi đặc biệt và thông tin giảm giá khác.
+          </p>
+          <form class="newsletter-form">
+            <input type="email" placeholder="Nhập email của bạn" class="newsletter-input" />
+            <button type="submit" class="newsletter-button">ĐĂNG KÝ</button>
+          </form>
+          <div class="social-links">
+            <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="copyright">
+          © 2023 Arrowwai. Tất cả các quyền được bảo lưu.
+        </p>
+        <div class="payment-methods">
+          <img src="/placeholder.svg?height=30&width=200" alt="Phương thức thanh toán" />
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Size Guide Modal -->
+  <div class="modal" id="sizeGuideModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Hướng dẫn chọn size giày</h3>
+        <button class="modal-close" id="sizeGuideClose">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="size-guide-content">
+          <p>
+            Để chọn được size giày phù hợp, bạn có thể tham khảo bảng size
+            dưới đây:
+          </p>
+
+          <div class="size-chart-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Size</th>
+                  <th>Chiều dài bàn chân (cm)</th>
+                  <th>Tương đương EU</th>
+                  <th>Tương đương UK</th>
+                  <th>Tương đương US</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>39</td>
+                  <td>24.5 - 25.0</td>
+                  <td>39</td>
+                  <td>6</td>
+                  <td>6.5</td>
+                </tr>
+                <tr>
+                  <td>40</td>
+                  <td>25.0 - 25.5</td>
+                  <td>40</td>
+                  <td>6.5</td>
+                  <td>7</td>
+                </tr>
+                <tr>
+                  <td>41</td>
+                  <td>25.5 - 26.0</td>
+                  <td>41</td>
+                  <td>7</td>
+                  <td>8</td>
+                </tr>
+                <tr>
+                  <td>42</td>
+                  <td>26.0 - 26.5</td>
+                  <td>42</td>
+                  <td>8</td>
+                  <td>9</td>
+                </tr>
+                <tr>
+                  <td>43</td>
+                  <td>26.5 - 27.0</td>
+                  <td>43</td>
+                  <td>9</td>
+                  <td>10</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h4>Cách đo chân:</h4>
+          <div class="measuring-guide">
+            <div class="measuring-image">
+              <img src="/placeholder.svg?height=200&width=400" alt="Cách đo chân" />
+            </div>
+            <div class="measuring-steps">
+              <ol>
+                <li>Đặt một tờ giấy trên sàn phẳng, áp sát vào tường.</li>
+                <li>Đứng thẳng trên tờ giấy, gót chân áp sát vào tường.</li>
+                <li>Đánh dấu điểm xa nhất của ngón chân dài nhất.</li>
+                <li>
+                  Đo khoảng cách từ tường đến điểm đánh dấu (đơn vị cm).
+                </li>
+                <li>Làm tròn số đo lên 0.5cm gần nhất.</li>
+                <li>Tham khảo bảng size để chọn size phù hợp.</li>
+              </ol>
+            </div>
+          </div>
+
+          <div class="size-tips">
+            <h4>Lưu ý khi chọn size:</h4>
+            <ul>
+              <li>
+                Nên đo chân vào cuối ngày khi bàn chân đã giãn nở hoàn toàn.
+              </li>
+              <li>
+                Nếu kích thước nằm giữa hai size, nên chọn size lớn hơn.
+              </li>
+              <li>
+                Nếu bàn chân bạn hơi bè, nên chọn size rộng hơn 0.5cm so với
+                chiều dài đo được.
+              </li>
+              <li>
+                Các mẫu giày khác nhau có thể có form khác nhau, nên tham khảo
+                thêm mô tả sản phẩm.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Overlay -->
+  <div class="modal-overlay"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Mobile Menu Toggle
+      const mobileMenuToggle = document.querySelector(".mobile-menu-toggle");
+      const mobileMenuClose = document.querySelector(".mobile-menu-close");
+      const mobileMenu = document.querySelector(".mobile-menu");
+      const overlay = document.querySelector(".mobile-menu-overlay");
+      const body = document.body;
+
+      // Open mobile menu
+      mobileMenuToggle.addEventListener("click", function() {
+        mobileMenu.classList.add("active");
+        overlay.classList.add("active");
+        body.classList.add("menu-open");
+      });
+
+      // Close mobile menu
+      function closeMenu() {
+        mobileMenu.classList.remove("active");
+        overlay.classList.remove("active");
+        body.classList.remove("menu-open");
+      }
+
+      mobileMenuClose.addEventListener("click", closeMenu);
+      overlay.addEventListener("click", closeMenu);
+
+      // Mobile dropdown toggles
+      const mobileDropdownToggles = document.querySelectorAll(
+        ".mobile-dropdown-toggle"
+      );
+
+      mobileDropdownToggles.forEach((toggle) => {
+        toggle.addEventListener("click", function(e) {
+          e.preventDefault();
+          const parent = this.parentElement;
+
+          // Close other open dropdowns
+          document
+            .querySelectorAll(".mobile-dropdown.active")
+            .forEach((item) => {
+              if (item !== parent) {
+                item.classList.remove("active");
+              }
+            });
+
+          // Toggle current dropdown
+          parent.classList.toggle("active");
+        });
+      });
+
+      // User Dropdown Toggle
+      const userDropdownToggle = document.querySelector(
+        ".user-dropdown-toggle"
+      );
+      const userDropdown = document.querySelector(".user-dropdown");
+
+      userDropdownToggle.addEventListener("click", function(e) {
+        e.stopPropagation();
+        userDropdown.classList.toggle("active");
+
+        // Close search dropdown if open
+        searchDropdown.classList.remove("active");
+        searchOverlay.classList.remove("active");
+      });
+
+      // Search Dropdown Toggle
+      const searchIconBtn = document.querySelector(".search-icon-btn");
+      const searchDropdown = document.querySelector(".search-dropdown");
+      const searchOverlay = document.querySelector(".search-overlay");
+      const searchInput = document.querySelector(".search-input");
+
+      searchIconBtn.addEventListener("click", function(e) {
+        e.stopPropagation();
+        searchDropdown.classList.toggle("active");
+        searchOverlay.classList.toggle("active");
+
+        // Focus the search input when opening
+        if (searchDropdown.classList.contains("active")) {
+          setTimeout(() => {
+            searchInput.focus();
+          }, 100);
+        }
+
+        // Close user dropdown if open
+        userDropdown.classList.remove("active");
+      });
+
+      // Close search dropdown when clicking on overlay
+      searchOverlay.addEventListener("click", function() {
+        searchDropdown.classList.remove("active");
+        searchOverlay.classList.remove("active");
+      });
+
+      // Close dropdowns when clicking outside
+      document.addEventListener("click", function(e) {
+        if (!userDropdown.contains(e.target)) {
+          userDropdown.classList.remove("active");
+        }
+
+        if (!searchDropdown.contains(e.target)) {
+          searchDropdown.classList.remove("active");
+          searchOverlay.classList.remove("active");
+        }
+      });
+
+      // Product Gallery Swiper
+      const galleryThumbs = new Swiper(".gallery-thumbs-swiper", {
+        spaceBetween: 10,
+        slidesPerView: 5,
+        freeMode: true,
+        watchSlidesProgress: true,
+        breakpoints: {
+          320: {
+            slidesPerView: 4,
+          },
+          576: {
+            slidesPerView: 5,
+          },
+        },
+      });
+
+      const galleryMain = new Swiper(".gallery-main-swiper", {
+        spaceBetween: 10,
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+        thumbs: {
+          swiper: galleryThumbs,
+        },
+      });
+
+      // Related Products Swiper
+      const relatedProductsSwiper = new Swiper(".related-products-swiper", {
+        spaceBetween: 20,
+        slidesPerView: 4,
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+        breakpoints: {
+          320: {
+            slidesPerView: 1,
+          },
+          576: {
+            slidesPerView: 2,
+          },
+          768: {
+            slidesPerView: 3,
+          },
+          992: {
+            slidesPerView: 4,
+          },
+        },
+      });
+
+      // Recently Viewed Products Swiper
+      const recentlyViewedSwiper = new Swiper(".recently-viewed-swiper", {
+        spaceBetween: 20,
+        slidesPerView: 4,
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+        breakpoints: {
+          320: {
+            slidesPerView: 1,
+          },
+          576: {
+            slidesPerView: 2,
+          },
+          768: {
+            slidesPerView: 3,
+          },
+          992: {
+            slidesPerView: 4,
+          },
+        },
+      });
+
+      // Product Tabs
+      const tabBtns = document.querySelectorAll(".tab-btn");
+      const tabPanes = document.querySelectorAll(".tab-pane");
+
+      tabBtns.forEach((btn) => {
+        btn.addEventListener("click", function() {
+          // Remove active class from all buttons and panes
+          tabBtns.forEach((b) => b.classList.remove("active"));
+          tabPanes.forEach((p) => p.classList.remove("active"));
+
+          // Add active class to clicked button
+          this.classList.add("active");
+
+          // Show corresponding tab pane
+          const tabId = this.getAttribute("data-tab");
+          document.getElementById(tabId).classList.add("active");
+        });
+      });
+
+      // Quantity Selector
+      const quantityMinus = document.getElementById("quantityMinus");
+      const quantityPlus = document.getElementById("quantityPlus");
+      const quantityInput = document.getElementById("quantityInput");
+
+      quantityMinus.addEventListener("click", function() {
+        let value = parseInt(quantityInput.value);
+        if (value > 1) {
+          quantityInput.value = value - 1;
+        }
+      });
+
+      quantityPlus.addEventListener("click", function() {
+        let value = parseInt(quantityInput.value);
+        if (value < 10) {
+          quantityInput.value = value + 1;
+        }
+      });
+
+      // Color Selection
+      const colorOptions = document.querySelectorAll(
+        '.color-option input[name="color"]'
+      );
+      const selectedColorText = document.getElementById("selectedColor");
+
+      colorOptions.forEach((option) => {
+        option.addEventListener("change", function() {
+          if (this.checked) {
+            const colorName =
+              this.nextElementSibling.getAttribute("data-color-name");
+            selectedColorText.textContent = colorName;
+          }
+        });
+      });
+
+      // Size Selection
+      const sizeOptions = document.querySelectorAll(
+        '.size-option input[name="size"]'
+      );
+      const selectedSizeText = document.getElementById("selectedSize");
+
+      sizeOptions.forEach((option) => {
+        option.addEventListener("change", function() {
+          if (this.checked) {
+            selectedSizeText.textContent = this.value;
+          }
+        });
+      });
+
+      // Add to Cart Button
+      const addToCartBtn = document.getElementById("addToCartBtn");
+
+      addToCartBtn.addEventListener("click", function() {
+        // Get selected options
+        const selectedColor = document.querySelector(
+          '.color-option input[name="color"]:checked'
+        ).value;
+        const selectedSize = document.querySelector(
+          '.size-option input[name="size"]:checked'
+        ).value;
+        const quantity = document.getElementById("quantityInput").value;
+
+        // Show confirmation message
+        alert(
+          `Đã thêm sản phẩm vào giỏ hàng!\nSản phẩm: Giày thể thao Arrowwai Classic\nMàu sắc: ${
+              selectedColor === "black" ? "Đen" : "Nâu"
+            }\nKích cỡ: ${selectedSize}\nSố lượng: ${quantity}`
+        );
+
+        // Update cart count (demo only)
+        const cartCount = document.querySelector(".cart-count");
+        cartCount.textContent =
+          parseInt(cartCount.textContent) + parseInt(quantity);
+      });
+
+      // Buy Now Button
+      const buyNowBtn = document.getElementById("buyNowBtn");
+
+      buyNowBtn.addEventListener("click", function() {
+        // Get selected options
+        const selectedColor = document.querySelector(
+          '.color-option input[name="color"]:checked'
+        ).value;
+        const selectedSize = document.querySelector(
+          '.size-option input[name="size"]:checked'
+        ).value;
+        const quantity = document.getElementById("quantityInput").value;
+
+        // Show confirmation message
+        alert(
+          `Chuyển đến trang thanh toán!\nSản phẩm: Giày thể thao Arrowwai Classic\nMàu sắc: ${
+              selectedColor === "black" ? "Đen" : "Nâu"
+            }\nKích cỡ: ${selectedSize}\nSố lượng: ${quantity}`
+        );
+
+        // In a real implementation, this would redirect to checkout page
+        // window.location.href = 'checkout.html';
+      });
+
+      // Wishlist Button
+      const wishlistBtn = document.getElementById("wishlistBtn");
+
+      wishlistBtn.addEventListener("click", function() {
+        this.classList.toggle("active");
+
+        if (this.classList.contains("active")) {
+          this.innerHTML = '<i class="fas fa-heart"></i>';
+          alert("Đã thêm sản phẩm vào danh sách yêu thích!");
+        } else {
+          this.innerHTML = '<i class="far fa-heart"></i>';
+          alert("Đã xóa sản phẩm khỏi danh sách yêu thích!");
+        }
+      });
+
+      // Size Guide Modal
+      const sizeGuideBtn = document.getElementById("sizeGuideBtn");
+      const sizeGuideModal = document.getElementById("sizeGuideModal");
+      const sizeGuideClose = document.getElementById("sizeGuideClose");
+      const modalOverlay = document.querySelector(".modal-overlay");
+
+      sizeGuideBtn.addEventListener("click", function(e) {
+        e.preventDefault();
+        sizeGuideModal.classList.add("active");
+        modalOverlay.classList.add("active");
+        body.classList.add("modal-open");
+      });
+
+      function closeModal() {
+        sizeGuideModal.classList.remove("active");
+        modalOverlay.classList.remove("active");
+        body.classList.remove("modal-open");
+      }
+
+      sizeGuideClose.addEventListener("click", closeModal);
+      modalOverlay.addEventListener("click", closeModal);
+
+      // Rating Selection in Review Form
+      const ratingStars = document.querySelectorAll(".rating-select i");
+
+      ratingStars.forEach((star) => {
+        star.addEventListener("mouseover", function() {
+          const rating = parseInt(this.getAttribute("data-rating"));
+
+          // Reset all stars
+          ratingStars.forEach((s) => (s.className = "far fa-star"));
+
+          // Fill stars up to current
+          for (let i = 0; i < rating; i++) {
+            ratingStars[i].className = "fas fa-star";
+          }
+        });
+
+        star.addEventListener("mouseout", function() {
+          // Get selected rating
+          const selectedRating =
+            document
+            .querySelector(".rating-select")
+            .getAttribute("data-selected") || 0;
+
+          // Reset all stars
+          ratingStars.forEach((s) => (s.className = "far fa-star"));
+
+          // Fill stars up to selected
+          for (let i = 0; i < selectedRating; i++) {
+            ratingStars[i].className = "fas fa-star";
+          }
+        });
+
+        star.addEventListener("click", function() {
+          const rating = parseInt(this.getAttribute("data-rating"));
+
+          // Set selected rating
+          document
+            .querySelector(".rating-select")
+            .setAttribute("data-selected", rating);
+
+          // Fill stars up to selected
+          for (let i = 0; i < rating; i++) {
+            ratingStars[i].className = "fas fa-star";
+          }
+        });
+      });
+
+      // Photo Upload Preview
+      const photoInput = document.getElementById("reviewPhotos");
+      const photoPreview = document.querySelector(".upload-preview");
+
+      photoInput.addEventListener("change", function() {
+        photoPreview.innerHTML = "";
+
+        if (this.files) {
+          for (let i = 0; i < this.files.length; i++) {
+            if (i >= 3) break; // Limit to 3 photos
+
+            const file = this.files[i];
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+              const preview = document.createElement("div");
+              preview.className = "preview-item";
+              preview.innerHTML = `
+                                <img src="${e.target.result}" alt="Preview">
+                                <button type="button" class="remove-preview" data-index="${i}">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            `;
+              photoPreview.appendChild(preview);
+
+              // Add event listener to remove button
+              preview
+                .querySelector(".remove-preview")
+                .addEventListener("click", function() {
+                  preview.remove();
+                });
+            };
+
+            reader.readAsDataURL(file);
+          }
+        }
+      });
+
+      // Review Form Submission
+      const reviewForm = document.querySelector(".review-form");
+
+      reviewForm.addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        // Get form values
+        const rating =
+          document
+          .querySelector(".rating-select")
+          .getAttribute("data-selected") || 0;
+        const title = document.getElementById("reviewTitle").value;
+        const content = document.getElementById("reviewContent").value;
+
+        // Validate form
+        if (rating === 0) {
+          alert("Vui lòng chọn số sao đánh giá!");
+          return;
+        }
+
+        if (title.trim() === "") {
+          alert("Vui lòng nhập tiêu đề đánh giá!");
+          return;
+        }
+
+        if (content.trim() === "") {
+          alert("Vui lòng nhập nội dung đánh giá!");
+          return;
+        }
+
+        // Show success message
+        alert(
+          "Cảm ơn bạn đã gửi đánh giá! Đánh giá của bạn sẽ được hiển thị sau khi được kiểm duyệt."
+        );
+
+        // Reset form
+        document
+          .querySelector(".rating-select")
+          .setAttribute("data-selected", 0);
+        ratingStars.forEach((s) => (s.className = "far fa-star"));
+        reviewForm.reset();
+        photoPreview.innerHTML = "";
+      });
+
+      // Image Zoom Functionality
+      const zoomImage = document.getElementById("zoom-image");
+      const zoomLens = document.getElementById("zoom-lens");
+      const zoomResult = document.getElementById("zoom-result");
+
+      if (zoomImage && zoomLens && zoomResult) {
+        // Set up zoom functionality
+        let cx = zoomResult.offsetWidth / zoomLens.offsetWidth;
+        let cy = zoomResult.offsetHeight / zoomLens.offsetHeight;
+
+        // Set background properties for the result DIV
+        zoomResult.style.backgroundImage = "url('" + zoomImage.src + "')";
+        zoomResult.style.backgroundSize =
+          zoomImage.width * cx + "px " + zoomImage.height * cy + "px";
+
+        // Hide lens and result initially
+        zoomLens.style.display = "none";
+        zoomResult.style.display = "none";
+
+        // Add event listeners
+        zoomImage.addEventListener("mousemove", moveLens);
+        zoomImage.addEventListener("touchmove", moveLens);
+        zoomImage.addEventListener("mouseenter", showZoom);
+        zoomImage.addEventListener("mouseleave", hideZoom);
+
+        function showZoom() {
+          zoomLens.style.display = "block";
+          zoomResult.style.display = "block";
+        }
+
+        function hideZoom() {
+          zoomLens.style.display = "none";
+          zoomResult.style.display = "none";
+        }
+
+        function moveLens(e) {
+          e.preventDefault();
+
+          // Get cursor position
+          let pos = getCursorPos(e);
+          let x = pos.x;
+          let y = pos.y;
+
+          // Prevent lens from going outside the image
+          if (x > zoomImage.width - zoomLens.offsetWidth / 2) {
+            x = zoomImage.width - zoomLens.offsetWidth / 2;
+          }
+          if (x < zoomLens.offsetWidth / 2) {
+            x = zoomLens.offsetWidth / 2;
+          }
+          if (y > zoomImage.height - zoomLens.offsetHeight / 2) {
+            y = zoomImage.height - zoomLens.offsetHeight / 2;
+          }
+          if (y < zoomLens.offsetHeight / 2) {
+            y = zoomLens.offsetHeight / 2;
+          }
+
+          // Set lens position
+          zoomLens.style.left = x - zoomLens.offsetWidth / 2 + "px";
+          zoomLens.style.top = y - zoomLens.offsetHeight / 2 + "px";
+
+          // Set result background position
+          zoomResult.style.backgroundPosition =
+            "-" +
+            (x * cx - zoomResult.offsetWidth / 2) +
+            "px -" +
+            (y * cy - zoomResult.offsetHeight / 2) +
+            "px";
+        }
+
+        function getCursorPos(e) {
+          let a,
+            x = 0,
+            y = 0;
+          e = e || window.event;
+
+          // Get the x and y positions of the image
+          a = zoomImage.getBoundingClientRect();
+
+          // Calculate the cursor's x and y coordinates, relative to the image
+          x = e.pageX - a.left - window.pageXOffset;
+          y = e.pageY - a.top - window.pageYOffset;
+
+          return {
+            x: x,
+            y: y,
+          };
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>

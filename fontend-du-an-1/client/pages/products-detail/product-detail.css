@@ -1,4 +1,4 @@
-/* Breadcrumbs
+b/* Breadcrumbs
    ========================================================================== */
 
 /* Header */
@@ -123,6 +123,71 @@
 .swiper-button-prev:hover {
   background-color: #fff;
   color: #c00;
+}
+
+/* from-input */
+
+.from-varian {
+  margin-top: 25px;
+}
+
+.form-group {
+  position: relative;
+}
+
+.input-box {
+  width: 500px;
+  font-size: 16px;
+  padding: 10px 10px;
+  display: block;
+  border: none;
+  border-bottom: 1px solid #515151;
+  outline: none;
+  background: transparent;
+}
+
+label {
+  position: absolute;
+  left: 5px;
+  top: 10px;
+  transition: all 0.3s;
+}
+
+.input-box:focus ~ label {
+  top: -20px;
+  font-size: 18px;
+  color: #c00;
+}
+
+.input-box:focus {
+  border-bottom: 2px solid #c00;
+}
+
+.select-form {
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #1da1f2;
+  color: white;
+}
+
+option {
+  font-size: 16px;
+  color: #333;
+  background-color: #fff;
+}
+
+.submit {
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  background-color: #bd081c;
+  color: white;
+  cursor: pointer;
+}
+
+.submit:hover {
+  background: #c00;
+  text-shadow: 0 0 5px white;
 }
 
 /* Image Zoom

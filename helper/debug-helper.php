@@ -1,4 +1,3 @@
-
 <?php
 function debug($data, $exit = true)
 {

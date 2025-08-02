@@ -65,3 +65,9 @@ _**config: file env định nghĩa các đường dẫn và các biến dùng tr
 * 3: đang giao hàng
 * 4: Thành công
 * 5: Huỷ
+  // 20/7
+  Hiếu:
+  việc đã làm: lấy dữ liệu product và product detail
+  22/7:
+  Hiếu:
+  hoàn thiện phần login logout

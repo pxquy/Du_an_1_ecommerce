@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 
 spl_autoload_register(function ($class) {
@@ -9,17 +9,24 @@ spl_autoload_register(function ($class) {
     $fileControllerClient = PATH_CONTROLLER_CLIENT . $fileName;
     $fileControllerAdmin = PATH_CONTROLLER_ADMIN . $fileName;
 
-    if(is_readable($fileModelClient)){
+
+    if (is_readable($fileModelClient)) {
         require_once $fileModelClient;
-    }
-    else if (is_readable($fileControllerClient)){
+    } else if (is_readable($fileControllerClient)) {
         require_once $fileControllerClient;
-    }
-    else if (is_readable($fileControllerAdmin)){
+    } else if (is_readable($fileControllerAdmin)) {
         require_once $fileControllerAdmin;
-    }
-    else if(is_readable($fileModelAdmin)){
-        require_once $fileModelAdmin;
+    } else if (is_readable($fileModelAdmin)) {
+
+        if (is_readable($fileModelClient)) {
+            require_once $fileModelClient;
+        } else if (is_readable($fileControllerClient)) {
+            require_once $fileControllerClient;
+        } else if (is_readable($fileControllerAdmin)) {
+            require_once $fileControllerAdmin;
+        } else if (is_readable($fileModelAdmin)) {
+            require_once $fileModelAdmin;
+        }
     }
 });
 
@@ -28,11 +35,10 @@ require_once './helper/helper.php';
 
 $mode = $_GET['mode'] ?? 'client';
 
-if($mode == 'admin'){
+
+if ($mode == 'admin') {
+
     require_once './routes/admin/admin_routes.php';
 } else {
     require_once './routes/client/client_routes.php';
 }
-
-
-

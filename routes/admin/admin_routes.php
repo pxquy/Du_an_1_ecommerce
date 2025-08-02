@@ -13,4 +13,5 @@ match ($action) {
     'users-edit' => (new UserController)->edit(), //hiển thị form cập nhật theo ID
     'users-update' => (new UserController)->update(), //lưu dữ liệu cập nhật theo ID
     'users-delete' => (new UserController)->delete(), //Xóa dữ liệu theo ID
+
 };
