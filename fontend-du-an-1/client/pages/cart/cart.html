@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Giỏ hàng - Arrowwai</title>
+    <link rel="stylesheet" href="../../layout/home.css" />
+    <link rel="stylesheet" href="../login/login.css" />
+    <link rel="stylesheet" href="./cart.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+      <div class="container">
+        <div class="top-bar-content">
+          <div class="top-bar-left">
+            <span>DANH SÁCH CỬA HÀNG</span>
+          </div>
+          <div class="top-bar-right">
+            <span>Hotline liên hệ: 1900 4510</span>
+            <span class="divider">|</span>
+            <span>cskh@mulgati.com</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+      <div class="container">
+        <div class="header-content">
+          <div class="logo">
+            <a href="../../layout/home.html">
+              <img src="../../images/logoShop.png" alt="rowwai Logo" />
+            </a>
+          </div>
+
+          <!-- Desktop Navigation -->
+          <nav class="main-nav">
+            <ul class="nav-list">
+              <li class="nav-item"><a href="#">GIÀY THỂ THAO</a></li>
+              <li class="nav-item"><a href="#">GIÀY CHAY BỘ</a></li>
+              <li class="nav-item dropdown">
+                <a href="#">GIÀY BÓNG ĐÁ</a>
+              </li>
+              <li class="nav-item"><a href="#">GIÀY BÓNG RỔ</a></li>
+              <li class="nav-item dropdown">
+                <a href="#">GIÀY TẬP GYM</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a href="#">pHỤ KIỆN THỂ THAO</a>
+              </li>
+            </ul>
+          </nav>
+
+          <div class="header-actions">
+            <div class="search-dropdown">
+              <button class="search-icon-btn">
+                <i class="fas fa-search"></i>
+              </button>
+              <div class="search-dropdown-content">
+                <form class="search-form">
+                  <input
+                    type="text"
+                    class="search-input"
+                    placeholder="Tìm kiếm sản phẩm..."
+                  />
+                  <button type="submit" class="search-submit">
+                    <i class="fas fa-search"></i>
+                  </button>
+                </form>
+                <div class="search-suggestions">
+                  <h4>Tìm kiếm phổ biến:</h4>
+                  <div class="suggestion-tags">
+                    <a href="#" class="suggestion-tag">Giày tây</a>
+                    <a href="#" class="suggestion-tag">Giày lười</a>
+                    <a href="#" class="suggestion-tag">Giày da bò</a>
+                    <a href="#" class="suggestion-tag">Giày công sở</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <a href="#" class="cart-icon"
+              ><i class="fas fa-shopping-bag"></i>
+              <span class="cart-count">0</span></a
+            >
+
+            <!-- User Account Dropdown -->
+            <div class="user-dropdown">
+              <button class="user-dropdown-toggle">
+                <div class="user-icon">
+                  <i class="fas fa-user"></i>
+                </div>
+              </button>
+
+              <div class="user-dropdown-menu">
+                <a href="login.html" class="dropdown-item">Đăng nhập</a>
+                <a href="register.html" class="dropdown-item">Đăng ký</a>
+              </div>
+            </div>
+
+            <!-- Mobile Menu Toggle Button -->
+            <button class="mobile-menu-toggle">
+              <span class="hamburger-icon">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Search Overlay -->
+    <div class="search-overlay"></div>
+
+    <!-- Mobile Navigation Menu -->
+    <div class="mobile-menu">
+      <div class="mobile-menu-header">
+        <div class="logo">
+          <img src="/placeholder.svg?height=40&width=120" alt="Arrowwai Logo" />
+        </div>
+        <button class="mobile-menu-close">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <nav class="mobile-nav">
+        <ul class="mobile-nav-list">
+          <li class="mobile-nav-item"><a href="#">MỚI</a></li>
+          <li class="mobile-nav-item"><a href="#">SALE</a></li>
+          <li class="mobile-nav-item mobile-dropdown">
+            <a href="#" class="mobile-dropdown-toggle">
+              GIÀY DA NAM <i class="fas fa-chevron-down"></i>
+            </a>
+            <ul class="mobile-dropdown-menu">
+              <li><a href="#">Giày Tây</a></li>
+              <li><a href="#">Giày Lười</a></li>
+              <li><a href="#">Giày Sneaker</a></li>
+              <li><a href="#">Giày Boots</a></li>
+            </ul>
+          </li>
+          <li class="mobile-nav-item"><a href="#">DÉP DA NAM</a></li>
+          <li class="mobile-nav-item mobile-dropdown">
+            <a href="#" class="mobile-dropdown-toggle">
+              PHỤ KIỆN <i class="fas fa-chevron-down"></i>
+            </a>
+            <ul class="mobile-dropdown-menu">
+              <li><a href="#">Thắt Lưng</a></li>
+              <li><a href="#">Ví Da</a></li>
+              <li><a href="#">Túi Xách</a></li>
+            </ul>
+          </li>
+          <li class="mobile-nav-item mobile-dropdown">
+            <a href="#" class="mobile-dropdown-toggle">
+              BỘ SƯU TẬP <i class="fas fa-chevron-down"></i>
+            </a>
+            <ul class="mobile-dropdown-menu">
+              <li><a href="#">BST Xuân Hè</a></li>
+              <li><a href="#">BST Thu Đông</a></li>
+              <li><a href="#">BST Đặc Biệt</a></li>
+            </ul>
+          </li>
+          <li class="mobile-nav-item"><a href="#">MULGATI</a></li>
+          <li class="mobile-nav-item mobile-dropdown">
+            <a href="#" class="mobile-dropdown-toggle">
+              BLOGS <i class="fas fa-chevron-down"></i>
+            </a>
+            <ul class="mobile-dropdown-menu">
+              <li><a href="#">Tin Tức</a></li>
+              <li><a href="#">Phong Cách</a></li>
+              <li><a href="#">Mẹo Bảo Quản</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <div class="mobile-menu-footer">
+        <div class="mobile-contact">
+          <p><i class="fas fa-phone"></i> 1900 4510</p>
+          <p><i class="fas fa-envelope"></i> cskh@mulgati.com</p>
+        </div>
+        <div class="mobile-social">
+          <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Overlay for Mobile Menu -->
+    <div class="mobile-menu-overlay"></div>
+
+    <!-- Main Content - Cart Page -->
+    <main class="main-content">
+      <!-- Breadcrumbs -->
+      <div class="breadcrumbs">
+        <div class="container">
+          <ul class="breadcrumb-list">
+            <li><a href="index.html">Trang chủ</a></li>
+            <li><i class="fas fa-chevron-right"></i></li>
+            <li>Giỏ hàng</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Cart Section -->
+      <section class="cart-section">
+        <div class="container">
+          <h1 class="page-title">Giỏ hàng của bạn</h1>
+
+          <!-- Cart Content -->
+          <div class="cart-content" id="cartContent">
+            <!-- Cart Items -->
+            <div class="cart-items">
+              <div class="cart-header">
+                <div class="cart-header-product">Sản phẩm</div>
+                <div class="cart-header-price">Đơn giá</div>
+                <div class="cart-header-quantity">Số lượng</div>
+                <div class="cart-header-subtotal">Thành tiền</div>
+                <div class="cart-header-action"></div>
+              </div>
+
+              <!-- Cart Item 1 -->
+              <div class="cart-item" data-id="1">
+                <div class="cart-item-product">
+                  <div class="cart-item-image">
+                    <a href="product-detail.html">
+                      <img
+                        src="/placeholder.svg?height=120&width=120"
+                        alt="Giày thể thao nam Arrowwai Classic"
+                      />
+                    </a>
+                  </div>
+                  <div class="cart-item-details">
+                    <h3 class="cart-item-title">
+                      <a href="product-detail.html"
+                        >Giày thể thao nam Arrowwai Classic</a
+                      >
+                    </h3>
+                    <div class="cart-item-meta">
+                      <div class="cart-item-variant">
+                        Màu sắc: <span>Đen</span>
+                      </div>
+                      <div class="cart-item-variant">
+                        Kích cỡ: <span>41</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="cart-item-price">2.490.000₫</div>
+                <div class="cart-item-quantity">
+                  <div class="quantity-selector">
+                    <button class="quantity-btn minus" data-id="1">-</button>
+                    <input
+                      type="number"
+                      class="quantity-input"
+                      value="1"
+                      min="1"
+                      max="10"
+                      data-id="1"
+                    />
+                    <button class="quantity-btn plus" data-id="1">+</button>
+                  </div>
+                </div>
+                <div class="cart-item-subtotal">2.490.000₫</div>
+                <div class="cart-item-action">
+                  <button class="remove-item-btn" data-id="1">
+                    <i class="fas fa-trash-alt"></i>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Cart Item 2 -->
+              <div class="cart-item" data-id="2">
+                <div class="cart-item-product">
+                  <div class="cart-item-image">
+                    <a href="product-detail.html">
+                      <img
+                        src="/placeholder.svg?height=120&width=120"
+                        alt="Giày bóng rổ nam Arrowwai Comfort"
+                      />
+                    </a>
+                  </div>
+                  <div class="cart-item-details">
+                    <h3 class="cart-item-title">
+                      <a href="product-detail.html"
+                        >Giày bóng rổ nam Arrowwai Comfort</a
+                      >
+                    </h3>
+                    <div class="cart-item-meta">
+                      <div class="cart-item-variant">
+                        Màu sắc: <span>Nâu</span>
+                      </div>
+                      <div class="cart-item-variant">
+                        Kích cỡ: <span>42</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="cart-item-price">1.990.000₫</div>
+                <div class="cart-item-quantity">
+                  <div class="quantity-selector">
+                    <button class="quantity-btn minus" data-id="2">-</button>
+                    <input
+                      type="number"
+                      class="quantity-input"
+                      value="1"
+                      min="1"
+                      max="10"
+                      data-id="2"
+                    />
+                    <button class="quantity-btn plus" data-id="2">+</button>
+                  </div>
+                </div>
+                <div class="cart-item-subtotal">1.990.000₫</div>
+                <div class="cart-item-action">
+                  <button class="remove-item-btn" data-id="2">
+                    <i class="fas fa-trash-alt"></i>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Cart Item 3 -->
+              <div class="cart-item" data-id="3">
+                <div class="cart-item-product">
+                  <div class="cart-item-image">
+                    <a href="product-detail.html">
+                      <img
+                        src="/placeholder.svg?height=120&width=120"
+                        alt="giày chạy bộ Arrowwai Classic"
+                      />
+                    </a>
+                  </div>
+                  <div class="cart-item-details">
+                    <h3 class="cart-item-title">
+                      <a href="product-detail.html"
+                        >giày chạy bộ Arrowwai Classic</a
+                      >
+                    </h3>
+                    <div class="cart-item-meta">
+                      <div class="cart-item-variant">
+                        Màu sắc: <span>Đen</span>
+                      </div>
+                      <div class="cart-item-variant">
+                        Kích cỡ: <span>105cm</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="cart-item-price">890.000₫</div>
+                <div class="cart-item-quantity">
+                  <div class="quantity-selector">
+                    <button class="quantity-btn minus" data-id="3">-</button>
+                    <input
+                      type="number"
+                      class="quantity-input"
+                      value="1"
+                      min="1"
+                      max="10"
+                      data-id="3"
+                    />
+                    <button class="quantity-btn plus" data-id="3">+</button>
+                  </div>
+                </div>
+                <div class="cart-item-subtotal">890.000₫</div>
+                <div class="cart-item-action">
+                  <button class="remove-item-btn" data-id="3">
+                    <i class="fas fa-trash-alt"></i>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Cart Actions -->
+              <div class="cart-actions">
+                <div class="cart-action-left">
+                  <a href="products.html" class="continue-shopping-btn">
+                    <i class="fas fa-arrow-left"></i> Tiếp tục mua sắm
+                  </a>
+                </div>
+                <div class="cart-action-right">
+                  <button class="update-cart-btn" id="updateCartBtn">
+                    <i class="fas fa-sync-alt"></i> Cập nhật giỏ hàng
+                  </button>
+                  <button class="clear-cart-btn" id="clearCartBtn">
+                    <i class="fas fa-trash"></i> Xóa giỏ hàng
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Cart Summary -->
+            <div class="cart-summary">
+              <h2 class="summary-title">Tổng giỏ hàng</h2>
+
+              <div class="summary-content">
+                <div class="summary-row">
+                  <div class="summary-label">Tạm tính:</div>
+                  <div class="summary-value" id="cartSubtotal">5.370.000₫</div>
+                </div>
+
+                <!-- Shipping Options -->
+                <div class="shipping-options">
+                  <h3 class="shipping-title">Vận chuyển:</h3>
+                  <div class="shipping-option">
+                    <label class="shipping-radio">
+                      <input
+                        type="radio"
+                        name="shipping"
+                        value="free"
+                        checked
+                      />
+                      <span class="radio-custom"></span>
+                      <span class="shipping-label">Miễn phí vận chuyển</span>
+                      <span class="shipping-price">0₫</span>
+                    </label>
+                    <div class="shipping-desc">
+                      Áp dụng cho đơn hàng từ 1.000.000₫
+                    </div>
+                  </div>
+                  <div class="shipping-option">
+                    <label class="shipping-radio">
+                      <input type="radio" name="shipping" value="standard" />
+                      <span class="radio-custom"></span>
+                      <span class="shipping-label">Giao hàng tiêu chuẩn</span>
+                      <span class="shipping-price">30.000₫</span>
+                    </label>
+                    <div class="shipping-desc">Nhận hàng trong 3-5 ngày</div>
+                  </div>
+                  <div class="shipping-option">
+                    <label class="shipping-radio">
+                      <input type="radio" name="shipping" value="express" />
+                      <span class="radio-custom"></span>
+                      <span class="shipping-label">Giao hàng nhanh</span>
+                      <span class="shipping-price">60.000₫</span>
+                    </label>
+                    <div class="shipping-desc">Nhận hàng trong 1-2 ngày</div>
+                  </div>
+                </div>
+
+                <!-- Coupon Code -->
+                <div class="coupon-code">
+                  <h3 class="coupon-title">Mã giảm giá:</h3>
+                  <div class="coupon-form">
+                    <input
+                      type="text"
+                      class="coupon-input"
+                      placeholder="Nhập mã giảm giá"
+                    />
+                    <button class="apply-coupon-btn">Áp dụng</button>
+                  </div>
+                </div>
+
+                <!-- Total -->
+                <div class="summary-row total-row">
+                  <div class="summary-label">Tổng cộng:</div>
+                  <div class="summary-value" id="cartTotal">5.370.000₫</div>
+                </div>
+
+                <!-- Checkout Button -->
+                <a href="checkout.html" class="checkout-btn">
+                  Tiến hành thanh toán <i class="fas fa-arrow-right"></i>
+                </a>
+
+                <!-- Payment Methods -->
+                <div class="payment-methods">
+                  <div class="payment-title">Chúng tôi chấp nhận:</div>
+                  <div class="payment-icons">
+                    <img
+                      src="/placeholder.svg?height=30&width=200"
+                      alt="Phương thức thanh toán"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Empty Cart State (hidden by default) -->
+          <div class="empty-cart" id="emptyCart" style="display: none">
+            <div class="empty-cart-icon">
+              <i class="fas fa-shopping-cart"></i>
+            </div>
+            <h2 class="empty-cart-title">Giỏ hàng của bạn đang trống</h2>
+            <p class="empty-cart-text">
+              Hãy thêm sản phẩm vào giỏ hàng để tiến hành mua sắm.
+            </p>
+            <a href="products.html" class="empty-cart-btn">Tiếp tục mua sắm</a>
+          </div>
+
+          <!-- You May Also Like -->
+          <div class="you-may-like">
+            <h2 class="section-title">Có thể bạn cũng thích</h2>
+            <div class="products-grid">
+              <!-- Product Item 1 -->
+              <div class="product-item">
+                <div class="product-card">
+                  <div class="product-badge new">Mới</div>
+                  <div class="product-image">
+                    <a href="product-detail.html">
+                      <img
+                        src="/placeholder.svg?height=300&width=300"
+                        alt="Giày tây nam Arrowwai Premium"
+                      />
+                    </a>
+                    <div class="product-actions">
+                      <button class="quick-view-btn" title="Xem nhanh">
+                        <i class="fas fa-eye"></i>
+                      </button>
+                      <button
+                        class="add-to-wishlist-btn"
+                        title="Thêm vào yêu thích"
+                      >
+                        <i class="far fa-heart"></i>
+                      </button>
+                      <button class="add-to-cart-btn" title="Thêm vào giỏ hàng">
+                        <i class="fas fa-shopping-bag"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="product-info">
+                    <h3 class="product-title">
+                      <a href="product-detail.html"
+                        >Giày tây nam Arrowwai Premium</a
+                      >
+                    </h3>
+                    <div class="product-price">
+                      <span class="current-price">2.790.000₫</span>
+                      <span class="old-price">3.290.000₫</span>
+                    </div>
+                    <div class="product-colors">
+                      <span
+                        class="color-swatch"
+                        style="background-color: #800020"
+                        title="Nâu đỏ"
+                      ></span>
+                      <span
+                        class="color-swatch"
+                        style="background-color: #000"
+                        title="Đen"
+                      ></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Product Item 2 -->
+              <div class="product-item">
+                <div class="product-card">
+                  <div class="product-image">
+                    <a href="product-detail.html">
+                      <img
+                        src="/placeholder.svg?height=300&width=300"
+                        alt="Giày boots nam Arrowwai Vintage"
+                      />
+                    </a>
+                    <div class="product-actions">
+                      <button class="quick-view-btn" title="Xem nhanh">
+                        <i class="fas fa-eye"></i>
+                      </button>
+                      <button
+                        class="add-to-wishlist-btn"
+                        title="Thêm vào yêu thích"
+                      >
+                        <i class="far fa-heart"></i>
+                      </button>
+                      <button class="add-to-cart-btn" title="Thêm vào giỏ hàng">
+                        <i class="fas fa-shopping-bag"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="product-info">
+                    <h3 class="product-title">
+                      <a href="product-detail.html"
+                        >Giày boots nam Arrowwai Vintage</a
+                      >
+                    </h3>
+                    <div class="product-price">
+                      <span class="current-price">2.890.000₫</span>
+                    </div>
+                    <div class="product-colors">
+                      <span
+                        class="color-swatch"
+                        style="background-color: #5d4037"
+                        title="Nâu"
+                      ></span>
+                      <span
+                        class="color-swatch"
+                        style="background-color: #000"
+                        title="Đen"
+                      ></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Product Item 3 -->
+              <div class="product-item">
+                <div class="product-card">
+                  <div class="product-badge bestseller">Bán chạy</div>
+                  <div class="product-image">
+                    <a href="product-detail.html">
+                      <img
+                        src="/placeholder.svg?height=300&width=300"
+                        alt="Ví da nam Arrowwai Elegance"
+                      />
+                    </a>
+                    <div class="product-actions">
+                      <button class="quick-view-btn" title="Xem nhanh">
+                        <i class="fas fa-eye"></i>
+                      </button>
+                      <button
+                        class="add-to-wishlist-btn"
+                        title="Thêm vào yêu thích"
+                      >
+                        <i class="far fa-heart"></i>
+                      </button>
+                      <button class="add-to-cart-btn" title="Thêm vào giỏ hàng">
+                        <i class="fas fa-shopping-bag"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="product-info">
+                    <h3 class="product-title">
+                      <a href="product-detail.html"
+                        >Ví da nam Arrowwai Elegance</a
+                      >
+                    </h3>
+                    <div class="product-price">
+                      <span class="current-price">790.000₫</span>
+                    </div>
+                    <div class="product-colors">
+                      <span
+                        class="color-swatch"
+                        style="background-color: #000"
+                        title="Đen"
+                      ></span>
+                      <span
+                        class="color-swatch"
+                        style="background-color: #5d4037"
+                        title="Nâu"
+                      ></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Product Item 4 -->
+              <div class="product-item">
+                <div class="product-card">
+                  <div class="product-image">
+                    <a href="product-detail.html">
+                      <img
+                        src="/placeholder.svg?height=300&width=300"
+                        alt="Giày sneaker nam Arrowwai Urban"
+                      />
+                    </a>
+                    <div class="product-actions">
+                      <button class="quick-view-btn" title="Xem nhanh">
+                        <i class="fas fa-eye"></i>
+                      </button>
+                      <button
+                        class="add-to-wishlist-btn"
+                        title="Thêm vào yêu thích"
+                      >
+                        <i class="far fa-heart"></i>
+                      </button>
+                      <button class="add-to-cart-btn" title="Thêm vào giỏ hàng">
+                        <i class="fas fa-shopping-bag"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="product-info">
+                    <h3 class="product-title">
+                      <a href="product-detail.html"
+                        >Giày sneaker nam Arrowwai Urban</a
+                      >
+                    </h3>
+                    <div class="product-price">
+                      <span class="current-price">1.790.000₫</span>
+                    </div>
+                    <div class="product-colors">
+                      <span
+                        class="color-swatch"
+                        style="background-color: #000080"
+                        title="Xanh navy"
+                      ></span>
+                      <span
+                        class="color-swatch"
+                        style="background-color: #000"
+                        title="Đen"
+                      ></span>
+                      <span
+                        class="color-swatch"
+                        style="background-color: #808080"
+                        title="Xám"
+                      ></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-column">
+            <div class="footer-logo">
+              <img
+                src="/placeholder.svg?height=60&width=150"
+                alt="Arrowwai Logo"
+              />
+            </div>
+            <p class="footer-description">
+              Arrowwai - Thương hiệu giày da nam cao cấp, mang đến phong cách
+              lịch lãm và đẳng cấp cho quý ông Việt.
+            </p>
+            <div class="footer-contact">
+              <p>
+                <i class="fas fa-map-marker-alt"></i> 123 Nguyễn Trãi, Quận 1,
+                TP. Hồ Chí Minh
+              </p>
+              <p><i class="fas fa-phone"></i> 1900 4510</p>
+              <p><i class="fas fa-envelope"></i> cskh@mulgati.com</p>
+            </div>
+          </div>
+
+          <div class="footer-column">
+            <h3 class="footer-title">CHÍNH SÁCH</h3>
+            <ul class="footer-links">
+              <li><a href="#">Chính sách bảo hành</a></li>
+              <li><a href="#">Chính sách đổi trả</a></li>
+              <li><a href="#">Chính sách vận chuyển</a></li>
+              <li><a href="#">Chính sách thanh toán</a></li>
+              <li><a href="#">Chính sách bảo mật</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-column">
+            <h3 class="footer-title">THÔNG TIN</h3>
+            <ul class="footer-links">
+              <li><a href="#">Giới thiệu</a></li>
+              <li><a href="#">Tin tức</a></li>
+              <li><a href="#">Tuyển dụng</a></li>
+              <li><a href="#">Hệ thống cửa hàng</a></li>
+              <li><a href="#">Liên hệ</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-column">
+            <h3 class="footer-title">ĐĂNG KÝ NHẬN TIN</h3>
+            <p class="newsletter-text">
+              Đăng ký nhận bản tin để cập nhật những sản phẩm mới, nhận thông
+              tin ưu đãi đặc biệt và thông tin giảm giá khác.
+            </p>
+            <form class="newsletter-form">
+              <input
+                type="email"
+                placeholder="Nhập email của bạn"
+                class="newsletter-input"
+              />
+              <button type="submit" class="newsletter-button">ĐĂNG KÝ</button>
+            </form>
+            <div class="social-links">
+              <a href="#" class="social-link"
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+              <a href="#" class="social-link"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+              <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p class="copyright">
+            © 2023 Arrowwai. Tất cả các quyền được bảo lưu.
+          </p>
+          <div class="payment-methods">
+            <img
+              src="/placeholder.svg?height=30&width=200"
+              alt="Phương thức thanh toán"
+            />
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Remove Item Confirmation Modal -->
+    <div class="modal" id="removeItemModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Xác nhận xóa</h3>
+          <button class="modal-close" id="removeItemClose">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Bạn có chắc chắn muốn xóa sản phẩm này khỏi giỏ hàng?</p>
+          <div class="modal-actions">
+            <button class="cancel-btn" id="cancelRemoveBtn">Hủy</button>
+            <button class="confirm-btn" id="confirmRemoveBtn">Xác nhận</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Clear Cart Confirmation Modal -->
+    <div class="modal" id="clearCartModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Xác nhận xóa giỏ hàng</h3>
+          <button class="modal-close" id="clearCartClose">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Bạn có chắc chắn muốn xóa tất cả sản phẩm khỏi giỏ hàng?</p>
+          <div class="modal-actions">
+            <button class="cancel-btn" id="cancelClearBtn">Hủy</button>
+            <button class="confirm-btn" id="confirmClearBtn">Xác nhận</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Overlay -->
+    <div class="modal-overlay"></div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Mobile Menu Toggle
+        const mobileMenuToggle = document.querySelector(".mobile-menu-toggle");
+        const mobileMenuClose = document.querySelector(".mobile-menu-close");
+        const mobileMenu = document.querySelector(".mobile-menu");
+        const overlay = document.querySelector(".mobile-menu-overlay");
+        const body = document.body;
+
+        // Open mobile menu
+        mobileMenuToggle.addEventListener("click", function () {
+          mobileMenu.classList.add("active");
+          overlay.classList.add("active");
+          body.classList.add("menu-open");
+        });
+
+        // Close mobile menu
+        function closeMenu() {
+          mobileMenu.classList.remove("active");
+          overlay.classList.remove("active");
+          body.classList.remove("menu-open");
+        }
+
+        mobileMenuClose.addEventListener("click", closeMenu);
+        overlay.addEventListener("click", closeMenu);
+
+        // Mobile dropdown toggles
+        const mobileDropdownToggles = document.querySelectorAll(
+          ".mobile-dropdown-toggle"
+        );
+
+        mobileDropdownToggles.forEach((toggle) => {
+          toggle.addEventListener("click", function (e) {
+            e.preventDefault();
+            const parent = this.parentElement;
+
+            // Close other open dropdowns
+            document
+              .querySelectorAll(".mobile-dropdown.active")
+              .forEach((item) => {
+                if (item !== parent) {
+                  item.classList.remove("active");
+                }
+              });
+
+            // Toggle current dropdown
+            parent.classList.toggle("active");
+          });
+        });
+
+        // User Dropdown Toggle
+        const userDropdownToggle = document.querySelector(
+          ".user-dropdown-toggle"
+        );
+        const userDropdown = document.querySelector(".user-dropdown");
+
+        userDropdownToggle.addEventListener("click", function (e) {
+          e.stopPropagation();
+          userDropdown.classList.toggle("active");
+
+          // Close search dropdown if open
+          searchDropdown.classList.remove("active");
+          searchOverlay.classList.remove("active");
+        });
+
+        // Search Dropdown Toggle
+        const searchIconBtn = document.querySelector(".search-icon-btn");
+        const searchDropdown = document.querySelector(".search-dropdown");
+        const searchOverlay = document.querySelector(".search-overlay");
+        const searchInput = document.querySelector(".search-input");
+
+        searchIconBtn.addEventListener("click", function (e) {
+          e.stopPropagation();
+          searchDropdown.classList.toggle("active");
+          searchOverlay.classList.toggle("active");
+
+          // Focus the search input when opening
+          if (searchDropdown.classList.contains("active")) {
+            setTimeout(() => {
+              searchInput.focus();
+            }, 100);
+          }
+
+          // Close user dropdown if open
+          userDropdown.classList.remove("active");
+        });
+
+        // Close search dropdown when clicking on overlay
+        searchOverlay.addEventListener("click", function () {
+          searchDropdown.classList.remove("active");
+          searchOverlay.classList.remove("active");
+        });
+
+        // Close dropdowns when clicking outside
+        document.addEventListener("click", function (e) {
+          if (!userDropdown.contains(e.target)) {
+            userDropdown.classList.remove("active");
+          }
+
+          if (!searchDropdown.contains(e.target)) {
+            searchDropdown.classList.remove("active");
+            searchOverlay.classList.remove("active");
+          }
+        });
+
+        // Cart Functionality
+        const quantityInputs = document.querySelectorAll(".quantity-input");
+        const minusBtns = document.querySelectorAll(".quantity-btn.minus");
+        const plusBtns = document.querySelectorAll(".quantity-btn.plus");
+        const removeItemBtns = document.querySelectorAll(".remove-item-btn");
+        const updateCartBtn = document.getElementById("updateCartBtn");
+        const clearCartBtn = document.getElementById("clearCartBtn");
+        const cartContent = document.getElementById("cartContent");
+        const emptyCart = document.getElementById("emptyCart");
+
+        // Quantity Selectors
+        minusBtns.forEach((btn) => {
+          btn.addEventListener("click", function () {
+            const id = this.getAttribute("data-id");
+            const input = document.querySelector(
+              `.quantity-input[data-id="${id}"]`
+            );
+            let value = parseInt(input.value);
+
+            if (value > 1) {
+              input.value = value - 1;
+              updateItemSubtotal(id);
+            }
+          });
+        });
+
+        plusBtns.forEach((btn) => {
+          btn.addEventListener("click", function () {
+            const id = this.getAttribute("data-id");
+            const input = document.querySelector(
+              `.quantity-input[data-id="${id}"]`
+            );
+            let value = parseInt(input.value);
+
+            if (value < 10) {
+              input.value = value + 1;
+              updateItemSubtotal(id);
+            }
+          });
+        });
+
+        quantityInputs.forEach((input) => {
+          input.addEventListener("change", function () {
+            const id = this.getAttribute("data-id");
+            let value = parseInt(this.value);
+
+            if (isNaN(value) || value < 1) {
+              this.value = 1;
+            } else if (value > 10) {
+              this.value = 10;
+            }
+
+            updateItemSubtotal(id);
+          });
+        });
+
+        // Update item subtotal
+        function updateItemSubtotal(id) {
+          const item = document.querySelector(`.cart-item[data-id="${id}"]`);
+          const priceText = item.querySelector(".cart-item-price").textContent;
+          const price = parseFloat(priceText.replace(/[^\d]/g, ""));
+          const quantity = parseInt(
+            item.querySelector(".quantity-input").value
+          );
+          const subtotal = price * quantity;
+
+          item.querySelector(".cart-item-subtotal").textContent =
+            formatCurrency(subtotal);
+
+          updateCartTotal();
+        }
+
+        // Update cart total
+        function updateCartTotal() {
+          let subtotal = 0;
+          const subtotalElements = document.querySelectorAll(
+            ".cart-item-subtotal"
+          );
+
+          subtotalElements.forEach((element) => {
+            const itemSubtotal = parseFloat(
+              element.textContent.replace(/[^\d]/g, "")
+            );
+            subtotal += itemSubtotal;
+          });
+
+          document.getElementById("cartSubtotal").textContent =
+            formatCurrency(subtotal);
+
+          // Get shipping cost
+          const selectedShipping = document.querySelector(
+            'input[name="shipping"]:checked'
+          );
+          let shippingCost = 0;
+
+          if (selectedShipping) {
+            const shippingPriceText = selectedShipping
+              .closest(".shipping-option")
+              .querySelector(".shipping-price").textContent;
+            shippingCost =
+              parseFloat(shippingPriceText.replace(/[^\d]/g, "")) || 0;
+          }
+
+          // Calculate total
+          const total = subtotal + shippingCost;
+          document.getElementById("cartTotal").textContent =
+            formatCurrency(total);
+        }
+
+        // Format currency
+        function formatCurrency(amount) {
+          return (
+            new Intl.NumberFormat("vi-VN", {
+              style: "currency",
+              currency: "VND",
+              maximumFractionDigits: 0,
+            })
+              .format(amount)
+              .replace("₫", "") + "₫"
+          );
+        }
+
+        // Shipping options
+        const shippingOptions = document.querySelectorAll(
+          'input[name="shipping"]'
+        );
+
+        shippingOptions.forEach((option) => {
+          option.addEventListener("change", function () {
+            updateCartTotal();
+          });
+        });
+
+        // Coupon code
+        const couponForm = document.querySelector(".coupon-form");
+        const couponInput = document.querySelector(".coupon-input");
+        const applyCouponBtn = document.querySelector(".apply-coupon-btn");
+
+        applyCouponBtn.addEventListener("click", function () {
+          const couponCode = couponInput.value.trim();
+
+          if (couponCode === "") {
+            alert("Vui lòng nhập mã giảm giá!");
+            return;
+          }
+
+          // Demo coupon code: MULGATI10
+          if (couponCode.toUpperCase() === "MULGATI10") {
+            alert(
+              "Áp dụng mã giảm giá thành công! Bạn được giảm 10% tổng đơn hàng."
+            );
+            // In a real implementation, you would apply the discount to the total
+          } else {
+            alert("Mã giảm giá không hợp lệ hoặc đã hết hạn!");
+          }
+        });
+
+        // Update Cart Button
+        updateCartBtn.addEventListener("click", function () {
+          alert("Giỏ hàng đã được cập nhật!");
+        });
+
+        // Remove Item Modal
+        const removeItemModal = document.getElementById("removeItemModal");
+        const removeItemClose = document.getElementById("removeItemClose");
+        const cancelRemoveBtn = document.getElementById("cancelRemoveBtn");
+        const confirmRemoveBtn = document.getElementById("confirmRemoveBtn");
+        const modalOverlay = document.querySelector(".modal-overlay");
+
+        let itemToRemove = null;
+
+        removeItemBtns.forEach((btn) => {
+          btn.addEventListener("click", function () {
+            itemToRemove = this.getAttribute("data-id");
+            removeItemModal.classList.add("active");
+            modalOverlay.classList.add("active");
+            body.classList.add("modal-open");
+          });
+        });
+
+        function closeRemoveModal() {
+          removeItemModal.classList.remove("active");
+          modalOverlay.classList.remove("active");
+          body.classList.remove("modal-open");
+          itemToRemove = null;
+        }
+
+        removeItemClose.addEventListener("click", closeRemoveModal);
+        cancelRemoveBtn.addEventListener("click", closeRemoveModal);
+
+        confirmRemoveBtn.addEventListener("click", function () {
+          if (itemToRemove) {
+            const item = document.querySelector(
+              `.cart-item[data-id="${itemToRemove}"]`
+            );
+            item.remove();
+
+            // Update cart count
+            const cartCount = document.querySelector(".cart-count");
+            cartCount.textContent = parseInt(cartCount.textContent) - 1;
+
+            // Update cart total
+            updateCartTotal();
+
+            // Check if cart is empty
+            const cartItems = document.querySelectorAll(".cart-item");
+            if (cartItems.length === 0) {
+              showEmptyCart();
+            }
+          }
+
+          closeRemoveModal();
+        });
+
+        // Clear Cart Modal
+        const clearCartModal = document.getElementById("clearCartModal");
+        const clearCartClose = document.getElementById("clearCartClose");
+        const cancelClearBtn = document.getElementById("cancelClearBtn");
+        const confirmClearBtn = document.getElementById("confirmClearBtn");
+
+        clearCartBtn.addEventListener("click", function () {
+          clearCartModal.classList.add("active");
+          modalOverlay.classList.add("active");
+          body.classList.add("modal-open");
+        });
+
+        function closeClearModal() {
+          clearCartModal.classList.remove("active");
+          modalOverlay.classList.remove("active");
+          body.classList.remove("modal-open");
+        }
+
+        clearCartClose.addEventListener("click", closeClearModal);
+        cancelClearBtn.addEventListener("click", closeClearModal);
+
+        confirmClearBtn.addEventListener("click", function () {
+          // Remove all cart items
+          const cartItems = document.querySelectorAll(".cart-item");
+          cartItems.forEach((item) => {
+            item.remove();
+          });
+
+          // Update cart count
+          const cartCount = document.querySelector(".cart-count");
+          cartCount.textContent = "0";
+
+          // Show empty cart
+          showEmptyCart();
+
+          closeClearModal();
+        });
+
+        // Show empty cart
+        function showEmptyCart() {
+          cartContent.style.display = "none";
+          emptyCart.style.display = "block";
+        }
+
+        // Close modals when clicking on overlay
+        modalOverlay.addEventListener("click", function () {
+          removeItemModal.classList.remove("active");
+          clearCartModal.classList.remove("active");
+          modalOverlay.classList.remove("active");
+          body.classList.remove("modal-open");
+        });
+      });
+    </script>
+  </body>
+</html>
