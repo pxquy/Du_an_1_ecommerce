@@ -55,6 +55,8 @@ class SigninController
             $_SESSION['user'] = $user;
             require_Login();
             $_SESSION['success_message'] = 'Đăng nhập thành công';
+            $_SESSION['success'] = true;
+            $_SESSION['msg'] = 'Đăng nhập thành công';
 
             header("Location: " . BASE_URL);
             exit();
