@@ -2,6 +2,7 @@
 class UserController
 {
     private $user;
+
     public function __construct()
     {
         $this->user = new User();
@@ -110,6 +111,7 @@ class UserController
             $_SESSION['success'] = false;
             $_SESSION['msg'] = $th->getMessage();
         }
+
         header('Location: ' . BASE_URL_ADMIN . '&action=users-index');
         exit();
     }

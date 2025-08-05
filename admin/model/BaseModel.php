@@ -85,7 +85,7 @@ class BaseModel
         $sql = "INSERT INTO {$this->table} ($column) VALUES ($placeholders)";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute($data);
-        return $data['id'];
+        return $this->pdo->lastInsertId();
     }
 
     public function update($data, $condition = null, $params = [])
