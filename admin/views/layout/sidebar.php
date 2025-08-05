@@ -28,18 +28,6 @@
                             <span class="menu-text">Người dùng</span>
                         </a>
                     </li>
-                    <li class="menu-item <?= $view == 'slideshows/index' ? 'active' : "" ?> ">
-                        <a href="<?= BASE_URL_ADMIN . '&action=slideshows-index' ?>" class="menu-link">
-                            <i class="fa-regular fa-images"></i>
-                            <span class="menu-text">Trình chiếu</span>
-                        </a>
-                    </li>
-                    <li class="menu-item <?= $view == 'banners/index' ? 'active' : "" ?>">
-                        <a href="<?= BASE_URL_ADMIN . '&action=banners-index' ?>" class="menu-link">
-                            <i class="fa-regular fa-image"></i>
-                            <span class="menu-text">banners</span>
-                        </a>
-                    </li>
                     <li class="menu-item <?= $view == 'categories/index' ? 'active' : "" ?> ">
                         <a href="<?= BASE_URL_ADMIN . '&action=categories-index' ?>" class="menu-link">
                             <i class="fa-regular fa-rectangle-list"></i>
@@ -52,18 +40,12 @@
                             <span class="menu-text">Thương hiệu</span>
                         </a>
                     </li>
-                    <li class="menu-item <?= $view == 'vouchers/index' ? 'active' : "" ?>">
+                    <!-- <li class="menu-item <?= $view == 'vouchers/index' ? 'active' : "" ?>">
                         <a href="<?= BASE_URL_ADMIN . '&action=vouchers-index' ?>" class="menu-link">
                             <i class="fa-regular fa-file-powerpoint"></i>
                             <span class="menu-text">Khuyến mãi</span>
                         </a>
-                    </li>
-                    <li class="menu-item <?= $view == 'news/index' ? 'active' : "" ?>">
-                        <a href="<?= BASE_URL_ADMIN . '&action=news-index' ?>" class="menu-link">
-                            <i class="fa-regular fa-file-video"></i>
-                            <span class="menu-text">Tin tức</span>
-                        </a>
-                    </li>
+                    </li> -->
                     <li class="menu-item <?= $view == 'products/index' ? 'active' : "" ?>">
                         <a href="<?= BASE_URL_ADMIN . '&action=products-index' ?>" class="menu-link">
                             <i class="fas fa-shopping-cart"></i>
@@ -76,6 +58,18 @@
                             <span class="menu-text">Đơn hàng</span>
                         </a>
                     </li>
+                    <li class="menu-item">
+                        <a href="<?= BASE_URL ?>" class="menu-link">
+                            <i class="fas fa-file-alt"></i>
+                            <span class="menu-text">Về trang chủ</span>
+                        </a>
+                    </li>
+                    <!-- <li class="menu-item <?= $view == 'variants/index' ? 'active' : "" ?>">
+                        <a href="<?= BASE_URL_ADMIN . '&action=variants-index' ?>" class="menu-link">
+                            <i class="fas fa-file-alt"></i>
+                            <span class="menu-text">Biến thể</span>
+                        </a>
+                    </li> -->
                 </ul>
             </div>
             <div class="menu-group">

@@ -151,3 +151,21 @@ function slugify($string)
 
     return $string;
 }
+
+function dequy($arrays, $index = 0, $current = [], &$result = [])
+{
+    if ($index === count($arrays)) {
+        $result[] = implode('-', $current);
+        return;
+    }
+
+    foreach ($arrays[$index] as $value) {
+        dequy($arrays, $index + 1, array_merge($current, [$value]), $result);
+    }
+
+    return $result;
+}
+
+
+
+

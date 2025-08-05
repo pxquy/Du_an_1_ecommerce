@@ -12,6 +12,7 @@ class Product extends BaseModel
                 p.thumbnail         thumbnail,
                 p.shortDescription  shortDescription,
                 p.priceDefault             priceDefault,
+                p.sku             sku,
                 c.title             categoryTitle,
                 b.title             brandTitle,
                 p.averageRating     rating,
@@ -21,6 +22,7 @@ class Product extends BaseModel
             FROM products p
             JOIN categories c ON p.categoryId = c.id
             JOIN brands b ON p.brandId = b.id
+            
             ORDER BY p.id ASC
         ";
 
@@ -29,36 +31,37 @@ class Product extends BaseModel
         return $stmt->fetchAll();
     }
 
-    public function getVariant($id)
+    public function getDetail($id)
     {
         $sql = 'SELECT 
-                v.id AS variantId,
-                v.imageUrl,
-                v.sku,
-                v.stock,
-                v.price,
-                p.priceDefault AS oldPrice,
-                
-                a.name AS attributeName,
-                av.value AS attributeValue
+                p.id,
+                p.title,
+                p.thumbnail,
+                p.shortDescription,
+                p.description,
+                p.priceDefault,
+                p.discount,
+                p.sku,
+                c.title             categoryTitle,
+                b.title             brandTitle,
+                p.averageRating,
+                p.ratingCount,
+                p.stockTotal,
+                p.seoTitle,
+                p.seoDescription,
+                p.isActive
 
-            FROM variants v
-            JOIN attributes a ON v.attributeId = a.id
-            JOIN attribute_values av ON v.valueId = av.id
-            JOIN products p ON v.productId = p.id
-            WHERE v.productId = :productId';
+            FROM products p
+            JOIN categories c ON p.categoryId = c.id
+            JOIN brands b ON p.brandId = b.id
+            WHERE p.id = :id
+            ORDER BY p.id ASC';
 
         $stmt = $this->pdo->prepare($sql);
-        $stmt->execute(['productId' => $id]);
-        return $stmt->fetchAll();
+        $stmt->execute(['id' => $id]);
+        return $stmt->fetch();
     }
 
-    public function getComment($id)
-    {
-        $sql = 'SELECT
-                v.id AS commentId,
-                
-        ';
-    }
+
 
 }

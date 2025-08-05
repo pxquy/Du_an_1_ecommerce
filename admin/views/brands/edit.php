@@ -21,40 +21,62 @@ if (!empty($_SESSION['errors'])): ?>
 <?php endif; ?>
 
 <form action="<?= BASE_URL_ADMIN . '&action=brands-update&id=' . $brand['id'] ?>" method="post"
-    enctype="multipart/form-data">
+    enctype="multipart/form-data" class="space-y-6 bg-white rounded-md shadow-md p-4">
     <div class="mb-3 mt-3">
-        <label for="title" class="form-label">title:</label>
-        <input type="text" class="form-control" id="title" name="title" value="<?= $brand['title'] ?? null ?>">
+        <h2 class="text-lg font-semibold mb-4">Chi tiết thương hiệu</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+                <label for="title" class="block text-sm font-medium mb-1">Tên Thương Hiệu:</label>
+                <input type="text" class="form-control" id="title" name="title" value="<?= $brand['title'] ?? null ?>">
+            </div>
+            <div class="">
+                <label for="seoTitle" class="block text-sm font-medium mb-1">Seo Title:</label>
+                <input type="text" class="form-control" id="seoTitle" name="seoTitle"
+                    value="<?= $brand['seoTitle'] ?? null ?>">
+            </div>
+            <div class="sm:col-span-2">
+                <label for="description" class="block text-sm font-medium mb-1">Mô tả *:</label>
+                <textarea type="text" class="form-control" id="description" name="description"
+                    value="<?= $brand['description'] ?? null ?>"></textarea>
+                <label for="seoDescription" class="block text-sm font-medium mb-1">Seo Description</label>
+                <textarea type="text" class="form-control" id="seoDescription" name="seoDescription"
+                    value="<?= $brand['seoDescription'] ?? null ?>"></textarea>
+            </div>
+        </div>
     </div>
     <div class="mb-3 mt-3">
-        <label for="description" class="form-label">description:</label>
-        <input type="text" class="form-control" id="description" name="description"
-            value="<?= $brand['description'] ?? null ?>">
+        <label for="isActive" class="block text-sm font-medium mb-1">Trạng thái:</label>
+        <input type="radio" id="disabled" name="isActive" value="0" <?= $brand['isActive'] == 0 ? 'checked' : '' ?>>
+        <label for="disabled">Ngừng Hoạt động</label>
+        <input type="radio" id="active" name="isActive" value="1" <?= $brand['isActive'] == 1 ? 'checked' : '' ?>>
+        <label for="active">Hoạt động</label>
     </div>
     <div class="mb-3 mt-3">
-        <label for="seoTitle" class="form-label">Seo Title:</label>
-        <input type="text" class="form-control" id="seoTitle" name="seoTitle" value="<?= $brand['seoTitle'] ?? null ?>">
+        <h2 class="text-lg font-semibold mb-4">Hình ảnh</h2>
+        <div>
+            <label class="block text-sm font-medium mb-1" for="brandImage">Chọn hình ảnh</label>
+            <input type="file"
+                class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
+                id="logoUrl" name="logoUrl">
+            <?php if (!empty($brand['logoUrl'])): ?>
+                <img src="<?= BASE_ASSETS_UPLOADS . $brand['logoUrl'] ?>" alt="" width="100px">
+            <?php endif ?>
+        </div>
     </div>
-    <div class="mb-3 mt-3">
-        <label for="seoDescription" class="form-label">Seo Description</label>
-        <input type="text" class="form-control" id="seoDescription" name="seoDescription"
-            value="<?= $brand['seoDescription'] ?? null ?>">
+    <div class="flex justify-end gap-4">
+        <a href="<?= BASE_URL_ADMIN . '&action=brands-index' ?>"
+            class="px-4 py-2 text-sm rounded-md border border-gray-300 hover:bg-gray-100 no-un">
+            Quay lại
+        </a>
+        <button type="submit" class="px-4 py-2 text-sm rounded bg-indigo-600 text-white hover:bg-indigo-700">
+            Lưu thương hiệu
+        </button>
     </div>
-    <div class="mb-3 mt-3">
-        <label for="isActive" class="form-label">is Active:</label>
-        <input type="radio" id="disabled" name="isActive" value="0">
-        <label for="disabled">disabled</label>
-        <input type="radio" id="active" name="isActive" value="1">
-        <label for="active">active</label>
-    </div>
-    <div class="mb-3 mt-3">
-        <label for="logoUrl" class="form-label">Logo:</label>
-        <input type="file" class="form-control" id="logoUrl" name="logoUrl">
-        <?php if (!empty($brand['logoUrl'])): ?>
-            <img src="<?= BASE_ASSETS_UPLOADS . $brand['logoUrl'] ?>" alt="" width="100px">
-        <?php endif ?>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-
-    <a href="<?= BASE_URL_ADMIN . '&action=brands-index' ?>" class="btn btn-secondary">Quay lai</a>
 </form>
+
+<style>
+    a {
+        text-decoration: none;
+        color: gray;
+    }
+</style>

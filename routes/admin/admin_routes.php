@@ -13,6 +13,8 @@ match ($action) {
     'users-edit' => (new UserController)->edit(), //hiển thị form cập nhật theo ID
     'users-update' => (new UserController)->update(), //lưu dữ liệu cập nhật theo ID
     'users-delete' => (new UserController)->delete(), //Xóa dữ liệu theo ID
+    'users-softDelete' => (new UserController)->softDelete(), //Xóa dữ liệu theo ID
+    'users-restore' => (new UserController)->restore(), //Xóa dữ liệu theo ID
 
     //CRUD brands
     'brands-index' => (new BrandController)->index(), //hiển thị danh sách
@@ -74,5 +76,9 @@ match ($action) {
     'variants-update' => (new VariantController)->update(), //lưu dữ liệu cập nhật theo ID
     'variants-delete' => (new VariantController)->delete(), //Xóa dữ liệu theo ID
 
-
+    //order
+    'orders-index' => (new OrderController)->index(),
+    'orders-show' => (new OrderController)->show(),
+    'orders-updateStatus' => (new OrderController)->updateStatus(),
+    'orders-softDelete' => (new OrderController)->softDelete()
 };

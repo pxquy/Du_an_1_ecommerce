@@ -14,30 +14,21 @@ if (isset($_SESSION['success'])) {
 <table class="table">
     <tr>
         <th class="text-uppercase">ID</th>
-        <th class="text-uppercase">imageUrl</th>
         <th class="text-uppercase">product</th>
-        <th class="text-uppercase">attribute</th>
-        <th class="text-uppercase">value</th>
         <th class="text-uppercase">stock</th>
         <th class="text-uppercase">price</th>
-        <th class="text-uppercase">oldPrice</th>
-        <th class="text-uppercase">sku</th>
+        <th class="text-uppercase">action</th>
     </tr>
     <?php foreach ($data as $variants): ?>
         <tr>
             <td><?= $variants['id'] ?></td>
-            <td><?= $variants['imageUrl'] ?></td>
             <td><?= $variants['productTitle'] ?></td>
-            <td><?= $variants['attributeName'] ?></td>
-            <td><?= $variants['attributeValue'] ?></td>
             <td><?= $variants['stock'] ?></td>
             <td><?= $variants['price'] ?></td>
-            <td><?= $variants['oldPrice'] ?></td>
-            <td><?= $variants['SKU'] ?></td>
             <td>
                 <a href="<?= BASE_URL_ADMIN . '&action=variants-show&id=' . $variants['id'] ?>" class="btn btn-info">Xem
                     chi tiet</a>
-                <a href="<?= BASE_URL_ADMIN . '&action=variants-edit&id=' . $variants['id'] ?>"
+                <a href="<?= BASE_URL_ADMIN . '&action=variants-edit&id=' . $variants['id'] . '&productId=' . $variants['productId'] ?>"
                     class="btn btn-warning ms-3 me-3">Sua</a>
                 <a href="<?= BASE_URL_ADMIN . '&action=variants-delete&id=' . $variants['id'] ?>"
                     onclick="return confirm('co chac xoa khong?')" class="btn btn-danger">Xoa</a>

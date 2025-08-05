@@ -12,7 +12,10 @@
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="./admin/views/layout/dashboards.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link rel="stylesheet" href="./admin/views/<?= $view . ".css" ?>">
+    <script src="./admin/views/layout/dashboards.js"></script>
 </head>
 
 <body>
@@ -26,9 +29,7 @@
             <div class="dashboard">
                 <div class="dashboard-header">
                     <h1 class="dashboard-title"><?= $title ?? 'Admin Dashboard' ?></h1>
-                    <p class="dashboard-description">
-                        <?= $description ?? 'Chào mừng bạn trở lại! Dưới đây là tổng quan về bảng điều khiển
-              quản trị của bạn.' ?>
+
                     </p>
 
                     <?php

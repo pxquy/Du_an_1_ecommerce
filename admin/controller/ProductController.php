@@ -1,264 +1,346 @@
 <?php
 class ProductController
 {
-    private $product, $brand, $category, $variant, $attribute, $attributeValue;
-
+    private $product, $productImages, $brand, $category, $variant, $variantValue, $attribute, $attributeValue;
 
     public function __construct()
     {
-        $this->product = new product();
+        $this->product = new Product();
+        $this->productImages = new ProductImage();
         $this->brand = new Brand();
         $this->category = new Category();
         $this->variant = new Variant();
-        $this->attribute = new attribute();
+        $this->attribute = new Attribute();
         $this->attributeValue = new AttributeValue();
+        $this->variantValue = new VariantValue();
     }
+
+    private function validateProductData($data)
+    {
+        $errors = [];
+
+        if (empty($data['title']) || strlen($data['title']) > 50) {
+            $errors['title'] = "Tiêu đề là bắt buộc, tối đa 50 ký tự.";
+        }
+
+        if (!empty($data['shortDescription']) && strlen($data['shortDescription']) > 255) {
+            $errors['shortDescription'] = "Mô tả ngắn tối đa 255 ký tự.";
+        }
+
+        if (isset($data['priceDefault']) && !is_numeric($data['priceDefault'])) {
+            $errors['priceDefault'] = "Giá sản phẩm phải là số.";
+        }
+
+        if (empty($data['categoryId'])) {
+            $errors['categoryId'] = "Danh mục là bắt buộc.";
+        }
+
+        if (empty($data['brandId'])) {
+            $errors['brandId'] = "Thương hiệu là bắt buộc.";
+        }
+
+        if (!empty($data['thumbnail']['name'])) {
+            $thumb = $data['thumbnail'];
+
+            if ($thumb['size'] > 2 * 1024 * 1024) {
+                $errors['thumbnail_size'] = "Ảnh đại diện vượt quá 2MB.";
+            }
+
+            $allowedTypes = ['image/jpg', 'image/jpeg', 'image/png', 'image/gif'];
+            if (!in_array($thumb['type'], $allowedTypes)) {
+                $errors['thumbnail_type'] = "Chỉ chấp nhận định dạng JPG, JPEG, PNG, GIF.";
+            }
+        }
+
+        return $errors;
+    }
+
     public function index()
     {
+        $title = 'Danh sách sản phẩm';
         $view = 'products/index';
-        $title = 'Danh sách product';
-        $data = $this->product->getAll();
-        // debug($data);
+
+        $brands = $this->brand->select();
+        $categories = $this->category->select();
+
+        $page = $_GET['page'] ?? 1;
+        $perPage = $_GET['perPage'] ?? 10;
+
+        $keyword = $_GET['search'] ?? null;
+        $categoryId = $_GET['category'] ?? null;
+        $brandId = $_GET['brand'] ?? null;
+        $sort = $_GET['sort'] ?? null; // asc | desc
+
+        $condition = '1=1 AND deletedAt IS NULL'; // chỉ lấy sản phẩm chưa xóa mềm
+        $params = [];
+
+        if ($keyword) {
+            $condition .= ' AND title LIKE :keyword';
+            $params['keyword'] = '%' . $keyword . '%';
+        }
+
+        if ($categoryId) {
+            $condition .= ' AND categoryId = :categoryId';
+            $params['categoryId'] = $categoryId;
+        }
+
+        if ($brandId) {
+            $condition .= ' AND brandId = :brandId';
+            $params['brandId'] = $brandId;
+        }
+
+        // Xử lý sắp xếp
+        $orderBy = '';
+        if ($sort === 'asc') {
+            $orderBy = ' ORDER BY priceDefault ASC';
+        } elseif ($sort === 'desc') {
+            $orderBy = ' ORDER BY priceDefault DESC';
+        }
+
+        // Lấy tổng sản phẩm trước khi phân trang
+        $total = $this->product->count($condition, $params);
+
+        // Truy vấn có phân trang và sắp xếp
+        $data = $this->product->paginate($page, $perPage, '*', $condition . $orderBy, $params);
+
+        // Trả về JSON nếu là AJAX
+        if (!empty($_GET['ajax'])) {
+            echo json_encode([
+                'data' => $data,
+                'total' => $total,
+                'page' => $page,
+                'perPage' => $perPage,
+            ]);
+            exit;
+        }
+
+        // Nếu không phải ajax thì trả về view bình thường
         require_once PATH_VIEW_ADMIN_MAIN;
     }
+
+
+
     public function show()
     {
         try {
             if (!isset($_GET['id'])) {
-                throw new Exception('thieu "id"', 99);
+                throw new Exception('Thiếu tham số ID', 99);
             }
 
             $id = $_GET['id'];
-
-            $product = $this->product->find('*', 'id = :id', ['id' => $id]);
-
-            $productVariants = $this->product->getVariant($id);
-            if (empty($product)) {
-                throw new Exception("product co ID = $id khong ton tai!");
+            $productDetail = $this->product->getDetail($id);
+            if (empty($productDetail)) {
+                throw new Exception("Sản phẩm có ID = $id không tồn tại!");
             }
 
+            $productImages = $this->productImages->select('*', 'productId = :productId', ['productId' => $id]);
+            $variants = $this->variant->select('*', 'productId = :productId', ['productId' => $id]);
+            foreach ($variants as &$variant) {
+                $variantValues = $this->variantValue->getValuesByVariantId($variant['id']);
+                foreach ($variantValues as $variantValue) {
+                    $variant[$variantValue['name']] = $variantValue['value'];
+                }
+            }
+            unset($variant);
+
+            $productDetail['variants'] = $variants;
+
             $view = 'products/show';
-
-            $title = "Chi tiet product co Id = $id";
-
+            $title = "Chi tiết sản phẩm: " . $productDetail['title'];
             require_once PATH_VIEW_ADMIN_MAIN;
 
         } catch (\Throwable $th) {
             $_SESSION['success'] = false;
             $_SESSION['msg'] = $th->getMessage();
-
             header('Location: ' . BASE_URL_ADMIN . '&action=products-index');
             exit();
         }
     }
+
     public function create()
     {
         $view = 'products/create';
-        $title = 'Them moi product';
+        $title = 'Thêm mới sản phẩm';
         $categories = $this->category->select();
         $brands = $this->brand->select();
         $categoryPluck = array_column($categories, 'title', 'id');
         $brandPluck = array_column($brands, 'title', 'id');
         require_once PATH_VIEW_ADMIN_MAIN;
     }
+
     public function store()
     {
         try {
             if ($_SERVER['REQUEST_METHOD'] != 'POST') {
-                throw new Exception();
+                throw new Exception('Phương thức không hợp lệ');
             }
 
-            $data = $_POST + $_FILES;
+            $data = $_POST;
+            $data['thumbnail'] = $_FILES['thumbnail'];
 
-            $_SESSION['errors'] = [];
+            $_SESSION['errors'] = $this->validateProductData($data);
+            $data['slug'] = slugify($data['title']);
 
-            if (empty($data['title']) || strlen($data['title']) > 50) {
-                $_SESSION['errors']['title'] = "title bắt buộc và độ dài dưới 50 ký tự. ";
-            }
-
-            $data['priceDefault'] = isset($data['priceDefault']) && is_numeric($data['priceDefault']) ? $data['priceDefault'] : null;
-            $data['discountPercentage'] = isset($data['discountPercentage']) && is_numeric($data['discountPercentage']) ? $data['discountPercentage'] : null;
-
-            if (isset($data['thumbnail']) && $data['thumbnail']['size'] > 0) {
-
-                if ($data['thumbnail']['size'] > 2 * 1024 * 1024) {
-                    $_SESSION['errors']['thumbnail_size'] = 'Truong thumbnail co dung luong toi da 2MB';
-                }
-
-                $fileType = $data['thumbnail']['type'];
-                $allowedType = ['image/jpg', 'image/jpeg', 'image/png', 'image/gif'];
-                if (!in_array($fileType, $allowedType)) {
-                    $_SESSION['errors']['thumbnail_type'] = "xin loi chi chap nhan cac loai file JPG, JPEG, PNG, GIF. ";
-                }
+            if (!empty($this->product->find('*', 'slug = :slug', ['slug' => $data['slug']]))) {
+                $_SESSION['errors']['slug'] = 'Tên sản phẩm đã tồn tại.';
             }
 
             if (!empty($_SESSION['errors'])) {
                 $_SESSION['data'] = $data;
-                throw new Exception('Du lieu loi');
+                throw new Exception('Dữ liệu không hợp lệ');
             }
 
-            if ($data['thumbnail']['size'] > 0) {
-                $data['thumbnail'] = upload_file('products', $data['thumbnail']);
-            } else {
-                $data['thumbnail'] = null;
-            }
-
-            $data['slug'] = slugify($data['title']);
-
-            if (
-                !empty(
-                $this->product->find(
-                    '*',
-                    'slug = :slug',
-                    [
-                        'slug' => $data['slug']
-                    ]
-                )
-            )
-            ) {
-                $_SESSION['errors']['slug'] = 'Tên sản phẩm đã tồn tại.';
-            }
-
+            $data['thumbnail'] = $data['thumbnail']['size'] > 0 ? upload_file('products', $data['thumbnail']) : null;
             $rowCount = $this->product->insert($data);
 
-            if ($rowCount > 0) {
-                $_SESSION['success'] = true;
-                $_SESSION['msg'] = 'Thao tac thanh cong';
-            } else {
-                throw new Exception('Thao tac khong thanh cong');
+            $allowedType = ['image/jpg', 'image/jpeg', 'image/png', 'image/gif'];
+            if (isset($_FILES['images'])) {
+                foreach ($_FILES['images']['name'] as $i => $name) {
+                    $image = [
+                        'name' => $name,
+                        'full_path' => $_FILES['images']['full_path'][$i],
+                        'type' => $_FILES['images']['type'][$i],
+                        'tmp_name' => $_FILES['images']['tmp_name'][$i],
+                        'error' => $_FILES['images']['error'][$i],
+                        'size' => $_FILES['images']['size'][$i]
+                    ];
+
+                    if ($image['error'] !== 0 || !in_array($image['type'], $allowedType) || $image['size'] > 2 * 1024 * 1024) {
+                        $_SESSION['errors']['images'][$i] = 'Ảnh ' . ($i + 1) . ' không hợp lệ.';
+                        continue;
+                    }
+
+                    $imageUrl = upload_file('products', $image);
+                    if ($imageUrl) {
+                        $this->productImages->insert([
+                            'productId' => $rowCount,
+                            'imageUrl' => $imageUrl,
+                            'sortOrder' => $i + 1
+                        ]);
+                    }
+                }
             }
+
+            $_SESSION['success'] = true;
+            $_SESSION['msg'] = 'Thêm sản phẩm thành công.';
+            header('Location: ' . BASE_URL_ADMIN . '&action=variants-create&productId=' . $rowCount);
+            exit();
         } catch (\Throwable $th) {
             $_SESSION['success'] = false;
             $_SESSION['msg'] = $th->getMessage();
-
+            header('Location: ' . BASE_URL_ADMIN . '&action=products-create');
+            exit();
         }
-        header('Location: ' . BASE_URL_ADMIN . '&action=products-index');
-        exit();
     }
+
     public function edit()
     {
         try {
             if (!isset($_GET['id'])) {
-                throw new Exception('Thieu tham so id', 99);
+                throw new Exception('Thiếu tham số ID', 99);
             }
 
             $id = $_GET['id'];
-
             $product = $this->product->find('*', 'id = :id', ['id' => $id]);
 
             if (empty($product)) {
-                throw new Exception("product co ID = $id khong ton tai");
+                throw new Exception("Sản phẩm có ID = $id không tồn tại!");
             }
 
             $view = 'products/edit';
-            $title = "Cap nhat product co ID = $id";
+            $title = "Cập nhật sản phẩm: $id";
             $categories = $this->category->select();
             $brands = $this->brand->select();
             $categoryPluck = array_column($categories, 'title', 'id');
             $brandPluck = array_column($brands, 'title', 'id');
+            $productImages = $this->productImages->select('*', 'productId = :productId', ['productId' => $id]);
             require_once PATH_VIEW_ADMIN_MAIN;
 
         } catch (\Throwable $th) {
             $_SESSION['success'] = false;
             $_SESSION['msg'] = $th->getMessage();
-
             header('Location: ' . BASE_URL_ADMIN . '&action=products-index');
             exit();
         }
     }
+
     public function update()
     {
         try {
             if ($_SERVER['REQUEST_METHOD'] != 'POST') {
-                throw new Exception('Yeu cau phuong thuc phai la POST');
+                throw new Exception('Phương thức không hợp lệ');
             }
 
             if (!isset($_GET['id'])) {
-                throw new Exception('Thieu tham so "id"', 99);
+                throw new Exception('Thiếu tham số ID', 99);
             }
 
             $id = $_GET['id'];
-
             $product = $this->product->find('*', 'id = :id', ['id' => $id]);
 
             if (empty($product)) {
-                throw new Exception("Product co id  = $id khong ton tai");
+                throw new Exception("Sản phẩm có ID = $id không tồn tại!");
             }
 
-            $data = $_POST + $_FILES;
-
-            $_SESSION['errors'] = [];
-
-            if (empty($data['title']) || strlen($data['title']) > 50) {
-                $_SESSION['errors']['title'] = "title bắt buộc và độ dài dưới 50 ký tự. ";
-            }
-
+            $data = $_POST;
+            $data['thumbnail'] = $_FILES['thumbnail'];
+            $_SESSION['errors'] = $this->validateProductData($data);
             $data['slug'] = slugify($data['title']);
 
-            if (
-                !empty(
-                $this->product->find(
-                    '*',
-                    'slug = :slug AND id != :id',
-                    [
-                        'slug' => $data['slug'],
-                        'id' => $id
-                    ]
-                )
-            )
-            ) {
+            // Kiểm tra slug trùng
+            if (!empty($this->product->find('*', 'slug = :slug AND id != :id', ['slug' => $data['slug'], 'id' => $id]))) {
                 $_SESSION['errors']['slug'] = 'Tên sản phẩm đã tồn tại.';
-            }
-
-            $data['priceDefault'] = isset($data['priceDefault']) && is_numeric($data['priceDefault']) ? $data['priceDefault'] : null;
-            $data['discountPercentage'] = isset($data['discountPercentage']) && is_numeric($data['discountPercentage']) ? $data['discountPercentage'] : null;
-
-            if (isset($data['thumbnail']) && $data['thumbnail']['size'] > 0) {
-
-                if ($data['thumbnail']['size'] > 2 * 1024 * 1024) {
-                    $_SESSION['errors']['thumbnail_size'] = 'Truong thumbnail co dung luong toi da 2MB';
-                }
-
-                $fileType = $data['thumbnail']['type'];
-                $allowedType = ['image/jpg', 'image/jpeg', 'image/png', 'image/gif'];
-                if (!in_array($fileType, $allowedType)) {
-                    $_SESSION['errors']['thumbnail_type'] = "xin loi chi chap nhan cac loai file JPG, JPEG, PNG, GIF. ";
-                }
             }
 
             if (!empty($_SESSION['errors'])) {
                 $_SESSION['data'] = $data;
-                throw new Exception('Du lieu loi');
+                throw new Exception('Dữ liệu không hợp lệ');
             }
 
-            if ($data['thumbnail']['size'] > 0) {
-                $data['thumbnail'] = upload_file('products', $data['thumbnail']);
+            // Upload ảnh đại diện nếu có
+            if ($_FILES['thumbnail']['size'] > 0) {
+                $data['thumbnail'] = upload_file('products', $_FILES['thumbnail']);
             } else {
-                $data['thumbnail'] = $product['thumbnail'];
+                unset($data['thumbnail']); // Không thay đổi ảnh nếu không upload mới
             }
 
             $data['updatedAt'] = date('Y-m-d H:i:s');
-
             $rowCount = $this->product->update($data, 'id = :id', ['id' => $id]);
 
-            if ($rowCount > 0) {
-                if (
-                    $_FILES['thumbnail']['size'] > 0
-                    && !empty($product['thumbnail'])
-                    && file_exists(PATH_ASSETS_UPLOADS . $product['thumbnail'])
-                ) {
-                    unlink(PATH_ASSETS_UPLOADS . $product['thumbnail']);
-                }
+            // Upload ảnh khác nếu có
+            $allowedType = ['image/jpg', 'image/jpeg', 'image/png', 'image/gif'];
+            if (isset($_FILES['images'])) {
+                foreach ($_FILES['images']['name'] as $i => $name) {
+                    $image = [
+                        'name' => $name,
+                        'full_path' => $_FILES['images']['full_path'][$i],
+                        'type' => $_FILES['images']['type'][$i],
+                        'tmp_name' => $_FILES['images']['tmp_name'][$i],
+                        'error' => $_FILES['images']['error'][$i],
+                        'size' => $_FILES['images']['size'][$i]
+                    ];
 
-                $_SESSION['success'] = true;
-                $_SESSION['msg'] = 'thao tac thanh cong';
-            } else {
-                throw new Exception('thao tac khong thanh cong!');
+                    if ($image['error'] !== 0 || !in_array($image['type'], $allowedType) || $image['size'] > 2 * 1024 * 1024) {
+                        $_SESSION['errors']['images'][$i] = 'Ảnh ' . ($i + 1) . ' không hợp lệ.';
+                        continue;
+                    }
+
+                    $imageUrl = upload_file('products', $image);
+                    if ($imageUrl) {
+                        $this->productImages->insert([
+                            'productId' => $id,
+                            'imageUrl' => $imageUrl,
+                            'sortOrder' => $i + 1
+                        ]);
+                    }
+                }
             }
 
+            $_SESSION['success'] = true;
+            $_SESSION['msg'] = 'Cập nhật sản phẩm thành công.';
         } catch (\Throwable $th) {
             $_SESSION['success'] = false;
-            $_SESSION['msg'] = $th->getMessage() . ' - Line: ' . $th->getLine();
+            $_SESSION['msg'] = $th->getMessage();
 
             if ($th->getCode() == 99) {
                 header('Location: ' . BASE_URL_ADMIN . '&action=products-index');
@@ -266,33 +348,32 @@ class ProductController
             }
         }
 
-        header('Location: ' . BASE_URL_ADMIN . '&action=products-edit&id=' . $id);
+        header('Location: ' . BASE_URL_ADMIN . '&action=products-show&id=' . $id);
+        exit();
     }
 
     public function softDelete()
     {
         try {
             if (!isset($_GET['id'])) {
-                throw new Exception('thieu "id"', 99);
+                throw new Exception('Thiếu tham số ID', 99);
             }
 
             $id = $_GET['id'];
-
             $product = $this->product->find('*', 'id = :id', ['id' => $id]);
 
             if (empty($product)) {
-                throw new Exception("Product co id = $id Khong ton tai!");
+                throw new Exception("Sản phẩm có ID = $id không tồn tại!");
             }
 
             $rowCount = $this->product->softDelete($id);
 
-            if ($rowCount > 0) {
-
-                $_SESSION['success'] = true;
-                $_SESSION['msg'] = 'thao tac thanh cong!';
-            } else {
-                throw new Exception('Thao tac khong thanh cong!');
+            if ($rowCount <= 0) {
+                throw new Exception('Xóa mềm không thành công!');
             }
+
+            $_SESSION['success'] = true;
+            $_SESSION['msg'] = 'Xóa mềm sản phẩm thành công.';
         } catch (\Throwable $th) {
             $_SESSION['success'] = false;
             $_SESSION['msg'] = $th->getMessage();
@@ -306,26 +387,24 @@ class ProductController
     {
         try {
             if (!isset($_GET['id'])) {
-                throw new Exception('thieu "id"', 99);
+                throw new Exception('Thiếu tham số ID', 99);
             }
 
             $id = $_GET['id'];
-
             $product = $this->product->find('*', 'id = :id', ['id' => $id]);
 
             if (empty($product)) {
-                throw new Exception("Brand co id = $id Khong ton tai!");
+                throw new Exception("Sản phẩm có ID = $id không tồn tại!");
             }
 
             $rowCount = $this->product->restore($id);
 
-            if ($rowCount > 0) {
-
-                $_SESSION['success'] = true;
-                $_SESSION['msg'] = 'thao tac thanh cong!';
-            } else {
-                throw new Exception('Thao tac khong thanh cong!');
+            if ($rowCount <= 0) {
+                throw new Exception('Khôi phục không thành công!');
             }
+
+            $_SESSION['success'] = true;
+            $_SESSION['msg'] = 'Khôi phục sản phẩm thành công.';
         } catch (\Throwable $th) {
             $_SESSION['success'] = false;
             $_SESSION['msg'] = $th->getMessage();
@@ -334,34 +413,33 @@ class ProductController
         header('Location: ' . BASE_URL_ADMIN . '&action=products-index');
         exit();
     }
+
     public function delete()
     {
         try {
             if (!isset($_GET['id'])) {
-                throw new Exception('thieu "id"', 99);
+                throw new Exception('Thiếu tham số ID', 99);
             }
 
             $id = $_GET['id'];
-
             $product = $this->product->find('*', 'id = :id', ['id' => $id]);
 
             if (empty($product)) {
-                throw new Exception("product co id = $id Khong ton tai!");
+                throw new Exception("Sản phẩm có ID = $id không tồn tại!");
             }
 
             $rowCount = $this->product->delete('id = :id', ['id' => $id]);
 
-            if ($rowCount > 0) {
-
-                if (!empty($product['thumbnail']) && file_exists(PATH_ASSETS_UPLOADS . $product['thumbnail'])) {
-                    unlink(PATH_ASSETS_UPLOADS . $product['thumbnail']);
-                }
-
-                $_SESSION['success'] = true;
-                $_SESSION['msg'] = 'thao tac thanh cong!';
-            } else {
-                throw new Exception('Thao tac khong thanh cong!');
+            if ($rowCount <= 0) {
+                throw new Exception('Xóa sản phẩm không thành công!');
             }
+
+            if (!empty($product['thumbnail']) && file_exists(PATH_ASSETS_UPLOADS . $product['thumbnail'])) {
+                unlink(PATH_ASSETS_UPLOADS . $product['thumbnail']);
+            }
+
+            $_SESSION['success'] = true;
+            $_SESSION['msg'] = 'Xóa sản phẩm thành công.';
         } catch (\Throwable $th) {
             $_SESSION['success'] = false;
             $_SESSION['msg'] = $th->getMessage();

@@ -6,10 +6,11 @@ class Attributes extends BaseModel
     public function getAttributeValue($id)
     {
         $sql = 'SELECT
-                    av.id           ,
-                    av.value        ,
-                    av.valueCode
-                FROM attribute_values av
+                    a.name           ,
+                    a.description     ,
+                    av.value
+                FROM attributes a 
+                JOIN attribute_value av ON av.attributeId = a.id
 
                 WHERE av.attributeId = :attributeId
         ';
