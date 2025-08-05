@@ -13,7 +13,10 @@ match ($action) {
     'logout' => (new SigninController())->logout(), //đăng xuất
     'add_to_cart' => (new CartController())->addToCart(), //Thêm vào giỏ hàng
     'my_cart' => (new CartController())->myCart(), //Xe,m giỏ hàng
-    'categories' => (new CategoryController())->listCategory() //Danh mục sản phẩm
+    'delete_cart' => (new CartController())->removeFromCart(),
+    'categories' => (new CategoryController())->listCategory(), //Danh mục sản phẩm
+    'create_order' => (new OrderController())->createOrder(), //Hiển thị form tạo đơn hàng
+    'store_order' => (new OrderController())->storeOrder() //tạo đơn hàng
 
 
 };

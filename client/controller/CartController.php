@@ -58,4 +58,23 @@ class CartController
         // debug($cartItems);
         require_once PATH_VIEW_CLIENT . $view . ".php";
     }
+    public function removeFromCart()
+    {
+
+        require_Login();
+        $cartProductId = $_GET['cartProductId'] ?? null;
+        $cartId        = $_GET['cartId'] ?? null;
+
+        if ($cartProductId && $cartId) {
+            $this->cartModel->removeProduct((int)$cartProductId, (int)$cartId);
+            $_SESSION['success'] = true;
+            $_SESSION['msg'] = 'Đã xóa sản phẩm khỏi giỏ hàng';
+        } else {
+            $_SESSION['success'] = false;
+            $_SESSION['msg'] = 'Dữ liệu không hợp lệ';
+        }
+
+        header('Location:' . BASE_URL . '?action=my_cart');
+        exit();
+    }
 }

@@ -40,6 +40,11 @@ class SignupController
                 $_SESSION['error']['password'] = "Mật khẩu không được bỏ trống và phải tối thiểu 6 kí tự";
             }
 
+            // Validate phoneNumber
+            if (!empty($data['phoneNumber']) && !preg_match('/^(0[0-9]{9,10})$/', $data['phoneNumber'])) {
+                $_SESSION['error']['phoneNumber'] = "Số điện thoại không hợp lệ";
+            }
+
             // Validate avatar
             if ($data['avatarUrl']['size'] > 0) {
                 if ($data['avatarUrl']['size'] > 2 * 1024 * 1024) {
@@ -66,14 +71,16 @@ class SignupController
                 $data['avatarUrl'] = null;
             }
 
-            // Chèn dữ liệu
+            // Chèn dữ liệu user
             $rowCount = $this->client->insert([
-                'fullname' => $data['fullname'],
-                'email' => $data['email'],
-                'password' => password_hash($data['password'], PASSWORD_DEFAULT),
-                'avatarUrl' => $data['avatarUrl'],
-                'createdAt' => date('Y-m-d H:i:s'),
-                'updatedAt' => date('Y-m-d H:i:s')
+                'fullname'    => $data['fullname'],
+                'email'       => $data['email'],
+                'password'    => password_hash($data['password'], PASSWORD_DEFAULT),
+                'avatarUrl'   => $data['avatarUrl'],
+                'phone_number' => $data['phone_number'] ?? null,
+                'address'     => $data['address'] ?? null,
+                'createdAt'   => date('Y-m-d H:i:s'),
+                'updatedAt'   => date('Y-m-d H:i:s')
             ]);
 
             if ($rowCount > 0) {

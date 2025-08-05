@@ -90,4 +90,13 @@ class Cart extends BaseModel
         ";
         return $this->selectRaw($sql, [$userId]);
     }
+    public function removeProduct(int $cartProductId, int $cartId): void
+    {
+        // Xóa sản phẩm khỏi cart_products
+        $this->setTable('cart_products');
+        $this->delete('id = ?', [$cartProductId]);
+
+        // Cập nhật tổng tiền giỏ
+        $this->updateCartTotal($cartId);
+    }
 }
