@@ -1,5 +1,6 @@
 <?php
 require_once './client/models/Product.php';
+require_once './client/models/Comment.php';
 class ProductController
 {
     private $client;
@@ -30,6 +31,7 @@ class ProductController
 
     public function productDetail()
     {
+
         $id = $_GET['id'] ?? null;
         $title = "Chi tiết sản phẩm";
         $view = 'pages/products-detail/test_detail';
@@ -83,6 +85,8 @@ class ProductController
                 'attributeValue' => $attr['attributeValue'],
             ];
         }
+        $commentModel = new Comment();
+        $comments = $commentModel->getCommentsByProduct($productDetail['id'] ?? 0);
         // debug($variantAttributes);
         require_once PATH_VIEW_CLIENT . $view . ".php";
     }

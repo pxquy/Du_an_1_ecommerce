@@ -83,6 +83,86 @@ foreach ($variantAttributes as $variantId => $attrs) {
 
     <button type="submit" id="btnAddCart" disabled>Thêm vào giỏ hàng</button>
 </form>
+<hr>
+<h3>Danh sách bình luận</h3>
+<div style="margin-top: 15px;">
+    <?php if (!empty($comments)): ?>
+        <?php foreach ($comments as $c): ?>
+            <div style="border-bottom:1px solid #ddd; padding:10px 0;">
+                <div style="display:flex; align-items:center; margin-bottom:5px;">
+                    <img src="<?= $c['avatarUrl'] ?? 'default-avatar.png' ?>" alt="Avatar"
+                        style="width:40px; height:40px; border-radius:50%; object-fit:cover; margin-right:10px;">
+                    <div>
+                        <strong><?= htmlspecialchars($c['fullname']) ?></strong><br>
+                        <small style="color:#666;"><?= $c['createdAt'] ?></small>
+                    </div>
+                </div>
+                <div style="margin-left:50px;">
+                    <?php if (!empty($c['rating'])): ?>
+                        <div style="color:gold;">
+                            <?php for ($i = 1; $i <= 5; $i++): ?>
+                                <?= $i <= $c['rating'] ? '★' : '☆' ?>
+                            <?php endfor; ?>
+                        </div>
+                    <?php endif; ?>
+                    <p style="margin:5px 0;"><?= nl2br(htmlspecialchars($c['content'])) ?></p>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    <?php else: ?>
+        <p>Chưa có bình luận nào cho sản phẩm này.</p>
+    <?php endif; ?>
+</div>
+<hr>
+<h3>💬 Bình luận sản phẩm</h3>
+
+<!-- Hiển thị thông báo -->
+<?php if (!empty($_SESSION['msg'])): ?>
+    <div
+        style="padding: 8px; margin: 10px 0; background: <?= $_SESSION['success'] ? '#d4edda' : '#f8d7da' ?>; color: <?= $_SESSION['success'] ? '#155724' : '#721c24' ?>;">
+        <?= htmlspecialchars($_SESSION['msg']);
+        unset($_SESSION['msg'], $_SESSION['success']); ?>
+    </div>
+<?php endif; ?>
+
+<!-- Form gửi bình luận -->
+<?php if (!empty($_SESSION['user'])): ?>
+    <form action="?action=add_comment" method="POST" style="margin-top: 10px;">
+        <input type="hidden" name="productId" value="<?= $productDetail['id'] ?>">
+
+        <textarea name="content" rows="3" placeholder="Nhập bình luận..." required style="width:100%;"></textarea><br>
+
+        <label>Đánh giá sao:
+            <select name="rating">
+                <?php for ($i = 1; $i <= 5; $i++): ?>
+                    <option value="<?= $i ?>"><?= $i ?> ⭐</option>
+                <?php endfor; ?>
+            </select>
+        </label>
+        <br><br>
+        <button type="submit">Gửi bình luận</button>
+    </form>
+<?php else: ?>
+    <p>Vui lòng <a href="<?= BASE_URL ?>?action=form_signin">đăng nhập</a> để bình luận.</p>
+<?php endif; ?>
+
+<!-- Danh sách bình luận -->
+<div style="margin-top: 15px;">
+    <?php if (!empty($comments)): ?>
+        <?php foreach ($comments as $c): ?>
+            <div style="border-bottom:1px solid #ddd; padding:10px 0;">
+                <img src="<?= $c['avatarUrl'] ?? 'default-avatar.png' ?>" alt=""
+                    style="width:35px; height:35px; border-radius:50%; vertical-align:middle; margin-right:5px;">
+                <strong><?= htmlspecialchars($c['fullname']) ?></strong>
+                <small style="color:#666;"><?= $c['createdAt'] ?></small>
+                <div>Đánh giá: <?= $c['rating'] ?> ⭐</div>
+                <p style="margin:5px 0;"><?= nl2br(htmlspecialchars($c['content'])) ?></p>
+            </div>
+        <?php endforeach; ?>
+    <?php else: ?>
+        <p>Chưa có bình luận nào cho sản phẩm này.</p>
+    <?php endif; ?>
+</div>
 
 <script>
     const variantsData = <?= json_encode($variants) ?>;

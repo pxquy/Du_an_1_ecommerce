@@ -16,7 +16,7 @@ match ($action) {
     'delete_cart' => (new CartController())->removeFromCart(),
     'categories' => (new CategoryController())->listCategory(), //Danh mục sản phẩm
     'create_order' => (new OrderController())->createOrder(), //Hiển thị form tạo đơn hàng
-    'store_order' => (new OrderController())->storeOrder() //tạo đơn hàng
-
+    'store_order' => (new OrderController())->storeOrder(), //tạo đơn hàng
+    'add_comment' => (new CommentController())->addComment(), //đánh giá sản phẩm
 
 };
