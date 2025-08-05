@@ -166,6 +166,14 @@ function dequy($arrays, $index = 0, $current = [], &$result = [])
     return $result;
 }
 
+//hàm kiểm tra đăng nhập để thực hiện một số chức năng bắt buộc
+function require_Login()
+{
 
-
-
+    if (empty($_SESSION['user'])) {
+        $_SESSION['success'] = false;
+        $_SESSION['msg'] = "Bạn phải đăng nhập để tiếp tục thao tác";
+        header("Location:" . BASE_URL . "?action=form_signin");
+        exit();
+    }
+}
