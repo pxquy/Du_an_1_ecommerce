@@ -233,11 +233,10 @@
                   </div>
                   <?php foreach ($images as $img): ?>
                     <div class="swiper-slide">
-                      <div class="gallery-image">
-                        <img src="<?= $img ?>" alt="Ảnh sản phẩm" />
+                      <div class="thumb-image">
+                        <img src="<?= $img ?>" alt="" />
                       </div>
                     </div>
-                    <?= debug($images); ?>
                   <?php endforeach; ?>
                 </div>
                 <div class="swiper-button-next"></div>
@@ -250,31 +249,19 @@
             <div class="gallery-thumbs">
               <div class="swiper gallery-thumbs-swiper">
                 <div class="swiper-wrapper">
+
                   <div class="swiper-slide">
                     <div class="thumb-image">
-                      <img src="/placeholder.svg?height=120&width=120" alt="Thumbnail 1" />
+                      <img src="<?= $productDetail['thumbnail'] ?>" alt="" />
                     </div>
                   </div>
-                  <div class="swiper-slide">
-                    <div class="thumb-image">
-                      <img src="/placeholder.svg?height=120&width=120" alt="Thumbnail 2" />
+                  <?php foreach ($images as $img): ?>
+                    <div class="swiper-slide">
+                      <div class="thumb-image">
+                        <img src="<?= $img ?>" alt="" />
+                      </div>
                     </div>
-                  </div>
-                  <div class="swiper-slide">
-                    <div class="thumb-image">
-                      <img src="/placeholder.svg?height=120&width=120" alt="Thumbnail 3" />
-                    </div>
-                  </div>
-                  <div class="swiper-slide">
-                    <div class="thumb-image">
-                      <img src="/placeholder.svg?height=120&width=120" alt="Thumbnail 4" />
-                    </div>
-                  </div>
-                  <div class="swiper-slide">
-                    <div class="thumb-image">
-                      <img src="/placeholder.svg?height=120&width=120" alt="Thumbnail 5" />
-                    </div>
-                  </div>
+                  <?php endforeach; ?>
                 </div>
               </div>
             </div>
@@ -289,7 +276,8 @@
                 Mã sản phẩm: <span><?= $productDetail['sku'] ?></span>
               </div>
               <div class="product-availability in-stock">
-                <i class="fas fa-check-circle"></i> Còn hàng
+                <i class="fas fa-check-circle"></i>
+                <?= $productDetail['stockTotal'] ? 'Còn hàng' : 'Hết hàng' ?>
               </div>
             </div>
 
@@ -349,6 +337,7 @@
             <?php endif; ?>
 
 
+
             <?php if (!empty($attributesGrouped['Size'])): ?>
               <div class="product-sizes">
                 <h3 class="option-title">Kích cỡ:</h3>
@@ -370,6 +359,12 @@
                 </div>
               </div>
             <?php endif; ?>
+
+            <div id="variant-info" style="margin-top: 10px;">
+              <p><strong>Giá:</strong> <span id="variant-price">--</span></p>
+              <p><strong>Tồn kho:</strong> <span id="variant-stock">--</span></p>
+            </div>
+
 
             <div class="product-quantity">
               <h3 class="option-title">Số lượng:</h3>
@@ -1488,6 +1483,47 @@
 
   <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
   <script>
+    const variantsData = <?= json_encode($variants) ?>;
+    const variantAttributes = <?= json_encode($variantAttributes) ?>;
+
+    let selectedColor = null;
+    let selectedSize = null;
+
+    document.querySelectorAll('input[name="color"]').forEach(input => {
+      input.addEventListener('change', () => {
+        selectedColor = input.value;
+        const label = input.closest('label');
+        document.getElementById('selectedColor').textContent = label.querySelector('.color-swatch')
+          .dataset.colorName;
+        updateVariantInfo();
+      });
+    });
+
+    document.querySelectorAll('input[name="size"]').forEach(input => {
+      input.addEventListener('change', () => {
+        selectedSize = input.value;
+        const label = input.closest('label');
+        document.getElementById('selectedSize').textContent = label.querySelector('.size-box')
+          .textContent;
+        updateVariantInfo();
+      });
+    });
+
+    function updateVariantInfo() {
+      if (!selectedColor || !selectedSize) return;
+
+      for (const variant of variantsData) {
+        const attrValues = (variantAttributes[variant.id] || []).map(a => a.valueId);
+        if (attrValues.includes(parseInt(selectedColor)) && attrValues.includes(parseInt(selectedSize))) {
+          document.getElementById('variant-price').innerText = Number(variant.price).toLocaleString() + 'đ';
+          document.getElementById('variant-stock').innerText = variant.stock;
+          return;
+        }
+      }
+
+      document.getElementById('variant-price').innerText = 'Không tìm thấy';
+      document.getElementById('variant-stock').innerText = '--';
+    }
     document.addEventListener("DOMContentLoaded", function() {
       // Mobile Menu Toggle
       const mobileMenuToggle = document.querySelector(".mobile-menu-toggle");

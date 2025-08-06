@@ -1,5 +1,6 @@
 <?php
-require_once './client/models/Product.php';
+require_once './client/model/Product.php';
+require_once './client/model/Comment.php';
 class ProductController
 {
     private $client;
@@ -30,9 +31,10 @@ class ProductController
 
     public function productDetail()
     {
+
         $id = $_GET['id'] ?? null;
         $title = "Chi tiết sản phẩm";
-        $view = 'pages/products-detail/product-detail';
+        $view = 'pages/products-detail/test_detail';
 
         // ===== 1. Lấy thông tin sản phẩm + các ảnh =====
         $this->client->setTable("
@@ -83,9 +85,9 @@ class ProductController
                 'attributeValue' => $attr['attributeValue'],
             ];
         }
+        $commentModel = new Comment();
+        $comments = $commentModel->getCommentsByProduct($productDetail['id'] ?? 0);
         // debug($variantAttributes);
-
-        // ===== 5. Gọi view =====
         require_once PATH_VIEW_CLIENT . $view . ".php";
     }
 }

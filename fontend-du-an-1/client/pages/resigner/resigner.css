@@ -11,6 +11,18 @@
   max-width: 450px;
 }
 
+.login-form input[type="email"],
+.login-form input[type="password"],
+.login-form input[type="text"],
+.login-form input[type="tel"] {
+  width: 100%;
+  padding: 12px 15px 12px 45px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: border-color 0.3s ease;
+}
+
 /* Password Strength Meter */
 .password-strength {
   margin-top: 10px;

@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Đặt hàng thành công - Arrowwai</title>
+    <link rel="stylesheet" href="../../layout/home.css" />
+    <link rel="stylesheet" href="../login/login.css" />
+    <link rel="stylesheet" href="./order-complete.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+      <div class="container">
+        <div class="top-bar-content">
+          <div class="top-bar-left">
+            <span>DANH SÁCH CỬA HÀNG</span>
+          </div>
+          <div class="top-bar-right">
+            <span>Hotline liên hệ: 1900 4510</span>
+            <span class="divider">|</span>
+            <span>cskh@mulgati.com</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+      <div class="container">
+        <div class="header-content">
+          <div class="logo">
+            <a href="../../layout/home.html">
+              <img src="../../images/logoShop.png" alt="rowwai Logo" />
+            </a>
+          </div>
+
+          <!-- Desktop Navigation -->
+          <nav class="main-nav">
+            <ul class="nav-list">
+              <li class="nav-item"><a href="#">GIÀY THỂ THAO</a></li>
+              <li class="nav-item"><a href="#">GIÀY CHAY BỘ</a></li>
+              <li class="nav-item dropdown">
+                <a href="#">GIÀY BÓNG ĐÁ</a>
+              </li>
+              <li class="nav-item"><a href="#">GIÀY BÓNG RỔ</a></li>
+              <li class="nav-item dropdown">
+                <a href="#">GIÀY TẬP GYM</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a href="#">PHỤ KIỆN THỂ THAO</a>
+              </li>
+            </ul>
+          </nav>
+
+          <div class="header-actions">
+            <!-- Search Icon with Dropdown -->
+            <div class="search-dropdown">
+              <button class="search-icon-btn">
+                <i class="fas fa-search"></i>
+              </button>
+              <div class="search-dropdown-content">
+                <form class="search-form">
+                  <input
+                    type="text"
+                    class="search-input"
+                    placeholder="Tìm kiếm sản phẩm..."
+                  />
+                  <button type="submit" class="search-submit">
+                    <i class="fas fa-search"></i>
+                  </button>
+                </form>
+                <div class="search-suggestions">
+                  <h4>Tìm kiếm phổ biến:</h4>
+                  <div class="suggestion-tags">
+                    <a href="#" class="suggestion-tag">Giày tây</a>
+                    <a href="#" class="suggestion-tag">Giày lười</a>
+                    <a href="#" class="suggestion-tag">Giày da bò</a>
+                    <a href="#" class="suggestion-tag">Giày công sở</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <a href="#" class="cart-icon"
+              ><i class="fas fa-shopping-bag"></i>
+              <span class="cart-count">0</span></a
+            >
+
+            <!-- User Account Dropdown -->
+            <div class="user-dropdown">
+              <button class="user-dropdown-toggle">
+                <div class="user-icon">
+                  <i class="fas fa-user"></i>
+                </div>
+              </button>
+
+              <div class="user-dropdown-menu">
+                <a href="login.html" class="dropdown-item">Đăng nhập</a>
+                <a href="register.html" class="dropdown-item">Đăng ký</a>
+              </div>
+            </div>
+
+            <!-- Mobile Menu Toggle Button -->
+            <button class="mobile-menu-toggle">
+              <span class="hamburger-icon">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="search-overlay"></div>
+
+    <div class="mobile-menu">
+      <div class="mobile-menu-header">
+        <div class="logo">
+          <img src="/placeholder.svg?height=40&width=120" alt="Arrowwai Logo" />
+        </div>
+        <button class="mobile-menu-close">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <nav class="mobile-nav">
+        <ul class="mobile-nav-list">
+          <li class="mobile-nav-item"><a href="#">MỚI</a></li>
+          <li class="mobile-nav-item"><a href="#">SALE</a></li>
+          <li class="mobile-nav-item mobile-dropdown">
+            <a href="#" class="mobile-dropdown-toggle">
+              GIÀY DA NAM <i class="fas fa-chevron-down"></i>
+            </a>
+            <ul class="mobile-dropdown-menu">
+              <li><a href="#">Giày Tây</a></li>
+              <li><a href="#">Giày Lười</a></li>
+              <li><a href="#">Giày Sneaker</a></li>
+              <li><a href="#">Giày Boots</a></li>
+            </ul>
+          </li>
+          <li class="mobile-nav-item"><a href="#">DÉP DA NAM</a></li>
+          <li class="mobile-nav-item mobile-dropdown">
+            <a href="#" class="mobile-dropdown-toggle">
+              PHỤ KIỆN <i class="fas fa-chevron-down"></i>
+            </a>
+            <ul class="mobile-dropdown-menu">
+              <li><a href="#">Thắt Lưng</a></li>
+              <li><a href="#">Ví Da</a></li>
+              <li><a href="#">Túi Xách</a></li>
+            </ul>
+          </li>
+          <li class="mobile-nav-item mobile-dropdown">
+            <a href="#" class="mobile-dropdown-toggle">
+              BỘ SƯU TẬP <i class="fas fa-chevron-down"></i>
+            </a>
+            <ul class="mobile-dropdown-menu">
+              <li><a href="#">BST Xuân Hè</a></li>
+              <li><a href="#">BST Thu Đông</a></li>
+              <li><a href="#">BST Đặc Biệt</a></li>
+            </ul>
+          </li>
+          <li class="mobile-nav-item"><a href="#">MULGATI</a></li>
+          <li class="mobile-nav-item mobile-dropdown">
+            <a href="#" class="mobile-dropdown-toggle">
+              BLOGS <i class="fas fa-chevron-down"></i>
+            </a>
+            <ul class="mobile-dropdown-menu">
+              <li><a href="#">Tin Tức</a></li>
+              <li><a href="#">Phong Cách</a></li>
+              <li><a href="#">Mẹo Bảo Quản</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <div class="mobile-menu-footer">
+        <div class="mobile-contact">
+          <p><i class="fas fa-phone"></i> 1900 4510</p>
+          <p><i class="fas fa-envelope"></i> cskh@mulgati.com</p>
+        </div>
+        <div class="mobile-social">
+          <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mobile-menu-overlay"></div>
+
+    <main class="main-content">
+      <div class="breadcrumbs">
+        <div class="container">
+          <ul class="breadcrumb-list">
+            <li><a href="index.html">Trang chủ</a></li>
+            <li><i class="fas fa-chevron-right"></i></li>
+            <li><a href="cart.html">Giỏ hàng</a></li>
+            <li><i class="fas fa-chevron-right"></i></li>
+            <li><a href="checkout.html">Thanh toán</a></li>
+            <li><i class="fas fa-chevron-right"></i></li>
+            <li>Hoàn tất đơn hàng</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Order Complete Section -->
+      <section class="order-complete-section">
+        <div class="container">
+          <!-- Checkout Progress -->
+          <div class="checkout-progress">
+            <div class="progress-step completed">
+              <div class="step-number">1</div>
+              <div class="step-label">Giỏ hàng</div>
+            </div>
+            <div class="progress-connector completed"></div>
+            <div class="progress-step completed">
+              <div class="step-number">2</div>
+              <div class="step-label">Thanh toán</div>
+            </div>
+            <div class="progress-connector completed"></div>
+            <div class="progress-step completed active">
+              <div class="step-number">3</div>
+              <div class="step-label">Hoàn tất</div>
+            </div>
+          </div>
+
+          <!-- Thông báo đơn hàng thành công -->
+          <div class="order-success">
+            <div class="success-icon">
+              <i class="fas fa-check-circle"></i>
+            </div>
+            <h1 class="success-title">Đặt hàng thành công!</h1>
+            <p class="success-message">
+              Cảm ơn bạn đã mua sắm tại Arrowwai. Đơn hàng của bạn đã được xác
+              nhận và đang được xử lý.
+            </p>
+            <div class="order-number">
+              <span>Mã đơn hàng:</span> <strong>#MUL123456</strong>
+            </div>
+            <p class="email-confirmation">
+              Một email xác nhận đã được gửi đến
+              <strong>khachhang@email.com</strong>
+            </p>
+          </div>
+
+          <!-- Chi tiết đơn hàng-->
+          <div class="order-details">
+            <div class="order-details-header">
+              <h2>Chi tiết đơn hàng</h2>
+            </div>
+
+            <div class="order-details-content">
+              <!--Thông tin đơn hàng -->
+              <div class="order-info">
+                <div class="info-column">
+                  <h3>Thông tin đơn hàng</h3>
+                  <ul class="info-list">
+                    <li>
+                      <span>Mã đơn hàng:</span> <strong>#MUL123456</strong>
+                    </li>
+                    <li>
+                      <span>Ngày đặt hàng:</span> <strong>16/04/2025</strong>
+                    </li>
+                    <li><span>Tổng tiền:</span> <strong>5.370.000₫</strong></li>
+                    <li>
+                      <span>Phương thức thanh toán:</span>
+                      <strong>Thanh toán khi nhận hàng (COD)</strong>
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="info-column">
+                  <h3>Thông tin giao hàng</h3>
+                  <ul class="info-list">
+                    <li><span>Họ tên:</span> <strong>Nguyễn Văn A</strong></li>
+                    <li>
+                      <span>Địa chỉ:</span>
+                      <strong
+                        >123 Nguyễn Huệ, Phường Bến Nghé, Quận 1, TP. Hồ Chí
+                        Minh</strong
+                      >
+                    </li>
+                    <li>
+                      <span>Số điện thoại:</span> <strong>0901234567</strong>
+                    </li>
+                    <li>
+                      <span>Email:</span> <strong>khachhang@email.com</strong>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Đặt các mặt hàng -->
+              <div class="order-items">
+                <h3>Sản phẩm đã đặt</h3>
+                <div class="order-items-table">
+                  <div class="order-items-header">
+                    <div class="item-product">Sản phẩm</div>
+                    <div class="item-price">Đơn giá</div>
+                    <div class="item-quantity">Số lượng</div>
+                    <div class="item-total">Thành tiền</div>
+                  </div>
+
+                  <div class="order-item">
+                    <div class="item-product">
+                      <div class="item-image">
+                        <img
+                          src="/placeholder.svg?height=80&width=80"
+                          alt="Giày tây nam Arrowwai Classic"
+                        />
+                      </div>
+                      <div class="item-details">
+                        <h4 class="item-title">
+                          Giày tây nam Arrowwai Classic
+                        </h4>
+                        <div class="item-variant">
+                          Màu sắc: Đen | Kích cỡ: 41
+                        </div>
+                      </div>
+                    </div>
+                    <div class="item-price">2.490.000₫</div>
+                    <div class="item-quantity">1</div>
+                    <div class="item-total">2.490.000₫</div>
+                  </div>
+
+                  <div class="order-item">
+                    <div class="item-product">
+                      <div class="item-image">
+                        <img
+                          src="/placeholder.svg?height=80&width=80"
+                          alt="Giày bóng rổ Arrowwai Comfort"
+                        />
+                      </div>
+                      <div class="item-details">
+                        <h4 class="item-title">
+                          Giày bóng rổ Arrowwai Comfort
+                        </h4>
+                        <div class="item-variant">
+                          Màu sắc: Nâu | Kích cỡ: 42
+                        </div>
+                      </div>
+                    </div>
+                    <div class="item-price">1.990.000₫</div>
+                    <div class="item-quantity">1</div>
+                    <div class="item-total">1.990.000₫</div>
+                  </div>
+
+                  <div class="order-item">
+                    <div class="item-product">
+                      <div class="item-image">
+                        <img
+                          src="/placeholder.svg?height=80&width=80"
+                          alt="Giày thể thao Arrowwai Classic"
+                        />
+                      </div>
+                      <div class="item-details">
+                        <h4 class="item-title">
+                          Giày thể thao Arrowwai Classic
+                        </h4>
+                        <div class="item-variant">
+                          Màu sắc: Đen | Kích cỡ: 105cm
+                        </div>
+                      </div>
+                    </div>
+                    <div class="item-price">890.000₫</div>
+                    <div class="item-quantity">1</div>
+                    <div class="item-total">890.000₫</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Tóm tắt đơn hàng -->
+              <div class="order-summary">
+                <div class="summary-row">
+                  <div class="summary-label">Tạm tính:</div>
+                  <div class="summary-value">5.370.000₫</div>
+                </div>
+                <div class="summary-row">
+                  <div class="summary-label">Phí vận chuyển:</div>
+                  <div class="summary-value">0₫</div>
+                </div>
+                <div class="summary-row">
+                  <div class="summary-label">Giảm giá:</div>
+                  <div class="summary-value">0₫</div>
+                </div>
+                <div class="summary-row total-row">
+                  <div class="summary-label">Tổng cộng:</div>
+                  <div class="summary-value">5.370.000₫</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!--Thông tin giao hàng -->
+          <div class="shipping-information">
+            <div class="shipping-icon">
+              <i class="fas fa-shipping-fast"></i>
+            </div>
+            <div class="shipping-content">
+              <h3>Thông tin vận chuyển</h3>
+              <p>
+                Đơn hàng của bạn sẽ được giao trong vòng 3-5 ngày làm việc. Bạn
+                có thể theo dõi trạng thái đơn hàng trong tài khoản của mình
+                hoặc qua email.
+              </p>
+            </div>
+          </div>
+
+          <!-- Tiếp tục mua sắm -->
+          <div class="next-steps">
+            <h3>Bạn có thể</h3>
+            <div class="steps-buttons">
+              <a href="index.html" class="step-btn">
+                <i class="fas fa-shopping-bag"></i>
+                <span>Tiếp tục mua sắm</span>
+              </a>
+              <a href="#" class="step-btn">
+                <i class="fas fa-truck"></i>
+                <span>Theo dõi đơn hàng</span>
+              </a>
+              <a href="#" class="step-btn">
+                <i class="fas fa-user"></i>
+                <span>Xem tài khoản</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Hỗ trợ khách hàng -->
+          <div class="customer-support">
+            <div class="support-icon">
+              <i class="fas fa-headset"></i>
+            </div>
+            <div class="support-content">
+              <h3>Hỗ trợ khách hàng</h3>
+              <p>
+                Nếu bạn có bất kỳ câu hỏi nào về đơn hàng, vui lòng liên hệ với
+                chúng tôi qua:
+              </p>
+              <div class="support-contacts">
+                <div class="support-contact">
+                  <i class="fas fa-phone"></i>
+                  <span>1900 4510</span>
+                </div>
+                <div class="support-contact">
+                  <i class="fas fa-envelope"></i>
+                  <span>cskh@mulgati.com</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Thông báo cảm ơn-->
+          <div class="thank-you-message">
+            <p>
+              Cảm ơn bạn đã tin tưởng và lựa chọn Arrowwai. Chúng tôi rất mong
+              được phục vụ bạn trong tương lai!
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-column">
+            <div class="footer-logo">
+              <img
+                src="/placeholder.svg?height=60&width=150"
+                alt="Arrowwai Logo"
+              />
+            </div>
+            <p class="footer-description">
+              Arrowwai - Thương hiệu giày da nam cao cấp, mang đến phong cách
+              lịch lãm và đẳng cấp cho quý ông Việt.
+            </p>
+            <div class="footer-contact">
+              <p>
+                <i class="fas fa-map-marker-alt"></i> 123 Nguyễn Trãi, Quận 1,
+                TP. Hồ Chí Minh
+              </p>
+              <p><i class="fas fa-phone"></i> 1900 4510</p>
+              <p><i class="fas fa-envelope"></i> cskh@mulgati.com</p>
+            </div>
+          </div>
+
+          <div class="footer-column">
+            <h3 class="footer-title">CHÍNH SÁCH</h3>
+            <ul class="footer-links">
+              <li><a href="#">Chính sách bảo hành</a></li>
+              <li><a href="#">Chính sách đổi trả</a></li>
+              <li><a href="#">Chính sách vận chuyển</a></li>
+              <li><a href="#">Chính sách thanh toán</a></li>
+              <li><a href="#">Chính sách bảo mật</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-column">
+            <h3 class="footer-title">THÔNG TIN</h3>
+            <ul class="footer-links">
+              <li><a href="#">Giới thiệu</a></li>
+              <li><a href="#">Tin tức</a></li>
+              <li><a href="#">Tuyển dụng</a></li>
+              <li><a href="#">Hệ thống cửa hàng</a></li>
+              <li><a href="#">Liên hệ</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-column">
+            <h3 class="footer-title">ĐĂNG KÝ NHẬN TIN</h3>
+            <p class="newsletter-text">
+              Đăng ký nhận bản tin để cập nhật những sản phẩm mới, nhận thông
+              tin ưu đãi đặc biệt và thông tin giảm giá khác.
+            </p>
+            <form class="newsletter-form">
+              <input
+                type="email"
+                placeholder="Nhập email của bạn"
+                class="newsletter-input"
+              />
+              <button type="submit" class="newsletter-button">ĐĂNG KÝ</button>
+            </form>
+            <div class="social-links">
+              <a href="#" class="social-link"
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+              <a href="#" class="social-link"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+              <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p class="copyright">
+            © 2023 Arrowwai. Tất cả các quyền được bảo lưu.
+          </p>
+          <div class="payment-methods">
+            <img
+              src="/placeholder.svg?height=30&width=200"
+              alt="Phương thức thanh toán"
+            />
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Chuyển dổi menu di động
+        const mobileMenuToggle = document.querySelector(".mobile-menu-toggle");
+        const mobileMenuClose = document.querySelector(".mobile-menu-close");
+        const mobileMenu = document.querySelector(".mobile-menu");
+        const overlay = document.querySelector(".mobile-menu-overlay");
+        const body = document.body;
+
+        // Mở mobile
+        mobileMenuToggle.addEventListener("click", function () {
+          mobileMenu.classList.add("active");
+          overlay.classList.add("active");
+          body.classList.add("menu-open");
+        });
+
+        //Đóng menu mobile
+        function closeMenu() {
+          mobileMenu.classList.remove("active");
+          overlay.classList.remove("active");
+          body.classList.remove("menu-open");
+        }
+
+        mobileMenuClose.addEventListener("click", closeMenu);
+        overlay.addEventListener("click", closeMenu);
+
+        const mobileDropdownToggles = document.querySelectorAll(
+          ".mobile-dropdown-toggle"
+        );
+
+        mobileDropdownToggles.forEach((toggle) => {
+          toggle.addEventListener("click", function (e) {
+            e.preventDefault();
+            const parent = this.parentElement;
+
+            document
+              .querySelectorAll(".mobile-dropdown.active")
+              .forEach((item) => {
+                if (item !== parent) {
+                  item.classList.remove("active");
+                }
+              });
+
+            parent.classList.toggle("active");
+          });
+        });
+
+        const userDropdownToggle = document.querySelector(
+          ".user-dropdown-toggle"
+        );
+        const userDropdown = document.querySelector(".user-dropdown");
+
+        userDropdownToggle.addEventListener("click", function (e) {
+          e.stopPropagation();
+          userDropdown.classList.toggle("active");
+
+          searchDropdown.classList.remove("active");
+          searchOverlay.classList.remove("active");
+        });
+
+        const searchIconBtn = document.querySelector(".search-icon-btn");
+        const searchDropdown = document.querySelector(".search-dropdown");
+        const searchOverlay = document.querySelector(".search-overlay");
+        const searchInput = document.querySelector(".search-input");
+
+        searchIconBtn.addEventListener("click", function (e) {
+          e.stopPropagation();
+          searchDropdown.classList.toggle("active");
+          searchOverlay.classList.toggle("active");
+
+          if (searchDropdown.classList.contains("active")) {
+            setTimeout(() => {
+              searchInput.focus();
+            }, 100);
+          }
+
+          userDropdown.classList.remove("active");
+        });
+
+        searchOverlay.addEventListener("click", function () {
+          searchDropdown.classList.remove("active");
+          searchOverlay.classList.remove("active");
+        });
+
+        document.addEventListener("click", function (e) {
+          if (!userDropdown.contains(e.target)) {
+            userDropdown.classList.remove("active");
+          }
+
+          if (!searchDropdown.contains(e.target)) {
+            searchDropdown.classList.remove("active");
+            searchOverlay.classList.remove("active");
+          }
+        });
+
+        // In hoá đơn
+        const printOrderBtn = document.querySelector(".print-order-btn");
+        if (printOrderBtn) {
+          printOrderBtn.addEventListener("click", function () {
+            window.print();
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

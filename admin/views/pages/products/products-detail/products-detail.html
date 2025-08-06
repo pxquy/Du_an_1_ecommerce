@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trang chi tiết sản phẩm</title>
+    <link rel="stylesheet" href="../../../layout/dashboards.css" />
+    <link rel="stylesheet" href="products-detail.css" />
+    <!-- Font Awesome for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <!-- Add overlay div -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <div class="admin-container">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <div class="logo">
+            <i class="fas fa-chart-bar"></i>
+            <span class="logo-text">Admin Panel</span>
+          </div>
+        </div>
+        <div class="sidebar-content">
+          <nav class="sidebar-menu">
+            <div class="menu-group">
+              <h3 class="menu-title">DANH MỤC</h3>
+              <ul class="menu-list">
+                <li class="menu-item">
+                  <a href="index.html" class="menu-link">
+                    <i class="fas fa-home"></i>
+                    <span class="menu-text">Dashboard</span>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="#" class="menu-link">
+                    <i class="fas fa-chart-line"></i>
+                    <span class="menu-text">Thống kê</span>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="#" class="menu-link">
+                    <i class="fas fa-users"></i>
+                    <span class="menu-text">Người dùng</span>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a
+                    href="../pages/user/user-list/user-list.html"
+                    class="menu-link"
+                  >
+                    <i class="fa-regular fa-images"></i>
+                    <span class="menu-text">Trình chiếu</span>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a
+                    href="../../banners/banner-list/banner-list.html"
+                    class="menu-link"
+                  >
+                    <i class="fa-regular fa-image"></i>
+                    <span class="menu-text">banners</span>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a
+                    href="../../categories/category-list/category-list.html"
+                    class="menu-link"
+                  >
+                    <i class="fa-regular fa-rectangle-list"></i>
+                    <span class="menu-text">Danh mục</span>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a
+                    href="../../brands/brand-list/brand-list.html"
+                    class="menu-link"
+                  >
+                    <i class="fa-regular fa-copyright"></i>
+                    <span class="menu-text">Thương hiệu</span>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a
+                    href="../../voucher/voucher-list/voucher-list.html"
+                    class="menu-link"
+                  >
+                    <i class="fa-regular fa-file-powerpoint"></i>
+                    <span class="menu-text">Khuyến mãi</span>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a
+                    href="../../news/news-list/news-list.html"
+                    class="menu-link"
+                  >
+                    <i class="fa-regular fa-file-video"></i>
+                    <span class="menu-text">Tin tức</span>
+                  </a>
+                </li>
+                <li class="menu-item active">
+                  <a href="../products-list/products.html" class="menu-link">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="menu-text">Sản phẩm</span>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="../../order/order-list/order.html" class="menu-link">
+                    <i class="fas fa-file-alt"></i>
+                    <span class="menu-text">Đơn hàng</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="menu-group">
+              <h3 class="menu-title">HỆ THỐNG</h3>
+              <ul class="menu-list">
+                <li class="menu-item">
+                  <a href="#" class="menu-link">
+                    <i class="fas fa-cog"></i>
+                    <span class="menu-text">Cài đặt</span>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="#" class="menu-link">
+                    <i class="fas fa-question-circle"></i>
+                    <span class="menu-text">Hỗ trợ</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+        <div class="sidebar-footer">
+          <div class="user-profile">
+            <div class="avatar">
+              <img src="https://via.placeholder.com/40" alt="User" />
+            </div>
+            <div class="user-info">
+              <span class="user-name">John Doe</span>
+              <span class="user-role">Admin</span>
+            </div>
+            <i class="fas fa-sign-out-alt logout-icon"></i>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <!-- Header -->
+        <header class="header">
+          <button class="sidebar-toggle" id="sidebarToggle">
+            <i class="fas fa-bars"></i>
+          </button>
+          <div class="header-right">
+            <div class="search-container">
+              <i class="fas fa-search search-icon"></i>
+              <input
+                type="search"
+                class="search-input"
+                placeholder="Search..."
+              />
+            </div>
+            <div class="notification-container">
+              <button class="notification-button">
+                <i class="fas fa-bell"></i>
+                <span class="notification-badge"></span>
+              </button>
+            </div>
+            <div class="mobile-avatar">
+              <img src="https://via.placeholder.com/32" alt="User" />
+            </div>
+          </div>
+        </header>
+
+        <!-- Product Detail Content -->
+        <div class="dashboard">
+          <div class="dashboard-header">
+            <div class="breadcrumb">
+              <a href="../products-list/products.html" class="breadcrumb-link"
+                >Sản phẩm</a
+              >
+              <i class="fas fa-chevron-right breadcrumb-separator"></i>
+              <span class="breadcrumb-current">Trang chi tiết sản phẩm</span>
+            </div>
+            <div class="product-header-actions">
+              <h1 class="dashboard-title">Trang chi tiết sản phẩm</h1>
+              <div class="product-actions">
+                <a href="edit-product.html?id=1" class="btn-edit">
+                  <i class="fas fa-edit"></i> Chỉnh sửa sản phẩm
+                </a>
+                <button class="btn-delete" id="deleteProductBtn">
+                  <i class="fas fa-trash"></i> Xoá sản phẩm
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product Information -->
+          <div class="product-detail-container">
+            <div class="product-main-info">
+              <div class="product-images">
+                <div class="main-image">
+                  <img
+                    src="/placeholder.svg?height=400&width=400"
+                    alt="Product Image"
+                    id="mainProductImage"
+                  />
+                </div>
+                <div class="image-thumbnails">
+                  <img
+                    src="/placeholder.svg?height=80&width=80"
+                    alt="Thumbnail 1"
+                    class="thumbnail active"
+                    onclick="changeMainImage(this)"
+                  />
+                  <img
+                    src="/placeholder.svg?height=80&width=80"
+                    alt="Thumbnail 2"
+                    class="thumbnail"
+                    onclick="changeMainImage(this)"
+                  />
+                  <img
+                    src="/placeholder.svg?height=80&width=80"
+                    alt="Thumbnail 3"
+                    class="thumbnail"
+                    onclick="changeMainImage(this)"
+                  />
+                  <img
+                    src="/placeholder.svg?height=80&width=80"
+                    alt="Thumbnail 4"
+                    class="thumbnail"
+                    onclick="changeMainImage(this)"
+                  />
+                </div>
+              </div>
+
+              <div class="product-info">
+                <div class="product-status">
+                  <span class="status-badge in-stock">Còn hàng</span>
+                  <span class="product-id">ID: #PRD001</span>
+                </div>
+
+                <h2 class="product-title">Sản phẩm 1</h2>
+
+                <div class="product-rating">
+                  <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                  </div>
+                  <span class="rating-text">4.5 (127 reviews)</span>
+                </div>
+
+                <div class="product-price">
+                  <span class="current-price">$299.99</span>
+                  <span class="original-price">$399.99</span>
+                  <span class="discount">25% OFF</span>
+                </div>
+
+                <div class="product-details">
+                  <div class="detail-item">
+                    <span class="detail-label">Danh mục:</span>
+                    <span class="detail-value">Danh mục 1</span>
+                  </div>
+                  <div class="detail-item">
+                    <span class="detail-label">Thương hiệu:</span>
+                    <span class="detail-value">Thương hiệu 1</span>
+                  </div>
+                  <div class="detail-item">
+                    <span class="detail-label">Mã sản phẩm:</span>
+                    <span class="detail-value">AT-WH-001</span>
+                  </div>
+                  <div class="detail-item">
+                    <span class="detail-label">Kho:</span>
+                    <span class="detail-value">45 units</span>
+                  </div>
+                  <div class="detail-item">
+                    <span class="detail-label">Cân nặng:</span>
+                    <span class="detail-value">250g</span>
+                  </div>
+                  <div class="detail-item">
+                    <span class="detail-label">Kích thước:</span>
+                    <span class="detail-value">18 x 15 x 8 cm</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Product Description -->
+            <div class="product-description-card">
+              <h3 class="card-title">Mô tả sản phẩm</h3>
+              <div class="description-content">
+                <p>Mô tả sản phẩm 1</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Comments Section -->
+          <div class="comments-section">
+            <div class="comments-header">
+              <h3 class="comments-title">
+                Đánh giá và nhận xét của khách hàng
+              </h3>
+              <div class="comments-stats">
+                <span class="total-comments">127 lượt xem</span>
+                <div class="rating-summary">
+                  <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                  </div>
+                  <span class="average-rating">4.5 out of 5</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Rating Breakdown -->
+            <div class="rating-breakdown">
+              <div class="rating-bar">
+                <span class="rating-label">5 sao</span>
+                <div class="bar-container">
+                  <div class="bar-fill" style="width: 65%"></div>
+                </div>
+                <span class="rating-count">82</span>
+              </div>
+              <div class="rating-bar">
+                <span class="rating-label">4 sao</span>
+                <div class="bar-container">
+                  <div class="bar-fill" style="width: 20%"></div>
+                </div>
+                <span class="rating-count">25</span>
+              </div>
+              <div class="rating-bar">
+                <span class="rating-label">3 sao</span>
+                <div class="bar-container">
+                  <div class="bar-fill" style="width: 10%"></div>
+                </div>
+                <span class="rating-count">13</span>
+              </div>
+              <div class="rating-bar">
+                <span class="rating-label">2 sao</span>
+                <div class="bar-container">
+                  <div class="bar-fill" style="width: 3%"></div>
+                </div>
+                <span class="rating-count">4</span>
+              </div>
+              <div class="rating-bar">
+                <span class="rating-label">1 sao</span>
+                <div class="bar-container">
+                  <div class="bar-fill" style="width: 2%"></div>
+                </div>
+                <span class="rating-count">3</span>
+              </div>
+            </div>
+
+            <!-- Comments Filter -->
+            <div class="comments-filter">
+              <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">
+                  Tât cả lượt đánh giá
+                </button>
+                <button class="filter-btn" data-filter="5">5 sao</button>
+                <button class="filter-btn" data-filter="4">4 sao</button>
+                <button class="filter-btn" data-filter="3">3 sao</button>
+                <button class="filter-btn" data-filter="2">2 sao</button>
+                <button class="filter-btn" data-filter="1">1 sao</button>
+              </div>
+              <select class="sort-select">
+                <option value="newest">Newest First</option>
+                <option value="oldest">Oldest First</option>
+                <option value="highest">Highest Rating</option>
+                <option value="lowest">Lowest Rating</option>
+                <option value="helpful">Most Helpful</option>
+              </select>
+            </div>
+
+            <!-- Comments List -->
+            <div class="comments-list">
+              <div class="comment-item" data-rating="5">
+                <div class="comment-header">
+                  <div class="user-info">
+                    <div class="user-avatar">
+                      <img
+                        src="/placeholder.svg?height=40&width=40"
+                        alt="User"
+                      />
+                    </div>
+                    <div class="user-details">
+                      <span class="user-name">Người dùng 1</span>
+                      <span class="comment-date">Tháng 15, 2024</span>
+                    </div>
+                  </div>
+                  <div class="comment-rating">
+                    <div class="stars">
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                    </div>
+                  </div>
+                </div>
+                <div class="comment-content">
+                  <p>Bình luận 1</p>
+                </div>
+                <div class="comment-actions">
+                  <button class="action-btn helpful-btn">
+                    <i class="fas fa-thumbs-up"></i> Thích (12)
+                  </button>
+                  <button class="action-btn reply-btn">
+                    <i class="fas fa-reply"></i> Hồi đáp
+                  </button>
+                  <button class="action-btn report-btn">
+                    <i class="fas fa-flag"></i> Báo cáo
+                  </button>
+                </div>
+              </div>
+
+              <div class="comment-item" data-rating="4">
+                <div class="comment-header">
+                  <div class="user-info">
+                    <div class="user-avatar">
+                      <img
+                        src="/placeholder.svg?height=40&width=40"
+                        alt="User"
+                      />
+                    </div>
+                    <div class="user-details">
+                      <span class="user-name">Người dùng 2</span>
+                      <span class="comment-date">Tháng 12, 2024</span>
+                    </div>
+                  </div>
+                  <div class="comment-rating">
+                    <div class="stars">
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="far fa-star"></i>
+                    </div>
+                  </div>
+                </div>
+                <div class="comment-content">
+                  <p>Bình luận 2</p>
+                </div>
+                <div class="comment-actions">
+                  <button class="action-btn helpful-btn">
+                    <i class="fas fa-thumbs-up"></i> Thích (8)
+                  </button>
+                  <button class="action-btn reply-btn">
+                    <i class="fas fa-reply"></i> Hồi đáp
+                  </button>
+                  <button class="action-btn report-btn">
+                    <i class="fas fa-flag"></i> Báo cáo
+                  </button>
+                </div>
+              </div>
+
+              <div class="comment-item" data-rating="5">
+                <div class="comment-header">
+                  <div class="user-info">
+                    <div class="user-avatar">
+                      <img
+                        src="/placeholder.svg?height=40&width=40"
+                        alt="User"
+                      />
+                    </div>
+                    <div class="user-details">
+                      <span class="user-name">Người dùng 3</span>
+                      <span class="comment-date">Tháng 10, 2024</span>
+                    </div>
+                  </div>
+                  <div class="comment-rating">
+                    <div class="stars">
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                    </div>
+                  </div>
+                </div>
+                <div class="comment-content">
+                  <p>Bình luận 3</p>
+                </div>
+                <div class="comment-actions">
+                  <button class="action-btn helpful-btn">
+                    <i class="fas fa-thumbs-up"></i> Thích (15)
+                  </button>
+                  <button class="action-btn reply-btn">
+                    <i class="fas fa-reply"></i> Hồi đáp
+                  </button>
+                  <button class="action-btn report-btn">
+                    <i class="fas fa-flag"></i> Báo cáo
+                  </button>
+                </div>
+              </div>
+
+              <div class="comment-item" data-rating="3">
+                <div class="comment-header">
+                  <div class="user-info">
+                    <div class="user-avatar">
+                      <img
+                        src="/placeholder.svg?height=40&width=40"
+                        alt="User"
+                      />
+                    </div>
+                    <div class="user-details">
+                      <span class="user-name">Người dùng 4</span>
+                      <span class="comment-date">Tháng 8, 2024</span>
+                    </div>
+                  </div>
+                  <div class="comment-rating">
+                    <div class="stars">
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="far fa-star"></i>
+                      <i class="far fa-star"></i>
+                    </div>
+                  </div>
+                </div>
+                <div class="comment-content">
+                  <p>Bình luận 4</p>
+                </div>
+                <div class="comment-actions">
+                  <button class="action-btn helpful-btn">
+                    <i class="fas fa-thumbs-up"></i> Thích (3)
+                  </button>
+                  <button class="action-btn reply-btn">
+                    <i class="fas fa-reply"></i> Hồi đáp
+                  </button>
+                  <button class="action-btn report-btn">
+                    <i class="fas fa-flag"></i> Boá cáo
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Load More Button -->
+            <div class="load-more-container">
+              <button class="load-more-btn">Tải thêm đánh giá</button>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal" id="deleteModal">
+      <div class="modal-content delete-modal">
+        <div class="modal-header">
+          <h2 class="modal-title">Xoá sản phẩm</h2>
+          <button class="modal-close" id="closeDeleteModal">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="delete-icon">
+            <i class="fas fa-exclamation-triangle"></i>
+          </div>
+          <p class="delete-message">
+            Bạn có chắc chắn muốn xóa sản phẩm này không? Thao tác này không thể
+            hoàn tác.
+          </p>
+          <div class="form-actions">
+            <button type="button" class="btn-cancel" id="cancelDelete">
+              Quay lại
+            </button>
+            <button type="button" class="btn-delete" id="confirmDelete">
+              Xoá
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="../../../layout/dashboards.js"></script>
+    <script src="./products-detail.js"></script>
+  </body>
+</html>

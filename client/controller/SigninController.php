@@ -1,5 +1,5 @@
 <?php
-require_once("./client/models/user.php");
+require_once("./client/model/user.php");
 class SigninController
 {
     protected $client;
@@ -15,31 +15,47 @@ class SigninController
     }
     public function signin()
     {
-
         try {
             if ($_SERVER['REQUEST_METHOD'] != 'POST') {
                 throw new Exception("Yêu cầu phương thức phải là POST");
             }
+
             $email = $_POST['email'] ?? null;
             $password = $_POST['password'] ?? null;
 
             if (empty($email) || empty($password)) {
                 throw new Exception("Email và mật khẩu không được bỏ trống");
             }
+
+            // Lấy người dùng theo email
             $user = $this->client->find(
                 '*',
-                'email=:email AND password = :password',
-                [
-                    'email' => $email,
-                    'password' => $password
-                ]
+                'email = :email',
+                ['email' => $email]
             );
+
             if (empty($user)) {
-                throw new Exception("Thông tin tài khoản hoặc mật khẩu không chính xác");
+                throw new Exception("Email không tồn tại");
             }
-            $_SESSION['user'] = $user;
+            // echo 'Nhập: ' . $password . "<br>";
+            // echo 'Trong DB: ' . $user['password'] . "<br>";
+            // var_dump(password_verify($password, $user['password']));
+            // die();
+
+            // $user = $user[0];
             // debug($user);
-            header("Location:" . BASE_URL);
+
+            // Kiểm tra password
+            if (!password_verify($password, $user['password'])) {
+                throw new Exception("Mật khẩu không chính xác");
+            }
+
+            $_SESSION['user'] = $user;
+            $_SESSION['success'] = true;
+            $_SESSION['msg'] = 'Đăng nhập thành công';
+
+            header("Location: " . BASE_URL);
+            exit();
         } catch (\Throwable $th) {
             $_SESSION['success'] = false;
             $_SESSION['msg'] = $th->getMessage();

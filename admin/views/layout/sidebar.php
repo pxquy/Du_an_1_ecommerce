@@ -10,8 +10,8 @@
             <div class="menu-group">
                 <h3 class="menu-title">DANH MỤC</h3>
                 <ul class="menu-list">
-                    <li class="menu-item active">
-                        <a href="#" class="menu-link">
+                    <li class="menu-item <?= !$view ? 'active' : "" ?>">
+                        <a href="<?= BASE_URL_ADMIN ?>" class="menu-link">
                             <i class="fas fa-home"></i>
                             <span class="menu-text">Dashboard</span>
                         </a>
@@ -22,76 +22,54 @@
                             <span class="menu-text">Thống kê</span>
                         </a>
                     </li>
-                    <li class="menu-item">
-                        <a
-                            href="../pages/user/user-list/user-list.html"
-                            class="menu-link">
+                    <li class="menu-item <?= $view == 'users/index' ? 'active' : "" ?>">
+                        <a href="<?= BASE_URL_ADMIN . '&action=users-index' ?>" class="menu-link">
                             <i class="fas fa-users"></i>
                             <span class="menu-text">Người dùng</span>
                         </a>
                     </li>
-                    <li class="menu-item">
-                        <a
-                            href="../pages/slideShow/slideShow-list/slideShow-list.html"
-                            class="menu-link">
-                            <i class="fa-regular fa-images"></i>
-                            <span class="menu-text">Trình chiếu</span>
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a
-                            href="../pages/banners/banner-list/banner-list.html"
-                            class="menu-link">
-                            <i class="fa-regular fa-image"></i>
-                            <span class="menu-text">banners</span>
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a
-                            href="../pages/categories/category-list/category-list.html"
-                            class="menu-link">
+                    <li class="menu-item <?= $view == 'categories/index' ? 'active' : "" ?> ">
+                        <a href="<?= BASE_URL_ADMIN . '&action=categories-index' ?>" class="menu-link">
                             <i class="fa-regular fa-rectangle-list"></i>
                             <span class="menu-text">Danh mục</span>
                         </a>
                     </li>
-                    <li class="menu-item">
-                        <a
-                            href="../pages/brands/brand-list/brand-list.html"
-                            class="menu-link">
+                    <li class="menu-item <?= $view == 'brands/index' ? 'active' : "" ?> ">
+                        <a href="<?= BASE_URL_ADMIN . '&action=brands-index' ?>" class="menu-link">
                             <i class="fa-regular fa-copyright"></i>
                             <span class="menu-text">Thương hiệu</span>
                         </a>
                     </li>
-                    <li class="menu-item">
-                        <a
-                            href="../pages/voucher/voucher-list/voucher-list.html"
-                            class="menu-link">
+                    <!-- <li class="menu-item <?= $view == 'vouchers/index' ? 'active' : "" ?>">
+                        <a href="<?= BASE_URL_ADMIN . '&action=vouchers-index' ?>" class="menu-link">
                             <i class="fa-regular fa-file-powerpoint"></i>
                             <span class="menu-text">Khuyến mãi</span>
                         </a>
-                    </li>
-                    <li class="menu-item">
-                        <a
-                            href="../pages/news/news-list/news-list.html"
-                            class="menu-link">
-                            <i class="fa-regular fa-file-video"></i>
-                            <span class="menu-text">Tin tức</span>
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a
-                            href="../pages/products/products-list/products.html"
-                            class="menu-link">
+                    </li> -->
+                    <li class="menu-item <?= $view == 'products/index' ? 'active' : "" ?>">
+                        <a href="<?= BASE_URL_ADMIN . '&action=products-index' ?>" class="menu-link">
                             <i class="fas fa-shopping-cart"></i>
                             <span class="menu-text">Sản phẩm</span>
                         </a>
                     </li>
-                    <li class="menu-item">
-                        <a href="../pages/order/order-list/order.html" class="menu-link">
+                    <li class="menu-item <?= $view == 'orders/index' ? 'active' : "" ?>">
+                        <a href="<?= BASE_URL_ADMIN . '&action=orders-index' ?>" class="menu-link">
                             <i class="fas fa-file-alt"></i>
                             <span class="menu-text">Đơn hàng</span>
                         </a>
                     </li>
+                    <li class="menu-item">
+                        <a href="<?= BASE_URL ?>" class="menu-link">
+                            <i class="fas fa-file-alt"></i>
+                            <span class="menu-text">Về trang chủ</span>
+                        </a>
+                    </li>
+                    <!-- <li class="menu-item <?= $view == 'variants/index' ? 'active' : "" ?>">
+                        <a href="<?= BASE_URL_ADMIN . '&action=variants-index' ?>" class="menu-link">
+                            <i class="fas fa-file-alt"></i>
+                            <span class="menu-text">Biến thể</span>
+                        </a>
+                    </li> -->
                 </ul>
             </div>
             <div class="menu-group">

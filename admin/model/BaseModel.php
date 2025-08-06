@@ -4,12 +4,6 @@ class BaseModel
     protected $table;
     protected $pdo;
 
-    protected function genId($prefix = 'ID')
-    {
-        return $prefix . '-' . date('YmdHis') . '-' . substr(md5(uniqid()), 0, 6);
-    }
-
-
     public function __construct()
     {
         $dsn = sprintf(
@@ -85,19 +79,13 @@ class BaseModel
 
     public function insert($data)
     {
-
-        if (empty($data['id'])) {
-            $prefix = strtoupper(substr($this->table, 0, 3));
-            $data['id'] = $this->genId($prefix);
-        }
-
         $keys = array_keys($data);
         $column = implode(',', $keys);
         $placeholders = ':' . implode(', :', $keys);
         $sql = "INSERT INTO {$this->table} ($column) VALUES ($placeholders)";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute($data);
-        return $data['id'];
+        return $this->pdo->lastInsertId();
     }
 
     public function update($data, $condition = null, $params = [])
@@ -149,5 +137,12 @@ class BaseModel
         ];
 
         return $this->update($data, 'id = :id', ['id' => $id]);
+    }
+
+    public function selectRaw(string $sql, array $params = []): array
+    {
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute($params);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }

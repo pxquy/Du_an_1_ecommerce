@@ -20,10 +20,7 @@ define('PATH_VIEW_CLIENT_MAIN', PATH_VIEW_CLIENT . 'main.php');
 define('BASE_ASSETS_ADMIN', BASE_URL . 'assets/admin/');
 define('BASE_ASSETS_CLIENT', BASE_URL . 'assets/client/');
 define('BASE_ASSETS_UPLOADS', BASE_URL . 'assets/upload/');
-
-
 define('PATH_ASSETS_UPLOADS', PATH_ROOT . 'assets/upload/');
-
 // Đường dẫn controller
 define('PATH_CONTROLLER_ADMIN', PATH_ROOT . 'admin/controller/');
 define('PATH_CONTROLLER_CLIENT', PATH_ROOT . 'client/controller/');

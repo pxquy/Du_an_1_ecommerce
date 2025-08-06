@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Danh sách sản phẩm - Tailwind</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  </head>
+  <body class="bg-gray-50 text-gray-800">
+
+    <!-- Sidebar -->
+    <div class="flex min-h-screen">
+      <aside class="w-64 bg-white shadow-md flex flex-col justify-between">
+        <div>
+          <div class="px-6 py-4 border-b border-gray-200 flex items-center gap-2">
+            <i class="fas fa-chart-bar text-indigo-600"></i>
+            <span class="font-semibold text-lg">Admin Panel</span>
+          </div>
+          <nav class="px-4 py-6">
+            <h3 class="text-xs text-gray-500 mb-2 uppercase font-semibold">Danh mục</h3>
+            <ul class="space-y-2">
+              <li><a href="#" class="flex items-center gap-2 text-gray-700 hover:text-indigo-600"><i class="fas fa-home"></i> Dashboard</a></li>
+              <li><a href="#" class="flex items-center gap-2 text-gray-700 hover:text-indigo-600"><i class="fas fa-chart-line"></i> Thống kê</a></li>
+              <li><a href="#" class="flex items-center gap-2 text-gray-700 hover:text-indigo-600"><i class="fas fa-users"></i> Người dùng</a></li>
+              <li><a href="#" class="flex items-center gap-2 text-gray-700 hover:text-indigo-600"><i class="fas fa-shopping-cart"></i> Sản phẩm</a></li>
+            </ul>
+          </nav>
+        </div>
+        <div class="px-4 py-4 border-t border-gray-200">
+          <div class="flex items-center gap-3">
+            <img src="https://via.placeholder.com/40" class="rounded-full w-10 h-10" />
+            <div class="text-sm">
+              <p class="font-semibold">John Doe</p>
+              <p class="text-gray-500">Admin</p>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="flex-1 p-6 space-y-6">
+        <header class="flex justify-between items-center">
+          <h1 class="text-2xl font-bold">Quản lý sản phẩm</h1>
+          <div class="flex gap-3 items-center">
+            <input type="text" placeholder="Search..." class="border rounded px-3 py-2 text-sm" />
+            <button class="text-gray-500 hover:text-indigo-600"><i class="fas fa-bell"></i></button>
+          </div>
+        </header>
+
+        <!-- Actions -->
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div class="flex flex-col md:flex-row gap-4 w-full md:w-auto">
+            <select class="border rounded px-3 py-2 text-sm w-full md:w-auto">
+              <option>Tất cả danh mục</option>
+              <option>Danh mục 1</option>
+            </select>
+            <select class="border rounded px-3 py-2 text-sm w-full md:w-auto">
+              <option>Tất cả trạng thái</option>
+              <option>Còn hàng</option>
+            </select>
+            <input type="search" placeholder="Tìm kiếm..." class="border rounded px-3 py-2 text-sm w-full md:w-auto" />
+          </div>
+          <a href="#" class="bg-indigo-600 text-white px-4 py-2 rounded text-sm hover:bg-indigo-700 flex items-center gap-2">
+            <i class="fas fa-plus"></i> Thêm sản phẩm
+          </a>
+        </div>
+
+        <!-- Table -->
+        <div class="overflow-x-auto bg-white rounded shadow">
+          <table class="min-w-full table-auto">
+            <thead class="bg-gray-100 text-sm text-gray-600">
+              <tr>
+                <th class="p-4 text-left"><input type="checkbox" /></th>
+                <th class="p-4 text-left">Tên sản phẩm</th>
+                <th class="p-4 text-left">Mã SP</th>
+                <th class="p-4 text-left">Danh mục</th>
+                <th class="p-4 text-left">Giá</th>
+                <th class="p-4 text-left">Kho</th>
+                <th class="p-4 text-left">Trạng thái</th>
+                <th class="p-4 text-left">Hành động</th>
+              </tr>
+            </thead>
+            <tbody class="text-sm">
+              <tr class="border-b">
+                <td class="p-4"><input type="checkbox" /></td>
+                <td class="p-4">
+                  <div class="flex items-center gap-3">
+                    <img src="https://via.placeholder.com/40" class="w-10 h-10 rounded object-cover" />
+                    <div>
+                      <p class="font-semibold">Sản phẩm 1</p>
+                      <p class="text-xs text-gray-500">ID: #PRD001</p>
+                    </div>
+                  </div>
+                </td>
+                <td class="p-4">WH-1000XM4</td>
+                <td class="p-4">Danh mục 1</td>
+                <td class="p-4">$299.99</td>
+                <td class="p-4">45</td>
+                <td class="p-4">
+                  <span class="text-green-700 bg-green-100 px-2 py-1 rounded-full text-xs font-medium">Còn hàng</span>
+                </td>
+                <td class="p-4">
+                  <div class="flex gap-2">
+                    <a href="#" class="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-blue-600 hover:bg-gray-100 rounded">
+                      <i class="fa-regular fa-calendar"></i>
+                    </a>
+                    <a href="#" class="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-blue-600 hover:bg-gray-100 rounded">
+                      <i class="fas fa-edit"></i>
+                    </a>
+                    <button class="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-red-600 hover:bg-gray-100 rounded">
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <!-- Repeat rows as needed -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="flex justify-center items-center gap-1 mt-6">
+          <button class="px-3 py-1 border rounded text-sm text-gray-500" disabled>&laquo;</button>
+          <button class="px-3 py-1 bg-indigo-600 text-white rounded text-sm">1</button>
+          <button class="px-3 py-1 border rounded text-sm text-gray-500 hover:border-indigo-600">2</button>
+          <button class="px-3 py-1 border rounded text-sm text-gray-500 hover:border-indigo-600">3</button>
+          <span class="px-2 text-sm text-gray-500">...</span>
+          <button class="px-3 py-1 border rounded text-sm text-gray-500 hover:border-indigo-600">10</button>
+          <button class="px-3 py-1 border rounded text-sm text-gray-500">&raquo;</button>
+        </div>
+      </main>
+    </div>
+
+  </body>
+</html>

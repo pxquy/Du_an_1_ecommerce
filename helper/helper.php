@@ -1,16 +1,13 @@
 <?php
 if (!function_exists('debug')) {
-
-    if (!function_exists('debug')) {
-        function debug($data)
-        {
-            echo '<pre>';
-            print_r($data);
-            die;
-        }
+    function debug($data)
+    {
+        echo '<pre>';
+        print_r($data);
+        die;
     }
-    die;
 }
+
 
 
 if (!function_exists('upload_file')) {
@@ -57,6 +54,118 @@ if (!function_exists('upload_file')) {
         return $targetFile;
     }
 }
+
+function uploadImage($file, $uploadDir)
+{
+    // $uploadDir = '../../Upload/';
+
+    // 3 biến này để trả về kết quả của hàm
+    $status = false; // trạng thái upload file
+    $mgs = ""; // thông báo
+    $payload = []; //file
+    // Kiểm tra xem người dùng đã chọn file ảnh để upload hay chưa
+    if (isset($file) && $file['error'] === UPLOAD_ERR_OK) {
+
+        // Lấy thông tin về file
+        $fileName = $file['name'];
+        $fileSize = $file['size'];
+        $fileTmp = $file['tmp_name'];
+
+        // Kiểm tra định dạng file (chỉ cho phép các định dạng ảnh)
+        $allowedFormats = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+        $fileExt = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+        if (!in_array($fileExt, $allowedFormats)) {
+            $mgs = "Chỉ cho phép upload các file ảnh có định dạng JPG, JPEG, PNG, GIF, WEBP.";
+            array_push($payload, $mgs);
+            array_push($payload, $status);
+            return $payload;
+        }
+
+        // Kiểm tra kích thước file (giới hạn 5MB)
+        $maxFileSize = 5 * 1024 * 1024; // 5MB
+        if ($fileSize > $maxFileSize) {
+            $mgs = "Kích thước file vượt quá giới hạn cho phép (5MB).";
+            array_push($payload, $mgs);
+            array_push($payload, $status);
+            return $payload;
+        }
+
+        // Tạo tên file mới để tránh trùng lặp
+        $newFileName = uniqid() . '.' . $fileExt;
+
+        // Di chuyển file từ thư mục tạm sang thư mục lưu trữ
+        $uploadPath = $uploadDir . $newFileName;
+        if (move_uploaded_file($fileTmp, $uploadPath)) {
+            // File đã được upload thành công
+            $mgs = "Upload thành công!";
+            $status = true;
+            array_push($payload, $mgs);
+            array_push($payload, $status);
+            array_push($payload, $newFileName);
+            return $payload; // trả về một mảng gồm 3 phần tử 
+        } else {
+            // Lỗi khi di chuyển file
+            $mgs = "Upload thất bại!";
+            array_push($payload, $mgs);
+            array_push($payload, $status);
+            return $payload; // khi lỗi trả về một mảng gồm 2 phần tử
+        }
+    } else {
+        // Không có file được chọn hoặc có lỗi trong quá trình upload
+        $mgs = "Vui lòng chọn một file ảnh!";
+        array_push($payload, $mgs);
+        array_push($payload, $status);
+        return $payload; // khi lỗi trả về một mảng gồm 2 phần tử
+    }
+}
+
+function genId($n, $prefix = null)
+{
+    $character = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    $id = $prefix;
+    $maxIndex = strlen($character) - 1;
+    for ($i = 0; $i < $n - 1; $i++) {
+        $id .= $character[random_int(0, $maxIndex)];
+    }
+    return $id;
+}
+
+function slugify($string)
+{
+    // Chuyển về chữ thường
+    $string = mb_strtolower($string, 'UTF-8');
+
+    // Loại bỏ dấu tiếng Việt
+    $string = preg_replace('/[áàảãạăắằẳẵặâấầẩẫậ]/u', 'a', $string);
+    $string = preg_replace('/[éèẻẽẹêếềểễệ]/u', 'e', $string);
+    $string = preg_replace('/[íìỉĩị]/u', 'i', $string);
+    $string = preg_replace('/[óòỏõọôốồổỗộơớờởỡợ]/u', 'o', $string);
+    $string = preg_replace('/[úùủũụưứừửữự]/u', 'u', $string);
+    $string = preg_replace('/[ýỳỷỹỵ]/u', 'y', $string);
+    $string = preg_replace('/[đ]/u', 'd', $string);
+
+    // Loại bỏ ký tự không hợp lệ
+    $string = preg_replace('/[^a-z0-9\-]/', '-', $string);
+    $string = preg_replace('/-+/', '-', $string); // bỏ trùng dấu -
+    $string = trim($string, '-');
+
+    return $string;
+}
+
+function dequy($arrays, $index = 0, $current = [], &$result = [])
+{
+    if ($index === count($arrays)) {
+        $result[] = implode('-', $current);
+        return;
+    }
+
+    foreach ($arrays[$index] as $value) {
+        dequy($arrays, $index + 1, array_merge($current, [$value]), $result);
+    }
+
+    return $result;
+}
+
 //hàm kiểm tra đăng nhập để thực hiện một số chức năng bắt buộc
 function require_Login()
 {
