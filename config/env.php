@@ -14,7 +14,7 @@ define('PATH_VIEW_CLIENT', PATH_ROOT . 'client/views/');
 
 // Đường dẫn body
 define('PATH_VIEW_ADMIN_MAIN', PATH_VIEW_ADMIN . 'main.php');
-define('PATH_VIEW_CLIENT_MAIN', PATH_VIEW_CLIENT . 'main.php');
+define('PATH_VIEW_CLIENT_MAIN', PATH_VIEW_CLIENT . 'home.php');
 
 // Đường dẫn assets
 define('BASE_ASSETS_ADMIN', BASE_URL . 'assets/admin/');

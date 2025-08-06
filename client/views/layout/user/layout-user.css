@@ -1,0 +1,101 @@
+/* Reset and Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f5f7fb;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* Layout */
+.admin-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Sidebar Overlay */
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 90;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.sidebar-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  margin-left: 260px;
+  transition: margin-left 0.3s ease;
+}
+
+.admin-container.sidebar-collapsed .main-content {
+  margin-left: 70px;
+}
+
+.content {
+  padding: 1.5rem;
+}
+
+.content-header {
+  margin-bottom: 1.5rem;
+}
+
+.content-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.content-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.content-description {
+  color: #64748b;
+}
+
+/* Breadcrumb */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+}
+
+.breadcrumb-link {
+  color: #64748b;
+  text-decoration: none;
+}
+
+.breadcrumb-link:hover {
+  color: #4f46e5;
+  text-decoration: underline;
+}
+
+.breadcrumb-separator {
+  margin: 0 0.5rem;
+  color: #64748b;
+  font-size: 0.75rem;
+}
+
+.breadcrumb-current {
+  color: #4f46e5;
+}

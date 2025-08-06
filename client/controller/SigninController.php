@@ -9,7 +9,7 @@ class SigninController
     }
     public function locationSignin()
     {
-        $views = "/signin";
+        $views = "pages/site/login/login";
         $title = "signin";
         require_once PATH_VIEW_CLIENT . $views . '.php';
     }

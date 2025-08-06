@@ -9,7 +9,7 @@ class SignupController
     }
     public function locationCreate()
     {
-        $view = "/signup";
+        $view = "/pages/site/register/register";
         $title = "Signup";
         require_once PATH_VIEW_CLIENT . $view . ".php";
     }
@@ -86,7 +86,7 @@ class SignupController
             if ($rowCount > 0) {
                 $_SESSION['success'] = true;
                 $_SESSION['msg'] = 'Đăng kí thành công';
-                header('Location: ' . BASE_URL . "?action=form_signin");
+                header('Location: ' . BASE_URL);
                 exit();
             } else {
                 throw new Exception('Đăng kí thất bại');

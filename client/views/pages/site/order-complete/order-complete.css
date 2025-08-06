@@ -1,0 +1,796 @@
+/* ==========================================================================
+Order Complete Page Styles - Mulgati
+========================================================================== */
+
+/* Breadcrumbs
+========================================================================== */
+.breadcrumbs {
+  background-color: #f9f9f9;
+  padding: 15px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.breadcrumb-list {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.breadcrumb-list li {
+  font-size: 14px;
+  color: #666;
+}
+
+.breadcrumb-list li a {
+  color: #333;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.breadcrumb-list li a:hover {
+  color: #c00;
+}
+
+.breadcrumb-list li i {
+  font-size: 10px;
+  margin: 0 10px;
+  color: #999;
+}
+
+/* Order Complete Section
+========================================================================== */
+.order-complete-section {
+  padding: 40px 0 60px;
+}
+
+/* Checkout Progress
+========================================================================== */
+.checkout-progress {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.progress-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.step-number {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 600;
+  color: #666;
+  margin-bottom: 8px;
+  transition: all 0.3s ease;
+}
+
+.step-label {
+  font-size: 14px;
+  color: #666;
+  font-weight: 500;
+}
+
+.progress-connector {
+  width: 100px;
+  height: 2px;
+  background-color: #ddd;
+  margin: 0 15px;
+  position: relative;
+  top: -14px;
+  z-index: 0;
+}
+
+/* Active and Completed Steps */
+.progress-step.active .step-number {
+  background-color: #c00 !important;
+  border-color: #c00 !important;
+  color: #fff;
+}
+
+.progress-step.active .step-label {
+  color: #c00;
+  font-weight: 600;
+}
+
+.progress-step.completed .step-number {
+  background-color: #4caf50;
+  border-color: #4caf50;
+  color: #fff;
+}
+
+.progress-connector.completed {
+  background-color: #4caf50;
+}
+
+/* Order Success Message
+========================================================================== */
+.order-success,
+.order-error {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 40px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.success-icon,
+.error-icon {
+  font-size: 80px;
+  color: #4caf50;
+  margin-bottom: 20px;
+}
+
+.error-icon {
+  color: #c00;
+}
+
+.success-title,
+.error-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #333;
+  margin: 0 0 15px;
+}
+
+.success-message,
+.error-message {
+  font-size: 16px;
+  color: #666;
+  margin: 0 0 20px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.order-number {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.order-number strong {
+  color: #c00;
+}
+
+.email-confirmation {
+  font-size: 14px;
+  color: #666;
+}
+
+/* Order Details
+========================================================================== */
+.order-details {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  margin-bottom: 30px;
+  overflow: hidden;
+}
+
+.order-details-header {
+  padding: 15px 20px;
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #eee;
+}
+
+.order-details-header h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+.order-details-content {
+  padding: 20px;
+}
+
+/* Order Info
+========================================================================== */
+.order-info {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.info-column {
+  flex: 1;
+}
+
+.info-column h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.info-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.info-list li {
+  display: flex;
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #666;
+}
+
+.info-list li span {
+  min-width: 150px;
+}
+
+.info-list li strong {
+  color: #333;
+}
+
+/* Order Items
+========================================================================== */
+.order-items {
+  margin-bottom: 30px;
+}
+
+.order-items h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.order-items-table {
+  width: 100%;
+}
+
+.order-items-header {
+  display: flex;
+  background-color: #f9f9f9;
+  padding: 10px 15px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+}
+
+.item-product {
+  width: 50%;
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+
+.item-price,
+.item-quantity,
+.item-total {
+  width: 16.66%;
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  text-align: center;
+}
+
+.order-item {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.order-item:last-child {
+  border-bottom: none;
+}
+
+.item-product {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.item-image {
+  width: 80px;
+  height: 80px;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.item-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.item-details {
+  flex: 1;
+}
+
+.item-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 5px;
+}
+
+.item-variant {
+  font-size: 12px;
+  color: #666;
+}
+
+.item-price,
+.item-quantity,
+.item-total {
+  font-size: 14px;
+  color: #333;
+  text-align: center;
+}
+
+.item-total {
+  font-weight: 600;
+  color: #c00;
+}
+
+/* Order Summary
+========================================================================== */
+.order-summary {
+  width: 350px;
+  margin-left: auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.summary-label {
+  font-size: 14px;
+  color: #666;
+}
+
+.summary-value {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+
+.total-row {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.total-row .summary-label {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.total-row .summary-value {
+  font-size: 18px;
+  font-weight: 700;
+  color: #c00;
+}
+
+/* Shipping Information
+========================================================================== */
+.shipping-information {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  background-color: #f0f8ff;
+  border-radius: 8px;
+  margin-bottom: 30px;
+}
+
+.shipping-icon {
+  font-size: 40px;
+  color: #0066cc;
+}
+
+.shipping-content {
+  flex: 1;
+}
+
+.shipping-content h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 10px;
+}
+
+.shipping-content p {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+}
+
+/* Next Steps
+========================================================================== */
+.next-steps {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.next-steps h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 20px;
+}
+
+.steps-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.step-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  width: 180px;
+}
+
+.step-btn:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.step-btn i {
+  font-size: 30px;
+  color: #c00;
+  margin-bottom: 10px;
+}
+
+.step-btn span {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* Customer Support
+========================================================================== */
+.customer-support {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  margin-bottom: 30px;
+}
+
+.support-icon {
+  font-size: 40px;
+  color: #c00;
+}
+
+.support-content {
+  flex: 1;
+}
+
+.support-content h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 10px;
+}
+
+.support-content p {
+  font-size: 14px;
+  color: #666;
+  margin: 0 0 15px;
+}
+
+.support-contacts {
+  display: flex;
+  gap: 20px;
+}
+
+.support-contact {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.support-contact i {
+  font-size: 16px;
+  color: #c00;
+}
+
+.support-contact span {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* Thank You Message
+========================================================================== */
+.thank-you-message {
+  text-align: center;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.thank-you-message p {
+  font-size: 16px;
+  color: #333;
+  margin: 0;
+}
+
+.error-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 30px;
+  background-color: #c00;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.error-btn:hover {
+  background-color: #a00;
+}
+
+/* Responsive Styles
+========================================================================== */
+
+/* Tablets and small desktops */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .order-info {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .order-summary {
+    width: 100%;
+  }
+
+  .steps-buttons {
+    flex-wrap: wrap;
+  }
+
+  .step-btn {
+    width: calc(50% - 10px);
+  }
+
+  .progress-connector {
+    width: 60px;
+  }
+}
+
+/* Large phones and portrait tablets */
+@media (min-width: 481px) and (max-width: 767px) {
+  .order-info {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .order-summary {
+    width: 100%;
+  }
+
+  .order-items-header {
+    display: none;
+  }
+
+  .order-item {
+    flex-wrap: wrap;
+    position: relative;
+    padding: 15px;
+  }
+
+  .item-product {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+
+  .item-price,
+  .item-quantity,
+  .item-total {
+    width: 33.33%;
+    text-align: center;
+  }
+
+  .item-price::before,
+  .item-quantity::before,
+  .item-total::before {
+    content: attr(data-label);
+    display: block;
+    font-size: 12px;
+    color: #999;
+    margin-bottom: 5px;
+  }
+
+  .steps-buttons {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .step-btn {
+    width: 100%;
+  }
+
+  .progress-step .step-label {
+    font-size: 12px;
+  }
+
+  .progress-connector {
+    width: 40px;
+  }
+
+  .shipping-information,
+  .customer-support {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .support-contacts {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+  .success-title {
+    font-size: 24px;
+  }
+
+  .order-info {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .order-summary {
+    width: 100%;
+  }
+
+  .order-items-header {
+    display: none;
+  }
+
+  .order-item {
+    flex-wrap: wrap;
+    position: relative;
+    padding: 15px;
+  }
+
+  .item-product {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+
+  .item-image {
+    width: 60px;
+    height: 60px;
+  }
+
+  .item-price,
+  .item-quantity,
+  .item-total {
+    width: 33.33%;
+    text-align: center;
+  }
+
+  .item-price::before,
+  .item-quantity::before,
+  .item-total::before {
+    content: attr(data-label);
+    display: block;
+    font-size: 12px;
+    color: #999;
+    margin-bottom: 5px;
+  }
+
+  .steps-buttons {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .step-btn {
+    width: 100%;
+  }
+
+  .checkout-progress {
+    margin-bottom: 30px;
+  }
+
+  .progress-step .step-number {
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
+  }
+
+  .progress-step .step-label {
+    font-size: 10px;
+  }
+
+  .progress-connector {
+    width: 20px;
+    margin: 0 5px;
+  }
+
+  .shipping-information,
+  .customer-support {
+    flex-direction: column;
+    text-align: center;
+    padding: 15px;
+  }
+
+  .support-contacts {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+}
+
+/* High DPI Screens */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .success-title,
+  .order-details-header h2,
+  .info-column h3 {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Print Styles
+========================================================================== */
+@media print {
+  .checkout-progress,
+  .next-steps,
+  .shipping-information,
+  .customer-support,
+  .thank-you-message {
+    display: none;
+  }
+
+  .order-success {
+    box-shadow: none;
+    padding: 0;
+  }
+
+  .order-details {
+    box-shadow: none;
+    border: 1px solid #ddd;
+  }
+
+  .success-icon {
+    font-size: 40px;
+  }
+}
