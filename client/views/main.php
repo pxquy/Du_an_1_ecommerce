@@ -7,16 +7,6 @@
     <title><?= $title ?? 'Trang chủ' ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous">
-    </script>
-    <style>
-        .hero {
-            padding: 100px 0;
-            background-color: #f8f9fa;
-            text-align: center;
-        }
-    </style>
 </head>
 
 <body>
@@ -28,73 +18,91 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Category</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">News</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= BASE_URL . "?action=logout" ?>">logout</a>
-                    </li>
+                    <li class="nav-item"><a class="nav-link active" href="<?= BASE_URL ?>">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Category</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">News</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<?= BASE_URL . "?action=logout" ?>">Logout</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <section class="hero">
-        <div class="container">
-            <?php
-            if (isset($view)) {
-                // debug($view);
-                require_once PATH_VIEW_CLIENT . $view . '.php';
-            }
-            ?>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th class="text-uppercase">Title</th>
-                        <th class="text-uppercase">Price</th>
+    <section class="container mt-4">
+        <h2 class="text-center mb-4">Tìm kiếm sản phẩm</h2>
 
-                        <th class="text-uppercase">Slug</th>
-                        <th class="text-uppercase">Created At</th>
-                        <th class="text-uppercase">Updated At</th>
-                        <th class="text-uppercase">Details</th>
-                    </tr>
-                </thead>
-                <tbody>
+        <!-- Form tìm kiếm -->
+        <form class="row g-2 mb-4" method="GET">
+            <input type="hidden" name="action" value="search">
+
+            <div class="col-md-3">
+                <input type="text" name="keyword" class="form-control" placeholder="Nhập từ khóa..."
+                    value="<?= htmlspecialchars($_GET['keyword'] ?? '') ?>">
+            </div>
+
+            <div class="col-md-2">
+                <input type="number" name="minPrice" class="form-control" placeholder="Giá tối thiểu"
+                    value="<?= htmlspecialchars($_GET['minPrice'] ?? '') ?>">
+            </div>
+
+            <div class="col-md-2">
+                <input type="number" name="maxPrice" class="form-control" placeholder="Giá tối đa"
+                    value="<?= htmlspecialchars($_GET['maxPrice'] ?? '') ?>">
+            </div>
+
+            <div class="col-md-2">
+                <select name="order" class="form-select">
+                    <option value="ASC" <?= (($_GET['order'] ?? '') == 'ASC') ? 'selected' : '' ?>>A-Z</option>
+                    <option value="DESC" <?= (($_GET['order'] ?? '') == 'DESC') ? 'selected' : '' ?>>Z-A</option>
+                </select>
+            </div>
+
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary w-100">Tìm kiếm</button>
+            </div>
+        </form>
+
+        <!-- Bảng kết quả -->
+        <table class="table table-bordered text-center align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>Ảnh</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Giá</th>
+                    <th>Slug</th>
+                    <th>Ngày tạo</th>
+                    <th>Chi tiết</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if (!empty($products)): ?>
                     <?php foreach ($products as $product): ?>
                         <tr>
-                            <td class="text-uppercase"><?= $product['title'] ?></td>
-                            <td class="text-uppercase"><?= $product['priceDefault'] ?></td>
-
-                            <td class="text-uppercase"><?= $product['slug'] ?></td>
-                            <td class="text-uppercase"><?= $product['createdAt'] ?></td>
-                            <td class="text-uppercase"><?= $product['updatedAt'] ?></td>
-                            <td class="text-uppercase"><a
-                                    href="<?= BASE_URL . '?action=product_detail&id=' . $product['id']  ?>">Chi tiết</a>
+                            <td>
+                                <?php if (!empty($product['thumbnail'])): ?>
+                                    <img src="<?= $product['thumbnail'] ?>" alt="Ảnh" width="60">
+                                <?php else: ?>
+                                    <span>Không có ảnh</span>
+                                <?php endif; ?>
+                            </td>
+                            <td><?= htmlspecialchars($product['title']) ?></td>
+                            <td><?= number_format($product['priceDefault'], 0, ',', '.') ?> đ</td>
+                            <td><?= htmlspecialchars($product['slug']) ?></td>
+                            <td><?= htmlspecialchars($product['createdAt']) ?></td>
+                            <td>
+                                <a href="<?= BASE_URL . '?action=product_detail&id=' . $product['id'] ?>"
+                                    class="btn btn-sm btn-info">Chi tiết</a>
                             </td>
                         </tr>
-                    <?php endforeach;
-                    ?>
-                </tbody>
-            </table>
-        </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <tr>
+                        <td colspan="6" class="text-center text-muted">Không tìm thấy sản phẩm nào</td>
+                    </tr>
+                <?php endif; ?>
+            </tbody>
+        </table>
     </section>
-
-    <footer class="bg-dark text-white text-center py-3">
-        <div class="container">
-            <p class="mb-0">© 2025 Tên Công Ty. All rights reserved.</p>
-        </div>
-    </footer>
-
 </body>
-
 
 </html>

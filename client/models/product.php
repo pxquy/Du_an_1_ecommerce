@@ -6,4 +6,31 @@ class Product extends BaseModel
     {
         $this->table = $tableName;
     }
+    public function searchProducts($keyword = '', $minPrice = 0, $maxPrice = 0, $order = 'ASC')
+    {
+        $sql = "SELECT * FROM {$this->table} WHERE isActive = 1";
+        $params = [];
+
+        // Lọc theo từ khóa (tên hoặc slug)
+        if (!empty($keyword)) {
+            $sql .= " AND (title LIKE :keyword OR slug LIKE :keyword)";
+            $params['keyword'] = '%' . $keyword . '%';
+        }
+
+        // Lọc theo giá
+        if ($minPrice > 0) {
+            $sql .= " AND priceDefault >= :minPrice";
+            $params['minPrice'] = $minPrice;
+        }
+        if ($maxPrice > 0) {
+            $sql .= " AND priceDefault <= :maxPrice";
+            $params['maxPrice'] = $maxPrice;
+        }
+
+        // Sắp xếp theo tên sản phẩm
+        $order = strtoupper($order) === 'DESC' ? 'DESC' : 'ASC';
+        $sql .= " ORDER BY title $order";
+
+        return $this->selectRaw($sql, $params);
+    }
 }

@@ -146,24 +146,6 @@ foreach ($variantAttributes as $variantId => $attrs) {
     <p>Vui lòng <a href="<?= BASE_URL ?>?action=form_signin">đăng nhập</a> để bình luận.</p>
 <?php endif; ?>
 
-<!-- Danh sách bình luận -->
-<div style="margin-top: 15px;">
-    <?php if (!empty($comments)): ?>
-        <?php foreach ($comments as $c): ?>
-            <div style="border-bottom:1px solid #ddd; padding:10px 0;">
-                <img src="<?= $c['avatarUrl'] ?? 'default-avatar.png' ?>" alt=""
-                    style="width:35px; height:35px; border-radius:50%; vertical-align:middle; margin-right:5px;">
-                <strong><?= htmlspecialchars($c['fullname']) ?></strong>
-                <small style="color:#666;"><?= $c['createdAt'] ?></small>
-                <div>Đánh giá: <?= $c['rating'] ?> ⭐</div>
-                <p style="margin:5px 0;"><?= nl2br(htmlspecialchars($c['content'])) ?></p>
-            </div>
-        <?php endforeach; ?>
-    <?php else: ?>
-        <p>Chưa có bình luận nào cho sản phẩm này.</p>
-    <?php endif; ?>
-</div>
-
 <script>
     const variantsData = <?= json_encode($variants) ?>;
     const variantAttributes = <?= json_encode($variantAttributes) ?>;

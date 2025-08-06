@@ -18,5 +18,5 @@ match ($action) {
     'create_order' => (new OrderController())->createOrder(), //Hiển thị form tạo đơn hàng
     'store_order' => (new OrderController())->storeOrder(), //tạo đơn hàng
     'add_comment' => (new CommentController())->addComment(), //đánh giá sản phẩm
-
+    'search' => (new ProductController())->search(),
 };

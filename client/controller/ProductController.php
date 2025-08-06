@@ -90,4 +90,20 @@ class ProductController
         // debug($variantAttributes);
         require_once PATH_VIEW_CLIENT . $view . ".php";
     }
+    public function search()
+    {
+        // Lấy dữ liệu từ query string
+        $keyword   = $_GET['keyword'] ?? '';
+        $minPrice  = floatval($_GET['minPrice'] ?? 0);
+        $maxPrice  = floatval($_GET['maxPrice'] ?? 0);
+        $order     = $_GET['order'] ?? 'ASC'; // A-Z hoặc Z-A
+
+        // Gọi model tìm kiếm
+        $products = $this->client->searchProducts($keyword, $minPrice, $maxPrice, $order);
+
+        // View
+        $title = 'Tìm kiếm sản phẩm';
+        $view  = 'main';
+        require_once PATH_VIEW_CLIENT . $view . '.php';
+    }
 }
