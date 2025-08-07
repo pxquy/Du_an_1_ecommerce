@@ -1,6 +1,5 @@
 <?php
 require_once './client/models/Cart.php';
-
 class CartController
 {
     protected $cartModel;
@@ -13,6 +12,7 @@ class CartController
     /** Thêm sản phẩm vào giỏ hàng */
     public function addToCart()
     {
+        // debug($_SESSION['user']);
         require_Login();
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -21,11 +21,11 @@ class CartController
             $variantId = $_POST['variantId'] ?? null;
             $quantity  = max(1, intval($_POST['quantity'] ?? 1));
             $price     = floatval($_POST['price'] ?? 0);
-
+            // debug($_POST);
             if (!$userId || !$productId || !$variantId) {
                 $_SESSION['success'] = false;
                 $_SESSION['msg'] = 'Dữ liệu không hợp lệ';
-                header('Location:' . BASE_URL . ' ?action=product_detail');
+                header('Location:' . BASE_URL . '?action=product_detail&id=' . $productId);
                 exit();
             }
 
@@ -35,6 +35,7 @@ class CartController
 
             // Thêm sản phẩm vào giỏ
             $this->cartModel->addProduct($cartId, $productId, $variantId, $quantity, $price);
+            // debug($addCarrt);
 
             $_SESSION['success'] = true;
             $_SESSION['msg'] = 'Đã thêm vào giỏ hàng';

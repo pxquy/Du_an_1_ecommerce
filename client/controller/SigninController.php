@@ -51,6 +51,7 @@ class SigninController
             }
 
             $_SESSION['user'] = $user;
+
             $_SESSION['success'] = true;
             $_SESSION['msg'] = 'Đăng nhập thành công';
 

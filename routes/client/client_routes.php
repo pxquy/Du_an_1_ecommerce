@@ -17,6 +17,20 @@ match ($action) {
     'categories' => (new CategoryController())->listCategory(), //Danh mục sản phẩm
     'create_order' => (new OrderController())->createOrder(), //Hiển thị form tạo đơn hàng
     'store_order' => (new OrderController())->storeOrder(), //tạo đơn hàng
+    'pay_vnpay' => (new OrderController())->confirm_vnpay(), // chọn thanh toán qua vnpay
+    'vnpay_return' => (new OrderController())->vnpayReturn(), // xử lý logic trả về sau khi thanh toán vnpay
     'add_comment' => (new CommentController())->addComment(), //đánh giá sản phẩm
-    'search' => (new ProductController())->search(),
+    'search' => (new ProductController())->search(), // chức năng tìm kiếm sản phẩm
+    'products_by_brand' => (new BrandsController())->productsByBrand(), //Lấy sản phẩm theo brand
+    'my_order' => (new OrderController())->orderHistory(), //Lấy sản phẩm theo brand
+    'cancel_order' => (new OrderController())->cancelOrder(), //huỷ hàng
+    'order_success' => (new OrderController())->receivedOrders(), //lịch sử mua hàng
+    'update_info' => $_SERVER['REQUEST_METHOD'] === 'POST'
+        ? (new UserController())->handleUpdateInfo()
+        : (new UserController())->showUpdateInfoForm(),
+    'change_password' => $_SERVER['REQUEST_METHOD'] === 'POST'
+        ? (new UserController())->handleChangePassword()
+        : (new UserController())->showChangePasswordForm(),
+    'form_update_profile' => (new UserController())->showUpdateInfoForm(),
+    'form_update_password' => (new UserController())->showChangePasswordForm(),
 };

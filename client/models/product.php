@@ -33,4 +33,12 @@ class Product extends BaseModel
 
         return $this->selectRaw($sql, $params);
     }
+    public function getBestSeller($limit = 1)
+    {
+        $sql = "SELECT * FROM products ORDER BY soldCount DESC LIMIT :limit";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(':limit', (int)$limit, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

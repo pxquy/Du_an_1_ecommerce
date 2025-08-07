@@ -39,6 +39,9 @@ class SignupController
             if (empty($data['password']) || strlen($data['password']) < 6) {
                 $_SESSION['error']['password'] = "Mật khẩu không được bỏ trống và phải tối thiểu 6 kí tự";
             }
+            if (empty($data['confirmPassword']) || $data['confirmPassword'] != $data['password']) {
+                $_SESSION['error']['password'] = "Vui lòng nhập lại mật khẩu và phải khớp với mật khẩu đã đặt";
+            }
 
             // Validate phoneNumber
             if (!empty($data['phoneNumber']) && !preg_match('/^(0[0-9]{9,10})$/', $data['phoneNumber'])) {

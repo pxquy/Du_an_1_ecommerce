@@ -22,6 +22,13 @@
                     <li class="nav-item"><a class="nav-link" href="#">Category</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">News</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<?= BASE_URL . '?action=my_order' ?>">My order</a>
+                    <li class="nav-item"><a class="nav-link" href="<?= BASE_URL . '?action=my_cart' ?>">My cart</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="<?= BASE_URL . '?action=form_update_profile' ?>">Đổi
+                            thông tin</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<?= BASE_URL . '?action=form_update_password' ?>">Đổi
+                            mk</a></li>
                     <li class="nav-item"><a class="nav-link" href="<?= BASE_URL . "?action=logout" ?>">Logout</a></li>
                 </ul>
             </div>
@@ -30,6 +37,7 @@
 
     <section class="container mt-4">
         <h2 class="text-center mb-4">Tìm kiếm sản phẩm</h2>
+
 
         <!-- Form tìm kiếm -->
         <form class="row g-2 mb-4" method="GET">
@@ -90,7 +98,7 @@
                             <td><?= htmlspecialchars($product['slug']) ?></td>
                             <td><?= htmlspecialchars($product['createdAt']) ?></td>
                             <td>
-                                <a href="<?= BASE_URL . '?action=product_detail&id=' . $product['id'] ?>"
+                                <a href="<?= BASE_URL . '?action=product_detail&slug=' . $product['slug'] ?>"
                                     class="btn btn-sm btn-info">Chi tiết</a>
                             </td>
                         </tr>

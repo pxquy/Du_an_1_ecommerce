@@ -12,6 +12,8 @@ class ProductController
     {
         $view = 'main';
         $title = 'Trang chủ';
+        $products_best_seller = $this->client->getBestSeller(5); // lấy 5 sản phẩm bán chạy nhất
+        // debug($products_best_seller);
         $this->client->setTable("
         products p
         LEFT JOIN product_images pi ON p.id = pi.productId
@@ -31,8 +33,7 @@ class ProductController
 
     public function productDetail()
     {
-
-        $id = $_GET['id'] ?? null;
+        $slug = $_GET['slug'] ?? null;
         $title = "Chi tiết sản phẩm";
         $view = 'pages/products-detail/test_detail';
 
@@ -44,17 +45,22 @@ class ProductController
 
         $productDetailRaw = $this->client->select(
             'p.*, GROUP_CONCAT(DISTINCT pi.imageUrl) AS imageUrls',
-            'p.id = ? GROUP BY p.id',
-            [$id]
+            'p.slug = ? GROUP BY p.id',
+            [$slug]
         );
 
         $productDetail = $productDetailRaw[0] ?? [];
         $images = explode(',', $productDetail['imageUrls'] ?? '');
-        // debug($productDetail);
-        // ===== 2. Lấy danh sách biến thể (variants) =====
+
+        // Nếu không tìm thấy sản phẩm thì quay về trang chủ
+        if (empty($productDetail)) {
+            header("Location: " . BASE_URL);
+            exit;
+        }
+
+        // ===== 2. Lấy danh sách biến thể theo productId =====
         $this->client->setTable("variants");
-        $variants = $this->client->select("*", "productId = ?", [$id]);
-        // debug($variants);
+        $variants = $this->client->select("*", "productId = ?", [$productDetail['id']]);
 
         // ===== 3. Lấy các giá trị thuộc tính của từng biến thể =====
         $this->client->setTable("
@@ -68,10 +74,10 @@ class ProductController
             "vv.variantId IN (
             SELECT id FROM variants WHERE productId = ?
         )",
-            [$id]
+            [$productDetail['id']]
         );
-        // debug($variantAttributesRaw);
-        // ===== 4. Gom nhóm thuộc tính theo biến thể =====
+
+        // Gom nhóm thuộc tính theo variantId
         $variantAttributes = [];
         foreach ($variantAttributesRaw as $attr) {
             $variantId = $attr['variantId'];
@@ -85,11 +91,14 @@ class ProductController
                 'attributeValue' => $attr['attributeValue'],
             ];
         }
+
+        // ===== 4. Lấy đánh giá theo productId =====
         $commentModel = new Comment();
-        $comments = $commentModel->getCommentsByProduct($productDetail['id'] ?? 0);
-        // debug($variantAttributes);
+        $comments = $commentModel->getCommentsByProduct($productDetail['id']);
+
         require_once PATH_VIEW_CLIENT . $view . ".php";
     }
+
     public function search()
     {
         // Lấy dữ liệu từ query string
