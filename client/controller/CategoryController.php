@@ -11,6 +11,5 @@ class CategoryController
     {
         $view = 'pages/products-detail/product-detail';
         $listCategory = $this->client->select('*');
-        // debug($listCategory);
     }
 }

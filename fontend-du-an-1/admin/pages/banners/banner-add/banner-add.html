@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trang thêm banner</title>
+    <link rel="stylesheet" href="../../../layout/dashboards.css" />
+    <link rel="stylesheet" href="banner-add.css" />
+    <!-- Font Awesome for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <!-- Add overlay div -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <div class="admin-container">
+      <!-- Sidebar -->
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <!-- Header -->
+
+        <!-- Add User Content -->
+        <div class="dashboard">
+          <div class="dashboard-header">
+            <div class="breadcrumb">
+              <a href="../banner-list/banner-list.html" class="breadcrumb-link"
+                >banners</a
+              >
+              <i class="fas fa-chevron-right breadcrumb-separator"></i>
+              <span class="breadcrumb-current">Trang thêm banner mới</span>
+            </div>
+            <h1 class="dashboard-title">Trang thêm banner mới</h1>
+            <p class="dashboard-description">Thêm thông tin banner</p>
+          </div>
+
+          <!-- User Form -->
+          <div class="user-form-container">
+            <form id="userForm" class="user-form">
+              <!-- <div class="form-card">
+                <h2 class="form-card-title">Thông tin cơ bản</h2>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="firstName">Họ Người dùng*</label>
+                    <input
+                      type="text"
+                      id="firstName"
+                      class="form-input"
+                      placeholder="Nhập họ của người dùng..."
+                      required
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="lastName">Tên người dùng*</label>
+                    <input
+                      type="text"
+                      id="lastName"
+                      class="form-input"
+                      placeholder="Nhập tên của người dùng..."
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="email">Địa chỉ gmail*</label>
+                    <input
+                      type="email"
+                      id="email"
+                      class="form-input"
+                      placeholder="Nhập địa chỉ chi gmail của người dùng..."
+                      required
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="phone">Số điện thoại</label>
+                    <input
+                      type="tel"
+                      id="phone"
+                      class="form-input"
+                      placeholder="Nhập số điện thoai..."
+                    />
+                  </div>
+                </div>
+              </div> -->
+
+              <div class="form-card">
+                <h2 class="form-card-title">Chi tiết banner</h2>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="username">Tên banner*</label>
+                    <input
+                      type="text"
+                      id="username"
+                      class="form-input"
+                      placeholder="Nhập tên banner..."
+                      required
+                    />
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label for="category">Danh mục*</label>
+                      <select id="category" class="form-select" required>
+                        <option value="" hidden>Chọn danh mục</option>
+                        <option value="">Danh mục 1</option>
+                        <option value="">Danh mục 2</option>
+                        <option value="">Danh mục 3</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="password">Mô tả*</label>
+                    <textarea
+                      type="text"
+                      id="text"
+                      class="form-input"
+                      placeholder="Nhập mô tả..."
+                      required
+                    >
+                    </textarea>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-card">
+                <h2 class="form-card-title">Hình ảnh</h2>
+                <div class="form-group">
+                  <label for="userAvatar">Hình ảnh</label>
+                  <div class="file-input-container">
+                    <input
+                      type="file"
+                      id="userAvatar"
+                      class="file-input"
+                      accept="image/*"
+                    />
+                    <label for="userAvatar" class="file-input-label">
+                      <i class="fas fa-cloud-upload-alt"></i> Choose Image
+                    </label>
+                    <span class="file-name" id="fileName">No file chosen</span>
+                  </div>
+                  <div
+                    class="avatar-preview-container"
+                    id="avatarPreviewContainer"
+                  >
+                    <!-- Avatar preview will be added here -->
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="bio">Mô tả</label>
+                  <textarea
+                    id="bio"
+                    class="form-textarea"
+                    placeholder="Mô tả banner..."
+                    rows="4"
+                  ></textarea>
+                </div>
+              </div>
+
+              <div class="form-card">
+                <h2 class="form-card-title">Cài đặt</h2>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="status">Trạng thái*</label>
+                    <select id="status" class="form-select" required>
+                      <option value="active">Hoạt động</option>
+                      <option value="inactive">Không hoạt động</option>
+                      <option value="pending">Đang bị khoá</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <a href="../banner-list/banner-list.html" class="btn-cancel"
+                  >Quay lại</a
+                >
+                <button type="submit" class="btn-save">Lưu banner</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="user-form.js"></script>
+  </body>
+</html>

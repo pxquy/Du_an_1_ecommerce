@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quí Super Shoes - Giỏ hàng</title>
-    <link rel="stylesheet" href="./views/layout/site/layout-site.css">
-    <link rel="stylesheet" href="./views/layout/site/header-site/header-site.css">
-    <link rel="stylesheet" href="./views/layout/site/footer-site/footer-site.css">
-    <link rel="stylesheet" href="./views/pages/site/cart/cart.css">
+    <title><?= $title ?></title>
+    <link rel="stylesheet" href="./client/views/layout/site/layout-site.css">
+    <link rel="stylesheet" href="./client/views/layout/site/header-site/header-site.css">
+    <link rel="stylesheet" href="./client/views/layout/site/footer-site/footer-site.css">
+    <link rel="stylesheet" href="./client/views/pages/site/cart/cart.css">
 
     <!-- SEO -->
     <link rel="icon" type="image/png" href="./assets/images/favicon/favicon-96x96.png" sizes="96x96" />
@@ -18,7 +18,11 @@
     <meta name="apple-mobile-web-app-title" content="Quí Super Shoes" />
     <link rel="manifest" href="./assets/images/favicon/site.webmanifest" />
 
+    <!-- Add Slick Slider CSS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
@@ -26,7 +30,7 @@
 </head>
 
 <body>
-    <?php include_once("./views/layout/site/header-site/header-site.php") ?>
+    <?php include_once("./client/views/layout/site/header-site/header-site.php") ?>
     <!-- Main Content - Cart Page -->
     <main class="main-content">
         <!-- Breadcrumbs -->
@@ -47,46 +51,70 @@
 
                 <?php if (isset($_SESSION['user']) && !empty($cartItems)) : ?>
                     <!-- Cart Content -->
-                    <div class="cart-content" id="cartContent">
+                    <form method="POST" action="<?= BASE_URL ?>?action=create_order" class="cart-content" id="cartContent">
                         <!-- Cart Items -->
                         <div class="cart-items">
                             <div class="cart-header">
+                                <div><input type="checkbox" id="checkAll"></div>
+                                <div>#</div>
                                 <div class="cart-header-product">Sản phẩm</div>
                                 <div class="cart-header-price">Đơn giá</div>
                                 <div class="cart-header-quantity">Số lượng</div>
                                 <div class="cart-header-subtotal">Thành tiền</div>
                                 <div class="cart-header-action"></div>
                             </div>
-                            <?php $total = 0; ?>
 
-                            <?php foreach ($cartItems as $item): ?>
-                                <?php $subtotal = $item['gia'] * $item['so_luong']; ?>
+                            <?php $total = 0; ?>
+                            <?php foreach ($cartItems as $index => $item): ?>
+                                <?php $subtotal = $item['price'] * $item['quantity']; ?>
                                 <?php $total += $subtotal; ?>
+
                                 <div class="cart-item">
+                                    <!-- Checkbox chọn sản phẩm -->
+                                    <div>
+                                        <input type="checkbox" name="selected[]" value="<?= $item['cartProductId'] ?>">
+                                        <input type="hidden" name="product_id[]" value="<?= $item['cartId'] ?>">
+                                    </div>
+
+                                    <!-- STT -->
+                                    <div><?= $index + 1 ?></div>
+
+                                    <!-- Thông tin sản phẩm -->
                                     <div class="cart-item-product">
                                         <div class="cart-item-image">
-                                            <a href="product-detail.html">
-                                                <img src="./assets/uploads/product/<?= $item['hinh'] ?>" alt="<?= $item['ten_san_pham'] ?>">
+                                            <a href="<?= BASE_URL ?>?action=product_detail&id=<?= $item['cartId'] ?>">
+                                                <img src="./assets/uploads/product/<?= htmlspecialchars($item['thumbnail']) ?>" alt="<?= htmlspecialchars($item['title']) ?>">
                                             </a>
                                         </div>
                                         <div class="cart-item-details">
                                             <h3 class="cart-item-title">
-                                                <a href="product-detail.html"><?= $item['ten_san_pham'] ?></a>
+                                                <a href="<?= BASE_URL ?>?action=product_detail&id=<?= $item['cartId'] ?>">
+                                                    <?= htmlspecialchars($item['title']) ?>
+                                                </a>
                                             </h3>
+                                            <small><?= htmlspecialchars($item['variantAttributes'] ?: '-') ?></small>
                                         </div>
                                     </div>
-                                    <div class="cart-item-price"><?= formatCurrency($item['gia'], 'vn') ?></div>
+
+                                    <!-- Giá -->
+                                    <div class="cart-item-price"><?= formatCurrency($item['price'], 'vn') ?></div>
+
+                                    <!-- Số lượng -->
                                     <div class="cart-item-quantity">
-                                        <form method="post" class="quantity-selector">
-                                            <button type="submit" name="minus-btn" class="quantity-btn minus" data-id="1">-</button>
-                                            <input type="hidden" name="product_id" value="<?= $item['san_pham_id'] ?>">
-                                            <input type="number" name="quantity" class="quantity-input" value="<?= $item['so_luong'] ?>" min="1">
-                                            <button type="submit" name="plus-btn" class="quantity-btn plus" data-id="1">+</button>
-                                        </form>
+                                        <div class="quantity-selector">
+                                            <button type="submit" name="minus-btn" value="<?= $item['cartId'] ?>" class="quantity-btn minus">-</button>
+                                            <input type="number" name="quantity[]" class="quantity-input" value="<?= $item['quantity'] ?>" min="1">
+                                            <button type="submit" name="plus-btn" value="<?= $item['cartId'] ?>" class="quantity-btn plus">+</button>
+                                        </div>
                                     </div>
+
+                                    <!-- Thành tiền -->
                                     <div class="cart-item-subtotal"><?= formatCurrency($subtotal, 'vn') ?></div>
+
+                                    <!-- Xóa -->
                                     <div class="cart-item-action">
-                                        <a href="index.php?router=cart&product_id=<?= $item['san_pham_id'] ?>" onclick="return confirm('Xóa sản phẩm này?')" class="remove-item-btn" data-id="1">
+                                        <a href="<?= BASE_URL ?>?action=delete_cart&cartProductId=<?= $item['cartProductId'] ?>&cartId=<?= $item['cartId'] ?>"
+                                            onclick="return confirm('Xóa sản phẩm này?')" class="remove-item-btn">
                                             <i class="fas fa-trash-alt"></i>
                                         </a>
                                     </div>
@@ -96,28 +124,32 @@
                             <!-- Cart Actions -->
                             <div class="cart-actions">
                                 <div class="cart-action-left">
-                                    <a href="index.php?router=home" class="continue-shopping-btn">
+                                    <a href="<?= BASE_URL ?>?router=home" class="continue-shopping-btn">
                                         <i class="fas fa-arrow-left"></i> Tiếp tục mua sắm
                                     </a>
-                                    <a href="index.php?router=cart&clear-cart" onclick="return confirm('Xóa toàn bộ giỏ hàng?')" class="clear-cart-btn" id="clearCartBtn">
+                                    <a href="<?= BASE_URL ?>?action=clear_cart"
+                                        onclick="return confirm('Xóa toàn bộ giỏ hàng?')" class="clear-cart-btn">
                                         <i class="fas fa-trash"></i> Xóa giỏ hàng
                                     </a>
                                 </div>
+
                                 <div class="cart-action-right">
-                                    <!-- Total -->
+                                    <!-- Tổng cộng -->
                                     <div class="summary-row total-row">
                                         <div class="summary-label">Tổng cộng:</div>
                                         <div class="summary-value" id="cartTotal"><?= formatCurrency($total, 'vn') ?></div>
                                     </div>
 
-                                    <!-- Checkout Button -->
-                                    <a href="index.php?router=checkout" class="checkout-btn">
+                                    <!-- Checkout -->
+                                    <button type="submit" name="checkout" class="checkout-btn">
                                         Tiến hành thanh toán <i class="fas fa-arrow-right"></i>
-                                    </a>
+                                    </button>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </form>
+
+
                 <?php else : ?>
                     <!-- Empty Cart State (hidden by default) -->
                     <div class="empty-cart" id="emptyCart">
@@ -126,15 +158,22 @@
                         </div>
                         <h2 class="empty-cart-title">Giỏ hàng của bạn đang trống</h2>
                         <p class="empty-cart-text">Hãy thêm sản phẩm vào giỏ hàng để tiến hành mua sắm.</p>
-                        <a href="index.php?router=home" class="empty-cart-btn">Tiếp tục mua sắm</a>
+                        <a href=<?= BASE_URL . "?action=home" ?> class="empty-cart-btn">Tiếp tục mua sắm</a>
                     </div>
                 <?php endif; ?>
             </div>
         </section>
     </main>
-    <?php include_once("./views/layout/site/footer-site/footer-site.php") ?>
+    <?php include_once("./client/views/layout/site/footer-site/footer-site.php") ?>
 
-    <script src="./views/layout/site/layout-site.js"></script>
+    <script src="./client/views/layout/site/layout-site.js"></script>
+
+    <script>
+        // Chọn/bỏ chọn tất cả
+        document.getElementById('checkAll').addEventListener('change', function() {
+            document.querySelectorAll('input[name="selected[]"]').forEach(cb => cb.checked = this.checked);
+        });
+    </script>
 
     <?php
     if (isset($_SESSION['error_message'])) {

@@ -46,14 +46,24 @@ class CartController
     /** Hiển thị giỏ hàng */
     public function myCart()
     {
-        $view = "cart";
+        $view = "pages/site/cart/cart";
+        $title = "Giỏ hàng";
         $userId = $_SESSION['user']['id'] ?? null;
         if (!$userId) {
             header('Location:' . BASE_URL . ' ?action=form_signin');
             exit();
         }
 
+        $cartCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
+
+
         $cartItems = $this->cartModel->getCartDetails($userId);
+
+
+        extract([
+            "cartCount" => $cartCount,
+            "cartItems" => $cartItems
+        ]);
         // debug($cartItems);
         require_once PATH_VIEW_CLIENT . $view . ".php";
     }

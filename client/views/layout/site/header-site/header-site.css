@@ -53,6 +53,10 @@
   font-weight: 500;
 }
 
+.nav-item:hover {
+  color: red;
+}
+
 .nav-item a {
   display: flex;
   align-items: center;

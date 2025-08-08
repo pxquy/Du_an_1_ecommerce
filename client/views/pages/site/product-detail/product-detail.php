@@ -1,35 +1,28 @@
-<?php
-extract($product);
-extract($category);
-
-$_SESSION['redirect-route'] = "index.php?router=product-detail&id=$san_pham_id"
-?>
 <!DOCTYPE html>
 <html lang="vi">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quí Super Shoes - <?= $ten_san_pham ?></title>
-    <link rel="stylesheet" href="./views/layout/site/layout-site.css">
-    <link rel="stylesheet" href="./views/layout/site/header-site/header-site.css">
-    <link rel="stylesheet" href="./views/layout/site/footer-site/footer-site.css">
-    <link rel="stylesheet" href="./views/pages/site/product-detail/product-detail.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css">
+    <title><?= $title ?></title>
+    <link rel="stylesheet" href="./client/views/layout/site/layout-site.css">
+    <link rel="stylesheet" href="./client/views/layout/site/header-site/header-site.css">
+    <link rel="stylesheet" href="./client/views/layout/site/footer-site/footer-site.css">
+    <link rel="stylesheet" href="./client/views/pages/site/product-detail/product-detail.css">
 
     <!-- SEO -->
     <link rel="icon" type="image/png" href="./assets/images/favicon/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="./assets/images/favicon/favicon.svg" />
     <link rel="shortcut icon" href="./assets/images/favicon/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="./assets/images/favicon/apple-touch-icon.png" />
-    <meta name="apple-mobile-web-app-title" content="Quí Super Shoes" />
+    <meta name="apple-mobile-web-app-title" content="Arrowwai" />
     <link rel="manifest" href="./assets/images/favicon/site.webmanifest" />
 
-
-    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/locale/vi.js"></script>
-
+    <!-- Add Slick Slider CSS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
@@ -37,7 +30,7 @@ $_SESSION['redirect-route'] = "index.php?router=product-detail&id=$san_pham_id"
 </head>
 
 <body>
-    <?php include_once("./views/layout/site/header-site/header-site.php") ?>
+    <?php include_once("./client/views/layout/site/header-site/header-site.php") ?>
     <!-- Main Content - Product Detail Page -->
     <main class="main-content">
         <!-- Breadcrumbs -->
@@ -46,9 +39,9 @@ $_SESSION['redirect-route'] = "index.php?router=product-detail&id=$san_pham_id"
                 <ul class="breadcrumb-list">
                     <li><a href="index.php?router=home">Trang chủ</a></li>
                     <li><i class="fas fa-chevron-right"></i></li>
-                    <li><a href="index.php?router=product&category_id=<?= $danh_muc_id ?>"><?= $ten_danh_muc ?></a></li>
+                    <li><a href="index.php?router=product&category_id=<?= $productDetail['categoryId'] ?>"><?= $productDetail["title"] ?></a></li>
                     <li><i class="fas fa-chevron-right"></i></li>
-                    <li><?= $ten_san_pham ?></li>
+                    <li><?= $title ?></li>
                 </ul>
             </div>
         </div>
@@ -59,30 +52,75 @@ $_SESSION['redirect-route'] = "index.php?router=product-detail&id=$san_pham_id"
                 <div class="product-detail-container">
                     <!-- Product Gallery -->
                     <div class="product-gallery">
-                        <!-- Main Gallery -->
-                        <div class="gallery-main">
-                            <div class="swiper gallery-main-swiper">
-                                <div class="swiper-wrapper">
-                                    <div class="swiper-slide">
-                                        <div class="gallery-image">
-                                            <img src="./assets/uploads/product/<?= $hinh ?>" alt="<?= $ten_san_pham ?>" id="zoom-image">
+                        <div>
+                            <!-- Main Gallery -->
+                            <div class="gallery-main">
+                                <div class="swiper gallery-main-swiper">
+                                    <div class="swiper-wrapper">
+                                        <div class="swiper-slide">
+                                            <div class="gallery-image">
+                                                <img src="./assets/uploads/products/<?= $productDetail["thumbnail"] ?>" alt="<?= $title ?>" id="zoom-image">
+                                            </div>
                                         </div>
                                     </div>
+                                    <div class="swiper-button-next"></div>
+                                    <div class="swiper-button-prev"></div>
                                 </div>
-                                <div class="swiper-button-next"></div>
-                                <div class="swiper-button-prev"></div>
+                            </div>
+                        </div>
+                        <div class="gallery-thumbs">
+                            <div class="swiper gallery-thumbs-swiper">
+                                <div class="swiper-box">
+                                    <?php foreach ($images as $image) : ?>
+                                        <div class="swiper-slide">
+                                            <div class="thumb-image">
+                                                <img
+                                                    src="./assets/upload/products/<?= $image ?>"
+                                                    alt="<?= $title ?>" />
+                                            </div>
+                                        </div>
+                                    <?php endforeach; ?>
+                                    <!-- <div class="swiper-slide">
+                                        <div class="thumb-image">
+                                            <img
+                                                src="/placeholder.svg?height=120&width=120"
+                                                alt="Thumbnail 2" />
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <div class="thumb-image">
+                                            <img
+                                                src="/placeholder.svg?height=120&width=120"
+                                                alt="Thumbnail 3" />
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <div class="thumb-image">
+                                            <img
+                                                src="/placeholder.svg?height=120&width=120"
+                                                alt="Thumbnail 4" />
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <div class="thumb-image">
+                                            <img
+                                                src="/placeholder.svg?height=120&width=120"
+                                                alt="Thumbnail 5" />
+                                        </div>
+                                    </div> -->
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Product Info -->
                     <div class="product-info">
-                        <h1 class="product-title"><?= $ten_san_pham ?></h1>
+                        <h1 class="product-title"><?= $productDetail["title"] ?></h1>
 
                         <div class="product-meta">
-                            <div class="product-sku">Mã sản phẩm: <span><?= $ma_san_pham ?></span></div>
-                            <div class="product-availability <?= $trang_thai ?>">
-                                <i class="fas fa-check-circle"></i> <?= formatProductStatus($trang_thai) ?>
+                            <div class="product-sku">Mã sản phẩm: <span><?= $productDetail["sku"] ?></span></div>
+                            <div class="product-availability <?= $productDetail["isActive"] ?>">
+                                <i class="fas fa-check-circle"></i> <?= formatProductStatus($productDetail["isActive"]) ?>
                             </div>
                         </div>
                         <?php
@@ -109,33 +147,111 @@ $_SESSION['redirect-route'] = "index.php?router=product-detail&id=$san_pham_id"
                         </div>
 
                         <div class="product-price">
-                            <span class="current-price"><?= formatCurrency($gia, 'vn') ?></span>
+                            <span class="current-price"><?= formatCurrency($productDetail["priceDefault"], 'vn') ?></span>
                         </div>
 
                         <div class="product-short-description">
-                            <!-- <p>Giày tây nam Mulgati Classic được làm từ da bò thật 100%, thiết kế thanh lịch, phù hợp với trang phục công sở và các sự kiện trang trọng. Đường may tỉ mỉ, đế cao su chống trượt, mang lại sự thoải mái khi di chuyển.</p> -->
+                            <!-- <p>Giày tây nam Arrowwai Classic được làm từ da bò thật 100%, thiết kế thanh lịch, phù hợp với trang phục công sở và các sự kiện trang trọng. Đường may tỉ mỉ, đế cao su chống trượt, mang lại sự thoải mái khi di chuyển.</p> -->
+                        </div>
+                        <!-- Chọn thuộc tính Color -->
+                        <?php
+                        // Gom thuộc tính để hiển thị radio
+                        $attributesGrouped = [];
+                        foreach ($variantAttributes as $variantId => $attrs) {
+                            foreach ($attrs as $attr) {
+                                $attributesGrouped[$attr['attributeName']][$attr['valueId']] = $attr['attributeValue'];
+                            }
+                        }
+                        ?>
+
+                        <?php if (!empty($attributesGrouped['Color'])): ?>
+                            <div class="product-colors">
+                                <h3>Màu sắc:</h3>
+                                <?php foreach ($attributesGrouped['Color'] as $valueId => $colorName): ?>
+                                    <?php
+                                    $colorMap = [
+                                        'đen' => '#000',
+                                        'nâu' => '#5d4037',
+                                        'trắng' => '#fff',
+                                        'đỏ' => '#f00',
+                                        'xanh' => '#2196f3',
+                                        'tím' => '#720fe4ff',
+                                        'vàng' => '#eddd29ff'
+                                    ];
+                                    $colorHex = $colorMap[strtolower($colorName)] ?? '#ccc';
+                                    ?>
+                                    <label class="color-option">
+                                        <input type="radio" name="color" value="<?= $valueId ?>">
+                                        <span class="color-swatch" style="background-color: <?= $colorHex ?>;"
+                                            data-color-name="<?= $colorName ?>"></span>
+                                    </label>
+                                <?php endforeach; ?>
+                                <div>Đã chọn: <span id="selectedColor">---</span></div>
+                            </div>
+                        <?php endif; ?>
+
+                        <!-- Chọn thuộc tính Size -->
+                        <?php if (!empty($attributesGrouped['Size'])): ?>
+                            <div class="product-sizes">
+                                <h3>Kích cỡ:</h3>
+                                <?php foreach ($attributesGrouped['Size'] as $valueId => $size): ?>
+                                    <label class="size-option">
+                                        <input type="radio" name="size" value="<?= $valueId ?>">
+                                        <span class="size-box"><?= $size ?></span>
+                                    </label>
+                                <?php endforeach; ?>
+                                <div>Đã chọn: <span id="selectedSize">---</span></div>
+                            </div>
+                        <?php endif; ?>
+
+                        <!-- Thông tin biến thể -->
+                        <div id="variant-info" style="margin-top: 10px;">
+                            <p><strong>Giá:</strong> <span id="variant-price">--</span></p>
+                            <p><strong>Tồn kho:</strong> <span id="variant-stock">--</span></p>
                         </div>
 
-                        <form method="post">
+                        <!-- <form action="?action=add_to_cart" method="POST" id="addCartForm">
+                            <input type="hidden" name="productId" value="<?= $productDetail['id'] ?>">
+                            <input type="hidden" name="variantId" id="variantId">
+                            <input type="hidden" name="price" id="variantPriceInput">
+
+                            <label for="quantity">Số lượng:</label>
+                            <input type="number" name="quantity" id="quantity" value="1" min="1">
+
+                            <button type="submit" id="btnAddCart" disabled>Thêm vào giỏ hàng</button>
+                        </form> -->
+
+                        <form action="?action=add_to_cart" method="POST" id="addCartForm">
+                            <input type="hidden" name="productId" value="<?= $productDetail['id'] ?>">
+                            <input type="hidden" name="variantId" id="variantId">
+                            <input type="hidden" name="price" id="variantPriceInput">
+
                             <div class="product-quantity">
                                 <h3 class="option-title">Số lượng:</h3>
                                 <div class="quantity-selector">
-                                    <div class="quantity-btn minus" id="quantityMinus">-</div>
-                                    <input type="number" name="quantity" id="quantityInput" class="quantity-input" value="1" min="1" max="10">
-                                    <div class="quantity-btn plus" id="quantityPlus">+</div>
+                                    <button type="button" class="quantity-btn minus" id="quantityMinus">-</button>
+                                    <input type="number" name="quantity" id="quantity" value="1" min="1" max="10" class="quantity-input">
+                                    <button type="button" class="quantity-btn plus" id="quantityPlus">+</button>
                                 </div>
                             </div>
 
                             <div class="product-actions">
-                                <button class="add-to-cart-btn" id="addToCartBtn" name="submit-add-to-cart-btn">
+                                <button class="add-to-cart-btn" type="submit" id="btnAddCart" disabled>
                                     <i class="fas fa-shopping-bag"></i> Thêm vào giỏ hàng
                                 </button>
-                                <button class="buy-now-btn" id="buyNowBtn" name="submit-buy-now-btn"><a href="index.php?router=checkout&id=<?= $san_pham_id ?>">Mua ngay</a></button>
-                                <button class="wishlist-btn" id="wishlistBtn">
+
+                                <button type="button" class="buy-now-btn" id="buyNowBtn"
+                                    onclick="window.location.href='<?= htmlspecialchars(BASE_URL . '?action=create_order&id=' . $productDetail['id']) ?>'">
+                                    Mua ngay
+                                </button>
+
+
+                                <button type="button" class="wishlist-btn" id="wishlistBtn">
                                     <i class="far fa-heart"></i>
                                 </button>
                             </div>
                         </form>
+
 
 
                         <div class="product-guarantee">
@@ -202,14 +318,14 @@ $_SESSION['redirect-route'] = "index.php?router=product-detail&id=$san_pham_id"
                         <!-- Description Tab -->
                         <div class="tab-pane active" id="description">
                             <div class="tab-content-inner">
-                                <p><?= nl2br($mo_ta) ?></p>
+                                <p><?= nl2br($productDetail['description']) ?></p>
                             </div>
                         </div>
 
                         <!-- Reviews Tab -->
                         <div class="tab-pane" id="reviews">
                             <div class="tab-content-inner">
-                                <div class="reviews-summary">
+                                <!-- <div class="reviews-summary">
                                     <div class="reviews-average">
                                         <div class="average-rating"><?= round($averageRating['trung_binh'], 1) ?></div>
                                         <div class="rating-stars">
@@ -245,7 +361,7 @@ $_SESSION['redirect-route'] = "index.php?router=product-detail&id=$san_pham_id"
                                         }
                                         ?>
                                     </div>
-                                </div>
+                                </div> -->
 
                                 <div class="reviews-list">
                                     <?php if ($comments) : ?>
@@ -254,23 +370,23 @@ $_SESSION['redirect-route'] = "index.php?router=product-detail&id=$san_pham_id"
                                                 <div class="review-header">
                                                     <div class="reviewer-info">
                                                         <div class="reviewer-avatar">
-                                                            <img src="./assets/uploads/user/<?= $comment['hinh'] ?>" width="50" height="50" alt="<?= htmlspecialchars($comment['ho_va_ten']) ?>">
+                                                            <img src="./assets/uploads/user/<?= $comment['thumbnail'] ?>" width="50" height="50" alt="<?= htmlspecialchars($comment['fullname']) ?>">
                                                         </div>
                                                         <div class="reviewer-details">
-                                                            <div class="reviewer-name"><?= htmlspecialchars($comment['ho_va_ten']) ?></div>
-                                                            <div class="review-date" data-date="<?= htmlspecialchars($comment['ngay_binh_luan']) ?>"></div>
+                                                            <div class="reviewer-name"><?= htmlspecialchars($comment['fullname']) ?></div>
+                                                            <div class="review-date" data-date="<?= htmlspecialchars($comment['createdAt']) ?>"></div>
 
                                                         </div>
                                                     </div>
                                                     <div class="review-rating">
                                                         <?php
-                                                        for ($i = 0; $i < $comment['sao']; $i++) echo '<i class="fas fa-star"></i>';
-                                                        for ($i = $comment['sao']; $i < 5; $i++) echo '<i class="far fa-star"></i>';
+                                                        for ($i = 0; $i < $comment['rating']; $i++) echo '<i class="fas fa-star"></i>';
+                                                        for ($i = $comment['rating']; $i < 5; $i++) echo '<i class="far fa-star"></i>';
                                                         ?>
                                                     </div>
                                                 </div>
                                                 <div class="review-content">
-                                                    <p class="review-text"><?= htmlspecialchars($comment['noi_dung']) ?></p>
+                                                    <p class="review-text"><?= htmlspecialchars($comment['content']) ?></p>
                                                 </div>
                                             </div>
                                         <?php endforeach; ?>
@@ -280,14 +396,14 @@ $_SESSION['redirect-route'] = "index.php?router=product-detail&id=$san_pham_id"
                                 </div>
 
 
-                                <div class="reviews-pagination">
+                                <!-- <div class="reviews-pagination">
                                     <?php if ($page > 1): ?>
                                         <a class="pagination-btn prev" href="?router=product-detail&id=<?= $product_id ?>&page=<?= $page - 1 ?>"><i class="fas fa-chevron-left"></i></a>
                                     <?php else: ?>
                                         <button class="pagination-btn prev" disabled><i class="fas fa-chevron-left"></i></button>
                                     <?php endif; ?>
 
-                                    <div class="pagination-numbers">
+                                    <!-- <div class="pagination-numbers">
                                         <?php if ($totalPages > 1): ?>
                                             <a href="?router=product-detail&id=<?= $product_id ?>&page=1"
                                                 class="pagination-number <?= ($page == 1) ? 'active' : '' ?>">1</a>
@@ -315,14 +431,14 @@ $_SESSION['redirect-route'] = "index.php?router=product-detail&id=$san_pham_id"
                                             <a href="?router=product-detail&id=<?= $product_id ?>&page=1"
                                                 class="pagination-number <?= ($page == 1) ? 'active' : '' ?>">1</a>
                                         <?php endif; ?>
-                                    </div>
+                                    </div> -->
 
-                                    <?php if ($page < $totalPages): ?>
+                                <!-- <?php if ($page < $totalPages): ?>
                                         <a class="pagination-btn next" href="?router=product-detail&id=<?= $product_id ?>&page=<?= $page + 1 ?>"><i class="fas fa-chevron-right"></i></a>
                                     <?php else: ?>
                                         <button class="pagination-btn next" disabled><i class="fas fa-chevron-right"></i></button>
                                     <?php endif; ?>
-                                </div>
+                                </div> --> -->
 
 
                                 <?php if (isset($_SESSION['user'])): ?>
@@ -368,7 +484,7 @@ $_SESSION['redirect-route'] = "index.php?router=product-detail&id=$san_pham_id"
                                 <div class="shipping-info">
                                     <div class="info-item">
                                         <h4><i class="fas fa-truck"></i> Phương thức vận chuyển</h4>
-                                        <p>Mulgati sử dụng các đơn vị vận chuyển uy tín như Giao Hàng Nhanh, Giao Hàng Tiết Kiệm, Viettel Post để đảm bảo sản phẩm đến tay khách hàng an toàn và nhanh chóng.</p>
+                                        <p>Arrowwai sử dụng các đơn vị vận chuyển uy tín như Giao Hàng Nhanh, Giao Hàng Tiết Kiệm, Viettel Post để đảm bảo sản phẩm đến tay khách hàng an toàn và nhanh chóng.</p>
                                     </div>
 
                                     <div class="info-item">
@@ -412,10 +528,10 @@ $_SESSION['redirect-route'] = "index.php?router=product-detail&id=$san_pham_id"
                                     <div class="info-item">
                                         <h4><i class="fas fa-info-circle"></i> Quy trình đổi trả</h4>
                                         <ol>
-                                            <li>Liên hệ với Mulgati qua hotline 1900 4510 hoặc email cskh@mulgati.com để được hướng dẫn</li>
+                                            <li>Liên hệ với Arrowwai qua hotline 1900 4510 hoặc email cskh@Arrowwai.com để được hướng dẫn</li>
                                             <li>Đóng gói sản phẩm cần đổi trả kèm hóa đơn/phiếu bảo hành</li>
-                                            <li>Gửi sản phẩm về địa chỉ của Mulgati theo hướng dẫn</li>
-                                            <li>Mulgati sẽ kiểm tra và xử lý yêu cầu trong vòng 3-5 ngày làm việc</li>
+                                            <li>Gửi sản phẩm về địa chỉ của Arrowwai theo hướng dẫn</li>
+                                            <li>Arrowwai sẽ kiểm tra và xử lý yêu cầu trong vòng 3-5 ngày làm việc</li>
                                             <li>Khách hàng nhận sản phẩm mới hoặc hoàn tiền (tùy trường hợp)</li>
                                         </ol>
                                     </div>
@@ -441,12 +557,13 @@ $_SESSION['redirect-route'] = "index.php?router=product-detail&id=$san_pham_id"
                     <div class="products-slider">
                         <div class="swiper related-products-swiper">
                             <div class="swiper-wrapper">
-                                <?php foreach ($productRelated as $related): ?>
+                                <?php foreach ($relatedProducts as $related): ?>
                                     <div class="swiper-slide">
+
                                         <div class="product-card">
                                             <div class="product-image">
-                                                <a href="index.php?router=product-detail&id=<?= $related['san_pham_id'] ?>">
-                                                    <img src="./assets/uploads/product/<?= $related['hinh'] ?>" alt="<?= $related['ten_san_pham'] ?>" width="300">
+                                                <a href="index.php?router=product-detail&id=<?= $related['title'] ?>">
+                                                    <img src="./assets/uploads/product/<?= $related['thumbnail'] ?>" alt="<?= $related['title'] ?>" width="300">
                                                 </a>
                                                 <div class="product-actions">
                                                     <button class="quick-view-btn" title="Xem nhanh">
@@ -462,27 +579,26 @@ $_SESSION['redirect-route'] = "index.php?router=product-detail&id=$san_pham_id"
                                             </div>
                                             <div class="product-info">
                                                 <h3 class="product-title">
-                                                    <a href="index.php?router=product-detail&id=<?= $related['san_pham_id'] ?>"><?= $related['ten_san_pham'] ?></a>
+                                                    <a href="index.php?router=product-detail&id=<?= $related['id'] ?>"><?= $related['title'] ?></a>
                                                 </h3>
                                                 <div class="product-price">
-                                                    <span class="current-price"><?= formatCurrency($related['gia'], 'vn') ?></span>
+                                                    <span class="current-price"><?= formatCurrency($related['priceDefault'], 'vn') ?></span>
                                                 </div>
                                             </div>
                                         </div>
+
                                     </div>
                                 <?php endforeach; ?>
                             </div>
-                            <div class="swiper-button-next"></div>
-                            <div class="swiper-button-prev"></div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
     </main>
-    <?php include_once("./views/layout/site/footer-site/footer-site.php") ?>
+    <?php include_once("./client/views/layout/site/footer-site/footer-site.php") ?>
 
-    <script src="./views/layout/site/layout-site.js"></script>
+    <script src="./client/views/layout/site/layout-site.js"></script>
 
     <?php
     if (isset($_SESSION['error_message'])) {
@@ -499,6 +615,7 @@ $_SESSION['redirect-route'] = "index.php?router=product-detail&id=$san_pham_id"
     ?>
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
 
@@ -632,10 +749,8 @@ $_SESSION['redirect-route'] = "index.php?router=product-detail&id=$san_pham_id"
                 const quantity = document.getElementById('quantityInput').value;
 
                 // Show confirmation message
-                alert(`Chuyển đến trang thanh toán!\nSản phẩm: Giày tây nam Mulgati Classic\nMàu sắc: ${selectedColor === 'black' ? 'Đen' : 'Nâu'}\nKích cỡ: ${selectedSize}\nSố lượng: ${quantity}`);
+                alert(`Chuyển đến trang thanh toán!\nSản phẩm: Giày tây nam Arrowwai Classic\nMàu sắc: ${selectedColor === 'black' ? 'Đen' : 'Nâu'}\nKích cỡ: ${selectedSize}\nSố lượng: ${quantity}`);
 
-                // In a real implementation, this would redirect to checkout page
-                // window.location.href = 'checkout.html';
             });
 
             const ratingStars = document.querySelectorAll('.rating-select i');
@@ -673,6 +788,60 @@ $_SESSION['redirect-route'] = "index.php?router=product-detail&id=$san_pham_id"
                 });
             }
         });
+
+
+        const variantsData = <?= json_encode($variants) ?>;
+        const variantAttributes = <?= json_encode($variantAttributes) ?>;
+
+        let selectedColor = null;
+        let selectedSize = null;
+
+        // Bắt sự kiện chọn màu
+        document.querySelectorAll('input[name="color"]').forEach(input => {
+            input.addEventListener('change', (e) => {
+                selectedColor = parseInt(e.target.value);
+                const name = e.target.closest('label').querySelector('.color-swatch').dataset.colorName;
+                document.getElementById('selectedColor').textContent = name;
+                updateVariantInfo();
+            });
+        });
+
+        // Bắt sự kiện chọn size
+        document.querySelectorAll('input[name="size"]').forEach(input => {
+            input.addEventListener('change', (e) => {
+                selectedSize = parseInt(e.target.value);
+                const size = e.target.closest('label').querySelector('.size-box').textContent;
+                document.getElementById('selectedSize').textContent = size;
+                updateVariantInfo();
+            });
+        });
+
+        function updateVariantInfo() {
+            if (!selectedColor || !selectedSize) return;
+
+            let matched = false;
+
+            for (const variant of variantsData) {
+                const attrValues = (variantAttributes[variant.id] || []).map(a => parseInt(a.valueId));
+                if (attrValues.includes(selectedColor) && attrValues.includes(selectedSize)) {
+                    document.getElementById('variant-price').textContent = Number(variant.price).toLocaleString() + 'đ';
+                    document.getElementById('variant-stock').textContent = variant.stock;
+                    document.getElementById('variantId').value = variant.id;
+                    document.getElementById('variantPriceInput').value = variant.price;
+                    document.getElementById('btnAddCart').disabled = false;
+                    matched = true;
+                    break;
+                }
+            }
+
+            if (!matched) {
+                document.getElementById('variant-price').textContent = '--';
+                document.getElementById('variant-stock').textContent = '--';
+                document.getElementById('variantId').value = '';
+                document.getElementById('variantPriceInput').value = '';
+                document.getElementById('btnAddCart').disabled = true;
+            }
+        }
     </script>
 
 </body>

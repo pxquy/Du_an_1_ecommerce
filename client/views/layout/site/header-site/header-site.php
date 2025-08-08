@@ -26,16 +26,16 @@
 
             <!-- Desktop Navigation -->
             <nav class="main-nav">
-                <!-- <ul class="nav-list">
-                    <?php if (isset($categories)): ?>
-                        <?php foreach ($categories as $category): ?>
-                            <li class="nav-item"><a href="index.php?router=product&category_id=<?= $category["danh_muc_id"] ?>"><?= $category['ten_danh_muc'] ?></a></li>
+                <ul class="nav-list">
+                    <?php if (isset($brands)): ?>
+                        <?php foreach ($brands as $brand): ?>
+                            <li class="nav-item"><a href="index.php?router=product&category_id=<?= $brand["title"] ?>"><?= $brand['title'] ?></a></li>
                         <?php endforeach; ?>
                     <?php endif; ?>
-                    <li class="nav-item dropdown">
+                    <!-- <li class="nav-item dropdown">
                         <a href="#">BLOGS <i class="fas fa-chevron-down"></i></a>
-                    </li>
-                </ul> -->
+                    </li> -->
+                </ul>
             </nav>
 
             <div class="header-actions">
@@ -69,7 +69,7 @@
                         <?php if (isset($_SESSION['user'])) : ?>
                             <!-- User avatar for logged in state (hidden by default) -->
                             <div class="user-avatar logged-in">
-                                <img src="./assets/uploads/user/<?= $_SESSION['user']['avatarUrl'] ?>" height="40" width="40" alt="User Avatar">
+                                <img src="./assets/upload/users/<?= $_SESSION['user']['avatarUrl'] ?>" height="40" width="40" alt="User Avatar">
                             </div>
                         <?php else : ?>
                             <!-- User icon for logged out state (default) -->
@@ -82,9 +82,9 @@
                     <?php if (isset($_SESSION['user'])) : ?>
                         <!-- Dropdown Menu - Logged In State (hidden by default) -->
                         <div class="user-dropdown-menu logged-in">
-                            <div class="user-greeting">Xin chào, <span class="user-name"><?= $_SESSION['user']['ho_va_ten'] ?></span></div>
-                            <a href="index.php?router=<?= isset($_SESSION['user']) &&  $_SESSION['user']['vai_tro'] == 1 ? 'admin' : 'user' ?>" class="dropdown-item">Trang quản trị</a>
-                            <a href="index.php?router=logout" class="dropdown-item logout-btn">Đăng xuất</a>
+                            <div class="user-greeting">Xin chào, <span class="user-name"><?= $_SESSION['user']['fullname'] ?></span></div>
+                            <a href="index.php?router=<?= isset($_SESSION['user']) &&  $_SESSION['user']['role'] == 1 ? 'admin' : 'user' ?>" class="dropdown-item">Trang quản trị</a>
+                            <a href="<?= BASE_URL . '?action=logout' ?>" class="dropdown-item logout-btn">Đăng xuất</a>
                         </div>
                     <?php else : ?>
                         <!-- Dropdown Menu - Logged Out State (default) -->
@@ -95,10 +95,11 @@
                     <?php endif ?>
                 </div>
 
-                <a href="index.php?router=cart" class="cart-icon">
+                <a href="<?= BASE_URL . '?action=my_cart' ?>" class="cart-icon">
                     <i class="fas fa-shopping-bag"></i>
                     <?php if (isset($_SESSION['user'])) : ?>
-                        <span class="cart-count"><?= $cartCount ?></span>
+                        <span class="cart-count"><?= isset($cartCount) ? $cartCount : 0 ?></span>
+
                     <?php endif ?>
                 </a>
 

@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quí Super Shoes - Thanh thoán</title>
-    <link rel="stylesheet" href="./views/layout/site/layout-site.css">
-    <link rel="stylesheet" href="./views/layout/site/header-site/header-site.css">
-    <link rel="stylesheet" href="./views/layout/site/footer-site/footer-site.css">
-    <link rel="stylesheet" href="./views/pages/site/checkout/checkout.css">
+    <title><?= $title ?></title>
+    <link rel="stylesheet" href="./client/views/layout/site/layout-site.css">
+    <link rel="stylesheet" href="./client/views/layout/site/header-site/header-site.css">
+    <link rel="stylesheet" href="./client/views/layout/site/footer-site/footer-site.css">
+    <link rel="stylesheet" href="./client/views/pages/site/checkout/checkout.css">
 
     <!-- SEO -->
     <link rel="icon" type="image/png" href="./assets/images/favicon/favicon-96x96.png" sizes="96x96" />
@@ -18,7 +18,11 @@
     <meta name="apple-mobile-web-app-title" content="Quí Super Shoes" />
     <link rel="manifest" href="./assets/images/favicon/site.webmanifest" />
 
+    <!-- Add Slick Slider CSS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
@@ -26,7 +30,7 @@
 </head>
 
 <body>
-    <?php include_once("./views/layout/site/header-site/header-site.php") ?>
+    <?php include_once("./client/views/layout/site/header-site/header-site.php") ?>
     <!-- Main Content - Checkout Page -->
     <main class="main-content">
         <!-- Breadcrumbs -->
@@ -66,7 +70,7 @@
                 </div>
 
                 <!-- Checkout Content -->
-                <form method="post" class="checkout-content">
+                <form method="post" action="?action=store_order" class="checkout-content">
                     <!-- Checkout Form -->
                     <div class="checkout-form">
                         <div id="checkoutForm">
@@ -78,7 +82,7 @@
                                 <div class="form-row">
                                     <div class="form-group">
                                         <label for="fullName">Họ và tên <span class="required">*</span></label>
-                                        <input type="text" id="fullName" name="ho_va_ten" class="form-control" value="<?= $_SESSION['user']['ho_va_ten'] ?? '' ?>" required>
+                                        <input type="text" id="fullName" name="fullName" class="form-control" value="<?= $_SESSION['user']['fullname'] ?? '' ?>" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="email">Email <span class="required">*</span></label>
@@ -88,7 +92,7 @@
                                 <div class="form-row">
                                     <div class="form-group">
                                         <label for="phone">Số điện thoại <span class="required">*</span></label>
-                                        <input type="tel" id="phone" name="so_dien_thoai" class="form-control" value="<?= $_SESSION['user']['so_dien_thoai'] ?? '' ?>" required>
+                                        <input type="tel" id="phone" name="phoneNumber" class="form-control" value="<?= $_SESSION['user']['phone_number'] ?? '' ?>" required>
                                     </div>
                                 </div>
                             </div>
@@ -101,7 +105,7 @@
                                 <div class="form-row">
                                     <div class="form-group">
                                         <label for="billingAddress">Địa chỉ <span class="required">*</span></label>
-                                        <input type="text" id="billingAddress" name="dia_chi" class="form-control" value="<?= $_SESSION['user']['dia_chi'] ?? '' ?>" required>
+                                        <input type="text" id="billingAddress" name="orderAddress" class="form-control" value="<?= $_SESSION['user']['address'] ?? '' ?>" required>
                                     </div>
                                 </div>
                             </div>
@@ -152,15 +156,15 @@
                             <div class="summary-products">
                                 <?php $total = 0; ?>
                                 <?php foreach ($cartItems as $item): ?>
-                                    <?php $subtotal = $item['gia'] * $item['so_luong']; ?>
+                                    <?php $subtotal = $item['price'] * $item['quantity']; ?>
                                     <?php $total += $subtotal; ?>
                                     <div class="summary-product-item">
                                         <div class="product-image">
-                                            <img src="./assets/uploads/product/<?= $item['hinh'] ?>" alt="<?= $item['ten_san_pham'] ?>">
+                                            <img src="./assets/uploads/product/<?= $item['thumbnail'] ?>" alt="<?= $item['title'] ?>">
                                         </div>
                                         <div class="product-details">
-                                            <h3 class="product-title"><?= $item['ten_san_pham'] ?></h3>
-                                            <div class="product-quantity-price"><?= $item['so_luong'] ?> x <?= formatCurrency($item['gia'], 'vn') ?></div>
+                                            <h3 class="product-title"><?= $item['title'] ?></h3>
+                                            <div class="product-quantity-price">Số lượng: <?= $item['quantity'] ?> x đơn giá: <?= formatCurrency($item['price'], 'vn') ?></div>
                                         </div>
                                     </div>
                                 <?php endforeach; ?>
@@ -169,7 +173,8 @@
                             <div class="summary-totals">
                                 <div class="summary-row total-row">
                                     <div class="summary-label">Tổng cộng:</div>
-                                    <input type="number" name="tong_tien" hidden value="<?= $total ?>">
+                                    <input type="number" name="total" hidden value="<?= $total ?>">
+                                    <input type="hidden" name="items" value='<?= json_encode($selectedItems) ?>'>
                                     <div class="summary-value" id="orderTotal"><?= formatCurrency($total, 'vn') ?></div>
                                 </div>
                             </div>
@@ -184,7 +189,7 @@
             </div>
         </section>
     </main>
-    <?php include_once("./views/layout/site/footer-site/footer-site.php") ?>
+    <?php include_once("./client/views/layout/site/footer-site/footer-site.php") ?>
 
     <script src="./views/layout/site/layout-site.js"></script>
 

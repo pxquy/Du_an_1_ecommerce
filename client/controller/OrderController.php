@@ -34,7 +34,8 @@ class OrderController
             }
 
             $total = array_sum(array_map(fn($item) => $item['price'] * $item['quantity'], $selectedItems));
-            $view = 'create_order';
+            $view = 'pages/site/checkout/checkout';
+            $title = "Xác thực thanh toán";
             require_once PATH_VIEW_CLIENT . $view . '.php';
         } else {
             $_SESSION['msg'] = 'Vui lòng chọn ít nhất 1 sản phẩm để đặt hàng';

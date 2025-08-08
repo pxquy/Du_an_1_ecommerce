@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trang thêm danh mục</title>
+    <link rel="stylesheet" href="../../../layout/dashboards.css" />
+    <link rel="stylesheet" href="category-add.css" />
+    <!-- Font Awesome for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <!-- Add overlay div -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <div class="admin-container">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <div class="logo">
+            <i class="fas fa-chart-bar"></i>
+            <span class="logo-text">Admin Panel</span>
+          </div>
+        </div>
+        <div class="sidebar-content">
+          <nav class="sidebar-menu">
+            <div class="menu-group">
+              <h3 class="menu-title">DANH MỤC</h3>
+              <ul class="menu-list">
+                <li class="menu-item">
+                  <a href="../../../layout/dashborads.html" class="menu-link">
+                    <i class="fas fa-home"></i>
+                    <span class="menu-text">Dashboard</span>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="#" class="menu-link">
+                    <i class="fas fa-chart-line"></i>
+                    <span class="menu-text">Thống kê</span>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="../user-list/user-list.html" class="menu-link">
+                    <i class="fas fa-users"></i>
+                    <span class="menu-text">Người dùng</span>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a
+                    href="../pages/user/user-list/user-list.html"
+                    class="menu-link"
+                  >
+                    <i class="fa-regular fa-images"></i>
+                    <span class="menu-text">Trình chiếu</span>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a
+                    href="../pages/user/user-list/user-list.html"
+                    class="menu-link"
+                  >
+                    <i class="fa-regular fa-image"></i>
+                    <span class="menu-text">banner</span>
+                  </a>
+                </li>
+                <li class="menu-item active">
+                  <a
+                    href="../category-list/category-list.html"
+                    class="menu-link"
+                  >
+                    <i class="fa-regular fa-rectangle-list"></i>
+                    <span class="menu-text">Danh mục</span>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a
+                    href="../pages/user/user-list/user-list.html"
+                    class="menu-link"
+                  >
+                    <i class="fa-regular fa-copyright"></i>
+                    <span class="menu-text">Thương hiệu</span>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a
+                    href="../pages/user/user-list/user-list.html"
+                    class="menu-link"
+                  >
+                    <i class="fa-regular fa-file-powerpoint"></i>
+                    <span class="menu-text">Khuyến mãi</span>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a
+                    href="../pages/user/user-list/user-list.html"
+                    class="menu-link"
+                  >
+                    <i class="fa-regular fa-file-video"></i>
+                    <span class="menu-text">Tin tức</span>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a
+                    href="../../products/products-list/products.html"
+                    class="menu-link"
+                  >
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="menu-text">Sản phẩm</span>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="#" class="menu-link">
+                    <i class="fas fa-file-alt"></i>
+                    <span class="menu-text">Đơn hàng</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="menu-group">
+              <h3 class="menu-title">HỆ THỐNG</h3>
+              <ul class="menu-list">
+                <li class="menu-item">
+                  <a href="#" class="menu-link">
+                    <i class="fas fa-cog"></i>
+                    <span class="menu-text">Cài đặt</span>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="#" class="menu-link">
+                    <i class="fas fa-question-circle"></i>
+                    <span class="menu-text">Hỗ trợ</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+        <div class="sidebar-footer">
+          <div class="user-profile">
+            <div class="avatar">
+              <img src="https://via.placeholder.com/40" alt="User" />
+            </div>
+            <div class="user-info">
+              <span class="user-name">John Doe</span>
+              <span class="user-role">Admin</span>
+            </div>
+            <i class="fas fa-sign-out-alt logout-icon"></i>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <!-- Header -->
+        <header class="header">
+          <button class="sidebar-toggle" id="sidebarToggle">
+            <i class="fas fa-bars"></i>
+          </button>
+          <div class="header-right">
+            <div class="search-container">
+              <i class="fas fa-search search-icon"></i>
+              <input
+                type="search"
+                class="search-input"
+                placeholder="Search..."
+              />
+            </div>
+            <div class="notification-container">
+              <button class="notification-button">
+                <i class="fas fa-bell"></i>
+                <span class="notification-badge"></span>
+              </button>
+            </div>
+            <div class="mobile-avatar">
+              <img src="https://via.placeholder.com/32" alt="User" />
+            </div>
+          </div>
+        </header>
+
+        <!-- Add User Content -->
+
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="user-form.js"></script>
+  </body>
+</html>
