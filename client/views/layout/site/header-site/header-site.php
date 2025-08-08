@@ -1,3 +1,9 @@
+<?php
+
+$brands = $this->brands->select();
+?>
+
+
 <!-- Top Bar -->
 <div class="top-bar">
     <div class="container">

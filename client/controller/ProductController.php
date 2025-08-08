@@ -31,7 +31,6 @@ class ProductController
 
         $products = $this->client->paginate($page, $perPage, $columns);
         $categories = $this->categories->select();
-        $brands = $this->brands->select();
 
         $title = 'Trang chủ';
         $view = 'pages/site/home/home';
