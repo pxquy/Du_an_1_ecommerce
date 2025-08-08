@@ -1,5 +1,5 @@
 <?php
-
+$this->brands = new Brand();
 $brands = $this->brands->select();
 ?>
 

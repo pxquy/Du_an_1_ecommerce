@@ -64,7 +64,7 @@
                     <!-- Product -->
                     <?php if (isset($products)): ?>
                         <?php foreach ($products as $product): ?>
-                            <a class="product-card" href="<?= BASE_URL . '?action=product_detail&id=' . $product['id'] ?>">
+                            <a class="product-card" href="<?= BASE_URL . '?action=product_detail&slug=' . $product['slug'] ?>">
                                 <!-- <div class="product-badge">-16%</div> -->
                                 <div class="product-image">
                                     <img src="./assets/uploads/product/<?= $product['thumbnail'] ?>" he alt="<?= $product['title'] ?>">

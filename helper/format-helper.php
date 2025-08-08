@@ -61,9 +61,9 @@ function formatGender($gioi_tinh)
     }
 }
 
-function formatPaymentMethod($pttt)
+function formatPaymentMethod($paymentMethod)
 {
-    switch ($pttt) {
+    switch ($paymentMethod) {
         case 1:
             return "Thanh toán khi nhận hàng (COD)";
         case 2:

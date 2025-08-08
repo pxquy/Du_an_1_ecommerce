@@ -1,50 +1,40 @@
 <?php
 require_once './client/model/Product.php';
 require_once './client/model/Comment.php';
-
 class ProductController
 {
-    private $client, $categories, $brands;
-
+    private $client, $brands;
     public function __construct()
     {
         $this->client = new Product();
-        $this->categories = new Category();
         $this->brands = new Brand();
     }
-
     public function home()
     {
-        // Set bảng với join ảnh sản phẩm
+        $view = 'pages/site/home/home';
+        $title = 'Trang chủ';
+        $products_best_seller = $this->client->getBestSeller(5); // lấy 5 sản phẩm bán chạy nhất
+        // debug($products_best_seller);
         $this->client->setTable("
         products p
         LEFT JOIN product_images pi ON p.id = pi.productId
     ");
-
-        // Lấy dữ liệu phân trang
         $page = 1;
         $perPage = 8;
         $columns = "p.*, pi.imageUrl AS imageUrl";
-
         $numRow = $this->client->count();
+        // debug($numRow);
         $numPages = ceil($numRow / $perPage);
-
         $products = $this->client->paginate($page, $perPage, $columns);
-        $categories = $this->categories->select();
 
-        $title = 'Trang chủ';
-        $view = 'pages/site/home/home';
-
-        extract(compact('products', 'title', 'view'));
-
-        require_once PATH_VIEW_CLIENT . $view . ".php";
+        require_once PATH_VIEW_CLIENT . $view . '.php';
     }
+
 
 
     public function productDetail()
     {
-
-        $id = $_GET['id'] ?? null;
+        $slug = $_GET['slug'] ?? null;
         $title = "Chi tiết sản phẩm";
         $view = 'pages/site/product-detail/product-detail';
 
@@ -56,20 +46,23 @@ class ProductController
 
         $productDetailRaw = $this->client->select(
             'p.*, GROUP_CONCAT(DISTINCT pi.imageUrl) AS imageUrls',
-            'p.id = ? GROUP BY p.id',
-            [$id]
+            'p.slug = ? GROUP BY p.id',
+            [$slug]
         );
 
         $productDetail = $productDetailRaw[0] ?? [];
         $images = explode(',', $productDetail['imageUrls'] ?? '');
-
-
         $relatedProducts = $this->client->paginate(1, 4, "*", 'brandId = :brandId', ["brandId" => $productDetail['brandId']]);
 
-        // ===== 2. Lấy danh sách biến thể (variants) =====
+        // Nếu không tìm thấy sản phẩm thì quay về trang chủ
+        if (empty($productDetail)) {
+            header("Location: " . BASE_URL);
+            exit;
+        }
+
+        // ===== 2. Lấy danh sách biến thể theo productId =====
         $this->client->setTable("variants");
-        $variants = $this->client->select("*", "productId = ?", [$id]);
-        // debug($variants);
+        $variants = $this->client->select("*", "productId = ?", [$productDetail['id']]);
 
         // ===== 3. Lấy các giá trị thuộc tính của từng biến thể =====
         $this->client->setTable("
@@ -83,10 +76,10 @@ class ProductController
             "vv.variantId IN (
             SELECT id FROM variants WHERE productId = ?
         )",
-            [$id]
+            [$productDetail['id']]
         );
-        // debug($variantAttributesRaw);
-        // ===== 4. Gom nhóm thuộc tính theo biến thể =====
+
+        // Gom nhóm thuộc tính theo variantId
         $variantAttributes = [];
         foreach ($variantAttributesRaw as $attr) {
             $variantId = $attr['variantId'];
@@ -100,24 +93,28 @@ class ProductController
                 'attributeValue' => $attr['attributeValue'],
             ];
         }
+
+        // ===== 4. Lấy đánh giá theo productId =====
         $commentModel = new Comment();
-        $comments = $commentModel->getCommentsByProduct($productDetail['id'] ?? 0);
-        // debug($variantAttributes);
-
-        extract([
-            'productDetail' => $productDetail,
-            'images' => $images,
-            'variants' => $variants,
-            'variantAttributes' => $variantAttributes,
-            'relatedProducts' => $relatedProducts,
-            'comments' => $comments,
-            'view' => $view,
-            'title' => $title,
-        ]);
-
-        // debug($variantAttributes);
-
+        $comments = $commentModel->getCommentsByProduct($productDetail['id']);
 
         require_once PATH_VIEW_CLIENT . $view . ".php";
+    }
+
+    public function search()
+    {
+        // Lấy dữ liệu từ query string
+        $keyword   = $_GET['keyword'] ?? '';
+        $minPrice  = floatval($_GET['minPrice'] ?? 0);
+        $maxPrice  = floatval($_GET['maxPrice'] ?? 0);
+        $order     = $_GET['order'] ?? 'ASC'; // A-Z hoặc Z-A
+
+        // Gọi model tìm kiếm
+        $products = $this->client->searchProducts($keyword, $minPrice, $maxPrice, $order);
+
+        // View
+        $title = 'Tìm kiếm sản phẩm';
+        $view  = 'main';
+        require_once PATH_VIEW_CLIENT . $view . '.php';
     }
 }

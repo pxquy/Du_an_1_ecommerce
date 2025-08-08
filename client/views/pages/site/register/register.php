@@ -121,14 +121,12 @@
                         <div class="error-message" id="confirmPasswordError"></div>
                     </div>
                     <div class="form-group">
-                        <label for="avatarUrl">Hình ảnh</label>
+                        <label for="avatarUrl">Hình ảnh:</label>
                         <div class="input-wrapper">
-                            <input type="file" id="avatarUrl" name="avatarUrl" required>
-                            <button type="button" class="toggle-password confirm-password" aria-label="Hiển thị mật khẩu">
-                                <i class="fas fa-eye"></i>
-                            </button>
+                            <input type="file" id="avatarUrl" name="avatarUrl" class="imageUrl">
                         </div>
-                        <div class="error-message" id="confirmPasswordError"></div>
+                        <div class=" error-message" id="confirmPasswordError">
+                        </div>
                     </div>
 
                     <!-- Gender Field -->

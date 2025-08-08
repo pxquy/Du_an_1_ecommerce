@@ -2,16 +2,15 @@
 require_once("./client/model/user.php");
 class SigninController
 {
-    protected $client, $brands;
+    protected $client;
     public function __construct()
     {
         $this->client = new User();
-        $this->brands = new Brand();
     }
     public function locationSignin()
     {
         $views = "pages/site/login/login";
-        $title = "signin";
+        $title = "Đăng nhập";
         require_once PATH_VIEW_CLIENT . $views . '.php';
     }
     public function signin()
@@ -52,6 +51,7 @@ class SigninController
             }
 
             $_SESSION['user'] = $user;
+
             $_SESSION['success'] = true;
             $_SESSION['msg'] = 'Đăng nhập thành công';
 

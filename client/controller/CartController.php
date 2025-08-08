@@ -1,32 +1,31 @@
 <?php
 require_once './client/model/Cart.php';
-
 class CartController
 {
-    protected $cartModel, $brands;
+    protected $cartModel;
 
     public function __construct()
     {
         $this->cartModel = new Cart();
-        $this->brands = new Brand();
     }
 
     /** Thêm sản phẩm vào giỏ hàng */
     public function addToCart()
     {
+        // debug($_SESSION['user']);
         require_Login();
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $userId = $_SESSION['user']['id'] ?? null;
+            $userId    = $_SESSION['user']['id'] ?? null;
             $productId = $_POST['productId'] ?? null;
             $variantId = $_POST['variantId'] ?? null;
-            $quantity = max(1, intval($_POST['quantity'] ?? 1));
-            $price = floatval($_POST['price'] ?? 0);
-
+            $quantity  = max(1, intval($_POST['quantity'] ?? 1));
+            $price     = floatval($_POST['price'] ?? 0);
+            // debug($_POST);
             if (!$userId || !$productId || !$variantId) {
                 $_SESSION['success'] = false;
                 $_SESSION['msg'] = 'Dữ liệu không hợp lệ';
-                header('Location:' . BASE_URL . ' ?action=product_detail');
+                header('Location:' . BASE_URL . '?action=product_detail&id=' . $productId);
                 exit();
             }
 
@@ -36,6 +35,7 @@ class CartController
 
             // Thêm sản phẩm vào giỏ
             $this->cartModel->addProduct($cartId, $productId, $variantId, $quantity, $price);
+            // debug($addCarrt);
 
             $_SESSION['success'] = true;
             $_SESSION['msg'] = 'Đã thêm vào giỏ hàng';
@@ -46,6 +46,7 @@ class CartController
 
     /** Hiển thị giỏ hàng */
     public function myCart()
+
     {
         $view = "pages/site/cart/cart";
         $title = "Giỏ hàng";
@@ -55,16 +56,7 @@ class CartController
             exit();
         }
 
-        $cartCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
-
-
         $cartItems = $this->cartModel->getCartDetails($userId);
-
-
-        extract([
-            "cartCount" => $cartCount,
-            "cartItems" => $cartItems
-        ]);
         // debug($cartItems);
         require_once PATH_VIEW_CLIENT . $view . ".php";
     }
@@ -73,10 +65,10 @@ class CartController
 
         require_Login();
         $cartProductId = $_GET['cartProductId'] ?? null;
-        $cartId = $_GET['cartId'] ?? null;
+        $cartId        = $_GET['cartId'] ?? null;
 
         if ($cartProductId && $cartId) {
-            $this->cartModel->removeProduct((int) $cartProductId, (int) $cartId);
+            $this->cartModel->removeProduct((int)$cartProductId, (int)$cartId);
             $_SESSION['success'] = true;
             $_SESSION['msg'] = 'Đã xóa sản phẩm khỏi giỏ hàng';
         } else {

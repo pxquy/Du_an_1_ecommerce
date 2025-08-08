@@ -4,25 +4,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quí Super Shoes - Cảm ơn</title>
-    <link rel="stylesheet" href="./views/layout/site/layout-site.css">
-    <link rel="stylesheet" href="./views/layout/site/header-site/header-site.css">
-    <link rel="stylesheet" href="./views/layout/site/footer-site/footer-site.css">
-    <link rel="stylesheet" href="./views/pages/site/order-complete/order-complete.css">
+    <title><?= $title ?></title>
+    <link rel="stylesheet" href="./client/views/layout/site/layout-site.css">
+    <link rel="stylesheet" href="./client/views/layout/site/header-site/header-site.css">
+    <link rel="stylesheet" href="./client/views/layout/site/footer-site/footer-site.css">
+    <link rel="stylesheet" href="./client/views/pages/site/order-complete/order-complete.css">
 
     <!-- SEO -->
     <link rel="icon" type="image/png" href="./assets/images/favicon/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="./assets/images/favicon/favicon.svg" />
     <link rel="shortcut icon" href="./assets/images/favicon/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="./assets/images/favicon/apple-touch-icon.png" />
-    <meta name="apple-mobile-web-app-title" content="Quí Super Shoes" />
+    <meta name="apple-mobile-web-app-title" content="Shop Arrowwai" />
     <link rel="manifest" href="./assets/images/favicon/site.webmanifest" />
+
+    <!-- Add Slick Slider CSS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
 <body>
-    <?php include_once("./views/layout/site/header-site/header-site.php") ?>
+    <?php include_once("./client/views/layout/site/header-site/header-site.php") ?>
     <!-- Main Content - Order Complete Page -->
     <main class="main-content">
         <!-- Breadcrumbs -->
@@ -62,7 +70,7 @@
                 </div>
 
 
-                <?php if (empty($order) || empty($listOrderDetail)) : ?>
+                <?php if (empty($orderId) || empty($listOrderDetail)) : ?>
                     <div class="order-error">
                         <div class="error-icon">
                             <i class="fa-solid fa-circle-exclamation"></i>
@@ -78,11 +86,11 @@
                             <i class="fas fa-check-circle"></i>
                         </div>
                         <h1 class="success-title">Đặt hàng thành công!</h1>
-                        <p class="success-message">Cảm ơn bạn đã mua sắm tại Quí Super Shoes. Đơn hàng của bạn đã được xác nhận và đang được xử lý.</p>
+                        <p class="success-message">Cảm ơn bạn đã mua sắm tại Shop Arrowwai. Đơn hàng của bạn đã được xác nhận và đang được xử lý.</p>
                         <div class="order-number">
-                            <span>Mã đơn hàng:</span> <strong>#QSS<?= $order['don_hang_id'] ?></strong>
+                            <span>Mã đơn hàng:</span> <strong>#QSS<?= $order['id'] ?></strong>
                         </div>
-                        <p class="email-confirmation">Một email xác nhận đã được gửi đến <strong><?= $order['email'] ?></strong></p>
+                        <p class="email-confirmation">Một email xác nhận đã được gửi đến <strong><?= $order['fullName'] ?></strong></p>
                     </div>
 
                     <!-- Order Details -->
@@ -97,20 +105,20 @@
                                 <div class="info-column">
                                     <h3>Thông tin đơn hàng</h3>
                                     <ul class="info-list">
-                                        <li><span>Mã đơn hàng:</span> <strong>#QSS<?= $order['don_hang_id'] ?></strong></li>
-                                        <li><span>Ngày đặt hàng:</span> <strong><?= date("d/m/Y", strtotime($order['ngay_dat'])) ?></strong></li>
-                                        <li><span>Tổng tiền:</span> <strong><?= formatCurrency($order['tong_tien'], 'vn') ?></strong></li>
-                                        <li><span>Phương thức thanh toán: </span> <strong style="padding-left: 5px;"><?= formatPaymentMethod($order['phuong_thuc_thanh_toan']) ?></strong></li>
+                                        <li><span>Mã đơn hàng:</span> <strong>#QSS<?= $order['id'] ?></strong></li>
+                                        <li><span>Ngày đặt hàng:</span> <strong><?= date("d/m/Y", strtotime($order['createdAt'])) ?></strong></li>
+                                        <li><span>Tổng tiền:</span> <strong><?= formatCurrency($order['total'], 'vn') ?></strong></li>
+                                        <li><span>Phương thức thanh toán: </span> <strong style="padding-left: 5px;"><?= formatPaymentMethod($order['paymentMethod']) ?></strong></li>
                                     </ul>
                                 </div>
 
                                 <div class="info-column">
                                     <h3>Thông tin giao hàng</h3>
                                     <ul class="info-list">
-                                        <li><span>Họ tên:</span> <strong><?= $order['ho_va_ten'] ?></strong></li>
-                                        <li><span>Địa chỉ:</span> <strong><?= $order['dia_chi'] ?></strong></li>
-                                        <li><span>Số điện thoại:</span> <strong><?= $order['so_dien_thoai'] ?></strong></li>
-                                        <li><span>Email:</span> <strong><?= $order['email'] ?></strong></li>
+                                        <li><span>Họ tên:</span> <strong><?= $order['fullName'] ?></strong></li>
+                                        <li><span>Địa chỉ:</span> <strong><?= $order['orderAddress'] ?></strong></li>
+                                        <li><span>Số điện thoại:</span> <strong><?= $order['phoneNumber'] ?></strong></li>
+                                        <li><span>Email:</span> <strong><?= $order['fullName'] ?></strong></li>
                                     </ul>
                                 </div>
                             </div>
@@ -126,21 +134,22 @@
                                         <div class="item-total">Thành tiền</div>
                                     </div>
 
-                                    <?php foreach ($listOrderDetail as $orderDetail) : ?>
+                                    <?php foreach ($listOrderDetail as $item) : ?>
                                         <div class="order-item">
                                             <div class="item-product">
                                                 <div class="item-image">
-                                                    <img src="./assets/uploads/product/<?= $orderDetail['hinh'] ?>" alt="<?= $orderDetail['ten_san_pham'] ?>">
+                                                    <img src="./assets/uploads/product/<?= $item['thumbnail'] ?>" alt="<?= $item['title'] ?>">
                                                 </div>
                                                 <div class="item-details">
-                                                    <h4 class="item-title"><?= $orderDetail['ten_san_pham'] ?></h4>
+                                                    <h4 class="item-title"><?= $item['title'] ?></h4>
                                                 </div>
                                             </div>
-                                            <div class="item-price"><?= formatCurrency($orderDetail['gia'], 'vn') ?></div>
-                                            <div class="item-quantity"><?= $orderDetail['so_luong'] ?></div>
-                                            <div class="item-total"><?= formatCurrency($orderDetail['tong_tien'], 'vn') ?></div>
+                                            <div class="item-price"><?= formatCurrency($item['price'], 'vn') ?></div>
+                                            <div class="item-quantity"><?= $item['quantity'] ?></div>
+                                            <div class="item-total"><?= formatCurrency($item['total'], 'vn') ?></div>
                                         </div>
                                     <?php endforeach; ?>
+
 
                                 </div>
                             </div>
@@ -149,7 +158,7 @@
                             <div class="order-summary">
                                 <div class="summary-row total-row">
                                     <div class="summary-label">Tổng cộng:</div>
-                                    <div class="summary-value"><?= formatCurrency($order['tong_tien'], 'vn') ?></div>
+                                    <div class="summary-value"><?= formatCurrency($order['total'], 'vn') ?></div>
                                 </div>
                             </div>
                         </div>
@@ -187,7 +196,7 @@
 
                     <!-- Thank You Message -->
                     <div class="thank-you-message">
-                        <p>Cảm ơn bạn đã tin tưởng và lựa chọn Quí Super Shoes. Chúng tôi rất mong được phục vụ bạn trong tương lai!</p>
+                        <p>Cảm ơn bạn đã tin tưởng và lựa chọn Shop Arrowwai. Chúng tôi rất mong được phục vụ bạn trong tương lai!</p>
                     </div>
                 <?php endif; ?>
 
@@ -215,7 +224,7 @@
             </div>
         </section>
     </main>
-    <?php include_once("./views/layout/site/footer-site/footer-site.php") ?>
+    <?php include_once("./client/views/layout/site/footer-site/footer-site.php") ?>
 
     <script src="./client/views/layout/site/layout-site.js"></script>
 

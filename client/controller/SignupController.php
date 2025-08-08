@@ -2,15 +2,14 @@
 require_once("./client/model/User.php");
 class SignupController
 {
-    private $client, $brands;
+    private $client;
     public function __construct()
     {
         $this->client = new User();
-        $this->brands = new Brand();
     }
     public function locationCreate()
     {
-        $view = "/pages/site/register/register";
+        $view = "pages/site/register/register";
         $title = "Signup";
         require_once PATH_VIEW_CLIENT . $view . ".php";
     }
@@ -39,6 +38,9 @@ class SignupController
             // Validate password
             if (empty($data['password']) || strlen($data['password']) < 6) {
                 $_SESSION['error']['password'] = "Mật khẩu không được bỏ trống và phải tối thiểu 6 kí tự";
+            }
+            if (empty($data['confirmPassword']) || $data['confirmPassword'] != $data['password']) {
+                $_SESSION['error']['password'] = "Vui lòng nhập lại mật khẩu và phải khớp với mật khẩu đã đặt";
             }
 
             // Validate phoneNumber
@@ -87,7 +89,7 @@ class SignupController
             if ($rowCount > 0) {
                 $_SESSION['success'] = true;
                 $_SESSION['msg'] = 'Đăng kí thành công';
-                header('Location: ' . BASE_URL);
+                header('Location: ' . BASE_URL . "?action=form_signin");
                 exit();
             } else {
                 throw new Exception('Đăng kí thất bại');
