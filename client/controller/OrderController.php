@@ -5,12 +5,13 @@ require_once './client/model/Cart.php';
 class OrderController
 {
     protected $orderModel;
-    protected $cartModel;
+    protected $cartModel, $brands;
 
     public function __construct()
     {
         $this->orderModel = new Order();
         $this->cartModel  = new Cart();
+        $this->brands = new Brand();
     }
 
     /** Hiển thị form tạo đơn hàng từ giỏ hàng */

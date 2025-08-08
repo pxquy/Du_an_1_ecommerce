@@ -2,10 +2,11 @@
 require_once("./client/model/user.php");
 class SigninController
 {
-    protected $client;
+    protected $client, $brands;
     public function __construct()
     {
         $this->client = new User();
+        $this->brands = new Brand();
     }
     public function locationSignin()
     {

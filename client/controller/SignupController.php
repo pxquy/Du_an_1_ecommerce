@@ -2,10 +2,11 @@
 require_once("./client/model/User.php");
 class SignupController
 {
-    private $client;
+    private $client, $brands;
     public function __construct()
     {
         $this->client = new User();
+        $this->brands = new Brand();
     }
     public function locationCreate()
     {

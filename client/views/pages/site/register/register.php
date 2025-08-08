@@ -189,7 +189,7 @@
     </main>
     <?php include_once("./client/views/layout/site/footer-site/footer-site.php") ?>
 
-    <script src="./views/layout/site/layout-site.js"></script>
+    <script src="./client/views/layout/site/layout-site.js"></script>
 
     <script>
         // Toggle password visibility

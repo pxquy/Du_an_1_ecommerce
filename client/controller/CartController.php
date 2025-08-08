@@ -3,11 +3,12 @@ require_once './client/model/Cart.php';
 
 class CartController
 {
-    protected $cartModel;
+    protected $cartModel, $brands;
 
     public function __construct()
     {
         $this->cartModel = new Cart();
+        $this->brands = new Brand();
     }
 
     /** Thêm sản phẩm vào giỏ hàng */
