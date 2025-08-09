@@ -1080,6 +1080,11 @@
   border-color: #c00;
 }
 
+.reply {
+  padding-left: 80px;
+  padding-top: 10px;
+}
+
 .photo-upload {
   display: flex;
   flex-direction: column;

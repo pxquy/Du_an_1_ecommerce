@@ -88,7 +88,7 @@
                     </div>
 
                     <div class="register-link">
-                        <p>Bạn chưa có tài khoản? <a href="index.php?router=register">Đăng ký ngay</a></p>
+                        <p>Bạn chưa có tài khoản? <a href="<?= BASE_URL . '?action=signup' ?>">Đăng ký ngay</a></p>
                     </div>
                 </form>
             </div>

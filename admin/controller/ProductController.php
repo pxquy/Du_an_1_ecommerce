@@ -1,7 +1,7 @@
 <?php
 class ProductController
 {
-    private $product, $productImages, $brand, $category, $variant, $variantValue, $attribute, $attributeValue;
+    private $product, $productImages, $brand, $category, $variant, $variantValue, $attribute, $attributeValue, $comment;
 
     public function __construct()
     {
@@ -13,6 +13,7 @@ class ProductController
         $this->attribute = new Attribute();
         $this->attributeValue = new AttributeValue();
         $this->variantValue = new VariantValue();
+        $this->comment = new Comment();
     }
 
     private function validateProductData($data)
@@ -71,7 +72,7 @@ class ProductController
         $brandId = $_GET['brand'] ?? null;
         $sort = $_GET['sort'] ?? null; // asc | desc
 
-        $condition = '1=1 AND deletedAt IS NULL'; // chỉ lấy sản phẩm chưa xóa mềm
+        $condition = '1=1'; // chỉ lấy sản phẩm chưa xóa mềm
         $params = [];
 
         if ($keyword) {
@@ -123,6 +124,7 @@ class ProductController
     public function show()
     {
         try {
+            // debug($_SESSION['user']);
             if (!isset($_GET['id'])) {
                 throw new Exception('Thiếu tham số ID', 99);
             }
@@ -133,6 +135,7 @@ class ProductController
                 throw new Exception("Sản phẩm có ID = $id không tồn tại!");
             }
 
+
             $productImages = $this->productImages->select('*', 'productId = :productId', ['productId' => $id]);
             $variants = $this->variant->select('*', 'productId = :productId', ['productId' => $id]);
             foreach ($variants as &$variant) {
@@ -142,13 +145,13 @@ class ProductController
                 }
             }
             unset($variant);
+            $comments = $this->comment->getCommentsByProduct($productDetail['id']);
 
             $productDetail['variants'] = $variants;
 
             $view = 'products/show';
             $title = "Chi tiết sản phẩm: " . $productDetail['title'];
             require_once PATH_VIEW_ADMIN_MAIN;
-
         } catch (\Throwable $th) {
             $_SESSION['success'] = false;
             $_SESSION['msg'] = $th->getMessage();
@@ -255,7 +258,6 @@ class ProductController
             $brandPluck = array_column($brands, 'title', 'id');
             $productImages = $this->productImages->select('*', 'productId = :productId', ['productId' => $id]);
             require_once PATH_VIEW_ADMIN_MAIN;
-
         } catch (\Throwable $th) {
             $_SESSION['success'] = false;
             $_SESSION['msg'] = $th->getMessage();
@@ -446,6 +448,73 @@ class ProductController
         }
 
         header('Location: ' . BASE_URL_ADMIN . '&action=products-index');
+        exit();
+    }
+
+    public function replyComment()
+    {
+        try {
+            if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+                throw new Exception("Phương thức không hợp lệ");
+            }
+
+            $data['userId'] = $_SESSION['user']['id'] ?? null;
+            $data['productId'] = $_POST['productId'] ?? null;
+            $data['parentId'] = $_POST['parentId'] ?? null;
+            $data['content'] = trim($_POST['content'] ?? '');
+
+            if (!$data['userId'] || !$data['productId'] || !$data['parentId'] || $data['content'] === '') {
+                throw new Exception("Thiếu dữ liệu cần thiết");
+            }
+
+            $data['createdAt'] = date('Y-m-d H:i:s');
+            $data['updatedAt'] = date('Y-m-d H:i:s');
+
+            $this->comment->insert($data);
+
+            $_SESSION['success'] = true;
+            $_SESSION['msg'] = 'Phản hồi thành công.';
+        } catch (\Throwable $th) {
+            $_SESSION['success'] = false;
+            $_SESSION['msg'] = $th->getMessage();
+        }
+
+        header('Location: ' . BASE_URL_ADMIN . '&action=products-show&id=' . $data['productId']);
+        exit();
+    }
+
+    public function deleteComment()
+    {
+        try {
+            if (!isset($_GET['id']) || !isset($_GET['productId'])) {
+                throw new Exception('Thiếu tham số ID bình luận hoặc sản phẩm.', 99);
+            }
+
+            $id = $_GET['id'];
+            $productId = $_GET['productId'];
+
+            // Kiểm tra comment tồn tại
+            $comment = $this->comment->find('*', 'id = :id', ['id' => $id]);
+
+            if (empty($comment)) {
+                throw new Exception("Bình luận có ID = $id không tồn tại!");
+            }
+
+            // Gọi soft delete từ model
+            $rowCount = $this->comment->softDelete($id);
+
+            if ($rowCount <= 0) {
+                throw new Exception('Xóa mềm bình luận không thành công!');
+            }
+
+            $_SESSION['success'] = true;
+            $_SESSION['msg'] = 'Xóa mềm bình luận thành công.';
+        } catch (\Throwable $th) {
+            $_SESSION['success'] = false;
+            $_SESSION['msg'] = $th->getMessage();
+        }
+
+        header('Location: ' . BASE_URL_ADMIN . '&action=products-show&id=' . $_GET['productId']);
         exit();
     }
 }

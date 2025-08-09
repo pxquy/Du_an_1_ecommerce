@@ -89,7 +89,7 @@ $brands = $this->brands->select();
                         <!-- Dropdown Menu - Logged In State (hidden by default) -->
                         <div class="user-dropdown-menu logged-in">
                             <div class="user-greeting">Xin chào, <span class="user-name"><?= $_SESSION['user']['fullname'] ?></span></div>
-                            <a href="index.php?router=<?= isset($_SESSION['user']) &&  $_SESSION['user']['role'] == 1 ? 'admin' : 'user' ?>" class="dropdown-item">Trang quản trị</a>
+                            <a href="<?= isset($_SESSION['user']) &&  $_SESSION['user']['role'] == 1 ? BASE_URL_ADMIN : BASE_URL ?>" class="dropdown-item">Trang quản trị</a>
                             <a href="<?= BASE_URL . '?action=logout' ?>" class="dropdown-item logout-btn">Đăng xuất</a>
                         </div>
                     <?php else : ?>

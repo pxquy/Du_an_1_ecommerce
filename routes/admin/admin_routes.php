@@ -80,5 +80,8 @@ match ($action) {
     'orders-index' => (new OrderController)->index(),
     'orders-show' => (new OrderController)->show(),
     'orders-updateStatus' => (new OrderController)->updateStatus(),
-    'orders-softDelete' => (new OrderController)->softDelete()
+    'orders-softDelete' => (new OrderController)->softDelete(),
+
+    //comment
+    'reply_comment' => (new ProductController)->replyComment(),
 };

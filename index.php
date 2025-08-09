@@ -73,6 +73,3 @@ if ($mode == 'admin') {
 } else {
     require_once './routes/client/client_routes.php';
 }
-
-
-

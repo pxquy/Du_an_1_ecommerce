@@ -366,29 +366,40 @@
                                 <div class="reviews-list">
                                     <?php if ($comments) : ?>
                                         <?php foreach ($comments as $comment): ?>
-                                            <div class="review-item">
-                                                <div class="review-header">
-                                                    <div class="reviewer-info">
-                                                        <div class="reviewer-avatar">
-                                                            <img src="./assets/uploads/user/<?= $comment['thumbnail'] ?>" width="50" height="50" alt="<?= htmlspecialchars($comment['fullname']) ?>">
-                                                        </div>
-                                                        <div class="reviewer-details">
-                                                            <div class="reviewer-name"><?= htmlspecialchars($comment['fullname']) ?></div>
-                                                            <div class="review-date" data-date="<?= htmlspecialchars($comment['createdAt']) ?>"></div>
+                                            <?php if (!$comment['parentId']): ?>
+                                                <div class="review-item">
+                                                    <div class="review-header">
+                                                        <div class="reviewer-info">
+                                                            <div class="reviewer-avatar">
+                                                                <img src="./assets/uploads/user/<?= $comment['thumbnail'] ?>" width="50" height="50" alt="<?= htmlspecialchars($comment['fullname']) ?>">
+                                                            </div>
+                                                            <div class="reviewer-details">
+                                                                <div class="reviewer-name"><?= htmlspecialchars($comment['fullname']) ?></div>
+                                                                <div class="review-date" data-date="<?= htmlspecialchars($comment['createdAt']) ?>"></div>
 
+                                                            </div>
+                                                        </div>
+                                                        <div class="review-rating">
+                                                            <?php
+                                                            for ($i = 0; $i < $comment['rating']; $i++) echo '<i class="fas fa-star"></i>';
+                                                            for ($i = $comment['rating']; $i < 5; $i++) echo '<i class="far fa-star"></i>';
+                                                            ?>
                                                         </div>
                                                     </div>
-                                                    <div class="review-rating">
-                                                        <?php
-                                                        for ($i = 0; $i < $comment['rating']; $i++) echo '<i class="fas fa-star"></i>';
-                                                        for ($i = $comment['rating']; $i < 5; $i++) echo '<i class="far fa-star"></i>';
-                                                        ?>
+                                                    <div class="review-content">
+                                                        <p class="review-text"><?= htmlspecialchars($comment['content']) ?></p>
                                                     </div>
                                                 </div>
-                                                <div class="review-content">
-                                                    <p class="review-text"><?= htmlspecialchars($comment['content']) ?></p>
-                                                </div>
-                                            </div>
+
+                                                <?php foreach ($comments as $reply): ?>
+                                                    <?php if ($reply['parentId'] == $comment['id']): ?>
+                                                        <div class="reply border rounded p-2 ms-4 bg-white">
+                                                            <p><strong><?= htmlspecialchars($reply['fullname']) ?></strong> - <?= $reply['createdAt'] ?></p>
+                                                            <p><?= nl2br(htmlspecialchars($reply['content'])) ?></p>
+                                                        </div>
+                                                    <?php endif; ?>
+                                                <?php endforeach; ?>
+                                            <?php endif; ?>
                                         <?php endforeach; ?>
                                     <?php else: ?>
                                         <p style="text-align: center;">Không có bình luận nào.</p>
@@ -403,7 +414,7 @@
                                         <button class="pagination-btn prev" disabled><i class="fas fa-chevron-left"></i></button>
                                     <?php endif; ?>
 
-                                    <!-- <div class="pagination-numbers">
+                                    <div class="pagination-numbers">
                                         <?php if ($totalPages > 1): ?>
                                             <a href="?router=product-detail&id=<?= $product_id ?>&page=1"
                                                 class="pagination-number <?= ($page == 1) ? 'active' : '' ?>">1</a>
@@ -431,21 +442,21 @@
                                             <a href="?router=product-detail&id=<?= $product_id ?>&page=1"
                                                 class="pagination-number <?= ($page == 1) ? 'active' : '' ?>">1</a>
                                         <?php endif; ?>
-                                    </div> -->
+                                    </div>
 
-                                <!-- <?php if ($page < $totalPages): ?>
+                                    <?php if ($page < $totalPages): ?>
                                         <a class="pagination-btn next" href="?router=product-detail&id=<?= $product_id ?>&page=<?= $page + 1 ?>"><i class="fas fa-chevron-right"></i></a>
                                     <?php else: ?>
                                         <button class="pagination-btn next" disabled><i class="fas fa-chevron-right"></i></button>
                                     <?php endif; ?>
-                                </div> --> -->
+                                </div> -->
 
 
                                 <?php if (isset($_SESSION['user'])): ?>
                                     <!-- Hiển thị form đánh giá nếu đã đăng nhập -->
                                     <div class="write-review">
                                         <h3>Viết đánh giá của bạn</h3>
-                                        <form class="review-form" method="POST" action="">
+                                        <form class="review-form" method="POST" action="?action=add_comment">
                                             <div class="form-group">
                                                 <label>Đánh giá của bạn:</label>
                                                 <div class="rating-select" data-selected="0">
@@ -459,15 +470,17 @@
 
                                             </div>
                                             <div class="form-group">
+                                                <input type="hidden" name="productId" value="<?= $productDetail['id'] ?>">
+                                                <input type="hidden" name="slug" value="<?= $productDetail['slug'] ?>">
                                                 <label for="reviewContent">Nội dung:</label>
-                                                <textarea name="reviewContent" id="reviewContent" rows="5" placeholder="Chia sẻ trải nghiệm của bạn với sản phẩm này"></textarea>
+                                                <textarea name="content" id="reviewContent" rows="5" placeholder="Chia sẻ trải nghiệm của bạn với sản phẩm này"></textarea>
                                             </div>
                                             <button type="submit" name="submit-review-btn" class="submit-review-btn">Gửi đánh giá</button>
                                         </form>
                                     </div>
                                 <?php else: ?>
                                     <!-- Nếu chưa đăng nhập -->
-                                    <p style="text-align:center;">Bạn cần <a href="index.php?router=login" style="color:blue; text-decoration: underline;">đăng nhập</a> để viết đánh giá.</p>
+                                    <p style="text-align:center;">Bạn cần <a href="<?= BASE_URL . '?action=from_signin' ?>" style="color:blue; text-decoration: underline;">đăng nhập</a> để viết đánh giá.</p>
                                 <?php endif; ?>
 
 

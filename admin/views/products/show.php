@@ -1,3 +1,9 @@
+<?php
+// debug($_SESSION['user'])
+
+?>
+
+
 <div class=" ">
     <div class="row p-4 bg-white rounded shadow-sm mb-4">
         <!-- Cột ảnh -->
@@ -86,6 +92,58 @@
     </div>
 </div>
 
+
+
+<h3 class="mt-5">Bình luận</h3>
+
+<?php if (!empty($comments)): ?>
+    <?php foreach ($comments as $cmt): ?>
+        <?php if (!$cmt['parentId']): // chỉ hiển thị bình luận gốc 
+        ?>
+            <div class="border rounded p-3 mb-2 bg-light">
+                <p><strong><?= htmlspecialchars($cmt['fullname']) ?></strong> - <?= $cmt['createdAt'] ?></p>
+
+                <?php if (!empty($cmt['rating'])): ?>
+                    <p>Đánh giá:
+                        <?php for ($i = 1; $i <= 5; $i++): ?>
+                            <span style="color:<?= $i <= $cmt['rating'] ? 'orange' : '#ccc' ?>">★</span>
+                        <?php endfor; ?>
+                    </p>
+                <?php endif; ?>
+
+                <p><?= nl2br(htmlspecialchars($cmt['content'])) ?></p>
+
+                <!-- Hiển thị phản hồi -->
+                <?php foreach ($comments as $reply): ?>
+                    <?php if ($reply['parentId'] == $cmt['id']): ?>
+                        <div class="border rounded p-2 ms-4 bg-white">
+                            <p><strong><?= htmlspecialchars($reply['fullname']) ?></strong> - <?= $reply['createdAt'] ?></p>
+                            <p><?= nl2br(htmlspecialchars($reply['content'])) ?></p>
+                        </div>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+
+                <!-- Form trả lời cho Admin -->
+                <?php if (isset($_SESSION['user']) && $_SESSION['user']['role'] == 1): ?>
+
+                    <form action="<?= BASE_URL_ADMIN . '&action=reply_comment' ?>" method="POST" class="mt-2">
+                        <input type="hidden" name="productId" value="<?= $productDetail['id'] ?>">
+                        <input type="hidden" name="parentId" value="<?= $cmt['id'] ?>">
+                        <div class="form-group mb-1">
+                            <textarea name="content" class="form-control" rows="2" placeholder="Phản hồi..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-sm btn-outline-primary">Phản hồi</button>
+                    </form>
+                <?php endif; ?>
+            </div>
+        <?php endif; ?>
+    <?php endforeach; ?>
+<?php else: ?>
+    <p>Chưa có bình luận nào cho sản phẩm này.</p>
+<?php endif; ?>
+
+
+
 <h3 class="mt-5 mb-3">📦 Biến thể của sản phẩm</h3>
 <a href="<?= BASE_URL_ADMIN . '&action=variants-create&productId=' . $productDetail['id'] ?>"
     class="btn btn-primary mb-3">
@@ -140,12 +198,12 @@
 
 <!-- JS để thay đổi ảnh chính khi click thumbnail -->
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", function() {
         const mainImage = document.getElementById("mainImage");
         const thumbnails = document.querySelectorAll(".thumb-img");
 
         thumbnails.forEach(img => {
-            img.addEventListener("click", function () {
+            img.addEventListener("click", function() {
                 const newSrc = this.getAttribute("data-src");
                 mainImage.setAttribute("src", newSrc);
 

@@ -124,7 +124,7 @@
                             <!-- Cart Actions -->
                             <div class="cart-actions">
                                 <div class="cart-action-left">
-                                    <a href="<?= BASE_URL ?>?router=home" class="continue-shopping-btn">
+                                    <a href="<?= BASE_URL ?>" class="continue-shopping-btn">
                                         <i class="fas fa-arrow-left"></i> Tiếp tục mua sắm
                                     </a>
                                     <a href="<?= BASE_URL ?>?action=clear_cart"
@@ -158,7 +158,7 @@
                         </div>
                         <h2 class="empty-cart-title">Giỏ hàng của bạn đang trống</h2>
                         <p class="empty-cart-text">Hãy thêm sản phẩm vào giỏ hàng để tiến hành mua sắm.</p>
-                        <a href=<?= BASE_URL . "?action=home" ?> class="empty-cart-btn">Tiếp tục mua sắm</a>
+                        <a href=<?= BASE_URL ?> class="empty-cart-btn">Tiếp tục mua sắm</a>
                     </div>
                 <?php endif; ?>
             </div>
