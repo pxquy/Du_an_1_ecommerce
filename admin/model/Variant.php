@@ -44,7 +44,7 @@ class Variant extends BaseModel
             return false;
         }
 
-        $valueCount = count($valueIds);
+        $valueCount = count(value: $valueIds);
         $placeholders = implode(',', array_fill(0, $valueCount, '?'));
 
         $sql = "
@@ -67,7 +67,7 @@ class Variant extends BaseModel
 
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute($params);
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC); // 👈 QUAN TRỌNG
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC); 
 
         return !empty($result);
     }

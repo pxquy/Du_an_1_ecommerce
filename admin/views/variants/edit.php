@@ -3,11 +3,8 @@
 
     function getCurrentCombination(row) {
         const selects = row.querySelectorAll('select');
-        let values = [];
-        selects.forEach(select => {
-            values.push(select.value);
-        });
-        return values.sort().join('-');
+        const values = Array.from(selects).map(select => select.value);
+        return values.sort((a, b) => a - b).join('-');
     }
 
     function updateDisabledOptions() {
@@ -21,9 +18,9 @@
 
                 select.querySelectorAll('option').forEach(option => {
                     select.value = option.value;
-
                     const testCombination = getCurrentCombination(row);
 
+                    // Disable option nếu tổ hợp đã tồn tại và KHÁC tổ hợp hiện tại
                     if (existingCombinations.includes(testCombination) && testCombination !== currentCombination) {
                         option.disabled = true;
                     } else {
@@ -36,8 +33,12 @@
         });
     }
 
-    window.addEventListener('DOMContentLoaded', updateDisabledOptions);
-    document.querySelectorAll('select').forEach(s => s.addEventListener('change', updateDisabledOptions));
+    document.addEventListener('DOMContentLoaded', () => {
+        updateDisabledOptions();
+        document.querySelectorAll('select').forEach(s =>
+            s.addEventListener('change', updateDisabledOptions)
+        );
+    });
 </script>
 
 <?php

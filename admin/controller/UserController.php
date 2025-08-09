@@ -229,7 +229,7 @@ class UserController
 
             $id = $_GET['id'];
             $user = $this->user->find('*', 'id = :id', ['id' => $id]);
-
+            
             if (empty($user)) {
                 throw new Exception("Người dùng có ID = $id không tồn tại!");
             }
