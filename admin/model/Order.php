@@ -61,7 +61,7 @@ class Order extends BaseModel
                 o.updatedAt
             FROM orders o
             JOIN users u ON o.userId = u.id
-            WHERE o.deletedAt IS NULL
+            -- WHERE o.deletedAt IS NULL
             ORDER BY o.createdAt DESC';
 
         $stmt = $this->pdo->prepare($sql);
