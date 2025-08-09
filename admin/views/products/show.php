@@ -125,7 +125,6 @@
 
                 <!-- Form trả lời cho Admin -->
                 <?php if (isset($_SESSION['user']) && $_SESSION['user']['role'] == 1): ?>
-
                     <form action="<?= BASE_URL_ADMIN . '&action=reply_comment' ?>" method="POST" class="mt-2">
                         <input type="hidden" name="productId" value="<?= $productDetail['id'] ?>">
                         <input type="hidden" name="parentId" value="<?= $cmt['id'] ?>">

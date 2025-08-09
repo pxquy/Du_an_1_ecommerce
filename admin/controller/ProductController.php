@@ -135,6 +135,7 @@ class ProductController
                 throw new Exception("Sản phẩm có ID = $id không tồn tại!");
             }
 
+
             $productImages = $this->productImages->select('*', 'productId = :productId', ['productId' => $id]);
             $variants = $this->variant->select('*', 'productId = :productId', ['productId' => $id]);
             foreach ($variants as &$variant) {
