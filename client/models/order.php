@@ -156,4 +156,20 @@ class Order extends BaseModel
         $stmt->execute([':userId' => $userId]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    public function createOrderVnPay($userId, $fullName, $phoneNumber, $address, $total)
+    {
+        $this->setTable($this->table);
+        return $this->insert([
+            'userId'        => $userId,
+            'fullName'      => $fullName,
+            'phoneNumber'   => $phoneNumber,
+            'orderAddress'  => $address,
+            'total'         => $total,
+            'paymentMethod' => 'vnpay',
+            'status'        => 2,
+            'paymentStatus' => 1,
+            'createdAt'     => date('Y-m-d H:i:s'),
+            'updatedAt'     => date('Y-m-d H:i:s'),
+        ]);
+    }
 }

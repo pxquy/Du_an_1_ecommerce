@@ -45,29 +45,28 @@
             padding-left: 20px;
         }
 
+        .btn-wrap {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
         button {
-            margin-top: 20px;
-            padding: 12px 20px;
+            flex: 1;
+            padding: 12px;
             font-size: 16px;
             cursor: pointer;
             border: none;
             border-radius: 5px;
+            color: white;
         }
 
         .btn-cod {
             background-color: #007bff;
-            color: white;
-            margin-right: 10px;
         }
 
         .btn-vnpay {
             background-color: #28a745;
-            color: white;
-        }
-
-        .btn-wrap {
-            display: flex;
-            justify-content: space-between;
         }
     </style>
 </head>
@@ -76,12 +75,12 @@
     <div class="container">
         <h2>Thông tin giao hàng</h2>
 
-        <form method="POST" id="orderForm">
+        <form method="POST">
             <label>Họ tên</label>
             <input type="text" name="fullName" value="<?= htmlspecialchars($user['fullname']) ?>" required>
 
             <label>Số điện thoại</label>
-            <input type="text" name="phoneNumber" value="<?= htmlspecialchars($user['phone_number']) ?>" required>
+            <input type="text" name="phoneNumber" value="<?= $user['phone_number'] ?>" required>
 
             <label>Địa chỉ giao hàng</label>
             <input type="text" name="orderAddress" value="<?= htmlspecialchars($user['address']) ?>" required>
@@ -94,25 +93,18 @@
                 <?php endforeach; ?>
             </ul>
 
-            <input type="hidden" name="total" value="<?= $total ?>">
+            <!-- Dữ liệu ẩn -->
+            <input type="hidden" name="amount" value="<?= $total ?>">
             <input type="hidden" name="items" value='<?= json_encode($selectedItems) ?>'>
 
             <div class="btn-wrap">
-                <button type="submit" class="btn-cod" formaction="?action=store_order">Thanh toán khi nhận hàng</button>
+                <button type="submit" class="btn-cod" formaction="?action=store_order">Thanh toán COD</button>
+                <button type="submit" class="btn-vnpay" formaction="?action=pay_vnpay" name="redirect">
+                    Thanh toán VNPay
+                </button>
             </div>
         </form>
-        <form action="?action=pay_vnpay" method="POST">
-            <input type="hidden" name="amount" id="selectedAmountInput" value="<?= $total ?>" />
-
-            <button type="submit" name="redirect" class="btn btn-primary thanhtoan" data-bs-toggle="modal"
-                data-bs-target="#thanhtoan">
-                Thanh toán Vnpay
-            </button>
-
-        </form>
-
     </div>
 </body>
-
 
 </html>

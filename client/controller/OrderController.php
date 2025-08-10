@@ -61,6 +61,7 @@ class OrderController
 
             $orderId = $this->orderModel->createOrder($userId, $fullName, $phone, $address, $total, 'cod');
 
+
             foreach ($items as $item) {
                 $this->orderModel->addOrderProduct($orderId, $item['productId'], $item['variantId'], $item['quantity'], $item['price']);
                 $this->cartModel->removeProduct($item['cartProductId'], $item['cartId']);
@@ -77,14 +78,22 @@ class OrderController
     public function confirm_vnpay()
     {
         date_default_timezone_set('Asia/Ho_Chi_Minh');
+        $_SESSION['vnpay_order'] = [
+            'userId'       => $_SESSION['user']['id'],
+            'fullName'     => $_POST['fullName'],
+            'phoneNumber'  => $_POST['phoneNumber'],
+            'orderAddress' => $_POST['orderAddress'],
+            'total'        => $_POST['amount'],
+            'items'        => json_decode($_POST['items'], true)
+        ];
+
         $tongtien = $_POST['amount'];
-        $vnp_TmnCode = "BMTODY6W"; //Website ID in VNPAY System
-        $vnp_HashSecret = "VDGZ2CTXA8ABHRAV0RXD276DR2C9HUAZ"; //Secret key
+        $vnp_TmnCode = "BMTODY6W";
+        $vnp_HashSecret = "VDGZ2CTXA8ABHRAV0RXD276DR2C9HUAZ";
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-        $vnp_Returnurl = BASE_URL . "frontend/home/vnpay_post";
+        $vnp_Returnurl = BASE_URL . "?action=vnpay_post";
         $vnp_apiUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-        //Config input format
-        //Expire
+
         $startTime = date("YmdHis");
         $expire = date('YmdHis', strtotime('+15 minutes', strtotime($startTime)));
 
@@ -163,27 +172,77 @@ class OrderController
     /** Xử lý callback từ VNPay */
     public function vnpayReturn()
     {
-        if (!empty($_GET['vnp_TxnRef'])) {
-            $orderId = $_GET['vnp_TxnRef'];
-            $code = $_GET['vnp_ResponseCode'] ?? null;
+        $vnp_HashSecret = "VDGZ2CTXA8ABHRAV0RXD276DR2C9HUAZ";
 
-            if ($code === '00') {
-                $this->orderModel->updateStatus($orderId, 2, 1); // status=2 (xác nhận), paymentStatus=1 (đã thanh toán)
-                $_SESSION['success'] = true;
-                $_SESSION['msg'] = "Thanh toán thành công đơn hàng #$orderId";
-            } else {
-                $_SESSION['success'] = false;
-                $_SESSION['msg'] = "Thanh toán thất bại đơn hàng #$orderId";
+        $inputData = [];
+        foreach ($_GET as $key => $value) {
+            if (substr($key, 0, 4) == "vnp_") {
+                $inputData[$key] = $value;
             }
         }
-        header('Location:' . BASE_URL);
-        exit();
+
+        $vnp_SecureHash = $inputData['vnp_SecureHash'] ?? '';
+        unset($inputData['vnp_SecureHash'], $inputData['vnp_SecureHashType']);
+
+        ksort($inputData);
+
+        $hashDataArr = [];
+        foreach ($inputData as $key => $value) {
+            $hashDataArr[] = urlencode($key) . "=" . urlencode($value);
+        }
+        $hashData = implode('&', $hashDataArr);
+
+        $secureHash = hash_hmac('sha512', $hashData, $vnp_HashSecret);
+
+        // var_dump($hashData, $secureHash, $vnp_SecureHash); die;
+
+        if ($secureHash === $vnp_SecureHash) {
+            if ($inputData['vnp_ResponseCode'] == '00') {
+                $orderInfo = $_SESSION['vnpay_order'] ?? null;
+                if ($orderInfo) {
+                    $orderId = $this->orderModel->createOrderVnPay(
+                        $orderInfo['userId'],
+                        $orderInfo['fullName'],
+                        $orderInfo['phoneNumber'],
+                        $orderInfo['orderAddress'],
+                        $orderInfo['total']
+                    );
+
+                    foreach ($orderInfo['items'] as $item) {
+                        $this->orderModel->addOrderProduct(
+                            $orderId,
+                            $item['productId'],
+                            $item['variantId'],
+                            $item['quantity'],
+                            $item['price']
+                        );
+                        $this->cartModel->removeProduct($item['cartProductId'], $item['cartId']);
+                    }
+
+                    unset($_SESSION['vnpay_order']);
+                    $_SESSION['success'] = true;
+                    $_SESSION['msg'] = "Thanh toán VNPay thành công! Mã đơn #$orderId";
+                }
+            } else {
+                $_SESSION['success'] = false;
+                $_SESSION['msg'] = "Thanh toán VNPay thất bại! Mã lỗi: " . $inputData['vnp_ResponseCode'];
+            }
+        } else {
+            $_SESSION['success'] = false;
+            $_SESSION['msg'] = "Sai chữ ký bảo mật từ VNPay!";
+        }
+
+        header('Location: ' . BASE_URL . '?action=my_order');
+        exit;
     }
+
+
+
+
     //tất cả đơn hàng
     public function orderHistory()
     {
         if (!isset($_SESSION['user']['id'])) {
-            // Nếu chưa đăng nhập thì chuyển về đăng nhập
             header('Location: ' . BASE_URL . '?action=signin');
             exit;
         }
