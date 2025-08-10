@@ -38,9 +38,7 @@ $brands = $this->brands->select();
                             <li class="nav-item"><a href="index.php?router=product&category_id=<?= $brand["title"] ?>"><?= $brand['title'] ?></a></li>
                         <?php endforeach; ?>
                     <?php endif; ?>
-                    <!-- <li class="nav-item dropdown">
-                        <a href="#">BLOGS <i class="fas fa-chevron-down"></i></a>
-                    </li> -->
+                    </li>
                 </ul>
             </nav>
 

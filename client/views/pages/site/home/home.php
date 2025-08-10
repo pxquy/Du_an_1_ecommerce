@@ -55,15 +55,83 @@
             </div>
         </section>
 
+        <section class="brand-content">
+            <div class="container">
+                <div class="title-brand">
+                    <h2>DANH SÁCH THƯƠNG HIỆU</h2>
+                </div>
+                <div class="brand-list">
+                    <?php isset($brands) ?>
+                    <?php foreach ($brands as $brand) : ?>
+                        <a href="#" class="brand-box">
+                            <span class="brand-link"><?= $brand['title'] ?></span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    <?php endforeach; ?>
+                    <!-- <a class="brand-box">
+                        <span class="brand-link">Thương hiệu 1</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                    <a class="brand-box">
+                        <span class="brand-link">Thương hiệu 1</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                    <a class="brand-box">
+                        <span class="brand-link">Thương hiệu 1</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                    <a class="brand-box">
+                        <span class="brand-link">Thương hiệu 1</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                    <a class="brand-box">
+                        <span class="brand-link">Thương hiệu 1</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a> -->
+                </div>
+            </div>
+        </section>
+
         <!-- Featured Products -->
         <section class="featured-products">
             <div class="container">
-                <h2 class="section-title">SẢN PHẨM NỔI BẬT</h2>
+                <h2 class="section-title">SẢN PHẨM BÁN CHẠY</h2>
 
                 <div class="product-grid">
                     <!-- Product -->
-                    <?php if (isset($products)): ?>
-                        <?php foreach ($products as $product): ?>
+                    <?php if (isset($products_best_seller)): ?>
+                        <?php foreach ($products_best_seller as $product): ?>
+                            <a class="product-card" href="<?= BASE_URL . '?action=product_detail&slug=' . $product['slug'] ?>">
+                                <!-- <div class="product-badge">-16%</div> -->
+                                <div class="product-image">
+                                    <img src="./assets/uploads/product/<?= $product['thumbnail'] ?>" he alt="<?= $product['title'] ?>">
+                                    <button class="wishlist-button"><i class="far fa-heart"></i></button>
+                                </div>
+                                <div class="product-info">
+                                    <h3 class="product-name"><?= $product['title'] ?></h3>
+                                    <div class="product-price">
+                                        <span class="current-price"><?= formatCurrency($product['priceDefault'], "vn") ?></span>
+                                        <!-- <span class="original-price">1,195,000₫</span> -->
+                                    </div>
+                                </div>
+                            </a>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </section>
+        <section class="featured-products">
+            <div class="container">
+                <h2 class="section-title">SẢN PHẨM THƯƠNG HIỆU HOT</h2>
+
+                <div class="product-grid">
+                    <!-- Product -->
+                    <?php if (isset($products_brand_nike)): ?>
+                        <?php foreach ($products_brand_nike as $product): ?>
+                            <?php
+                            // var_dump($product);
+                            // die();
+                            ?>
                             <a class="product-card" href="<?= BASE_URL . '?action=product_detail&slug=' . $product['slug'] ?>">
                                 <!-- <div class="product-badge">-16%</div> -->
                                 <div class="product-image">

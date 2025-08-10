@@ -41,4 +41,20 @@ class Product extends BaseModel
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function getBestBrand($brandId, $limit = 1)
+    {
+        $sql = "SELECT * 
+            FROM products 
+            WHERE brandId = :brandId 
+            ORDER BY soldCount DESC 
+            LIMIT :limit";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(':brandId', (int)$brandId, PDO::PARAM_INT);
+        $stmt->bindValue(':limit', (int)$limit, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

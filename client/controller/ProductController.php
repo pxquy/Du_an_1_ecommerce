@@ -13,7 +13,8 @@ class ProductController
     {
         $view = 'pages/site/home/home';
         $title = 'Trang chủ';
-        $products_best_seller = $this->client->getBestSeller(5); // lấy 5 sản phẩm bán chạy nhất
+        $products_best_seller = $this->client->getBestSeller(4); // lấy 4 sản phẩm bán chạy nhất
+        $products_brand_nike = $this->client->getBestBrand(1, 4); // lấy 4 sản theo brands
         // debug($products_best_seller);
         $this->client->setTable("
         products p
