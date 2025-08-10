@@ -57,4 +57,26 @@ class Product extends BaseModel
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function getProductsByBrand($brandId = null)
+    {
+        $sql = "SELECT p.*, b.title AS brand_title 
+            FROM products p
+            JOIN brands b ON p.brandId = b.id";
+        $params = [];
+
+        if ($brandId !== null) {
+            $sql .= " WHERE p.brandId = :brandId";
+            $params['brandId'] = (int)$brandId;
+        }
+
+        $stmt = $this->pdo->prepare($sql);
+
+        foreach ($params as $key => $value) {
+            $stmt->bindValue(':' . $key, $value, PDO::PARAM_INT);
+        }
+
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

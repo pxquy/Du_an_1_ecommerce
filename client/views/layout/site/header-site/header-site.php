@@ -35,7 +35,7 @@ $brands = $this->brands->select();
                 <ul class="nav-list">
                     <?php if (isset($brands)): ?>
                         <?php foreach ($brands as $brand): ?>
-                            <li class="nav-item"><a href="index.php?router=product&category_id=<?= $brand["title"] ?>"><?= $brand['title'] ?></a></li>
+                            <li class="nav-item"><a href="index.php?router=product&category_id=<?= $brand["title"] ?>"><a href="<?= BASE_URL . '?action=product-brand&brandId=' . $brand['id'] ?>"><?= $brand['title'] ?></a></a></li>
                         <?php endforeach; ?>
                     <?php endif; ?>
                     </li>

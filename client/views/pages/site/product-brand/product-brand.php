@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="./client/views/layout/site/layout-site.css">
     <link rel="stylesheet" href="./client/views/layout/site/header-site/header-site.css">
     <link rel="stylesheet" href="./client/views/layout/site/footer-site/footer-site.css">
-    <link rel="stylesheet" href="./client/views/pages/site/home/home.css">
+    <link rel="stylesheet" href="./client/views/pages/site/product-brand/product-brand.css">
 
     <!-- SEO -->
     <link rel="icon" type="image/png" href="./assets/images/favicon/favicon-96x96.png" sizes="96x96" />
@@ -35,23 +35,9 @@
     <main class="main-content">
         <!-- Hero Banner -->
         <!-- Hero Banner Slider -->
-        <section class="container box-slides">
-            <div class="slider">
-                <div class="slider-item">
-                    <a href="#">
-                        <img src="./assets/images/nike-banner-1.jpg">
-                    </a>
-                </div>
-                <div class="slider-item">
-                    <a href="#">
-                        <img src="./assets/images/nike.webp">
-                    </a>
-                </div>
-                <div class="slider-item">
-                    <a href="#">
-                        <img src="./assets/images/puma.webp">
-                    </a>
-                </div>
+        <section class="container box-welcome">
+            <div class="welcome">
+                <span>Chào mừng bạn đến với thương hiệu <?= $title ?></span>
             </div>
         </section>
 
@@ -63,7 +49,7 @@
                 <div class="brand-list">
                     <?php isset($brands) ?>
                     <?php foreach ($brands as $brand) : ?>
-                        <a href="<?= BASE_URL . '?action=product-brand' ?>" class="brand-box">
+                        <a href="#" class="brand-box">
                             <span class="brand-link"><?= $brand['title'] ?></span>
                             <i class="fa-solid fa-arrow-right"></i>
                         </a>
@@ -95,39 +81,12 @@
         <!-- Featured Products -->
         <section class="featured-products">
             <div class="container">
-                <h2 class="section-title">SẢN PHẨM BÁN CHẠY</h2>
-
-                <div class="product-grid">
-                    <!-- Product -->
-                    <?php if (isset($products_best_seller)): ?>
-                        <?php foreach ($products_best_seller as $product): ?>
-                            <a class="product-card" href="<?= BASE_URL . '?action=product_detail&slug=' . $product['slug'] ?>">
-                                <!-- <div class="product-badge">-16%</div> -->
-                                <div class="product-image">
-                                    <img src="./assets/uploads/product/<?= $product['thumbnail'] ?>" he alt="<?= $product['title'] ?>">
-                                    <button class="wishlist-button"><i class="far fa-heart"></i></button>
-                                </div>
-                                <div class="product-info">
-                                    <h3 class="product-name"><?= $product['title'] ?></h3>
-                                    <div class="product-price">
-                                        <span class="current-price"><?= formatCurrency($product['priceDefault'], "vn") ?></span>
-                                        <!-- <span class="original-price">1,195,000₫</span> -->
-                                    </div>
-                                </div>
-                            </a>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
-                </div>
-            </div>
-        </section>
-        <section class="featured-products">
-            <div class="container">
                 <h2 class="section-title">SẢN PHẨM THƯƠNG HIỆU HOT</h2>
 
                 <div class="product-grid">
                     <!-- Product -->
-                    <?php if (isset($products_brand_nike)): ?>
-                        <?php foreach ($products_brand_nike as $product): ?>
+                    <?php if (isset($brandList)): ?>
+                        <?php foreach ($brandList as $product): ?>
                             <?php
                             // var_dump($product);
                             // die();

@@ -31,6 +31,19 @@ class ProductController
         require_once PATH_VIEW_CLIENT . $view . '.php';
     }
 
+    public function productBrandList()
+    {
+        $brandId = isset($_GET['brandId']) ? (int)$_GET['brandId'] : null;
+        $brandList = $this->client->getProductsByBrand($brandId);
+
+        // Lấy tên brand từ mảng sản phẩm (nếu có)
+        $brandTitle = !empty($brandList) ? $brandList[0]['brand_title'] : "Sản phẩm thương hiệu";
+
+        $view = "pages/site/product-brand/product-brand";
+        $title = $brandTitle;
+
+        require_once PATH_VIEW_CLIENT . $view . '.php';
+    }
 
 
     public function productDetail()
