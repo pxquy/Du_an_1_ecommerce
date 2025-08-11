@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // Mobile Menu Toggle
   const mobileMenuToggle = document.querySelector(".mobile-menu-toggle");
   const mobileMenuClose = document.querySelector(".mobile-menu-close");
   const mobileMenu = document.querySelector(".mobile-menu");
@@ -13,7 +12,6 @@ document.addEventListener("DOMContentLoaded", function () {
     body.classList.add("menu-open");
   });
 
-  // Close mobile menu
   function closeMenu() {
     mobileMenu.classList.remove("active");
     overlay.classList.remove("active");
@@ -23,7 +21,6 @@ document.addEventListener("DOMContentLoaded", function () {
   mobileMenuClose.addEventListener("click", closeMenu);
   overlay.addEventListener("click", closeMenu);
 
-  // Mobile dropdown toggles
   const mobileDropdownToggles = document.querySelectorAll(
     ".mobile-dropdown-toggle"
   );
@@ -33,19 +30,16 @@ document.addEventListener("DOMContentLoaded", function () {
       e.preventDefault();
       const parent = this.parentElement;
 
-      // Close other open dropdowns
       document.querySelectorAll(".mobile-dropdown.active").forEach((item) => {
         if (item !== parent) {
           item.classList.remove("active");
         }
       });
 
-      // Toggle current dropdown
       parent.classList.toggle("active");
     });
   });
 
-  // Desktop dropdown functionality
   const dropdowns = document.querySelectorAll(".dropdown");
 
   dropdowns.forEach((dropdown) => {
@@ -58,7 +52,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // User Dropdown Toggle
   const userDropdownToggle = document.querySelector(".user-dropdown-toggle");
   const userDropdown = document.querySelector(".user-dropdown");
 
@@ -71,7 +64,6 @@ document.addEventListener("DOMContentLoaded", function () {
     searchOverlay.classList.remove("active");
   });
 
-  // Search Dropdown Toggle
   const searchIconBtn = document.querySelector(".search-icon-btn");
   const searchDropdown = document.querySelector(".search-dropdown");
   const searchOverlay = document.querySelector(".search-overlay");
@@ -89,17 +81,14 @@ document.addEventListener("DOMContentLoaded", function () {
       }, 100);
     }
 
-    // Close user dropdown if open
     userDropdown.classList.remove("active");
   });
 
-  // Close search dropdown when clicking on overlay
   searchOverlay.addEventListener("click", function () {
     searchDropdown.classList.remove("active");
     searchOverlay.classList.remove("active");
   });
 
-  // Close dropdowns when clicking outside
   document.addEventListener("click", function (e) {
     if (!userDropdown.contains(e.target)) {
       userDropdown.classList.remove("active");
@@ -120,11 +109,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Prevent form submission (for demo purposes)
-  const searchForm = document.querySelector(".search-form");
-  searchForm.addEventListener("submit", function (e) {
-    e.preventDefault();
-    alert("Tìm kiếm: " + searchInput.value);
+  searchForm.addEventListener("submit", function () {
     searchDropdown.classList.remove("active");
     searchOverlay.classList.remove("active");
   });

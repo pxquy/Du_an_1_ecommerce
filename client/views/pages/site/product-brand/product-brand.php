@@ -41,7 +41,7 @@
             </div>
         </section>
 
-        <section class="brand-content">
+        <!-- <section class="brand-content">
             <div class="container">
                 <div class="title-brand">
                     <h2>DANH SÁCH THƯƠNG HIỆU</h2>
@@ -74,9 +74,9 @@
                         <span class="brand-link">Thương hiệu 1</span>
                         <i class="fa-solid fa-arrow-right"></i>
                     </a> -->
-                </div>
-            </div>
-        </section>
+        </div>
+        </div>
+        </section> -->
 
         <!-- Featured Products -->
         <section class="featured-products">
@@ -84,29 +84,27 @@
                 <h2 class="section-title">SẢN PHẨM THƯƠNG HIỆU HOT</h2>
 
                 <div class="product-grid">
-                    <!-- Product -->
-                    <?php if (isset($brandList)): ?>
-                        <?php foreach ($brandList as $product): ?>
-                            <?php
-                            // var_dump($product);
-                            // die();
-                            ?>
+                    <?php
+                    $list = $brandList ?? $products ?? [];
+                    if (is_array($list) && !empty($list)) :
+                        foreach ($list as $product):
+                    ?>
                             <a class="product-card" href="<?= BASE_URL . '?action=product_detail&slug=' . $product['slug'] ?>">
-                                <!-- <div class="product-badge">-16%</div> -->
                                 <div class="product-image">
-                                    <img src="./assets/uploads/product/<?= $product['thumbnail'] ?>" he alt="<?= $product['title'] ?>">
+                                    <img src="./assets/uploads/product/<?= $product['thumbnail'] ?>" alt="<?= $product['title'] ?>">
                                     <button class="wishlist-button"><i class="far fa-heart"></i></button>
                                 </div>
                                 <div class="product-info">
                                     <h3 class="product-name"><?= $product['title'] ?></h3>
                                     <div class="product-price">
                                         <span class="current-price"><?= formatCurrency($product['priceDefault'], "vn") ?></span>
-                                        <!-- <span class="original-price">1,195,000₫</span> -->
                                     </div>
                                 </div>
                             </a>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
+                    <?php
+                        endforeach;
+                    endif;
+                    ?>
                 </div>
             </div>
         </section>

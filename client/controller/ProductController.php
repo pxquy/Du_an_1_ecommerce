@@ -28,6 +28,13 @@ class ProductController
         $numPages = ceil($numRow / $perPage);
         $products = $this->client->paginate($page, $perPage, $columns);
 
+        $keyword = isset($_GET['keyword']) ? trim($_GET['keyword']) : '';
+
+        $products = [];
+        if (!empty($keyword)) {
+            $products = $this->client->searchProducts($keyword);
+        }
+
         require_once PATH_VIEW_CLIENT . $view . '.php';
     }
 
@@ -36,7 +43,6 @@ class ProductController
         $brandId = isset($_GET['brandId']) ? (int)$_GET['brandId'] : null;
         $brandList = $this->client->getProductsByBrand($brandId);
 
-        // Lấy tên brand từ mảng sản phẩm (nếu có)
         $brandTitle = !empty($brandList) ? $brandList[0]['brand_title'] : "Sản phẩm thương hiệu";
 
         $view = "pages/site/product-brand/product-brand";
@@ -127,8 +133,8 @@ class ProductController
         $products = $this->client->searchProducts($keyword, $minPrice, $maxPrice, $order);
 
         // View
-        $title = 'Tìm kiếm sản phẩm';
-        $view  = 'main';
+        $title = $keyword;
+        $view  = 'pages/site/product-brand/product-brand';
         require_once PATH_VIEW_CLIENT . $view . '.php';
     }
 }

@@ -25,7 +25,7 @@ $brands = $this->brands->select();
     <div class="container">
         <div class="header-content">
             <div class="logo">
-                <a href="index.php?router=home">
+                <a href="<?= BASE_URL ?>">
                     <img src="./assets/images/logoShop.png" width="150" alt="Quí Super Shoes">
                 </a>
             </div>
@@ -49,19 +49,26 @@ $brands = $this->brands->select();
                         <i class="fas fa-search"></i>
                     </button>
                     <div class="search-dropdown-content">
-                        <form class="search-form">
-                            <input type="text" class="search-input" placeholder="Tìm kiếm sản phẩm...">
+                        <form class="search-form" method="GET" action="<?= BASE_URL ?>">
+                            <input type="hidden" name="action" value="search">
+
+                            <div class="col-md-3">
+                                <input type="text" name="keyword" class="search-input"
+                                    placeholder="Nhập từ khoá tìm kiếm..."
+                                    value="<?= htmlspecialchars($_GET['keyword'] ?? '') ?>">
+                            </div>
+
                             <button type="submit" class="search-submit">
                                 <i class="fas fa-search"></i>
                             </button>
                         </form>
+
                         <div class="search-suggestions">
                             <h4>Tìm kiếm phổ biến:</h4>
                             <div class="suggestion-tags">
-                                <a href="#" class="suggestion-tag">Giày tây</a>
-                                <a href="#" class="suggestion-tag">Giày lười</a>
-                                <a href="#" class="suggestion-tag">Giày da bò</a>
-                                <a href="#" class="suggestion-tag">Giày công sở</a>
+                                <a href="#" class="suggestion-tag">Giày thể thao nike</a>
+                                <a href="#" class="suggestion-tag">Giày chạy bộ puma</a>
+                                <a href="#" class="suggestion-tag">Giày bóng rổ</a>
                             </div>
                         </div>
                     </div>
