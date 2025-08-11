@@ -10,7 +10,7 @@ class ProductController
         $this->brand = new Brand();
         $this->category = new Category();
         $this->variant = new Variant();
-        $this->attribute = new Attributes();
+        $this->attribute = new Attribute();
         $this->attributeValue = new AttributeValue();
         $this->variantValue = new VariantValue();
         $this->comment = new Comment();

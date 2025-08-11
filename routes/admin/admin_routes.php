@@ -84,4 +84,12 @@ match ($action) {
 
     //comment
     'reply_comment' => (new ProductController)->replyComment(),
+    'comments-index' => (new CommentController)->index(), //hiển thị danh sách
+    'comments-show' => (new CommentController)->show(), //hiển thị chi tiết ID
+    'comments-create' => (new CommentController)->create(), //hiển thị form thêm mới
+    'comments-store' => (new CommentController)->store(), //lưu dữ liệu thêm mới
+    'comments-edit' => (new CommentController)->edit(), //hiển thị form cập nhật theo ID
+    'comments-update' => (new CommentController)->update(), //lưu dữ liệu cập nhật theo ID
+    'comments-delete' => (new CommentController)->delete(), //Xóa dữ liệu theo ID
+
 };

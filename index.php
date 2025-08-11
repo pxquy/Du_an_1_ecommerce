@@ -39,6 +39,15 @@ require_once './helper/helper.php';
 
 $mode = $_GET['mode'] ?? 'client';
 
+if ($mode === 'admin') {
+    require_Login();
+    if ($_SESSION['user']['role'] != 1) {
+        $_SESSION['msg'] = "Bạn không có quyền truy cập khu vực này";
+        header("Location: " . BASE_URL);
+        exit();
+    }
+}
+
 spl_autoload_register(function ($class) use ($mode) {
     $fileName = "$class.php";
 

@@ -202,6 +202,9 @@ class UserController
             if (empty($user))
                 throw new Exception("Người dùng có ID = $id không tồn tại");
 
+            debug($_SESSION['user']);
+            // if($_SESSION['user'] ==)
+
             if ($this->user->delete('id = :id', ['id' => $id]) > 0) {
                 if (!empty($user['avatarUrl']) && file_exists(PATH_ASSETS_UPLOADS . $user['avatarUrl'])) {
                     unlink(PATH_ASSETS_UPLOADS . $user['avatarUrl']);
@@ -229,12 +232,16 @@ class UserController
 
             $id = $_GET['id'];
             $user = $this->user->find('*', 'id = :id', ['id' => $id]);
-            
+
             if (empty($user)) {
                 throw new Exception("Người dùng có ID = $id không tồn tại!");
             }
 
-            $rowCount = $this->user->softDelete($id); // Cần triển khai phương thức softDelete trong model
+            if($_SESSION['user']['id'] == $user['id']){
+                throw new Exception('Không thể khóa người dùng đang đăng nhập');
+            }
+
+            $rowCount = $this->user->softDelete($id); 
 
             if ($rowCount <= 0) {
                 throw new Exception('Khóa không thành công!');

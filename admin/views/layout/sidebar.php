@@ -58,18 +58,24 @@
                             <span class="menu-text">Đơn hàng</span>
                         </a>
                     </li>
+                    <li class="menu-item <?= $view == 'comments/index' ? 'active' : "" ?>">
+                        <a href="<?= BASE_URL_ADMIN . '&action=comments-index' ?>" class="menu-link">
+                            <i class="fas fa-file-alt"></i>
+                            <span class="menu-text">Bình luận</span>
+                        </a>
+                    </li>
                     <li class="menu-item">
                         <a href="<?= BASE_URL ?>" class="menu-link">
                             <i class="fas fa-file-alt"></i>
                             <span class="menu-text">Về trang chủ</span>
                         </a>
                     </li>
-                    <!-- <li class="menu-item <?= $view == 'variants/index' ? 'active' : "" ?>">
+                    <li class="menu-item <?= $view == 'variants/index' ? 'active' : "" ?>">
                         <a href="<?= BASE_URL_ADMIN . '&action=variants-index' ?>" class="menu-link">
                             <i class="fas fa-file-alt"></i>
                             <span class="menu-text">Biến thể</span>
                         </a>
-                    </li> -->
+                    </li>
                 </ul>
             </div>
             <div class="menu-group">
