@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quí Super Shoes - Cập nhật thông tin</title>
-    <link rel="stylesheet" href="./views/layout/user/layout-user.css">
-    <link rel="stylesheet" href="./views/layout/user/sidebar-user/sidebar-user.css">
-    <link rel="stylesheet" href="./views/layout/user/header-user/header-user.css">
-    <link rel="stylesheet" href="./views/pages/user/information/information.css">
+    <link rel="stylesheet" href="./client/views/layout/user/layout-user.css">
+    <link rel="stylesheet" href="./client/views/layout/user/sidebar-user/sidebar-user.css">
+    <link rel="stylesheet" href="./client/views/layout/user/header-user/header-user.css">
+    <link rel="stylesheet" href="./client/views/pages/user/information/information.css">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
@@ -25,11 +25,11 @@
 
     <div class="admin-container">
         <!-- Sidebar -->
-        <?php include_once("./views/layout/user/sidebar-user/sidebar-user.php") ?>
+        <?php include_once("./client/views/layout/user/sidebar-user/sidebar-user.php") ?>
         <!-- Main Content -->
         <main class="main-content">
             <!-- Header -->
-            <?php include_once("./views/layout/user/header-user/header-user.php") ?>
+            <?php include_once("./client/views/layout/user/header-user/header-user.php") ?>
             <div class="content">
                 <!-- Edit Product Content -->
                 <div class="content-header">
@@ -48,7 +48,7 @@
 
                 <div class="card">
                     <div class="text">
-                        <h2>CHÀO MỪNG QUAY TRỞ LẠI, <?= $_SESSION['user']['ho_va_ten'] ?></h2>
+                        <h2>CHÀO MỪNG QUAY TRỞ LẠI, <?= $_SESSION['user']['fullname'] ?></h2>
                         <p><i>Kiểm tra và chỉnh sửa thông tin cá nhân của bạn tại đây</i></p>
                     </div>
                     <img class="icon" src="./assets/images/icon-account-info.png">
@@ -58,7 +58,7 @@
                 <?php
                 if (is_array($user)) {
                     extract($user);
-                    $hinhPath = "./assets/images/user/" . $hinh;
+                    $hinhPath = "./assets/images/user/" . $avatarUrl;
                     if (!is_file($hinhPath))
                         $hinhPath = "./assets/images/no_image.jpg";
                 }
@@ -70,16 +70,16 @@
                             <h2 class="form-title">Cập nhật tài khoản</h2>
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label for="ho_va_ten">Họ và tên <span class="required">*</span></label>
-                                    <input type="text" id="ho_va_ten" name="ho_va_ten" class="form-input"
-                                        placeholder="Nhập họ và tên" value="<?= $user['ho_va_ten'] ?>" required>
+                                    <label for="fullname">Họ và tên <span class="required">*</span></label>
+                                    <input type="text" id="fullname" name="fullname" class="form-input"
+                                        placeholder="Nhập họ và tên" value="<?= $user['fullname'] ?>" required>
                                     <div class="error-message"></div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="so_dien_thoai">Số điện thoại <span class="required">*</span></label>
-                                    <input type="text" id="so_dien_thoai" name="so_dien_thoai" class="form-input"
-                                        placeholder="Nhập số điện thoại" value="<?= $user['so_dien_thoai'] ?>" required>
+                                    <label for="phone_number">Số điện thoại <span class="required">*</span></label>
+                                    <input type="text" id="phone_number" name="phone_number" class="form-input"
+                                        placeholder="Nhập số điện thoại" value="<?= $user['phone_number'] ?>" required>
                                     <div class="error-message"></div>
                                 </div>
                             </div>
@@ -92,11 +92,11 @@
                                     <div class="error-message"></div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="gioi_tinh">Giới tính <span class="required">*</span></label>
-                                    <select id="gioi_tinh" name="gioi_tinh" class="form-select" required>
+                                    <label for="gender">Giới tính <span class="required">*</span></label>
+                                    <select id="gender" name="gender" class="form-select" required>
                                         <option value="" hidden>Chọn giới tính</option>
-                                        <option value="1" <?php echo $user['gioi_tinh'] == 1 ? 'selected' : '' ?>>Nam</option>
-                                        <option value="2" <?php echo $user['gioi_tinh'] == 2 ? 'selected' : '' ?>>Nữ</option>
+                                        <option value="1" <?php echo $user['gender'] == 1 ? 'selected' : '' ?>>Nam</option>
+                                        <option value="2" <?php echo $user['gender'] == 2 ? 'selected' : '' ?>>Nữ</option>
                                     </select>
                                     <div class="error-message"></div>
                                 </div>
@@ -117,7 +117,7 @@
                             <div class="form-group">
                                 <label for="dia_chi">Địa chỉ <span class="required">*</span></label>
                                 <textarea id="dia_chi" name="dia_chi" class="form-textarea" placeholder="Nhập địa chỉ"
-                                    rows="4"><?= $user['dia_chi'] ?></textarea>
+                                    rows="4"><?= $user['address'] ?></textarea>
                                 <div class="error-message"></div>
                             </div>
 
@@ -160,7 +160,7 @@
             </div>
         </main>
     </div>
-    <script src="./views/layout/admin/layout-admin.js"></script>
+    <script src="./client/views/layout/admin/layout-admin.js"></script>
 
     <?php
     if (isset($_SESSION['error_message'])) {
@@ -199,14 +199,14 @@
 
             $("#edit").validate({
                 rules: {
-                    ho_va_ten: {
+                    fullname: {
                         required: true,
                     },
                     email: {
                         required: true,
                         regexEmail: true
                     },
-                    so_dien_thoai: {
+                    phone_number: {
                         required: true,
                         number: true,
                         digits: true,
@@ -219,7 +219,7 @@
                         required: true,
                         regexPassword: true
                     },
-                    gioi_tinh: {
+                    gender: {
                         required: true,
                     },
                     vai_tro: {
@@ -230,13 +230,13 @@
                     },
                 },
                 messages: {
-                    ho_va_ten: {
+                    fullname: {
                         required: "Vui lòng nhập họ và tên !",
                     },
                     email: {
                         required: "Vui lòng nhập email !",
                     },
-                    so_dien_thoai: {
+                    phone_number: {
                         required: "Vui lòng nhập số điện thoại !",
                         number: "Vui lòng nhập số !",
                         digits: "Vui lòng nhập số nguyên dương !"
@@ -247,7 +247,7 @@
                     mat_khau: {
                         required: "Vui lòng nhập mật khẩu !",
                     },
-                    gioi_tinh: {
+                    gender: {
                         required: "Vui lòng chọn giới tính !",
                     },
                     vai_tro: {
@@ -261,22 +261,22 @@
                     error.appendTo(element.closest(".form-group").find(".error-message"));
                 },
                 highlight: function(element) {
-                    $(element).closest(".form-group").find("#ho_va_ten").addClass("invalid");
+                    $(element).closest(".form-group").find("#fullname").addClass("invalid");
                     $(element).closest(".form-group").find("#email").addClass("invalid");
-                    $(element).closest(".form-group").find("#so_dien_thoai").addClass("invalid");
+                    $(element).closest(".form-group").find("#phone_number").addClass("invalid");
                     $(element).closest(".form-group").find("#hinh").addClass("invalid");
                     $(element).closest(".form-group").find("#mat_khau").addClass("invalid");
-                    $(element).closest(".form-group").find("#gioi_tinh").addClass("invalid");
+                    $(element).closest(".form-group").find("#gender").addClass("invalid");
                     $(element).closest(".form-group").find("#vai_tro").addClass("invalid");
                     $(element).closest(".form-group").find("#dia_chi").addClass("invalid");
                 },
                 unhighlight: function(element) {
-                    $(element).closest(".form-group").find("#ho_va_ten").removeClass("invalid");
+                    $(element).closest(".form-group").find("#fullname").removeClass("invalid");
                     $(element).closest(".form-group").find("#email").removeClass("invalid");
-                    $(element).closest(".form-group").find("#so_dien_thoai").removeClass("invalid");
+                    $(element).closest(".form-group").find("#phone_number").removeClass("invalid");
                     $(element).closest(".form-group").find("#hinh").removeClass("invalid");
                     $(element).closest(".form-group").find("#mat_khau").removeClass("invalid");
-                    $(element).closest(".form-group").find("#gioi_tinh").removeClass("invalid");
+                    $(element).closest(".form-group").find("#gender").removeClass("invalid");
                     $(element).closest(".form-group").find("#vai_tro").removeClass("invalid");
                     $(element).closest(".form-group").find("#dia_chi").removeClass("invalid");
                 },

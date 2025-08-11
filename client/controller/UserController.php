@@ -3,17 +3,48 @@ require_once './client/model/User.php';
 
 class UserController
 {
-    private $userModel;
+    private $userModel, $orderModel;
 
     public function __construct()
     {
         $this->userModel = new User();
+        $this->orderModel = new Order();
     }
+
+
+    public function userDashboardPage()
+    {
+
+        $userId = $_SESSION['user']['id'];
+
+        $recentOrders = $this->orderModel->getOrdersByUser($userId);
+
+        $view = 'pages/user/dashboard/dashboard';
+        $title = 'Trang thông tin người dùng';
+
+        require_once PATH_VIEW_CLIENT . $view . '.php';
+    }
+
+
+    public function userOrderPage()
+    {
+
+        $userId = $_SESSION['user']['id'];
+
+        $orders = $this->orderModel->getOrdersByUser($userId);
+
+        $view = 'pages/user/order/order';
+        $title = 'Trang thông tin người dùng';
+
+        require_once PATH_VIEW_CLIENT . $view . '.php';
+    }
+
+
     public function showUpdateInfoForm()
     {
         $user = $this->userModel->getUserById($_SESSION['user']['id']);
-        $view = 'updateInfor.php';
-        require_once PATH_VIEW_CLIENT . $view;
+        $view = 'pages/user/information/information';
+        require_once PATH_VIEW_CLIENT . $view . '.php';
     }
 
     public function handleUpdateInfo()
@@ -66,7 +97,7 @@ class UserController
 
     public function showChangePasswordForm()
     {
-        $view = 'updatePassword.php';
+        $view = 'pages/user/information/information';
         require_once PATH_VIEW_CLIENT . $view;
     }
 

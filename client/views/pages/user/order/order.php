@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quí Super Shoes - Đơn hàng đã đặt</title>
-    <link rel="stylesheet" href="./views/layout/user/layout-user.css">
-    <link rel="stylesheet" href="./views/layout/user/sidebar-user/sidebar-user.css">
-    <link rel="stylesheet" href="./views/layout/user/header-user/header-user.css">
-    <link rel="stylesheet" href="./views/pages/user/order/order.css">
+    <link rel="stylesheet" href="./client/views/layout/user/layout-user.css">
+    <link rel="stylesheet" href="./client/views/layout/user/sidebar-user/sidebar-user.css">
+    <link rel="stylesheet" href="./client/views/layout/user/header-user/header-user.css">
+    <link rel="stylesheet" href="./client/views/pages/user/order/order.css">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" />
@@ -23,11 +23,11 @@
 
     <div class="admin-container">
         <!-- Sidebar -->
-        <?php include_once("./views/layout/user/sidebar-user/sidebar-user.php") ?>
+        <?php include_once("./client/views/layout/user/sidebar-user/sidebar-user.php") ?>
         <!-- Main Content -->
         <main class="main-content">
             <!-- Header -->
-            <?php include_once("./views/layout/user/header-user/header-user.php") ?>
+            <?php include_once("./client/views/layout/user/header-user/header-user.php") ?>
             <div class="content">
                 <div class="content-header">
                     <div class="breadcrumb">
@@ -45,7 +45,7 @@
 
                     <div class="card">
                         <div class="text">
-                            <h2>CHÀO MỪNG QUAY TRỞ LẠI, <?= $_SESSION['user']['ho_va_ten'] ?></h2>
+                            <h2>CHÀO MỪNG QUAY TRỞ LẠI, <?= $_SESSION['user']['fullname'] ?></h2>
                             <p><i>Kiểm tra thông tin đơn hàng của bạn tại đây</i></p>
                         </div>
                         <img class="icon" src="./assets/images/icon-account-order.png">
@@ -123,38 +123,38 @@
                                         </td>
                                         <td>
                                             <div class="product-details">
-                                                <p class="product-name">#QSS<?= $row["don_hang_id"] ?></p>
+                                                <p class="product-name">#QSS<?= $row["id"] ?></p>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="product-details">
-                                                <p class="product-name"><?= $row["ho_va_ten"] ?></p>
+                                                <p class="product-name"><?= $row["fullName"] ?></p>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="product-details">
-                                                <p class="product-name"><?= date("d/m/Y", strtotime($row["ngay_dat"])) ?></p>
+                                                <p class="product-name"><?= date("d/m/Y", strtotime($row["createdAt"])) ?></p>
                                             </div>
                                         </td>
-                                        <td><?= formatCurrency($row["tong_tien"], "vn") ?></td>
+                                        <td><?= formatCurrency($row["total"], "vn") ?></td>
                                         <td><span
-                                                class="status-badge <?= formatClassOrderStatus($row["trang_thai"]) ?>"><?= formatOrderStatus($row["trang_thai"]) ?></span>
+                                                class="status-badge <?= formatClassOrderStatus($row["status"]) ?>"><?= formatOrderStatus($row["status"]) ?></span>
                                         </td>
                                         <td>
                                             <div class="action-buttons">
-                                                <a href="index.php?router=user/orders/detail&id=<?= $row["don_hang_id"] ?>"
-                                                    class="action-btn edit-btn" data-id="<?= $row["don_hang_id"] ?>">
+                                                <a href="index.php?router=user/orders/detail&id=<?= $row["id"] ?>"
+                                                    class="action-btn edit-btn" data-id="<?= $row["id"] ?>">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
-                                                <?php if ($row["trang_thai"] == 1 || $row["trang_thai"] == 2) : ?>
-                                                    <a href="index.php?router=user/orders/cancel&id=<?= $row["don_hang_id"] ?>"
+                                                <?php if ($row["status"] == 1 || $row["status"] == 2) : ?>
+                                                    <a href="index.php?router=user/orders/cancel&id=<?= $row["id"] ?>"
                                                         class="action-btn delete-btn"
                                                         onclick="return confirm('Bạn có chắc chắn huỷ đơn hàng này không?')">
                                                         <i class="fas fa-trash"></i>
                                                     </a>
                                                 <?php endif; ?>
-                                                <?php if ($row["trang_thai"] == 3) : ?>
-                                                    <a href="index.php?router=user/orders/confirm&id=<?= $row["don_hang_id"] ?>"
+                                                <?php if ($row["status"] == 3) : ?>
+                                                    <a href="index.php?router=user/orders/confirm&id=<?= $row["id"] ?>"
                                                         class="action-btn confirm-btn"
                                                         onclick="return confirm('Bạn đã nhận được hàng và trả tiền cho người bán?')">
                                                         <i class="fa-solid fa-circle-check"></i>
@@ -172,63 +172,12 @@
                         </tbody>
                     </table>
                 </div>
-                <!-- Pagination -->
-                <div class="pagination">
-                    <!-- Nút Previous -->
-                    <?php if ($page > 1): ?>
-                        <a href="?router=user/orders&page=<?= $page - 1 ?>" class="pagination-btn">
-                            <i class="fas fa-chevron-left"></i>
-                        </a>
-                    <?php else: ?>
-                        <span class="pagination-btn pagination-disabled">
-                            <i class="fas fa-chevron-left"></i>
-                        </span>
-                    <?php endif; ?>
 
-                    <?php if ($totalPages > 1): ?>
-                        <a href="?router=user/orders&page=1"
-                            class="pagination-btn <?= ($page == 1) ? 'active' : '' ?>">1</a>
-
-                        <?php if ($page > 4): ?>
-                            <span class="pagination-ellipsis">...</span>
-                        <?php endif; ?>
-
-                        <?php for ($i = max(2, $page - 2); $i <= min($totalPages - 1, $page + 2); $i++): ?>
-                            <a href="?router=user/orders&page=<?= $i ?>"
-                                class="pagination-btn <?= ($page == $i) ? 'active' : '' ?>">
-                                <?= $i ?>
-                            </a>
-                        <?php endfor; ?>
-
-                        <?php if ($page < $totalPages - 3): ?>
-                            <span class="pagination-ellipsis">...</span>
-                        <?php endif; ?>
-
-                        <a href="?router=user/orders&page=<?= $totalPages ?>"
-                            class="pagination-btn <?= ($page == $totalPages) ? 'active' : '' ?>">
-                            <?= $totalPages ?>
-                        </a>
-                    <?php else: ?>
-                        <a href="?router=user/orders&page=1"
-                            class="pagination-btn <?= ($page == 1) ? 'active' : '' ?>">1</a>
-                    <?php endif; ?>
-
-                    <!-- Nút Next -->
-                    <?php if ($page < $totalPages): ?>
-                        <a href="?router=user/orders&page=<?= $page + 1 ?>" class="pagination-btn">
-                            <i class="fas fa-chevron-right"></i>
-                        </a>
-                    <?php else: ?>
-                        <span class="pagination-btn pagination-disabled">
-                            <i class="fas fa-chevron-right"></i>
-                        </span>
-                    <?php endif; ?>
-                </div>
             </div>
         </main>
     </div>
 
-    <script src="./views/layout/user/layout-user.js"></script>
+    <script src="./client/views/layout/user/layout-user.js"></script>
 
     <?php
     if (isset($_SESSION['error_message'])) {

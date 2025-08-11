@@ -25,27 +25,27 @@ class SignupController
 
             // Validate fullname
             if (empty($data['fullname']) || preg_match('/[^\p{L}\p{N}\s]/u', $data['fullname'])) {
-                $_SESSION['error']['fullname'] = "Tên không được bỏ trống và không chứa kí tự đặc biệt";
+                $_SESSION['error_message'] = "Tên không được bỏ trống và không chứa kí tự đặc biệt";
             }
 
             // Validate email
             if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL) || empty($data['email'])) {
-                $_SESSION['error']['email'] = "Email không được bỏ trống và phải đúng định dạng";
+                $_SESSION['error_message'] = "Email không được bỏ trống và phải đúng định dạng";
             } elseif (!empty($this->client->find('*', 'email = :email', ['email' => $data['email']]))) {
-                $_SESSION['error']['email'] = "Email đã được đăng kí";
+                $_SESSION['error_message'] = "Email đã được đăng kí";
             }
 
             // Validate password
             if (empty($data['password']) || strlen($data['password']) < 6) {
-                $_SESSION['error']['password'] = "Mật khẩu không được bỏ trống và phải tối thiểu 6 kí tự";
+                $_SESSION['error_message'] = "Mật khẩu không được bỏ trống và phải tối thiểu 6 kí tự";
             }
             if (empty($data['confirmPassword']) || $data['confirmPassword'] != $data['password']) {
-                $_SESSION['error']['password'] = "Vui lòng nhập lại mật khẩu và phải khớp với mật khẩu đã đặt";
+                $_SESSION['error_message'] = "Vui lòng nhập lại mật khẩu và phải khớp với mật khẩu đã đặt";
             }
 
             // Validate phoneNumber
             if (!empty($data['phoneNumber']) && !preg_match('/^(0[0-9]{9,10})$/', $data['phoneNumber'])) {
-                $_SESSION['error']['phoneNumber'] = "Số điện thoại không hợp lệ";
+                $_SESSION['error_message'] = "Số điện thoại không hợp lệ";
             }
 
             // Validate avatar
@@ -87,12 +87,11 @@ class SignupController
             ]);
 
             if ($rowCount > 0) {
-                $_SESSION['success'] = true;
-                $_SESSION['msg'] = 'Đăng kí thành công';
+                $_SESSION['success_message'] = 'Đăng kí thành công';
                 header('Location: ' . BASE_URL . "?action=form_signin");
                 exit();
             } else {
-                throw new Exception('Đăng kí thất bại');
+                $_SESSION['error_message'] = 'Đăng kí thất bại';
             }
         } catch (\Throwable $th) {
             $_SESSION['success'] = false;

@@ -480,7 +480,7 @@
                                     </div>
                                 <?php else: ?>
                                     <!-- Nếu chưa đăng nhập -->
-                                    <p style="text-align:center;">Bạn cần <a href="<?= BASE_URL . '?action=from_signin' ?>" style="color:blue; text-decoration: underline;">đăng nhập</a> để viết đánh giá.</p>
+                                    <p style="text-align:center;">Bạn cần <a href="<?= BASE_URL . '?action=form_signin' ?>" style="color:blue; text-decoration: underline;">đăng nhập</a> để viết đánh giá.</p>
                                 <?php endif; ?>
 
 

@@ -38,6 +38,8 @@ match ($action) {
     'my_order' => (new OrderController())->orderHistory(), //Lấy sản phẩm theo brand
     'cancel_order' => (new OrderController())->cancelOrder(), //huỷ hàng
     'order_success' => (new OrderController())->receivedOrders(), //lịch sử mua hàng
+    'userDashboardPage' => (new UserController)->userDashboardPage(), //Trang quản trị của người dùng;
+    'userOrderPage' => (new UserController)->userOrderPage(), //Trang đơn hàng của người dùng;
     'update_info' => $_SERVER['REQUEST_METHOD'] === 'POST'
         ? (new UserController())->handleUpdateInfo()
         : (new UserController())->showUpdateInfoForm(),

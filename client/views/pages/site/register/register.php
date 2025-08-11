@@ -33,23 +33,6 @@
     <?php include_once("./client/views/layout/site/header-site/header-site.php") ?>
     <!-- Main Content - Register Page -->
     <main class="main-content">
-        <?php
-        if (isset($_SESSION['success'])) {
-            $class = $_SESSION['success'] ? 'alert-success' : 'alert-danger';
-            echo "<div class='alert $class'>{$_SESSION['msg']}</div>";
-            unset($_SESSION['success'], $_SESSION['msg']);
-        }
-
-        if (!empty($_SESSION['error'])): ?>
-            <div class="alert alert-danger">
-                <ul>
-                    <?php foreach ($_SESSION['error'] as $value): ?>
-                        <li><?= $value ?></li>
-                    <?php endforeach ?>
-                </ul>
-            </div>
-            <?php unset($_SESSION['error']); ?>
-        <?php endif; ?>
         <div class="login-container register-container">
             <div class="login-wrapper register-wrapper">
                 <div class="login-header">
@@ -188,6 +171,20 @@
     <?php include_once("./client/views/layout/site/footer-site/footer-site.php") ?>
 
     <script src="./client/views/layout/site/layout-site.js"></script>
+
+    <?php
+    if (isset($_SESSION['error_message'])) {
+        echo '<script>toastr.error("' . $_SESSION['error_message'] . '")</script>';
+        unset($_SESSION['error_message']);
+    }
+    ?>
+
+    <?php
+    if (isset($_SESSION['success_message'])) {
+        echo '<script>toastr.success("' . $_SESSION['success_message'] . '")</script>';
+        unset($_SESSION['success_message']);
+    }
+    ?>
 
     <script>
         // Toggle password visibility

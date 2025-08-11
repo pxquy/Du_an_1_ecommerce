@@ -35,7 +35,7 @@ class SigninController
             );
 
             if (empty($user)) {
-                throw new Exception("Email không tồn tại");
+                $_SESSION['error_message'] = "Email không tồn tại";
             }
             // echo 'Nhập: ' . $password . "<br>";
             // echo 'Trong DB: ' . $user['password'] . "<br>";
@@ -47,13 +47,12 @@ class SigninController
 
             // Kiểm tra password
             if (!password_verify($password, $user['password'])) {
-                throw new Exception("Mật khẩu không chính xác");
+                $_SESSION['error_message'] = "Mật khẩu không chính xác";
             }
 
             $_SESSION['user'] = $user;
 
-            $_SESSION['success'] = true;
-            $_SESSION['msg'] = 'Đăng nhập thành công';
+            $_SESSION['success_message'] = 'Đăng nhập thành công';
 
             header("Location: " . BASE_URL);
             exit();

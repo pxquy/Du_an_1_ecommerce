@@ -35,7 +35,7 @@ $brands = $this->brands->select();
                 <ul class="nav-list">
                     <?php if (isset($brands)): ?>
                         <?php foreach ($brands as $brand): ?>
-                            <li class="nav-item"><a href="index.php?router=product&category_id=<?= $brand["title"] ?>"><a href="<?= BASE_URL . '?action=product-brand&brandId=' . $brand['id'] ?>"><?= $brand['title'] ?></a></a></li>
+                            <li class="nav-item"><a href="<?= BASE_URL ?> ?action=product&category_id=<?= $brand["title"] ?>"><a href="<?= BASE_URL . '?action=product-brand&brandId=' . $brand['id'] ?>"><?= $brand['title'] ?></a></a></li>
                         <?php endforeach; ?>
                     <?php endif; ?>
                     </li>
@@ -94,7 +94,7 @@ $brands = $this->brands->select();
                         <!-- Dropdown Menu - Logged In State (hidden by default) -->
                         <div class="user-dropdown-menu logged-in">
                             <div class="user-greeting">Xin chào, <span class="user-name"><?= $_SESSION['user']['fullname'] ?></span></div>
-                            <a href="<?= isset($_SESSION['user']) &&  $_SESSION['user']['role'] == 1 ? BASE_URL_ADMIN : BASE_URL ?>" class="dropdown-item">Trang quản trị</a>
+                            <a href="<?= isset($_SESSION['user']) &&  $_SESSION['user']['role'] == 1 ? BASE_URL_ADMIN : BASE_URL . '?action=userDashboardPage' ?>" class="dropdown-item">Trang quản trị</a>
                             <a href="<?= BASE_URL . '?action=logout' ?>" class="dropdown-item logout-btn">Đăng xuất</a>
                         </div>
                     <?php else : ?>
