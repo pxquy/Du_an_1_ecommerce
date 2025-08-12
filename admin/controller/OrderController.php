@@ -89,7 +89,7 @@ class OrderController
                 'status' => $status,
                 'updatedAt' => date('Y-m-d H:i:s')
             ], 'id = :id', ['id' => $id]);
-            
+            // debug($res);
             if ($res) {
                 $_SESSION['success'] = true;
                 $_SESSION['msg'] = 'Cập nhật sản phẩm thành công.';
