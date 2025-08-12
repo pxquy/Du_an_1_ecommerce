@@ -90,6 +90,7 @@ match ($action) {
     'comments-store' => (new CommentController)->store(), //lưu dữ liệu thêm mới
     'comments-edit' => (new CommentController)->edit(), //hiển thị form cập nhật theo ID
     'comments-update' => (new CommentController)->update(), //lưu dữ liệu cập nhật theo ID
-    'comments-delete' => (new CommentController)->delete(), //Xóa dữ liệu theo ID
+    'comments-softDelete' => (new CommentController)->softDelete(), //Xóa dữ liệu theo ID
+    'comments-restore' => (new CommentController)->restore(), //Xóa dữ liệu theo ID
 
 };

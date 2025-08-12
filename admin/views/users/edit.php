@@ -61,6 +61,14 @@ if (isset($_SESSION['success'])) {
             <label for="female">Nữ</label>
         </div>
         <div class="mb-3">
+            <label for="gender" class="form-label">Quyền:</label>
+            <select name="role" id="role" class="form-select">
+                <option value="0" <?= $user['role'] == 0 ? 'selected' : '' ?>>Người dùng</option>
+                <option value="1" <?= $user['role'] == 1 ? 'selected' : '' ?>>Quản lý</option>
+                <option value="2" <?= $user['role'] == 2 ? 'selected' : '' ?>>Nhân viên</option>
+            </select>
+        </div>
+        <div class="mb-3">
             <label for="bio" class="form-label">Tiểu sử:</label>
             <textarea class="form-control" id="bio" name="bio"><?= $user['bio'] ?? '' ?></textarea>
         </div>

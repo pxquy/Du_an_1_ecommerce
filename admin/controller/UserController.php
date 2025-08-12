@@ -91,7 +91,7 @@ class UserController
 
             $data = $_POST + $_FILES;
             $errors = $this->validate($data);
-
+            // debug($data);
             if (!empty($errors)) {
                 $_SESSION['errors'] = $errors;
                 $_SESSION['data'] = $data;
@@ -237,11 +237,11 @@ class UserController
                 throw new Exception("Người dùng có ID = $id không tồn tại!");
             }
 
-            if($_SESSION['user']['id'] == $user['id']){
+            if ($_SESSION['user']['id'] == $user['id']) {
                 throw new Exception('Không thể khóa người dùng đang đăng nhập');
             }
 
-            $rowCount = $this->user->softDelete($id); 
+            $rowCount = $this->user->softDelete($id);
 
             if ($rowCount <= 0) {
                 throw new Exception('Khóa không thành công!');
@@ -315,7 +315,7 @@ class UserController
                 $errors['avatarUrl_size'] = 'Ảnh đại diện tối đa 2MB';
             }
 
-            $allowed = ['image/jpg', 'image/jpeg', 'image/png', 'image/gif'];
+            $allowed = ['image/jpg', 'image/jpeg', 'image/png', 'image/gif', 'image/webp'];
             if (!in_array($data['avatarUrl']['type'], $allowed)) {
                 $errors['avatarUrl_type'] = 'Chỉ chấp nhận ảnh JPG, JPEG, PNG, GIF';
             }

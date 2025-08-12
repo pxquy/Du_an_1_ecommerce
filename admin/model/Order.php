@@ -2,46 +2,91 @@
 class Order extends BaseModel
 {
     protected $table = 'Orders';
-
-    public function getOrderDetail($id)
+    public function getOrderPage(array $filters, int $page = 1, int $perPage = 10): array
     {
-        $sql = '
+        $where = [];
+        $params = [];
+
+        // lọc trạng thái (ENUM '0'..'5' dưới dạng chuỗi)
+        if (isset($filters['status']) && $filters['status'] !== '' && $filters['status'] !== null) {
+            $where[] = 'o.status = :status';
+            $params['status'] = (string) $filters['status'];
+        }
+
+        // tìm theo tên khách hàng
+        if (!empty($filters['keyword'])) {
+            $where[] = 'u.fullName LIKE :kw';
+            $params['kw'] = '%' . $filters['keyword'] . '%';
+        }
+
+        // sort theo ngày tạo
+        $sort = strtolower($filters['sort'] ?? 'newest');
+        $orderBy = ($sort === 'oldest') ? 'ASC' : 'DESC'; // mặc định newest
+
+        $conditionSql = $where ? 'WHERE ' . implode(' AND ', $where) : '';
+        $offset = max(0, ($page - 1) * $perPage);
+
+        $sql = "
         SELECT 
-            o.id AS orderId,
+            o.id,
             o.userId,
-            u.fullname,
+            u.fullName AS fullname,
             o.orderAddress,
             o.total,
             o.status,
             o.createdAt,
             o.updatedAt,
-            
-            op.productId,
-            p.title AS productTitle,
-            op.variantId,
-            op.quantity,
-            op.price AS priceEach,
-
-            GROUP_CONCAT(CONCAT(a.description, ": ", av.value) SEPARATOR ", ") AS variantAttributes
-
+            COUNT(*) OVER() AS total_rows
         FROM orders o
-        JOIN users u ON o.userId = u.id
-        JOIN order_products op ON o.id = op.orderId
-        JOIN products p ON op.productId = p.id
-
-        LEFT JOIN variants v ON op.variantId = v.id
-        LEFT JOIN variant_values vv ON op.variantId = vv.variantId
-       
-        LEFT JOIN attribute_values av ON vv.valueId = av.id
-         LEFT JOIN attributes a ON av.attributeId = a.id
-
-        WHERE o.id = :id AND o.deletedAt IS NULL
-        GROUP BY op.id
-        ORDER BY o.id ASC
-    ';
+        JOIN users u ON u.id = o.userId
+        $conditionSql
+        ORDER BY o.createdAt $orderBy
+        LIMIT :limit OFFSET :offset
+    ";
 
         $stmt = $this->pdo->prepare($sql);
-        $stmt->execute(['id' => $id]);
+        foreach ($params as $k => $v) {
+            $stmt->bindValue(':' . $k, $v);
+        }
+        $stmt->bindValue(':limit', (int) $perPage, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', (int) $offset, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
+    public function getOrderDetail($id)
+    {
+        $sql = "
+        SELECT 
+                u.fullName,
+                o.id,
+                o.status,
+                p.title,
+                op.quantity,
+                op.price,
+                u.fullName,
+                op.total,
+                GROUP_CONCAT(av.value ORDER BY vv.valueId SEPARATOR ',') value
+        FROM order_products op
+        JOIN orders  o ON op.orderId = o.id
+        JOIN products p ON op.productId = p.id
+        JOIN users u ON u.id = o.userId
+        JOIN variant_values vv ON op.variantId = vv.variantId 
+        JOIN attribute_values av ON vv.valueId = av.id
+        WHERE orderId = :orderId 
+        GROUP BY 
+        op.id,
+        p.title,
+        op.quantity,
+        op.price,
+        u.fullName,
+        op.total
+    ";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute(['orderId' => $id]);
         return $stmt->fetchAll(); // Trả về tất cả sản phẩm của đơn hàng
     }
 

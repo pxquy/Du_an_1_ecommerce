@@ -13,14 +13,36 @@ class OrderController
     // Danh sách đơn hàng
     public function index()
     {
+        if (!empty($_GET['ajax'])) {
+            $filters = [
+                'status' => $_GET['status'] ?? '',
+                'keyword' => trim($_GET['keyword'] ?? ''),
+                'sort' => $_GET['sort'] ?? 'newest',
+            ];
+            $page = max(1, (int) ($_GET['page'] ?? 1));
+            $perPage = max(1, (int) ($_GET['perPage'] ?? 10));
+
+            $rows = $this->order->getOrderPage($filters, $page, $perPage);
+            $total = $rows ? (int) $rows[0]['total_rows'] : 0;
+
+            header('Content-Type: application/json; charset=utf-8');
+            echo json_encode([
+                'data' => $rows,
+                'meta' => [
+                    'page' => $page,
+                    'perPage' => $perPage,
+                    'total' => $total,
+                    'totalPage' => $perPage ? (int) ceil($total / $perPage) : 1,
+                ],
+            ]);
+            exit;
+        }
+
         $title = 'Danh sách đơn hàng';
         $view = 'orders/index';
-
-        // Lấy danh sách đơn hàng có join với fullname từ bảng users
-        $orders = $this->order->getOrderList();
-
         require_once PATH_VIEW_ADMIN_MAIN;
     }
+
 
 
     // Xem chi tiết đơn hàng
@@ -35,6 +57,7 @@ class OrderController
         }
 
         $products = $this->order->getOrderDetail($id);
+        // debug($products);
         if (!$products || count($products) == 0) {
             $_SESSION['msg'] = 'Không tìm thấy đơn hàng!';
             $_SESSION['success'] = false;
@@ -42,7 +65,7 @@ class OrderController
             exit;
         }
 
-        debug($products);
+
         $order = $products[0]; // lấy thông tin đơn từ bản ghi đầu tiên
 
         $title = 'Chi tiết đơn hàng';
@@ -53,26 +76,33 @@ class OrderController
     // Cập nhật trạng thái đơn hàng
     public function updateStatus()
     {
-        if ($_SERVER['REQUEST_METHOD'] != 'POST') {
-            http_response_code(405);
-            echo json_encode(['error' => 'Phương thức không hợp lệ']);
-            return;
+        try {
+            if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+                throw new Exception('Phương thức không hợp lệ');
+            }
+            // debug($_POST);
+
+            $id = $_POST['id'] ?? null;
+            $status = $_POST['status'] ?? null;
+
+            $res = $this->order->update([
+                'status' => $status,
+                'updatedAt' => date('Y-m-d H:i:s')
+            ], 'id = :id', ['id' => $id]);
+            
+            if ($res) {
+                $_SESSION['success'] = true;
+                $_SESSION['msg'] = 'Cập nhật sản phẩm thành công.';
+            }
+
+
+        } catch (\Throwable $th) {
+            $_SESSION['success'] = false;
+            $_SESSION['msg'] = $th->getMessage();
+            header('Location: ' . BASE_URL_ADMIN . '&action=orders-show&id=' . $id);
         }
-
-        $id = $_POST['id'] ?? null;
-        $status = $_POST['status'] ?? null;
-
-        if (!$id || !in_array($status, ['pending', 'processing', 'completed', 'cancelled'])) {
-            echo json_encode(['error' => 'Dữ liệu không hợp lệ']);
-            return;
-        }
-
-        $this->order->update([
-            'status' => $status,
-            'updatedAt' => date('Y-m-d H:i:s')
-        ], 'id = :id', ['id' => $id]);
-
-        echo json_encode(['success' => true, 'message' => 'Cập nhật trạng thái thành công.']);
+        header('Location: ' . BASE_URL_ADMIN . '&action=orders-index');
+        exit();
     }
 
     // Xóa mềm đơn hàng
@@ -87,10 +117,10 @@ class OrderController
         }
 
         $this->order->update([
-            'deletedAt' => date('Y-m-d H:i:s')
+            'status' => 5
         ], 'id = :id', ['id' => $id]);
 
-        $_SESSION['msg'] = 'Xoá đơn hàng thành công.';
+        $_SESSION['msg'] = 'Hủy đơn hàng thành công.';
         $_SESSION['success'] = true;
         header('Location: ' . BASE_URL_ADMIN . '&action=orders-index');
         exit;

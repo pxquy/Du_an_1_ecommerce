@@ -11,21 +11,31 @@ class CommentController
     public function index()
     {
         $view = 'comment/index';
-        $title = 'Danh sách thương hiệu';
+        $title = 'Danh sách bình luận';
 
-        $data = $this->comment->select('*', '1 = 1 ORDER BY id ASC');
-        // debug(data: $data);
+        // Lấy tham số filter/sort/pagination từ query
+        $page = isset($_GET['page']) ? max(1, (int) $_GET['page']) : 1;
+        $perPage = isset($_GET['perPage']) ? min(100, max(5, (int) $_GET['perPage'])) : 10;
+        $sort = $_GET['sort'] ?? 'rating_desc'; // rating_desc | rating_asc
+        $q = trim($_GET['q'] ?? '');         // tìm theo tên sản phẩm
+        $onlyParents = true; // chỉ bình luận gốc
+
+        [$data, $total] = $this->comment->getCommentList($page, $perPage, $sort, $q, $onlyParents);
+
         if (!empty($_GET['ajax'])) {
+            header('Content-Type: application/json; charset=utf-8');
             echo json_encode([
                 'data' => $data,
-                // 'total' => $total,
-                // 'page' => $page,
-                // 'perPage' => $perPage,
+                'total' => $total,
+                'page' => $page,
+                'perPage' => $perPage,
             ]);
             exit;
         }
+
         require_once PATH_VIEW_ADMIN_MAIN;
     }
+
 
     public function show()
     {
@@ -237,7 +247,11 @@ class CommentController
                 throw new Exception("Bình luận không tồn tại.");
             }
 
-            $rowCount = $this->comment->restore($id);
+            $rowCount = $this->comment->update(
+                ['isApproved' => 1],
+                'id = :id',
+                ['id' => $id]
+            );
 
             if ($rowCount > 0) {
                 $_SESSION['success'] = true;
@@ -269,7 +283,12 @@ class CommentController
                 throw new Exception("Bình luận không tồn tại.");
             }
 
-            $rowCount = $this->comment->softDelete($id);
+
+            $rowCount = $this->comment->update(
+                ['isApproved' => 0],
+                'id = :id',
+                ['id' => $id]
+            );
 
             if ($rowCount > 0) {
                 $_SESSION['success'] = true;

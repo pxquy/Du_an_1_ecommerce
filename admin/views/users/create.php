@@ -65,6 +65,14 @@ if (!empty($_SESSION['errors'])): ?>
             <label for="female">Nữ</label>
         </div>
         <div class="mb-3">
+            <label for="gender" class="form-label">Quyền:</label>
+            <select name="role" id="role" class="form-select">
+                <option value="0">Người dùng</option>
+                <option value="1">Quản lý</option>
+                <option value="2">Nhân viên</option>
+            </select>
+        </div>
+        <div class="mb-3">
             <label for="bio" class="form-label">Tiểu sử:</label>
             <textarea type="textarea" class="form-control" id="bio" name="bio"
                 value="<?= $_SESSION['data']['bio'] ?? null ?>"></textarea>
