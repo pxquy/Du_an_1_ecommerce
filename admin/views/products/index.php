@@ -29,7 +29,7 @@
     </div>
 
     <!-- Nút xóa đã chọn -->
-    <button id="deleteSelected" class="btn btn-danger">Xoá đã chọn</button>
+    <!-- <button id="deleteSelected" class="btn btn-danger">Xoá đã chọn</button> -->
 
     <!-- Thêm sản phẩm -->
     <a href="<?= BASE_URL_ADMIN . '&action=products-create' ?>" class="btn btn-primary">
@@ -73,9 +73,9 @@
     }
 
     function renderTable(products) {
-        const rows = products.map(p => `
+        const rows = products.map((p, index) => `
     <tr class="hover:bg-gray-50 border border-b">
-        <td class="p-4"><input type="checkbox" class="row-check" value="${p.id}"></td>
+        <td class="p-4">${index + 1}</td>
         <td class="p-4">
             <img src="${p.thumbnail ? PATH + p.thumbnail : PATH + 'products/placehold.png'}" width="80" />
             <p>${p.title}</p><p>ID: ${p.id}</p>
@@ -111,7 +111,7 @@
     <table class="min-w-full text-sm">
         <thead class="border bg-gray-200/80 text-gray-600 text-left">
             <tr>
-                <th class="p-4"><input type="checkbox" id="checkAll"></th>
+                <th class="p-4">STT</th>
                 <th class="p-4">Tên sản phẩm</th>
                 <th class="p-4">Mã</th>
                 <th class="p-4">Giá</th>
@@ -141,29 +141,41 @@
     }
 
     // Xoá các sản phẩm được chọn
-    document.getElementById('deleteSelected').addEventListener('click', () => {
-        const ids = Array.from(document.querySelectorAll('.row-check:checked')).map(cb => cb.value);
-        if (ids.length === 0) {
-            alert('Vui lòng chọn sản phẩm cần xoá.');
-            return;
-        }
-        if (!confirm(`Xoá ${ids.length} sản phẩm đã chọn?`)) return;
+    // document.getElementById('deleteSelected').addEventListener('click', () => {
+    //     const ids = Array.from(document.querySelectorAll('.row-check:checked')).map(cb => cb.value);
+    //     if (ids.length === 0) {
+    //         alert('Vui lòng chọn sản phẩm cần xoá.');
+    //         return;
+    //     }
+    //     if (!confirm(`Xoá ${ids.length} sản phẩm đã chọn?`)) return;
 
-        fetch('?mode=admin&action=products-softDeleteMany', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ ids })
-        })
-            .then(res => res.json())
-            .then(res => {
-                alert(res.message || 'Đã xoá');
-                loadProducts(currentPage);
-            });
-    });
+    //     fetch('?mode=admin&action=products-softDeleteMany', {
+    //         method: 'POST',
+    //         headers: { 'Content-Type': 'application/json' },
+    //         body: JSON.stringify({ ids })
+    //     })
+    //         .then(res => res.json())
+    //         .then(res => {
+    //             alert(res.message || 'Đã xoá');
+    //             loadProducts(currentPage);
+    //         });
+    // });
 
     // Gắn sự kiện lọc
     ['searchInput', 'filterCategory', 'filterBrand', 'sortPrice'].forEach(id => {
         document.getElementById(id).addEventListener('input', () => loadProducts(1));
     });
-    document.addEventListener('DOMContentLoaded', () => loadProducts());
+    document.addEventListener('DOMContentLoaded', () => {
+        loadProducts(),
+            fetch('?mode=admin&action=products-softDeleteMany', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ ids })
+            })
+                .then(res => res.json())
+                .then(res => {
+                    alert(res.message || 'Đã xoá');
+                    loadProducts(currentPage);
+                });
+    });
 </script>

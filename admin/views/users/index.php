@@ -28,7 +28,7 @@ if (isset($_SESSION['success'])) {
         </div>
     </div>
 
-    <button id="deleteSelected" class="btn btn-danger">Xoá đã chọn</button>
+    <!-- <button id="deleteSelected" class="btn btn-danger">Xoá đã chọn</button> -->
 
     <a href="<?= BASE_URL_ADMIN . '&action=users-create' ?>" class="btn btn-primary">
         <i class="fas fa-plus"></i> Thêm người dùng mới
@@ -41,10 +41,7 @@ if (isset($_SESSION['success'])) {
         <thead>
             <tr>
                 <th>
-                    <div class="checkbox-container">
-                        <input type="checkbox" id="selectAll" />
-                        <label for="selectAll"></label>
-                    </div>
+                    STT
                 </th>
                 <th>Tên người dùng</th>
                 <th>Email</th>
@@ -82,9 +79,9 @@ if (isset($_SESSION['success'])) {
     }
 
     function renderUserTable(users) {
-        const rows = users.map(user => {
+        const rows = users.map((user, index) => {
             const avatar = user.avatarUrl ? `${PATH}${user.avatarUrl}` : `${PATH}users/placehold.png`;
-            const roleLabel = user.role == 0 ? 'Nhân viên' : (user.role == 1 ? 'Quản lý' : 'Khách hàng');
+            const roleLabel = user.role == 0 ? 'Khách hàng' : (user.role == 1 ? 'Quản lý' : 'Nhân viên');
             const roleClass = user.role == 0 ? 'user' : (user.role == 1 ? 'admin' : 'editor');
             const statusLabel = user.isActive == 1 ? 'active' : 'inactive';
             const statusClass = user.isActive == 1 ? 'active' : 'inactive';
@@ -92,10 +89,7 @@ if (isset($_SESSION['success'])) {
             return `
         <tr class="k">
             <td>
-                <div class="checkbox-container">
-                    <input type="checkbox" class="user-checkbox" value="${user.id}" />
-                    <label for="${user.id}"></label>
-                </div>
+                ${index + 1}
             </td>
             <td>
                 <div class="user-info-cell">
@@ -120,7 +114,7 @@ if (isset($_SESSION['success'])) {
                         <i class="fas fa-edit"></i>
                     </a>
                     ${user.isActive == 1
-                    ? `<a href="${BASE}&action=users-softDelete&id=${user.id}" class="action-btn delete-btn" title="Xóa mềm" onclick="return confirm('Bạn có chắc chắn muốn xóa mềm người dùng này không?')">
+                    ? `<a href="${BASE}&action=users-softDelete&id=${user.id}" class="action-btn delete-btn" title="Xóa mềm" onclick="return confirm('Bạn có chắc chắn muốn khóa mềm người dùng này không?')">
                                 <i class="fas fa-trash"></i>
                             </a>`
                     : `<a href="${BASE}&action=users-restore&id=${user.id}" class="action-btn restore-btn" title="Khôi phục" onclick="return confirm('Bạn có chắc chắn muốn khôi phục người dùng này không?')">
@@ -154,8 +148,8 @@ if (isset($_SESSION['success'])) {
 
     function deleteSelectedUsers() {
         const ids = Array.from(document.querySelectorAll('.user-checkbox:checked')).map(cb => cb.value);
-        if (ids.length === 0) return alert('Vui lòng chọn người dùng cần xóa');
-        if (!confirm(`Bạn có chắc muốn xóa mềm ${ids.length} người dùng đã chọn?`)) return;
+        if (ids.length === 0) return alert('Vui lòng chọn người dùng cần khóa');
+        if (!confirm(`Bạn có chắc muốn khóa mềm ${ids.length} người dùng đã chọn?`)) return;
 
         fetch(`${BASE}&action=users-softDeleteMany`, {
             method: 'POST',
@@ -173,6 +167,17 @@ if (isset($_SESSION['success'])) {
         document.getElementById(id).addEventListener('input', () => loadUsers(1));
     });
 
-    document.getElementById('deleteSelected').addEventListener('click', deleteSelectedUsers);
-    document.addEventListener('DOMContentLoaded', () => loadUsers());
+    // document.getElementById('deleteSelected').addEventListener('click', deleteSelectedUsers);
+    document.addEventListener('DOMContentLoaded', () => {
+        loadUsers(), fetch(`${BASE}&action=users-softDeleteMany`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ ids })
+        })
+            .then(res => res.json())
+            .then(res => {
+                alert(res.message || 'Xóa mềm thành công');
+                loadUsers(currentPage);
+            });
+    });
 </script>

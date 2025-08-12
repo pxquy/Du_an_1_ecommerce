@@ -11,7 +11,7 @@ class UserController
     public function index()
     {
         $view = 'users/index';
-        $title = 'Danh sách người dùng';
+        $title = 'Danh sách tài khoản';
         $page = $_GET['page'] ?? 1;
         $perPage = 5;
         $keyword = $_GET['search'] ?? null;
@@ -65,7 +65,7 @@ class UserController
                 throw new Exception("Người dùng có ID = $id không tồn tại!");
 
             $view = 'users/show';
-            $title = "Chi tiết người dùng ID = $id";
+            $title = "Chi tiết tài khoản ID = $id";
             require_once PATH_VIEW_ADMIN_MAIN;
 
         } catch (\Throwable $th) {
@@ -79,7 +79,7 @@ class UserController
     public function create()
     {
         $view = 'users/create';
-        $title = 'Thêm người dùng mới';
+        $title = 'Thêm tài khoản mới';
         require_once PATH_VIEW_ADMIN_MAIN;
     }
 
@@ -102,9 +102,9 @@ class UserController
 
             if ($this->user->insert($data) > 0) {
                 $_SESSION['success'] = true;
-                $_SESSION['msg'] = 'Thêm người dùng thành công';
+                $_SESSION['msg'] = 'Thêm tài khoản thành công';
             } else {
-                throw new Exception('Không thể thêm người dùng');
+                throw new Exception('Không thể thêm tài khoản');
             }
 
         } catch (\Throwable $th) {
@@ -123,12 +123,13 @@ class UserController
                 throw new Exception('Thiếu tham số ID', 99);
 
             $id = $_GET['id'];
+
             $user = $this->user->find('*', 'id = :id', ['id' => $id]);
             if (empty($user))
                 throw new Exception("Người dùng có ID = $id không tồn tại");
 
             $view = 'users/edit';
-            $title = "Cập nhật người dùng ID = $id";
+            $title = "Cập nhật tài khoản ID = $id";
             require_once PATH_VIEW_ADMIN_MAIN;
 
         } catch (\Throwable $th) {
@@ -174,9 +175,9 @@ class UserController
 
             if ($this->user->update($data, 'id = :id', ['id' => $id]) > 0) {
                 $_SESSION['success'] = true;
-                $_SESSION['msg'] = 'Cập nhật người dùng thành công';
+                $_SESSION['msg'] = 'Cập nhật tài khoản thành công';
             } else {
-                throw new Exception('Không thể cập nhật người dùng');
+                throw new Exception('Không thể cập nhật tài khoản');
             }
 
         } catch (\Throwable $th) {
@@ -210,9 +211,9 @@ class UserController
                     unlink(PATH_ASSETS_UPLOADS . $user['avatarUrl']);
                 }
                 $_SESSION['success'] = true;
-                $_SESSION['msg'] = 'Xóa người dùng thành công';
+                $_SESSION['msg'] = 'Xóa tài khoản thành công';
             } else {
-                throw new Exception('Không thể xóa người dùng');
+                throw new Exception('Không thể xóa tài khoản');
             }
         } catch (\Throwable $th) {
             $_SESSION['success'] = false;
@@ -238,7 +239,10 @@ class UserController
             }
 
             if ($_SESSION['user']['id'] == $user['id']) {
-                throw new Exception('Không thể khóa người dùng đang đăng nhập');
+                throw new Exception('Không thể khóa tài khoản đang đăng nhập');
+            }
+            if ($_SESSION['user']['id'] == 2 && $user['id'] == 1) {
+                throw new Exception('Không thể khóa tài khoản có quyền cao hơn');
             }
 
             $rowCount = $this->user->softDelete($id);
@@ -248,7 +252,7 @@ class UserController
             }
 
             $_SESSION['success'] = true;
-            $_SESSION['msg'] = 'Khóa người dùng thành công.';
+            $_SESSION['msg'] = 'Khóa tài khoản thành công.';
         } catch (\Throwable $th) {
             $_SESSION['success'] = false;
             $_SESSION['msg'] = $th->getMessage();
@@ -279,7 +283,7 @@ class UserController
             }
 
             $_SESSION['success'] = true;
-            $_SESSION['msg'] = 'Khôi phục người dùng thành công.';
+            $_SESSION['msg'] = 'Khôi phục tài khoản thành công.';
         } catch (\Throwable $th) {
             $_SESSION['success'] = false;
             $_SESSION['msg'] = $th->getMessage();

@@ -33,7 +33,7 @@ if (isset($_SESSION['success'])) {
             </div>
             <div class="col">
                 <label for="password" class="form-label">Password:</label>
-                <input type="text" class="form-control" id="password" name="password"
+                <input type="password" class="form-control" id="password" name="password"
                     value="<?= $user['password'] ?? '' ?>">
             </div>
         </div>
