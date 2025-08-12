@@ -1,13 +1,15 @@
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
 <div class="stats-grid">
     <div class="stats-card">
         <div class="stats-header">
-            <h3 class="stats-title">Tổng doanh thu/h3>
-                <div class="stats-icon">
-                    <i class="fas fa-dollar-sign"></i>
-                </div>
+            <h3 class="stats-title">Tổng doanh thu</h3>
+            <div class="stats-icon">
+                <i class="fas fa-dollar-sign"></i>
+            </div>
         </div>
         <div class="stats-content">
-            <div class="stats-value">$45,231.89</div>
+            <div class="stats-value"><?= $revenue ?> </div>
             <p class="stats-description">
                 <i class="fas fa-arrow-up trend-up"></i>
                 <span class="trend-text trend-up">+20.1%</span> so với tháng trước
@@ -22,7 +24,7 @@
             </div>
         </div>
         <div class="stats-content">
-            <div class="stats-value">2,350</div>
+            <div class="stats-value"><?= $newUser ?></div>
             <p class="stats-description">
                 <i class="fas fa-arrow-up trend-up"></i>
                 <span class="trend-text trend-up">+180.1%</span> so với tháng trước
@@ -37,28 +39,14 @@
             </div>
         </div>
         <div class="stats-content">
-            <div class="stats-value">1,203</div>
+            <div class="stats-value"><?= $totalOrder ?></div>
             <p class="stats-description">
                 <i class="fas fa-arrow-up trend-up"></i>
                 <span class="trend-text trend-up">+19%</span> so với tháng trước
             </p>
         </div>
     </div>
-    <div class="stats-card">
-        <div class="stats-header">
-            <h3 class="stats-title">Hoàn tiền</h3>
-            <div class="stats-icon">
-                <i class="fas fa-chart-bar"></i>
-            </div>
-        </div>
-        <div class="stats-content">
-            <div class="stats-value">$2,400</div>
-            <p class="stats-description">
-                <i class="fas fa-arrow-down trend-down"></i>
-                <span class="trend-text trend-down">-4.5%</span> so với tháng trước
-            </p>
-        </div>
-    </div>
+
 </div>
 
 <div class="charts-grid">
@@ -70,7 +58,7 @@
             </p>
         </div>
         <div class="chart-content">
-            <div class="chart-placeholder">Trình dữ liệu biểu đồ doanh thu</div>
+            <div id="chart">Trình dữ liệu biểu đồ doanh thu</div>
         </div>
     </div>
     <div class="chart-card orders-chart">
@@ -80,47 +68,70 @@
         </div>
         <div class="chart-content">
             <div class="orders-list">
-                <div class="order-item">
-                    <div class="order-icon">
-                        <i class="fas fa-users"></i>
+                <?php foreach ($recentOrders as $order): ?>
+                    <div class="order-item">
+                        <div class="order-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="order-info">
+                            <p class="order-name">Đơn hàng <?= $order['id'] ?></p>
+                            <p class="order-customer">Người dùng <?= $order['fullName'] ?></p>
+                        </div>
+                        <div class="order-price"><?= $order['total'] ?></div>
                     </div>
-                    <div class="order-info">
-                        <p class="order-name">Đơn hàng #1001</p>
-                        <p class="order-customer">Người dùng 1</p>
-                    </div>
-                    <div class="order-price">$89.99</div>
-                </div>
-                <div class="order-item">
-                    <div class="order-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <div class="order-info">
-                        <p class="order-name">Đơn hàng #1002</p>
-                        <p class="order-customer">Người dùng 2</p>
-                    </div>
-                    <div class="order-price">$45.50</div>
-                </div>
-                <div class="order-item">
-                    <div class="order-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <div class="order-info">
-                        <p class="order-name">Đơn hàng #1003</p>
-                        <p class="order-customer">Người dùng 3</p>
-                    </div>
-                    <div class="order-price">$124.00</div>
-                </div>
-                <div class="order-item">
-                    <div class="order-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <div class="order-info">
-                        <p class="order-name">Đơn hàng #1004</p>
-                        <p class="order-customer">Người dùng 4</p>
-                    </div>
-                    <div class="order-price">$67.25</div>
-                </div>
+                <?php endforeach ?>
+
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    var options = {
+        series: [{
+            name: 'Free Cash Flow',
+            data: [35, 41, 36, 26, 45, 48, 52, 53, 41]
+        }],
+        chart: {
+            type: 'bar',
+            height: 350
+        },
+        plotOptions: {
+            bar: {
+                horizontal: false,
+                columnWidth: '55%',
+                borderRadius: 5,
+                borderRadiusApplication: 'end'
+            },
+        },
+        dataLabels: {
+            enabled: false
+        },
+        stroke: {
+            show: true,
+            width: 2,
+            colors: ['transparent']
+        },
+        xaxis: {
+            categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+        },
+        yaxis: {
+            title: {
+                text: '$ (thousands)'
+            }
+        },
+        fill: {
+            opacity: 1
+        },
+        tooltip: {
+            y: {
+                formatter: function (val) {
+                    return "$ " + val + " thousands"
+                }
+            }
+        }
+    };
+
+    var chart = new ApexCharts(document.querySelector("#chart"), options);
+    chart.render();
+</script>
