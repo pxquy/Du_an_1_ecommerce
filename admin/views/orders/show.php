@@ -13,6 +13,7 @@
                 <option value="1" <?= $order['status'] == '1' ? 'selected' : '' ?>>Chờ xác nhận</option>
                 <option value="2" <?= $order['status'] == '2' ? 'selected' : '' ?>>Đang xử lý</option>
                 <option value="3" <?= $order['status'] == '3' ? 'selected' : '' ?>>Đang giao hàng</option>
+                <option value="4">Thành công</option>
                 <option value="5" <?= $order['status'] == '5' ? 'selected' : '' ?>>Hủy</option>
             </select>
             <button type="submit" class="btn btn-sm btn-primary">Cập nhật</button>
