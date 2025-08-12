@@ -32,6 +32,7 @@ match ($action) {
     'store_order' => (new OrderController())->storeOrder(), //tạo đơn hàng
     'pay_vnpay' => (new OrderController())->confirm_vnpay(), // chọn thanh toán qua vnpay
     'vnpay_return' => (new OrderController())->vnpayReturn(), // xử lý logic trả về sau khi thanh toán vnpay
+    'vnpay_post' => (new OrderController())->vnpayReturn(), // xử lý logic trả về sau khi thanh toán vnpay
     'add_comment' => (new CommentController())->addComment(), //đánh giá sản phẩm
     'search' => (new ProductController())->search(), // chức năng tìm kiếm sản phẩm
     'products_by_brand' => (new BrandsController())->productsByBrand(), //Lấy sản phẩm theo brand

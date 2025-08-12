@@ -70,7 +70,7 @@
                 </div>
 
                 <!-- Checkout Content -->
-                <form method="post" action="?action=store_order" class="checkout-content">
+                <form method="post" action="" id="checkoutForm" class="checkout-content">
                     <!-- Checkout Form -->
                     <div class="checkout-form">
                         <div id="checkoutForm">
@@ -173,14 +173,14 @@
                             <div class="summary-totals">
                                 <div class="summary-row total-row">
                                     <div class="summary-label">Tổng cộng:</div>
-                                    <input type="number" name="total" hidden value="<?= $total ?>">
+                                    <input type="number" name="amount" hidden value="<?= $total ?>">
                                     <input type="hidden" name="items" value='<?= json_encode($selectedItems) ?>'>
                                     <div class="summary-value" id="orderTotal"><?= formatCurrency($total, 'vn') ?></div>
                                 </div>
                             </div>
 
                             <!-- Place Order Button -->
-                            <button type="submit" name="check-out-btn" class="place-order-btn">
+                            <button type="submit" name="redirect" class="place-order-btn">
                                 Đặt hàng <i class="fas fa-arrow-right"></i>
                             </button>
                         </div>
@@ -206,6 +206,29 @@
         unset($_SESSION['success_message']);
     }
     ?>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const form = document.getElementById("checkoutForm");
+            const paymentRadios = document.querySelectorAll('input[name="phuong_thuc_thanh_toan"]');
+
+            function updateFormAction() {
+                const selected = document.querySelector('input[name="phuong_thuc_thanh_toan"]:checked').value;
+                if (selected === "1") {
+                    form.action = "?action=store_order"; // URL hoặc route xử lý COD
+                } else if (selected === "2") {
+                    form.action = "?action=pay_vnpay"; // URL hoặc route xử lý VNPay
+                }
+            }
+
+            paymentRadios.forEach(radio => {
+                radio.addEventListener("change", updateFormAction);
+            });
+
+            // Gọi lần đầu để set action khi trang vừa load
+            updateFormAction();
+        });
+    </script>
 </body>
 
 </html>
