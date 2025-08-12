@@ -50,8 +50,10 @@ class SigninController
                 $_SESSION['error_message'] = "Mật khẩu không chính xác";
             }
 
-            $_SESSION['user'] = $user;
 
+
+            $_SESSION['user'] = $user;
+            require_Login();
             $_SESSION['success_message'] = 'Đăng nhập thành công';
 
             header("Location: " . BASE_URL);

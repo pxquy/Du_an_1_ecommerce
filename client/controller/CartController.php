@@ -23,8 +23,7 @@ class CartController
             $price     = floatval($_POST['price'] ?? 0);
             // debug($_POST);
             if (!$userId || !$productId || !$variantId) {
-                $_SESSION['success'] = false;
-                $_SESSION['msg'] = 'Dữ liệu không hợp lệ';
+                $_SESSION['error_message'] = 'Dữ liệu không hợp lệ';
                 header('Location:' . BASE_URL . '?action=product_detail&id=' . $productId);
                 exit();
             }
@@ -37,8 +36,8 @@ class CartController
             $this->cartModel->addProduct($cartId, $productId, $variantId, $quantity, $price);
             // debug($addCarrt);
 
-            $_SESSION['success'] = true;
-            $_SESSION['msg'] = 'Đã thêm vào giỏ hàng';
+
+            $_SESSION['success_message'] = 'Đã thêm vào giỏ hàng';
             header('Location:' . BASE_URL . '?action=my_cart');
             exit();
         }

@@ -62,11 +62,13 @@ class Product extends BaseModel
     {
         $sql = "SELECT p.*, b.title AS brand_title 
             FROM products p
-            JOIN brands b ON p.brandId = b.id";
+            JOIN brands b ON p.brandId = b.id 
+            WHERE p.isActive = 1";
+
         $params = [];
 
         if ($brandId !== null) {
-            $sql .= " WHERE p.brandId = :brandId";
+            $sql .= " AND p.brandId = :brandId";
             $params['brandId'] = (int)$brandId;
         }
 

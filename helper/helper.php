@@ -171,9 +171,13 @@ function require_Login()
 {
 
     if (empty($_SESSION['user'])) {
-        $_SESSION['success'] = false;
-        $_SESSION['msg'] = "Bạn phải đăng nhập để tiếp tục thao tác";
+        $_SESSION['error_message'] = "Bạn phải đăng nhập để tiếp tục thao tác";
         header("Location:" . BASE_URL . "?action=form_signin");
+        exit();
+    }
+    if ($_SESSION['user']['isActive'] == 0) {
+        $_SESSION['error_message'] = "Tài khoản cảu bạn đã bị khoá";
+        header("location:" . BASE_URL . "?action=form_signin");
         exit();
     }
 }

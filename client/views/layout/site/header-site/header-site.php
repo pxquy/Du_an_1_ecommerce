@@ -1,6 +1,6 @@
 <?php
 $this->brands = new Brand();
-$brands = $this->brands->select();
+$brands = $this->brands->select("*", "isActive = :isActive", ["isActive" => 1]);
 ?>
 
 

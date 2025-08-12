@@ -228,6 +228,20 @@
 
     <script src="./client/views/layout/site/layout-site.js"></script>
 
+    <?php
+    if (isset($_SESSION['error_message'])) {
+        echo '<script>toastr.error("' . $_SESSION['error_message'] . '")</script>';
+        unset($_SESSION['error_message']);
+    }
+    ?>
+
+    <?php
+    if (isset($_SESSION['success_message'])) {
+        echo '<script>toastr.success("' . $_SESSION['success_message'] . '")</script>';
+        unset($_SESSION['success_message']);
+    }
+    ?>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Print Order

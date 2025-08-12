@@ -32,17 +32,18 @@ class OrderController
             $selectedItems = array_filter($cartItems, fn($item) => in_array($item['cartProductId'], $selected));
 
             if (empty($selectedItems)) {
-                $_SESSION['msg'] = 'Vui lòng chọn sản phẩm hợp lệ để đặt hàng';
+                $_SESSION['error_message'] = 'Vui lòng chọn sản phẩm hợp lệ để đặt hàng';
                 header('Location: ?action=my_cart');
                 exit;
             }
 
             $total = array_sum(array_map(fn($item) => $item['price'] * $item['quantity'], $selectedItems));
+
             $view = 'pages/site/checkout/checkout';
             $title = "Xác thực thanh toán";
             require_once PATH_VIEW_CLIENT . $view . '.php';
         } else {
-            $_SESSION['msg'] = 'Vui lòng chọn ít nhất 1 sản phẩm để đặt hàng';
+            $_SESSION['error_message'] = 'Vui lòng chọn ít nhất 1 sản phẩm để đặt hàng';
             header('Location: ?action=my_cart');
             exit;
         }
@@ -195,11 +196,9 @@ class OrderController
 
             if ($code === '00') {
                 $this->orderModel->updateStatus($orderId, 2, 1); // status=2 (xác nhận), paymentStatus=1 (đã thanh toán)
-                $_SESSION['success'] = true;
-                $_SESSION['msg'] = "Thanh toán thành công đơn hàng #$orderId";
+                $_SESSION['success_message'] = "Thanh toán thành công đơn hàng #$orderId";
             } else {
-                $_SESSION['success'] = false;
-                $_SESSION['msg'] = "Thanh toán thất bại đơn hàng #$orderId";
+                $_SESSION['error_message'] = "Thanh toán thất bại đơn hàng #$orderId";
             }
         }
         header('Location:' . BASE_URL);
@@ -229,11 +228,9 @@ class OrderController
         $orderId = $_GET['id'] ?? null;
 
         if ($orderId && $this->orderModel->cancelOrder($orderId, $userId)) {
-            $_SESSION['success'] = true;
-            $_SESSION['msg'] = "Huỷ đơn hàng thành công.";
+            $_SESSION['success_message'] = "Huỷ đơn hàng thành công.";
         } else {
-            $_SESSION['success'] = false;
-            $_SESSION['msg'] = "Không thể huỷ đơn hàng này.";
+            $_SESSION['error_message'] = "Không thể huỷ đơn hàng này.";
         }
 
         header('Location: ' . BASE_URL . '?action=my_order');
