@@ -1,5 +1,3 @@
-<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-
 <div class="stats-grid">
     <div class="stats-card">
         <div class="stats-header">
@@ -86,52 +84,38 @@
     </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <script>
-    var options = {
-        series: [{
-            name: 'Free Cash Flow',
-            data: [35, 41, 36, 26, 45, 48, 52, 53, 41]
-        }],
-        chart: {
-            type: 'bar',
-            height: 350
-        },
+    const revenueData = <?= json_encode($seriesRevenue, JSON_UNESCAPED_UNICODE) ?>;
+    const ordersData = <?= json_encode($seriesOrders, JSON_UNESCAPED_UNICODE) ?>;
+    const categories = <?= json_encode($monthsLabels, JSON_UNESCAPED_UNICODE) ?>;
+    const yearLabel = <?= json_encode($year) ?>;
+
+    const options = {
+        series: [
+            { name: 'Doanh thu ' + yearLabel, data: revenueData },
+            // Nếu muốn hiển thị thêm số đơn theo tháng (trục phụ), có thể tách sang chart khác
+            // { name: 'Số đơn', data: ordersData }
+        ],
+        chart: { type: 'bar', height: 350 },
         plotOptions: {
-            bar: {
-                horizontal: false,
-                columnWidth: '55%',
-                borderRadius: 5,
-                borderRadiusApplication: 'end'
-            },
+            bar: { horizontal: false, columnWidth: '55%', borderRadius: 5, borderRadiusApplication: 'end' },
         },
-        dataLabels: {
-            enabled: false
-        },
-        stroke: {
-            show: true,
-            width: 2,
-            colors: ['transparent']
-        },
-        xaxis: {
-            categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
-        },
-        yaxis: {
-            title: {
-                text: '$ (thousands)'
-            }
-        },
-        fill: {
-            opacity: 1
-        },
+        dataLabels: { enabled: false },
+        stroke: { show: true, width: 2, colors: ['transparent'] },
+        xaxis: { categories: categories },
+        yaxis: { title: { text: 'VND' } },
+        fill: { opacity: 1 },
         tooltip: {
             y: {
                 formatter: function (val) {
-                    return "$ " + val + " thousands"
+                    // Format tiền VND cơ bản (có thể thay bằng Intl.NumberFormat)
+                    return new Intl.NumberFormat('vi-VN').format(val) + ' ₫';
                 }
             }
         }
     };
 
-    var chart = new ApexCharts(document.querySelector("#chart"), options);
+    const chart = new ApexCharts(document.querySelector("#chart"), options);
     chart.render();
 </script>
