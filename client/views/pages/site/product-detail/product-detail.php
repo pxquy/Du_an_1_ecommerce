@@ -236,7 +236,7 @@
                             </div>
 
                             <div class="product-actions">
-                                <button class="add-to-cart-btn" type="submit" id="btnAddCart" disabled>
+                                <button class="add-to-cart-btn" type="submit" id="btnAddCart">
                                     <i class="fas fa-shopping-bag"></i> Thêm vào giỏ hàng
                                 </button>
 
@@ -309,7 +309,7 @@
                     <div class="tabs-header">
                         <button class="tab-btn active" data-tab="description">Mô tả sản phẩm</button>
                         <button class="tab-btn" data-tab="reviews" id="reviews-tab">
-                            Đánh giá <?= isset($averageRating['tong']) && $averageRating['tong'] > 0 ? '(' . $averageRating['tong'] . ')' : '' ?>
+                            Đánh giá <?= isset($productDetail['averageRating']) && $productDetail['averageRating'] > 0 ? '(' . $productDetail['ratingCount'] . ')' : '' ?>
                         </button>
                         <button class="tab-btn" data-tab="shipping">Vận chuyển & Đổi trả</button>
                     </div>
@@ -325,43 +325,43 @@
                         <!-- Reviews Tab -->
                         <div class="tab-pane" id="reviews">
                             <div class="tab-content-inner">
-                                <!-- <div class="reviews-summary">
+                                <div class="reviews-summary">
                                     <div class="reviews-average">
-                                        <div class="average-rating"><?= round($averageRating['trung_binh'], 1) ?></div>
+                                        <div class="average-rating"><?= round($productDetail['averageRating'], 1) ?></div>
                                         <div class="rating-stars">
                                             <?php
-                                            $fullStars = floor($averageRating['trung_binh']);
-                                            $halfStar = $averageRating['trung_binh'] - $fullStars >= 0.5;
+                                            $fullStars = floor($productDetail['averageRating']);
+                                            $halfStar = $productDetail['averageRating'] - $fullStars >= 0.5;
                                             for ($i = 0; $i < $fullStars; $i++) echo '<i class="fas fa-star"></i>';
                                             if ($halfStar) echo '<i class="fas fa-star-half-alt"></i>';
                                             for ($i = $fullStars + $halfStar; $i < 5; $i++) echo '<i class="far fa-star"></i>';
                                             ?>
                                         </div>
-                                        <div class="total-reviews">Dựa trên <?= $averageRating['tong'] ?> đánh giá</div>
+                                        <div class="total-reviews">Dựa trên <?= $productDetail['ratingCount'] ?> đánh giá</div>
                                     </div>
 
                                     <div class="reviews-breakdown">
                                         <?php
-                                        $tong = $averageRating['tong'] > 0 ? $averageRating['tong'] : 1;
-                                        for ($i = 5; $i >= 1; $i--) {
-                                            $count = 0;
-                                            foreach ($ratingStats as $r) {
-                                                if ($r['sao'] == $i) {
-                                                    $count = $r['so_luong'];
-                                                    break;
-                                                }
-                                            }
-                                            $percent = round(($count / $tong) * 100);
-                                            echo "
-                                            <div class='rating-bar'>
-                                                <div class='rating-label'>{$i} sao</div>
-                                                <div class='rating-progress'><div class='progress-bar' style='width: {$percent}%;'></div></div>
-                                                <div class='rating-count'>{$count}</div>
-                                            </div>";
-                                        }
+                                        $tong = $productDetail['ratingCount'] > 0 ? $productDetail['ratingCount'] : 1;
+                                        // for ($i = 5; $i >= 1; $i--) {
+                                        //     $count = 0;
+                                        //     foreach ($ratingStats as $r) {
+                                        //         if ($r['star'] == $i) {
+                                        //             $count = $r['quantity'];
+                                        //             break;
+                                        //         }
+                                        //     }
+                                        //     $percent = round(($count / $tong) * 100);
+                                        //     echo "
+                                        //     <div class='rating-bar'>
+                                        //         <div class='rating-label'>{$i} sao</div>
+                                        //         <div class='rating-progress'><div class='progress-bar' style='width: {$percent}%;'></div></div>
+                                        //         <div class='rating-count'>{$count}</div>
+                                        //     </div>";
+                                        // }
                                         ?>
                                     </div>
-                                </div> -->
+                                </div>
 
                                 <div class="reviews-list">
                                     <?php if ($comments) : ?>
@@ -823,19 +823,17 @@
                 const attrValues = (variantAttributes[variant.id] || []).map(a => parseInt(a.valueId));
                 if (attrValues.includes(selectedColor) && attrValues.includes(selectedSize)) {
 
-                    // Gán giá
                     document.getElementById('variant-price').textContent =
                         Number(variant.price).toLocaleString() + 'đ';
 
-                    // Kiểm tra tồn kho
                     document.getElementById('variant-stock').textContent =
                         variant.stock > 0 ? variant.stock : 'Hết hàng';
 
                     document.getElementById('variantId').value = variant.id;
                     document.getElementById('variantPriceInput').value = variant.price;
 
-                    // Nếu hết hàng thì disable nút giỏ hàng
-                    document.getElementById('btnAddCart').disabled = variant.stock <= 0;
+                    // Lưu trạng thái vào attribute
+                    document.getElementById('btnAddCart').setAttribute('data-out-of-stock', variant.stock <= 0);
 
                     matched = true;
                     break;
@@ -847,16 +845,13 @@
                 document.getElementById('variant-stock').textContent = '--';
                 document.getElementById('variantId').value = '';
                 document.getElementById('variantPriceInput').value = '';
-                document.getElementById('btnAddCart').disabled = true;
+                document.getElementById('btnAddCart').setAttribute('data-out-of-stock', true);
             }
         }
 
-        // Kiểm tra khi ấn Thêm vào giỏ hàng
         document.getElementById('btnAddCart').addEventListener('click', function(e) {
-            const stockText = document.getElementById('variant-stock').textContent;
-            const stock = parseInt(stockText) || 0;
-
-            if (stock <= 0) {
+            const outOfStock = this.getAttribute('data-out-of-stock') === 'true';
+            if (outOfStock) {
                 e.preventDefault();
                 alert('Sản phẩm đã hết hàng!');
                 return false;
