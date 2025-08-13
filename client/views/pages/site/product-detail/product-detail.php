@@ -230,7 +230,7 @@
                                 <h3 class="option-title">Số lượng:</h3>
                                 <div class="quantity-selector">
                                     <button type="button" class="quantity-btn minus" id="quantityMinus">-</button>
-                                    <input type="number" name="quantity" id="quantityInput" value="1" min="1" max="10" class="quantity-input">
+                                    <input type="number" name="quantity" id="quantityInput" value="1" min="1" class="quantity-input">
                                     <button type="button" class="quantity-btn plus" id="quantityPlus">+</button>
                                 </div>
                             </div>
@@ -822,11 +822,21 @@
             for (const variant of variantsData) {
                 const attrValues = (variantAttributes[variant.id] || []).map(a => parseInt(a.valueId));
                 if (attrValues.includes(selectedColor) && attrValues.includes(selectedSize)) {
-                    document.getElementById('variant-price').textContent = Number(variant.price).toLocaleString() + 'đ';
-                    document.getElementById('variant-stock').textContent = variant.stock;
+
+                    // Gán giá
+                    document.getElementById('variant-price').textContent =
+                        Number(variant.price).toLocaleString() + 'đ';
+
+                    // Kiểm tra tồn kho
+                    document.getElementById('variant-stock').textContent =
+                        variant.stock > 0 ? variant.stock : 'Hết hàng';
+
                     document.getElementById('variantId').value = variant.id;
                     document.getElementById('variantPriceInput').value = variant.price;
-                    document.getElementById('btnAddCart').disabled = false;
+
+                    // Nếu hết hàng thì disable nút giỏ hàng
+                    document.getElementById('btnAddCart').disabled = variant.stock <= 0;
+
                     matched = true;
                     break;
                 }
