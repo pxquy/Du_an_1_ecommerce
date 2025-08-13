@@ -102,9 +102,7 @@
                                     <!-- Số lượng -->
                                     <div class="cart-item-quantity">
                                         <div class="quantity-selector">
-                                            <button type="submit" name="minus-btn" value="<?= $item['cartId'] ?>" class="quantity-btn minus">-</button>
-                                            <input type="number" name="quantity[]" class="quantity-input" value="<?= $item['quantity'] ?>" min="1">
-                                            <button type="submit" name="plus-btn" value="<?= $item['cartId'] ?>" class="quantity-btn plus">+</button>
+                                            <span><?= $item['quantity'] ?></span>
                                         </div>
                                     </div>
 

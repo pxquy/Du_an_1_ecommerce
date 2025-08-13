@@ -147,7 +147,19 @@
                         </div>
 
                         <div class="product-price">
-                            <span class="current-price"><?= formatCurrency($productDetail["priceDefault"], 'vn') ?></span>
+                            <?php if (isset($variantId)) : ?>
+                                <p class="current-price">
+                                    <strong>Giá:</strong>
+                                    <span id="variant-price">--</span>
+                                </p>
+                            <?php else: ?>
+                                <p class="current-price">
+                                    <strong>Giá:</strong>
+                                    <span class="current-price">
+                                        <?= formatCurrency($productDetail["priceDefault"], 'vn') ?>
+                                    </span>
+                                </p>
+                            <?php endif; ?>
                         </div>
 
                         <div class="product-short-description">
@@ -204,22 +216,10 @@
                             </div>
                         <?php endif; ?>
 
-                        <!-- Thông tin biến thể -->
                         <div id="variant-info" style="margin-top: 10px;">
-                            <p><strong>Giá:</strong> <span id="variant-price">--</span></p>
                             <p><strong>Tồn kho:</strong> <span id="variant-stock">--</span></p>
                         </div>
 
-                        <!-- <form action="?action=add_to_cart" method="POST" id="addCartForm">
-                            <input type="hidden" name="productId" value="<?= $productDetail['id'] ?>">
-                            <input type="hidden" name="variantId" id="variantId">
-                            <input type="hidden" name="price" id="variantPriceInput">
-
-                            <label for="quantity">Số lượng:</label>
-                            <input type="number" name="quantity" id="quantity" value="1" min="1">
-
-                            <button type="submit" id="btnAddCart" disabled>Thêm vào giỏ hàng</button>
-                        </form> -->
 
                         <form action="?action=add_to_cart" method="POST" id="addCartForm">
                             <input type="hidden" name="productId" value="<?= $productDetail['id'] ?>">
@@ -230,7 +230,7 @@
                                 <h3 class="option-title">Số lượng:</h3>
                                 <div class="quantity-selector">
                                     <button type="button" class="quantity-btn minus" id="quantityMinus">-</button>
-                                    <input type="number" name="quantity" id="quantity" value="1" min="1" max="10" class="quantity-input">
+                                    <input type="number" name="quantity" id="quantityInput" value="1" min="1" max="10" class="quantity-input">
                                     <button type="button" class="quantity-btn plus" id="quantityPlus">+</button>
                                 </div>
                             </div>
@@ -575,7 +575,7 @@
 
                                         <div class="product-card">
                                             <div class="product-image">
-                                                <a href="index.php?router=product-detail&id=<?= $related['title'] ?>">
+                                                <a href="?action=product_detail&slug=<?= $related['slug'] ?>">
                                                     <img src="./assets/uploads/product/<?= $related['thumbnail'] ?>" alt="<?= $related['title'] ?>" width="300">
                                                 </a>
                                                 <div class="product-actions">
@@ -630,7 +630,7 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', () => {
 
             const galleryMain = new Swiper('.gallery-main-swiper', {
                 spaceBetween: 10,
@@ -733,25 +733,6 @@
                 el.textContent = formatted;
             });
 
-            // Quantity Selector
-            const quantityMinus = document.getElementById('quantityMinus');
-            const quantityPlus = document.getElementById('quantityPlus');
-            const quantityInput = document.getElementById('quantityInput');
-
-            quantityMinus.addEventListener('click', function() {
-                let value = parseInt(quantityInput.value);
-                if (value > 1) {
-                    quantityInput.value = value - 1;
-                }
-            });
-
-            quantityPlus.addEventListener('click', function() {
-                let value = parseInt(quantityInput.value);
-                if (value < 10) {
-                    quantityInput.value = value + 1;
-                }
-            });
-
             // Buy Now Button
             const buyNowBtn = document.getElementById('buyNowBtn');
 
@@ -809,6 +790,10 @@
         let selectedColor = null;
         let selectedSize = null;
 
+        // Lưu giá mặc định từ PHP để hiển thị ban đầu
+        const defaultPrice = "<?= formatCurrency($productDetail["priceDefault"], 'vn') ?>";
+        document.getElementById('variant-price').textContent = defaultPrice;
+
         // Bắt sự kiện chọn màu
         document.querySelectorAll('input[name="color"]').forEach(input => {
             input.addEventListener('change', (e) => {
@@ -848,13 +833,56 @@
             }
 
             if (!matched) {
-                document.getElementById('variant-price').textContent = '--';
+                document.getElementById('variant-price').textContent = defaultPrice;
                 document.getElementById('variant-stock').textContent = '--';
                 document.getElementById('variantId').value = '';
                 document.getElementById('variantPriceInput').value = '';
                 document.getElementById('btnAddCart').disabled = true;
             }
         }
+
+        // Kiểm tra khi ấn Thêm vào giỏ hàng
+        document.getElementById('btnAddCart').addEventListener('click', function(e) {
+            const stockText = document.getElementById('variant-stock').textContent;
+            const stock = parseInt(stockText) || 0;
+
+            if (stock <= 0) {
+                e.preventDefault();
+                alert('Sản phẩm đã hết hàng!');
+                return false;
+            }
+        });
+
+        // Kiểm tra khi ấn Mua ngay
+        document.getElementById('buyNowBtn').addEventListener('click', function(e) {
+            const stockText = document.getElementById('variant-stock').textContent;
+            const stock = parseInt(stockText) || 0;
+
+            if (stock <= 0) {
+                e.preventDefault();
+                alert('Sản phẩm đã hết hàng!');
+                return false;
+            }
+        });
+
+        // Tăng giảm số lượng
+        const quantityMinus = document.getElementById('quantityMinus');
+        const quantityPlus = document.getElementById('quantityPlus');
+        const quantityInput = document.getElementById('quantityInput');
+
+        quantityMinus.addEventListener('click', () => {
+            let value = parseInt(quantityInput.value);
+            if (value > 0) {
+                quantityInput.value = value - 1;
+            }
+        });
+
+        quantityPlus.addEventListener('click', function() {
+            let value = parseInt(quantityInput.value);
+            if (value < 10) {
+                quantityInput.value = value + 1;
+            }
+        });
     </script>
 
 </body>
