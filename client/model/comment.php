@@ -33,15 +33,34 @@ class Comment extends BaseModel
         ]);
     }
 
-    public function getCommentsByProduct(int $productId): array
+    public function getCommentsByProduct(int $productId, int $limit = 10, int $offset = 0): array
     {
+        // Ép kiểu an toàn
+        $limit = (int)$limit;
+        $offset = (int)$offset;
+
+        // Lấy danh sách bình luận có phân trang
         $sql = "
-            SELECT c.*, u.fullname, u.avatarUrl
-            FROM comments c
-            JOIN users u ON c.userId = u.id
-            WHERE c.productId = ? AND c.isApproved = 1
-            ORDER BY c.createdAt DESC
-        ";
-        return $this->selectRaw($sql, [$productId]);
+        SELECT c.*, u.fullname, u.avatarUrl
+        FROM comments c
+        JOIN users u ON c.userId = u.id
+        WHERE c.productId = ? AND c.isApproved = 1
+        ORDER BY c.createdAt DESC
+        LIMIT $limit OFFSET $offset
+    ";
+        $comments = $this->selectRaw($sql, [$productId]);
+
+        // Lấy tổng số bình luận
+        $countSql = "
+        SELECT COUNT(*) as total
+        FROM comments c
+        WHERE c.productId = ? AND c.isApproved = 1
+    ";
+        $total = $this->selectRaw($countSql, [$productId])[0]['total'] ?? 0;
+
+        return [
+            'data'  => $comments,
+            'total' => $total
+        ];
     }
 }

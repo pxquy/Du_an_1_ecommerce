@@ -74,17 +74,16 @@ class ProductController
         $images = explode(',', $productDetail['imageUrls'] ?? '');
         $relatedProducts = $this->client->paginate(1, 4, "*", 'brandId = :brandId', ["brandId" => $productDetail['brandId']]);
 
-        // Nếu không tìm thấy sản phẩm thì quay về trang chủ
         if (empty($productDetail)) {
             header("Location: " . BASE_URL);
             exit;
         }
 
-        // ===== 2. Lấy danh sách biến thể theo productId =====
+        // ===== 2. Lấy danh sách biến thể =====
         $this->client->setTable("variants");
         $variants = $this->client->select("*", "productId = ?", [$productDetail['id']]);
 
-        // ===== 3. Lấy các giá trị thuộc tính của từng biến thể =====
+        // ===== 3. Lấy thuộc tính biến thể =====
         $this->client->setTable("
         variant_values vv
         JOIN attribute_values av ON vv.valueId = av.id
@@ -93,13 +92,10 @@ class ProductController
 
         $variantAttributesRaw = $this->client->select(
             "vv.variantId, a.name AS attributeName, av.value AS attributeValue, a.id AS attributeId, av.id AS valueId",
-            "vv.variantId IN (
-            SELECT id FROM variants WHERE productId = ?
-        )",
+            "vv.variantId IN (SELECT id FROM variants WHERE productId = ?)",
             [$productDetail['id']]
         );
 
-        // Gom nhóm thuộc tính theo variantId
         $variantAttributes = [];
         foreach ($variantAttributesRaw as $attr) {
             $variantId = $attr['variantId'];
@@ -107,19 +103,28 @@ class ProductController
                 $variantAttributes[$variantId] = [];
             }
             $variantAttributes[$variantId][] = [
-                'attributeId' => $attr['attributeId'],
-                'attributeName' => $attr['attributeName'],
-                'valueId' => $attr['valueId'],
+                'attributeId'    => $attr['attributeId'],
+                'attributeName'  => $attr['attributeName'],
+                'valueId'        => $attr['valueId'],
                 'attributeValue' => $attr['attributeValue'],
             ];
         }
 
-        // ===== 4. Lấy đánh giá theo productId =====
+        // ===== 4. Lấy bình luận có phân trang =====
         $commentModel = new Comment();
-        $comments = $commentModel->getCommentsByProduct($productDetail['id']);
+        $limit = 5; // số bình luận mỗi trang
+        $page = isset($_GET['cmt_page']) ? max(1, intval($_GET['cmt_page'])) : 1;
+        $offset = ($page - 1) * $limit;
+
+        $commentResult = $commentModel->getCommentsByProduct($productDetail['id'], $limit, $offset);
+
+        $comments    = $commentResult['data'];   // danh sách bình luận
+        $total       = $commentResult['total'];  // tổng số bình luận
+        $totalPages  = ceil($total / $limit);
 
         require_once PATH_VIEW_CLIENT . $view . ".php";
     }
+
 
     public function search()
     {

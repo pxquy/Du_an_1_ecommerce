@@ -407,49 +407,62 @@
                                 </div>
 
 
-                                <!-- <div class="reviews-pagination">
+                                <div class="reviews-pagination">
                                     <?php if ($page > 1): ?>
-                                        <a class="pagination-btn prev" href="?router=product-detail&id=<?= $product_id ?>&page=<?= $page - 1 ?>"><i class="fas fa-chevron-left"></i></a>
+                                        <a class="pagination-btn prev"
+                                            href="?action=product_detail&slug=<?= urlencode($productDetail['slug']) ?>&cmt_page=<?= $page - 1 ?>">
+                                            <i class="fas fa-chevron-left"></i>
+                                        </a>
                                     <?php else: ?>
-                                        <button class="pagination-btn prev" disabled><i class="fas fa-chevron-left"></i></button>
+                                        <button class="pagination-btn prev" disabled>
+                                            <i class="fas fa-chevron-left"></i>
+                                        </button>
                                     <?php endif; ?>
 
                                     <div class="pagination-numbers">
                                         <?php if ($totalPages > 1): ?>
-                                            <a href="?router=product-detail&id=<?= $product_id ?>&page=1"
+                                            <!-- Trang 1 -->
+                                            <a href="?action=product_detail&slug=<?= urlencode($productDetail['slug']) ?>&cmt_page=1"
                                                 class="pagination-number <?= ($page == 1) ? 'active' : '' ?>">1</a>
 
+                                            <!-- Dấu ... phía trước -->
                                             <?php if ($page > 4): ?>
                                                 <span class="pagination-ellipsis">...</span>
                                             <?php endif; ?>
 
+                                            <!-- Các trang ở giữa -->
                                             <?php for ($i = max(2, $page - 2); $i <= min($totalPages - 1, $page + 2); $i++): ?>
-                                                <a href="?router=product-detail&id=<?= $product_id ?>&page=<?= $i ?>"
+                                                <a href="?action=product_detail&slug=<?= urlencode($productDetail['slug']) ?>&cmt_page=<?= $i ?>"
                                                     class="pagination-number <?= ($page == $i) ? 'active' : '' ?>">
                                                     <?= $i ?>
                                                 </a>
                                             <?php endfor; ?>
 
+                                            <!-- Dấu ... phía sau -->
                                             <?php if ($page < $totalPages - 3): ?>
                                                 <span class="pagination-ellipsis">...</span>
                                             <?php endif; ?>
 
-                                            <a href="?router=product-detail&id=<?= $product_id ?>&page=<?= $totalPages ?>"
+                                            <!-- Trang cuối -->
+                                            <a href="?action=product_detail&slug=<?= urlencode($productDetail['slug']) ?>&cmt_page=<?= $totalPages ?>"
                                                 class="pagination-number <?= ($page == $totalPages) ? 'active' : '' ?>">
                                                 <?= $totalPages ?>
                                             </a>
-                                        <?php else: ?>
-                                            <a href="?router=product-detail&id=<?= $product_id ?>&page=1"
-                                                class="pagination-number <?= ($page == 1) ? 'active' : '' ?>">1</a>
                                         <?php endif; ?>
                                     </div>
 
                                     <?php if ($page < $totalPages): ?>
-                                        <a class="pagination-btn next" href="?router=product-detail&id=<?= $product_id ?>&page=<?= $page + 1 ?>"><i class="fas fa-chevron-right"></i></a>
+                                        <a class="pagination-btn next"
+                                            href="?action=product_detail&slug=<?= urlencode($productDetail['slug']) ?>&cmt_page=<?= $page + 1 ?>">
+                                            <i class="fas fa-chevron-right"></i>
+                                        </a>
                                     <?php else: ?>
-                                        <button class="pagination-btn next" disabled><i class="fas fa-chevron-right"></i></button>
+                                        <button class="pagination-btn next" disabled>
+                                            <i class="fas fa-chevron-right"></i>
+                                        </button>
                                     <?php endif; ?>
-                                </div> -->
+                                </div>
+
 
 
                                 <?php if (isset($_SESSION['user'])): ?>
