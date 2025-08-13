@@ -21,11 +21,12 @@
     <!-- Add Slick Slider CSS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
     <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-    
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
@@ -62,7 +63,7 @@
                 </div>
                 <div class="brand-list">
                     <?php isset($brands) ?>
-                    <?php foreach ($brands as $brand) : ?>
+                    <?php foreach ($brands as $brand): ?>
                         <a href="<?= BASE_URL . '?action=product-brand' ?>" class="brand-box">
                             <span class="brand-link"><?= $brand['title'] ?></span>
                             <i class="fa-solid fa-arrow-right"></i>
@@ -104,7 +105,8 @@
                             <a class="product-card" href="<?= BASE_URL . '?action=product_detail&slug=' . $product['slug'] ?>">
                                 <!-- <div class="product-badge">-16%</div> -->
                                 <div class="product-image">
-                                    <img src="./assets/uploads/product/<?= $product['thumbnail'] ?>" he alt="<?= $product['title'] ?>">
+                                    <img src="./assets/uploads/product/<?= $product['thumbnail'] ?>" he
+                                        alt="<?= $product['title'] ?>">
                                     <button class="wishlist-button"><i class="far fa-heart"></i></button>
                                 </div>
                                 <div class="product-info">
@@ -135,7 +137,8 @@
                             <a class="product-card" href="<?= BASE_URL . '?action=product_detail&slug=' . $product['slug'] ?>">
                                 <!-- <div class="product-badge">-16%</div> -->
                                 <div class="product-image">
-                                    <img src="./assets/uploads/product/<?= $product['thumbnail'] ?>" he alt="<?= $product['title'] ?>">
+                                    <img src="./assets/uploads/product/<?= $product['thumbnail'] ?>" he
+                                        alt="<?= $product['title'] ?>">
                                     <button class="wishlist-button"><i class="far fa-heart"></i></button>
                                 </div>
                                 <div class="product-info">
@@ -170,7 +173,7 @@
 
     <script src="./client/views/layout/site/layout-site.js"></script>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $(".slider").slick({
                 slidesToShow: 1,
                 slidesToScroll: 1,
