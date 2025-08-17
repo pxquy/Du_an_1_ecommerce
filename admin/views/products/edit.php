@@ -108,8 +108,7 @@ if (!empty($_SESSION['errors'])): ?>
             <input type="file" class="form-control" id="thumbnail" name="thumbnail" accept="image/*">
             <div id="preview-thumbnail" class="mt-2">
                 <?php if (!empty($product['thumbnail'])): ?>
-                    <img src="<?= BASE_ASSETS_UPLOADS . 'products/' . $product['thumbnail'] ?>"
-                        class="h-32 rounded border" />
+                    <img src="<?= BASE_ASSETS_UPLOADS . $product['thumbnail'] ?>" class="h-32 rounded border" />
                 <?php endif ?>
             </div>
         </div>
@@ -118,14 +117,12 @@ if (!empty($_SESSION['errors'])): ?>
             <label for="images" class="form-label">Ảnh khác:</label>
             <input type="file" class="form-control" id="images" name="images[]" multiple accept="image/*">
             <div id="preview-images" class="mt-2 flex flex-wrap gap-2">
-                <?php if (!empty($product['images'])):
-                    $images = json_decode($product['images'], true);
-                    if (is_array($images)):
-                        foreach ($images as $img): ?>
-                            <img src="<?= BASE_ASSETS_UPLOADS . 'products/' . $img ?>" class="h-32 object-cover rounded border" />
-                        <?php endforeach;
-                    endif;
-                endif ?>
+                <?php if (!empty($productImages)): ?>
+                    <?php foreach ($productImages as $img): ?>
+                        <img src="<?= BASE_ASSETS_UPLOADS . $img['imageUrl'] ?>" class="h-32 object-cover rounded border" />
+                    <?php endforeach; ?>
+                <?php endif; ?>
+
             </div>
         </div>
     </div>

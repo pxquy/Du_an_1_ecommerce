@@ -28,9 +28,6 @@
         <input type="text" id="searchInput" class="form-control" placeholder="Tìm kiếm sản phẩm">
     </div>
 
-    <!-- Nút xóa đã chọn -->
-    <!-- <button id="deleteSelected" class="btn btn-danger">Xoá đã chọn</button> -->
-
     <!-- Thêm sản phẩm -->
     <a href="<?= BASE_URL_ADMIN . '&action=products-create' ?>" class="btn btn-primary">
         Thêm sản phẩm mới
@@ -50,7 +47,7 @@
     let currentPage = 1;
 
     function loadProducts(page = 1) {
-        currentPage = page; // ← Gán lại giá trị trang hiện tại
+        currentPage = page;
 
         const keyword = document.getElementById('searchInput').value;
         const category = document.getElementById('filterCategory').value;
@@ -69,7 +66,7 @@
         fetch(`?mode=admin&action=products-index&${params}`)
             .then(res => res.json())
             .then(res => {
-                renderTable(res.data);
+                renderTable(res.data, res.page, res.perPage);
                 renderPagination(res.total, res.page, res.perPage);
             })
             .catch(err => {
@@ -77,45 +74,48 @@
             });
     }
 
-    function renderTable(products) {
-        const rows = products.map((p, index) => `
-            <tr class="hover:bg-gray-50 border border-b">
-                <td class="p-4">${index + 1}</td>
-                <td class="p-4 flex items-center gap-3">
-                    <img src="${p.thumbnail ? PATH + p.thumbnail : PATH + 'products/placehold.png'}" class="w-10 h-10 rounded-full" />
-                    <div>
-                        <p class="font-medium text-gray-700">${p.title}</p>
-                        <p class="text-xs text-gray-400">Mã: ${p.sku}</p>
-                    </div>
-                </td>
-                <td class="p-4">${Number(p.priceDefault).toLocaleString('vi-VN')}đ</td>
-                <td class="p-4">${p.averageRating ?? 0}</td>
-                <td class="p-4">${p.stockTotal ?? 0}</td>
-                <td class="p-4">
-                    <span class="inline-block px-2 py-1 rounded-full text-xs font-medium ${p.isActive == 1 ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}">
-                        ${p.isActive == 1 ? 'Đang bán' : 'Ngừng bán'}
-                    </span>
-                </td>
-                <td class="p-4">
-                    <div class="flex gap-2">
-                        <a href="${BASE}&action=products-show&id=${p.id}" class="group text-decoration-none w-8 h-8 flex items-center justify-center rounded transition-all duration-200 hover:bg-slate-100" title="Chi tiết">
-                            <i class="fa-regular fa-eye text-slate-500 group-hover:text-blue-400"></i>
-                        </a>
-                        <a href="${BASE}&action=products-edit&id=${p.id}" class="group w-8 h-8 flex items-center justify-center rounded transition-all duration-200 hover:bg-slate-100" title="Sửa">
-                            <i class="fas fa-edit text-slate-500 group-hover:text-yellow-500"></i>
-                        </a>
-                        ${p.isActive == 1
-                ? `<a href="${BASE}&action=products-softDelete&id=${p.id}" onclick="return confirm('Xoá sản phẩm này?')" class="group w-8 h-8 flex items-center justify-center rounded transition-all duration-200 hover:bg-slate-100" title="Xoá">
-                                    <i class="fas fa-trash text-slate-500 group-hover:text-red-500"></i>
-                                </a>`
-                : `<a href="${BASE}&action=products-restore&id=${p.id}" onclick="return confirm('Khôi phục sản phẩm này?')" class="group text-decoration-none w-8 h-8 flex items-center justify-center rounded transition-all duration-200 hover:bg-slate-100" title="Khôi phục">
-                                    <i class="fas fa-undo text-green-600 group-hover:text-green-700"></i>
-                                </a>`
-            }
-                    </div>
-                </td>
-            </tr>
-        `).join('');
+    function renderTable(products, page = 1, perPage = 10) {
+        const rows = products.map((p, index) => {
+            const stt = (page - 1) * perPage + index + 1;
+            return `
+                <tr class="hover:bg-gray-50 border border-b">
+                    <td class="p-4">${stt}</td>
+                    <td class="p-4 flex items-center gap-3">
+                        <img src="${p.thumbnail ? PATH + p.thumbnail : PATH + 'products/placehold.png'}" class="w-10 h-10 rounded-full" />
+                        <div>
+                            <p class="font-medium text-gray-700">${p.title}</p>
+                            <p class="text-xs text-gray-400">Mã: ${p.sku}</p>
+                        </div>
+                    </td>
+                    <td class="p-4">${Number(p.priceDefault).toLocaleString('vi-VN')}đ</td>
+                    <td class="p-4">${p.averageRating ?? 0}</td>
+                    <td class="p-4">${p.stockTotal ?? 0}</td>
+                    <td class="p-4">
+                        <span class="inline-block px-2 py-1 rounded-full text-xs font-medium ${p.isActive == 1 ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}">
+                            ${p.isActive == 1 ? 'Đang bán' : 'Ngừng bán'}
+                        </span>
+                    </td>
+                    <td class="p-4">
+                        <div class="flex gap-2">
+                            <a href="${BASE}&action=products-show&id=${p.id}" class="group text-decoration-none w-8 h-8 flex items-center justify-center rounded transition-all duration-200 hover:bg-slate-100" title="Chi tiết">
+                                <i class="fa-regular fa-eye text-slate-500 group-hover:text-blue-400"></i>
+                            </a>
+                            <a href="${BASE}&action=products-edit&id=${p.id}" class="group w-8 h-8 flex items-center justify-center rounded transition-all duration-200 hover:bg-slate-100" title="Sửa">
+                                <i class="fas fa-edit text-slate-500 group-hover:text-yellow-500"></i>
+                            </a>
+                            ${p.isActive == 1
+                    ? `<a href="${BASE}&action=products-softDelete&id=${p.id}" onclick="return confirm('Xoá sản phẩm này?')" class="group w-8 h-8 flex items-center justify-center rounded transition-all duration-200 hover:bg-slate-100" title="Xoá">
+                                        <i class="fas fa-trash text-slate-500 group-hover:text-red-500"></i>
+                                    </a>`
+                    : `<a href="${BASE}&action=products-restore&id=${p.id}" onclick="return confirm('Khôi phục sản phẩm này?')" class="group text-decoration-none w-8 h-8 flex items-center justify-center rounded transition-all duration-200 hover:bg-slate-100" title="Khôi phục">
+                                        <i class="fas fa-undo text-green-600 group-hover:text-green-700"></i>
+                                    </a>`
+                }
+                        </div>
+                    </td>
+                </tr>
+            `;
+        }).join('');
 
         document.getElementById('productTable').innerHTML = `
             <table class="min-w-full text-sm">
@@ -148,12 +148,13 @@
         document.getElementById('pagination').innerHTML = html;
     }
 
-    // Gắn sự kiện lọc
+    // Gắn sự kiện lọc và tìm kiếm
     ['searchInput', 'filterCategory', 'filterBrand', 'sortPrice'].forEach(id => {
         document.getElementById(id).addEventListener('input', () => loadProducts(1));
     });
 
+    // Load sản phẩm ban đầu
     document.addEventListener('DOMContentLoaded', () => {
-        loadProducts(); // ✅ Load ban đầu
+        loadProducts();
     });
 </script>

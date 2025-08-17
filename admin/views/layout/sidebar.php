@@ -68,12 +68,12 @@
                             <span class="menu-text">Bình luận</span>
                         </a>
                     </li>
-                    <!-- <li class="menu-item">
-                        <a href="<?= BASE_URL ?>" class="menu-link">
+                    <li class="menu-item">
+                        <a href="<?= BASE_URL_ADMIN . '&action=attributes-index' ?>" class="menu-link">
                             <i class="fas fa-file-alt"></i>
-                            <span class="menu-text">Về trang chủ</span>
+                            <span class="menu-text">Thuộc tính</span>
                         </a>
-                    </li> -->
+                    </li>
                 </ul>
             </div>
             <div class="menu-group">

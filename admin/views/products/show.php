@@ -167,7 +167,11 @@
             // debug($variant); ?>
             <tr>
                 <td><?= $index + 1 ?></td>
-                <td><?= $variant['Size'] . '-' . $variant['Color'] ?></td>
+                <td>
+                    <?php foreach ($productDetail['attributeNames'] as $attrName): ?>
+                        <?= htmlspecialchars($variant[$attrName] ?? '') ?>
+                    <?php endforeach; ?>
+                </td>
                 <td><?= $variant['price'] ?></td>
                 <td><?= $variant['stock'] ?></td>
             </tr>

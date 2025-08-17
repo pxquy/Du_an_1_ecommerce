@@ -15,22 +15,12 @@ if (isset($_SESSION['success'])) {
     <tr>
         <th class="text-uppercase">ID</th>
         <th class="text-uppercase">value</th>
-        <th class="text-uppercase">valueCode </th>
-        <th class="text-uppercase">attributeId</th>
-        <th class="text-uppercase">isActive</th>
-        <th class="text-uppercase">createdAt</th>
-        <th class="text-uppercase">updatedAt</th>
         <th class="text-uppercase">Action</th>
     </tr>
     <?php foreach ($data as $attributeValue): ?>
         <tr>
             <td><?= $attributeValue['id'] ?></td>
             <td><?= $attributeValue['value'] ?></td>
-            <td><?= $attributeValue['valueCode'] ?></td>
-            <td><?= $attributeValue['attributeId'] ?></td>
-            <td><?= $attributeValue['isActive'] ?></td>
-            <td><?= $attributeValue['createdAt'] ?></td>
-            <td><?= $attributeValue['updatedAt'] ?></td>
             <td>
                 <a href="<?= BASE_URL_ADMIN . '&action=attributeValues-show&id=' . $attributeValue['id'] ?>"
                     class="btn btn-info">Xem

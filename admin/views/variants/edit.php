@@ -56,19 +56,7 @@ if (isset($_SESSION['success'])) {
         <thead>
             <tr>
                 <th>ID</th>
-                <?php
-                // Lấy danh sách các thuộc tính từ biến thể đầu tiên
-                $attributes = [];
-                if (!empty($productDetail['variants'][0]['attributes'])) {
-                    foreach ($productDetail['variants'][0]['attributes'] as $attr) {
-                        $attributes[$attr['attributeId']] = $attr['attributeName'];
-                    }
-                }
-
-                foreach ($attributes as $attrName) {
-                    echo "<th>" . htmlspecialchars($attrName) . "</th>";
-                }
-                ?>
+                <th>Thuộc tính</th>
                 <th>Giá</th>
                 <th>Tồn kho</th>
                 <th>Hành động</th>
@@ -78,9 +66,9 @@ if (isset($_SESSION['success'])) {
             <?php foreach ($productDetail['variants'] as $variant): ?>
                 <tr>
                     <td><?= $variant['id'] ?></td>
+                    <td class="flex gap-2">
+                        <?php foreach ($variant['attributes'] as $attr): ?>
 
-                    <?php foreach ($variant['attributes'] as $attr): ?>
-                        <td>
                             <select name="variants[<?= $variant['id'] ?>][attributes][<?= $attr['attributeId'] ?>]"
                                 class="form-select">
                                 <?php foreach ($allValuesByAttribute[$attr['attributeId']] as $option): ?>
@@ -89,9 +77,9 @@ if (isset($_SESSION['success'])) {
                                     </option>
                                 <?php endforeach; ?>
                             </select>
-                        </td>
-                    <?php endforeach; ?>
 
+                        <?php endforeach; ?>
+                    </td>
                     <td>
                         <input type="number" name="variants[<?= $variant['id'] ?>][price]" value="<?= $variant['price'] ?>"
                             class="form-control" step="0.01" />
