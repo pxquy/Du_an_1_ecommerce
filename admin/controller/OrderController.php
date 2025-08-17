@@ -80,30 +80,46 @@ class OrderController
             if ($_SERVER['REQUEST_METHOD'] != 'POST') {
                 throw new Exception('Phương thức không hợp lệ');
             }
-            // debug($_POST);
 
             $id = $_POST['id'] ?? null;
             $status = $_POST['status'] ?? null;
+
+            if (!$id || !$status) {
+                throw new Exception('Thiếu ID hoặc trạng thái');
+            }
 
             $res = $this->order->update([
                 'status' => $status,
                 'updatedAt' => date('Y-m-d H:i:s')
             ], 'id = :id', ['id' => $id]);
-            // debug($res);
+
             if ($res) {
+                if (!empty($_SERVER['HTTP_X_REQUESTED_WITH'])) {
+                    header('Content-Type: application/json');
+                    echo json_encode(['success' => true]);
+                    exit;
+                }
+
                 $_SESSION['success'] = true;
-                $_SESSION['msg'] = 'Cập nhật sản phẩm thành công.';
+                $_SESSION['msg'] = 'Cập nhật trạng thái đơn hàng thành công.';
+            } else {
+                throw new Exception('Không thể cập nhật trạng thái');
+            }
+        } catch (\Throwable $th) {
+            if (!empty($_SERVER['HTTP_X_REQUESTED_WITH'])) {
+                header('Content-Type: application/json');
+                echo json_encode(['success' => false, 'msg' => $th->getMessage()]);
+                exit;
             }
 
-
-        } catch (\Throwable $th) {
             $_SESSION['success'] = false;
             $_SESSION['msg'] = $th->getMessage();
-            header('Location: ' . BASE_URL_ADMIN . '&action=orders-show&id=' . $id);
         }
+
         header('Location: ' . BASE_URL_ADMIN . '&action=orders-index');
-        exit();
+        exit;
     }
+
 
     // Xóa mềm đơn hàng
     public function softDelete()

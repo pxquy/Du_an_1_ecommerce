@@ -90,7 +90,7 @@ class VariantController
             $arrValues = array_values($attributes);            // Lấy các mảng valueId của từng attribute
             $combinations = dequy($arrValues);                 // Trả về mảng tổ hợp: ["1-5", "2-6", ...]
 
-            // debug($combinations);
+            // debug($arrValues);
 
             foreach ($combinations as $combination) {
                 // Chuyển "1-5" thành [1, 5]

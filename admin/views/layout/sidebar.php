@@ -1,3 +1,7 @@
+<?php
+// $user = $_SESSION['user'];
+// debug($user);
+?>
 <aside class="sidebar">
     <div class="sidebar-header">
         <div class="logo">
@@ -16,12 +20,12 @@
                             <span class="menu-text">Dashboard</span>
                         </a>
                     </li>
-                    <li class="menu-item">
+                    <!-- <li class="menu-item">
                         <a href="#" class="menu-link">
                             <i class="fas fa-chart-line"></i>
                             <span class="menu-text">Thống kê</span>
                         </a>
-                    </li>
+                    </li> -->
                     <li class="menu-item <?= $view == 'users/index' ? 'active' : "" ?>">
                         <a href="<?= BASE_URL_ADMIN . '&action=users-index' ?>" class="menu-link">
                             <i class="fas fa-users"></i>
@@ -64,12 +68,12 @@
                             <span class="menu-text">Bình luận</span>
                         </a>
                     </li>
-                    <li class="menu-item">
+                    <!-- <li class="menu-item">
                         <a href="<?= BASE_URL ?>" class="menu-link">
                             <i class="fas fa-file-alt"></i>
                             <span class="menu-text">Về trang chủ</span>
                         </a>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
             <div class="menu-group">
@@ -94,13 +98,19 @@
     <div class="sidebar-footer">
         <div class="user-profile">
             <div class="avatar">
-                <img src="https://via.placeholder.com/40" alt="User" />
+                <?php if ($_SESSION['user']['avatarUrl']): ?>
+                    <img src="<?= BASE_ASSETS_UPLOADS . $_SESSION['user']['avatarUrl'] ?>" alt="User" />
+                <?php endif ?>
             </div>
             <div class="user-info">
-                <span class="user-name">John Doe</span>
-                <span class="user-role">Admin</span>
+                <span class="user-name"><?= $_SESSION['user']['fullname'] ?></span>
+                <span
+                    class="user-role"><?= $_SESSION['user']['role'] == 1 ? 'Admin' : ($_SESSION['user']['role'] == 2 ? 'Staff' : 'Khách Hàng') ?></span>
             </div>
-            <i class="fas fa-sign-out-alt logout-icon"></i>
+            <a href="<?= BASE_URL ?>">
+                <i class="fas fa-sign-out-alt logout-icon"></i>
+            </a>
+
         </div>
     </div>
 </aside>

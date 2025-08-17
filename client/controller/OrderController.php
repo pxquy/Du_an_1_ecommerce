@@ -254,6 +254,7 @@ class OrderController
             $_SESSION['msg'] = "Sai chữ ký bảo mật từ VNPay!";
         }
         // debug(($orderId));
+        
         $order = $this->orderModel->getOrderById($orderId);
         $listOrderDetail = $this->orderModel->getOrderDetails($orderId);
         // debug($listOrderDetail);

@@ -127,7 +127,9 @@ class UserController
             $user = $this->user->find('*', 'id = :id', ['id' => $id]);
             if (empty($user))
                 throw new Exception("Người dùng có ID = $id không tồn tại");
-
+            // debug($user);
+            $currentUserId = $_SESSION['user']['id'] ?? null;
+            $isOwner = $currentUserId == $id;
             $view = 'users/edit';
             $title = "Cập nhật tài khoản ID = $id";
             require_once PATH_VIEW_ADMIN_MAIN;
@@ -154,25 +156,45 @@ class UserController
                 throw new Exception("Người dùng có ID = $id không tồn tại");
 
             $data = $_POST + $_FILES;
-            $errors = $this->validate($data, $id);
 
-            if (!empty($errors)) {
-                $_SESSION['errors'] = $errors;
-                $_SESSION['data'] = $data;
-                throw new Exception('Dữ liệu không hợp lệ');
-            }
+            // Xác định người đang đăng nhập
+            $currentUserId = $_SESSION['user']['id'] ?? null;
+            $isOwner = $currentUserId == $id;
 
-            if ($data['avatarUrl']['size'] > 0) {
-                $data['avatarUrl'] = upload_file('users', $data['avatarUrl']);
-                if (!empty($user['avatarUrl']) && file_exists(PATH_ASSETS_UPLOADS . $user['avatarUrl'])) {
-                    unlink(PATH_ASSETS_UPLOADS . $user['avatarUrl']);
-                }
+            // Nếu KHÔNG phải chủ tài khoản, chỉ cho phép cập nhật "role"
+            if (!$isOwner) {
+                $data = [
+                    'role' => $data['role'] ?? $user['role'],
+                    'updatedAt' => date('Y-m-d H:i:s'),
+                ];
             } else {
-                $data['avatarUrl'] = $user['avatarUrl'];
+                // Chủ tài khoản: kiểm tra lỗi đầy đủ
+                $errors = $this->validate($data, $id);
+                if (!empty($errors)) {
+                    $_SESSION['errors'] = $errors;
+                    $_SESSION['data'] = $data;
+                    throw new Exception('Dữ liệu không hợp lệ');
+                }
+
+                // Xử lý avatar nếu có upload
+                if (isset($data['avatarUrl']) && $data['avatarUrl']['size'] > 0) {
+                    $data['avatarUrl'] = upload_file('users', $data['avatarUrl']);
+                    if (!empty($user['avatarUrl']) && file_exists(PATH_ASSETS_UPLOADS . $user['avatarUrl'])) {
+                        unlink(PATH_ASSETS_UPLOADS . $user['avatarUrl']);
+                    }
+                } else {
+                    $data['avatarUrl'] = $user['avatarUrl'];
+                }
+
+                $data['updatedAt'] = date('Y-m-d H:i:s');
+            }
+            if (!empty($data['password'])) {
+                $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+            } else {
+                unset($data['password']); // Không cập nhật nếu để trống
             }
 
-            $data['updatedAt'] = date('Y-m-d H:i:s');
-
+            // Cập nhật dữ liệu
             if ($this->user->update($data, 'id = :id', ['id' => $id]) > 0) {
                 $_SESSION['success'] = true;
                 $_SESSION['msg'] = 'Cập nhật tài khoản thành công';
@@ -189,8 +211,9 @@ class UserController
             }
         }
 
-        header('Location: ' . BASE_URL_ADMIN . '&action=users-show&id=' . $id);
+        header('Location: ' . BASE_URL_ADMIN . '&action=users-edit&id=' . $id);
     }
+
 
     public function delete()
     {
@@ -310,11 +333,19 @@ class UserController
             $errors['email'] = 'Email bắt buộc, hợp lệ, dưới 100 ký tự và không trùng lặp';
         }
 
-        if (empty($data['password']) || strlen($data['password']) < 6 || strlen($data['password']) > 30) {
-            $errors['password'] = 'Mật khẩu bắt buộc, từ 6 đến 30 ký tự';
+        // ✅ Chỉ bắt buộc mật khẩu nếu đang tạo mới
+        if (is_null($id)) {
+            if (empty($data['password']) || strlen($data['password']) < 6 || strlen($data['password']) > 30) {
+                $errors['password'] = 'Mật khẩu bắt buộc, từ 6 đến 30 ký tự';
+            }
+        } else {
+            // Nếu có nhập mật khẩu mới thì mới kiểm tra độ dài
+            if (!empty($data['password']) && (strlen($data['password']) < 6 || strlen($data['password']) > 30)) {
+                $errors['password'] = 'Mật khẩu phải từ 6 đến 30 ký tự nếu muốn thay đổi';
+            }
         }
 
-        if ($data['avatarUrl']['size'] > 0) {
+        if (!empty($data['avatarUrl']) && isset($data['avatarUrl']['size']) && $data['avatarUrl']['size'] > 0) {
             if ($data['avatarUrl']['size'] > 2 * 1024 * 1024) {
                 $errors['avatarUrl_size'] = 'Ảnh đại diện tối đa 2MB';
             }

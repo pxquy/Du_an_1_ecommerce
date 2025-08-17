@@ -16,25 +16,46 @@ class CommentController
         // Lấy tham số filter/sort/pagination từ query
         $page = isset($_GET['page']) ? max(1, (int) $_GET['page']) : 1;
         $perPage = isset($_GET['perPage']) ? min(100, max(5, (int) $_GET['perPage'])) : 10;
-        $sort = $_GET['sort'] ?? 'rating_desc'; // rating_desc | rating_asc
-        $q = trim($_GET['q'] ?? '');         // tìm theo tên sản phẩm
-        $onlyParents = true; // chỉ bình luận gốc
+        $sort = $_GET['sort'] ?? 'rating_desc'; // rating_desc | rating_asc | created_desc | created_asc
+        $q = trim($_GET['q'] ?? '');
 
-        [$data, $total] = $this->comment->getCommentList($page, $perPage, $sort, $q, $onlyParents);
+        // Lấy danh sách tất cả bình luận (bao gồm cả con)
+        [$flatData, $total] = $this->comment->getCommentList($page, $perPage, $sort, $q, false);
+
+        // Xử lý thành cây comment cha → con
+        $map = [];
+        $tree = [];
+
+        foreach ($flatData as &$item) {
+            $item['children'] = [];
+            $map[$item['id']] = &$item;
+        }
+
+        foreach ($map as &$item) {
+            if (!empty($item['parentId']) && isset($map[$item['parentId']])) {
+                $map[$item['parentId']]['children'][] = &$item;
+            } else {
+                $tree[] = &$item;
+            }
+        }
 
         if (!empty($_GET['ajax'])) {
             header('Content-Type: application/json; charset=utf-8');
             echo json_encode([
-                'data' => $data,
-                'total' => $total,
-                'page' => $page,
-                'perPage' => $perPage,
+                'data' => $tree,
+                'meta' => [
+                    'page' => $page,
+                    'perPage' => $perPage,
+                    'total' => $total,
+                    'totalPage' => ceil($total / $perPage),
+                ],
             ]);
             exit;
         }
 
         require_once PATH_VIEW_ADMIN_MAIN;
     }
+
 
 
     public function show()
@@ -341,4 +362,51 @@ class CommentController
         header('Location: ' . BASE_URL_ADMIN . '&action=comments-index');
         exit();
     }
+
+    public function reply()
+    {
+        try {
+            // Lấy dữ liệu JSON từ body
+            $data = json_decode(file_get_contents("php://input"), true);
+
+            // Kiểm tra dữ liệu hợp lệ
+            if (empty($data['parentId']) || empty($data['content'])) {
+                throw new Exception('Thiếu dữ liệu.');
+            }
+
+            // Lấy ID người dùng hiện tại từ session
+            $userId = $_SESSION['user']['id'] ?? 0;
+
+            // Lấy productId từ bình luận cha
+            $parentComment = $this->comment->find('productId', 'id = :id', ['id' => $data['parentId']]);
+
+            if (!$parentComment || empty($parentComment['productId'])) {
+                throw new Exception('Không tìm thấy bình luận cha.');
+            }
+
+            // Tạo dữ liệu bình luận con
+            $newComment = [
+                'userId' => $userId,
+                'productId' => $parentComment['productId'],
+                'parentId' => $data['parentId'],
+                'content' => $data['content'],
+                'rating' => null,
+                'createdAt' => date('Y-m-d H:i:s'),
+                'updatedAt' => date('Y-m-d H:i:s'),
+                'isApproved' => 1
+            ];
+
+            $id = $this->comment->insert($newComment);
+
+            echo json_encode(['success' => true, 'id' => $id]);
+        } catch (\Throwable $th) {
+            echo json_encode([
+                'success' => false,
+                'msg' => $th->getMessage()
+            ]);
+        }
+
+        exit();
+    }
+
 }

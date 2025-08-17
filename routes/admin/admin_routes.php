@@ -84,6 +84,7 @@ match ($action) {
 
     //comment
     'reply_comment' => (new ProductController)->replyComment(),
+    'comments-reply' => (new CommentController)->reply(),
     'comments-index' => (new CommentController)->index(), //hiển thị danh sách
     'comments-show' => (new CommentController)->show(), //hiển thị chi tiết ID
     'comments-create' => (new CommentController)->create(), //hiển thị form thêm mới
