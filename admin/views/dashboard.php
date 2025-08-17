@@ -7,7 +7,9 @@
             </div>
         </div>
         <div class="stats-content">
-            <div class="stats-value"><?= $revenue ?> </div>
+            <div class="stats-value">
+                <?= number_format($revenue ?? 0, 0, ',', '.') ?>₫
+            </div>
             <p class="stats-description">
                 <i class="fas fa-arrow-up trend-up"></i>
                 <span class="trend-text trend-up">+20.1%</span> so với tháng trước
@@ -75,7 +77,7 @@
                             <p class="order-name">Đơn hàng <?= $order['id'] ?></p>
                             <p class="order-customer">Người dùng <?= $order['fullName'] ?></p>
                         </div>
-                        <div class="order-price"><?= $order['total'] ?></div>
+                        <div class="order-price"><?= number_format($order['total'], 0, ',', '.') ?>₫</div>
                     </div>
                 <?php endforeach ?>
 

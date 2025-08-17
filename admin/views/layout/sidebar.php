@@ -1,7 +1,3 @@
-<?php
-// $user = $_SESSION['user'];
-// debug($user);
-?>
 <aside class="sidebar">
     <div class="sidebar-header">
         <div class="logo">
@@ -20,12 +16,6 @@
                             <span class="menu-text">Dashboard</span>
                         </a>
                     </li>
-                    <!-- <li class="menu-item">
-                        <a href="#" class="menu-link">
-                            <i class="fas fa-chart-line"></i>
-                            <span class="menu-text">Thống kê</span>
-                        </a>
-                    </li> -->
                     <li class="menu-item <?= $view == 'users/index' ? 'active' : "" ?>">
                         <a href="<?= BASE_URL_ADMIN . '&action=users-index' ?>" class="menu-link">
                             <i class="fas fa-users"></i>
