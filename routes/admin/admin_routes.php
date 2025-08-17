@@ -50,22 +50,31 @@ match ($action) {
     'products-restore' => (new ProductController)->restore(), //Xóa dữ liệu theo ID
 
     //CRUD attributes
-    'attributes-index' => (new AttributeController)->index(), //hiển thị danh sách
-    'attributes-show' => (new AttributeController)->show(), //hiển thị chi tiết ID
-    'attributes-create' => (new AttributeController)->create(), //hiển thị form thêm mới
-    'attributes-store' => (new AttributeController)->store(), //lưu dữ liệu thêm mới
-    'attributes-edit' => (new AttributeController)->edit(), //hiển thị form cập nhật theo ID
-    'attributes-update' => (new AttributeController)->update(), //lưu dữ liệu cập nhật theo ID
-    'attributes-delete' => (new AttributeController)->delete(), //Xóa dữ liệu theo ID
+    'attributes-index' => (new AttributeManagerController)->index(),
 
-    //CRUD attributeValues
-    'attributeValues-index' => (new AttributeValueController)->index(), //hiển thị danh sách
-    'attributeValues-show' => (new AttributeValueController)->show(), //hiển thị chi tiết ID
-    'attributeValues-create' => (new AttributeValueController)->create(), //hiển thị form thêm mới
-    'attributeValues-store' => (new AttributeValueController)->store(), //lưu dữ liệu thêm mới
-    'attributeValues-edit' => (new AttributeValueController)->edit(), //hiển thị form cập nhật theo ID
-    'attributeValues-update' => (new AttributeValueController)->update(), //lưu dữ liệu cập nhật theo ID
-    'attributeValues-delete' => (new AttributeValueController)->delete(), //Xóa dữ liệu theo ID
+    'attributes-create' => (new AttributeManagerController)->attributeCreate(),
+
+    'attributes-edit' => (new AttributeManagerController)->attributeEdit(),
+
+    'attributes-store' => (new AttributeManagerController)->attributeStore(),
+
+    'attributes-update' => (new AttributeManagerController)->attributeUpdate(),
+
+    'attributes-softDelete' => (new AttributeManagerController)->attributeSoftDelete(),
+
+    'attributes-restore' => (new AttributeManagerController)->attributeRestore(),
+
+    'attributeValues-create' => (new AttributeManagerController)->valueCreate(),
+
+    'attributeValues-edit' => (new AttributeManagerController)->valueEdit(),
+
+    'attributeValues-store' => (new AttributeManagerController)->valueStore(),
+
+    'attributeValues-update' => (new AttributeManagerController)->valueUpdate(),
+
+    'attributeValues-softDelete' => (new AttributeManagerController)->valueSoftDelete(),
+
+    'attributeValues-restore' => (new AttributeManagerController)->valueRestore(),
 
     //CRUD attributeValues
     'variants-index' => (new VariantController)->index(), //hiển thị danh sách

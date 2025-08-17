@@ -140,17 +140,24 @@ class ProductController
 
 
             $productImages = $this->productImages->select('*', 'productId = :productId', ['productId' => $id]);
+            $allAttributeNames = [];
             $variants = $this->variant->select('*', 'productId = :productId', ['productId' => $id]);
             foreach ($variants as &$variant) {
                 $variantValues = $this->variantValue->getValuesByVariantId($variant['id']);
                 foreach ($variantValues as $variantValue) {
                     $variant[$variantValue['name']] = $variantValue['value'];
+
+                    if (!in_array($variantValue['name'], $allAttributeNames)) {
+                        $allAttributeNames[] = $variantValue['name'];
+                    }
                 }
             }
             unset($variant);
+            // debug($variants);
             $comments = $this->comment->getCommentsByProduct($productDetail['id']);
 
             $productDetail['variants'] = $variants;
+            $productDetail['attributeNames'] = $allAttributeNames;
 
             $view = 'products/show';
             $title = "Chi tiết sản phẩm: " . $productDetail['title'];
@@ -260,6 +267,7 @@ class ProductController
             $categoryPluck = array_column($categories, 'title', 'id');
             $brandPluck = array_column($brands, 'title', 'id');
             $productImages = $this->productImages->select('*', 'productId = :productId', ['productId' => $id]);
+            
             require_once PATH_VIEW_ADMIN_MAIN;
         } catch (\Throwable $th) {
             $_SESSION['success'] = false;

@@ -49,7 +49,7 @@ if (isset($_SESSION['success'])) {
             <th class="p-4">Hành động</th>
         </tr>
     </thead>
-    <tbody></tbody>
+    <tbody class="bg-white"></tbody>
 </table>
 
 <!-- Phân trang -->
