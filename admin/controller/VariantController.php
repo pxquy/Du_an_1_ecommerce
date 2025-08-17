@@ -62,9 +62,9 @@ class VariantController
         }
         // debug($product);
 
-        $attributes = $this->attributes->select();
+        $attributes = $this->attributes->select('*', 'isActive = 1');
         foreach ($attributes as &$attribute) {
-            $attribute['value'] = $this->attributeValue->select('id, value', 'attributeId = :attributeId', ['attributeId' => $attribute['id']]);
+            $attribute['value'] = $this->attributeValue->select('id, value', 'attributeId = :attributeId AND isActive = 1', ['attributeId' => $attribute['id']]);
         }
         unset($attribute);
         // debug($attributes[0]['value']);
