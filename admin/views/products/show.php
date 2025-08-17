@@ -99,7 +99,7 @@
 <?php if (!empty($comments)): ?>
     <?php foreach ($comments as $cmt): ?>
         <?php if (!$cmt['parentId']): // chỉ hiển thị bình luận gốc 
-        ?>
+                        ?>
             <div class="border rounded p-3 mb-2 bg-light">
                 <p><strong><?= htmlspecialchars($cmt['fullname']) ?></strong> - <?= $cmt['createdAt'] ?></p>
 
@@ -156,17 +156,20 @@
 <table class="table table-bordered">
     <thead>
         <tr>
-            <?php foreach (array_keys($productDetail['variants'][0]) as $keys): ?>
-                <th><?= ucfirst($keys) ?></th>
-            <?php endforeach; ?>
+            <th>STT</th>
+            <th>Thuộc tính</th>
+            <th>Giá</th>
+            <th>Tồn kho</th>
         </tr>
     </thead>
     <tbody>
-        <?php foreach ($productDetail['variants'] as $variant): ?>
+        <?php foreach ($productDetail['variants'] as $index => $variant):
+            // debug($variant); ?>
             <tr>
-                <?php foreach (array_values($variant) as $value): ?>
-                    <td><?= $value ?></td>
-                <?php endforeach; ?>
+                <td><?= $index + 1 ?></td>
+                <td><?= $variant['Size'] . '-' . $variant['Color'] ?></td>
+                <td><?= $variant['price'] ?></td>
+                <td><?= $variant['stock'] ?></td>
             </tr>
         <?php endforeach; ?>
     </tbody>
@@ -197,12 +200,12 @@
 
 <!-- JS để thay đổi ảnh chính khi click thumbnail -->
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         const mainImage = document.getElementById("mainImage");
         const thumbnails = document.querySelectorAll(".thumb-img");
 
         thumbnails.forEach(img => {
-            img.addEventListener("click", function() {
+            img.addEventListener("click", function () {
                 const newSrc = this.getAttribute("data-src");
                 mainImage.setAttribute("src", newSrc);
 

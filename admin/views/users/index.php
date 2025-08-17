@@ -107,9 +107,7 @@ if (isset($_SESSION['success'])) {
             <td><span class="status-badge ${statusClass}">${statusLabel}</span></td>
             <td>
                 <div class="action-buttons">
-                    <a href="${BASE}&action=users-show&id=${user.id}" class="action-btn edit-btn" title="Xem chi tiết">
-                        <i class="fa-regular fa-calendar"></i>
-                    </a>
+                
                     <a href="${BASE}&action=users-edit&id=${user.id}" class="action-btn edit-btn" title="Chỉnh sửa">
                         <i class="fas fa-edit"></i>
                     </a>

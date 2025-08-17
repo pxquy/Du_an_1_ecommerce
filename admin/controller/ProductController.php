@@ -47,14 +47,16 @@ class ProductController
                 $errors['thumbnail_size'] = "Ảnh đại diện vượt quá 2MB.";
             }
 
-            $allowedTypes = ['image/jpg', 'image/jpeg', 'image/png', 'image/gif'];
+            // Thêm hỗ trợ AVIF
+            $allowedTypes = ['image/jpg', 'image/jpeg', 'image/png', 'image/gif', 'image/avif'];
             if (!in_array($thumb['type'], $allowedTypes)) {
-                $errors['thumbnail_type'] = "Chỉ chấp nhận định dạng JPG, JPEG, PNG, GIF.";
+                $errors['thumbnail_type'] = "Chỉ chấp nhận định dạng JPG, JPEG, PNG, GIF, AVIF";
             }
         }
 
         return $errors;
     }
+
 
     public function index()
     {
@@ -131,6 +133,7 @@ class ProductController
 
             $id = $_GET['id'];
             $productDetail = $this->product->getDetail($id);
+            // debug($productDetail);
             if (empty($productDetail)) {
                 throw new Exception("Sản phẩm có ID = $id không tồn tại!");
             }
@@ -196,7 +199,7 @@ class ProductController
             $data['thumbnail'] = $data['thumbnail']['size'] > 0 ? upload_file('products', $data['thumbnail']) : null;
             $rowCount = $this->product->insert($data);
 
-            $allowedType = ['image/jpg', 'image/jpeg', 'image/png', 'image/gif'];
+            $allowedType = ['image/jpg', 'image/jpeg', 'image/png', 'image/gif', 'image/avif'];
             if (isset($_FILES['images'])) {
                 foreach ($_FILES['images']['name'] as $i => $name) {
                     $image = [
@@ -310,7 +313,7 @@ class ProductController
             $rowCount = $this->product->update($data, 'id = :id', ['id' => $id]);
 
             // Upload ảnh khác nếu có
-            $allowedType = ['image/jpg', 'image/jpeg', 'image/png', 'image/gif'];
+            $allowedType = ['image/jpg', 'image/jpeg', 'image/png', 'image/gif', 'image/avif'];
             if (isset($_FILES['images'])) {
                 foreach ($_FILES['images']['name'] as $i => $name) {
                     $image = [

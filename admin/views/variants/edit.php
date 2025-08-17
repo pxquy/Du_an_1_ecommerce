@@ -22,9 +22,9 @@
 
                     // Disable option nếu tổ hợp đã tồn tại và KHÁC tổ hợp hiện tại
                     if (existingCombinations.includes(testCombination) && testCombination !== currentCombination) {
-                        option.disabled = true;
+                        option.hidden = true;
                     } else {
-                        option.disabled = false;
+                        option.hidden = false;
                     }
                 });
 
