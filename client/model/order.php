@@ -160,8 +160,14 @@ class Order extends BaseModel
 
     public function getOrderById($orderId)
     {
-        // Giả sử bạn có một kết nối PDO là $this->db
-        $stmt = $this->pdo->prepare("SELECT * FROM orders WHERE id = :orderId");
+        $sql = "
+        SELECT o.*, u.fullname, u.email, u.phone_number, u.address 
+        FROM orders o
+        JOIN users u ON o.userId = u.id
+        WHERE o.id = :orderId
+    ";
+
+        $stmt = $this->pdo->prepare($sql);
         $stmt->execute(['orderId' => $orderId]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }

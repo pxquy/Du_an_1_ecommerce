@@ -65,7 +65,7 @@
                 ?>
                 <!-- Product Form -->
                 <div class="product-form-container">
-                    <form id="edit" method="post" enctype="multipart/form-data" class="product-form">
+                    <form action="<?= BASE_URL . '?action=update_info' ?>" id="edit" method="post" enctype="multipart/form-data" class="product-form">
                         <div class="form-card">
                             <h2 class="form-title">Cập nhật tài khoản</h2>
                             <div class="form-row">
@@ -104,19 +104,19 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="hinh">Ảnh đại diện</label>
-                                <input id="hinh" name="hinh" type="file" accept="image/*" multiple class="form-input">
+                                <label for="avatarUrl">Ảnh đại diện</label>
+                                <input id="avatarUrl" name="avatarUrl" type="file" accept="image/*" multiple class="form-input">
                                 <div class="error-message"></div>
                             </div>
 
                             <div class="form-group img-preview">
                                 <label>Ảnh hiện tại</label>
-                                <img src="<?= $hinhPath ?>" id="img-preview" width="160">
+                                <img src="<?= $avatarUrl ?>" id="img-preview" width="160">
                             </div>
 
                             <div class="form-group">
                                 <label for="dia_chi">Địa chỉ <span class="required">*</span></label>
-                                <textarea id="dia_chi" name="dia_chi" class="form-textarea" placeholder="Nhập địa chỉ"
+                                <textarea id="dia_chi" name="address" class="form-textarea" placeholder="Nhập địa chỉ"
                                     rows="4"><?= $user['address'] ?></textarea>
                                 <div class="error-message"></div>
                             </div>
@@ -126,27 +126,27 @@
                             </div>
                         </div>
                     </form>
-                    <form id="change-password" method="post" class="product-form">
+                    <form action="<?= BASE_URL . '?action=change_password' ?>" id="change-password" method="post" class="product-form">
                         <div class="form-card">
                             <h2 class="form-title">Đổi mật khẩu</h2>
 
                             <div class="form-group">
                                 <label for="old-password">Mật khẩu cũ <span class="required">*</span></label>
-                                <input type="text" id="old-password" name="old-password" class="form-input"
+                                <input type="text" id="old-password" name="old_password" class="form-input"
                                     placeholder="Mật khẩu cũ" required>
                                 <div class="error-message"></div>
                             </div>
 
                             <div class="form-group">
                                 <label for="new-password">Mật khẩu mới <span class="required">*</span></label>
-                                <input type="text" id="new-password" name="new-password" class="form-input"
+                                <input type="text" id="new-password" name="new_password" class="form-input"
                                     placeholder="Mật khẩu mới" required>
                                 <div class="error-message"></div>
                             </div>
 
                             <div class="form-group">
                                 <label for="confirm-password">Nhập lại mật khẩu <span class="required">*</span></label>
-                                <input type="text" id="confirm-password" name="confirm-password" class="form-input"
+                                <input type="text" id="confirm-password" name="confirm_password" class="form-input"
                                     placeholder="Nhập lại mật khẩu" required>
                                 <div class="error-message"></div>
                             </div>

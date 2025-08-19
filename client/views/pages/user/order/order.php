@@ -109,7 +109,7 @@
                                     <p><strong>Tổng tiền:</strong> <?= formatCurrency($row["total"], "vn") ?></p>
                                 </div>
                                 <div class="order-actions">
-                                    <a href="index.php?router=user/orders/detail&id=<?= $row["id"] ?>" class="btn-action btn-detail">
+                                    <a href="<?= BASE_URL . '?action=order-detail&orderId=' . $row["id"] ?>" class="btn-action btn-detail">
                                         <i class="fas fa-eye"></i> Xem chi tiết đơn hàng
                                     </a>
                                     <?php if ($row["status"] == 1 || $row["status"] == 2): ?>

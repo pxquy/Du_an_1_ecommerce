@@ -53,9 +53,9 @@ class UserController
             $fullname = $_POST['fullname'] ?? null;
             $email = $_POST['email'] ?? null;
             $address = $_POST['address'] ?? null;
-            $phone = $_POST['phone'] ?? null;
+            $phone = $_POST['phone_number'] ?? null;
             $gender = $_POST['gender'] ?? null;
-            $avatar = $_FILES['avatar']['name'] ?? null;
+            $avatar = $_FILES['avatarUrl']['name'] ?? null;
 
             if (!$fullname || !$email) {
                 $_SESSION['msg'] = 'Họ tên và Email là bắt buộc.';
@@ -94,13 +94,6 @@ class UserController
         }
     }
 
-
-    public function showChangePasswordForm()
-    {
-        $view = 'pages/user/information/information';
-        require_once PATH_VIEW_CLIENT . $view;
-    }
-
     public function handleChangePassword()
     {
         $userId = $_SESSION['user']['id'];
@@ -109,15 +102,12 @@ class UserController
         $confirmPassword = $_POST['confirm_password'];
 
         if ($newPassword !== $confirmPassword) {
-            $_SESSION['msg'] = "Mật khẩu xác nhận không khớp.";
-            $_SESSION['success'] = false;
+            $_SESSION['error_message'] = "Mật khẩu xác nhận không khớp.";
         } elseif (!$this->userModel->checkOldPassword($userId, $oldPassword)) {
-            $_SESSION['msg'] = "Mật khẩu cũ không đúng.";
-            $_SESSION['success'] = false;
+            $_SESSION['error_message'] = "Mật khẩu cũ không đúng.";
         } else {
             $this->userModel->updatePassword($userId, $newPassword);
-            $_SESSION['msg'] = "Đổi mật khẩu thành công!";
-            $_SESSION['success'] = true;
+            $_SESSION['success_message'] = "Đổi mật khẩu thành công!";
             // header('Location: ' . BASE_URL . '?action=change_password');
             // exit;
         }

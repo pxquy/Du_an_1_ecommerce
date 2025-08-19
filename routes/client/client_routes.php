@@ -30,6 +30,7 @@ match ($action) {
     'categories' => (new CategoryController())->listCategory(), //Danh mục sản phẩm
     'create_order' => (new OrderController())->createOrder(), //Hiển thị form tạo đơn hàng
     'store_order' => (new OrderController())->storeOrder(), //tạo đơn hàng
+    'order-detail' => (new OrderController())->userOrderDetail(), //Chi tiết đơn hàng
     'pay_vnpay' => (new OrderController())->confirm_vnpay(), // chọn thanh toán qua vnpay
     'vnpay_return' => (new OrderController())->vnpayReturn(), // xử lý logic trả về sau khi thanh toán vnpay
     'vnpay_post' => (new OrderController())->vnpayReturn(), // xử lý logic trả về sau khi thanh toán vnpay
@@ -46,8 +47,8 @@ match ($action) {
         : (new UserController())->showUpdateInfoForm(),
     'change_password' => $_SERVER['REQUEST_METHOD'] === 'POST'
         ? (new UserController())->handleChangePassword()
-        : (new UserController())->showChangePasswordForm(),
+        : (new UserController())->showUpdateInfoForm(),
     'form_update_profile' => (new UserController())->showUpdateInfoForm(),
-    'form_update_password' => (new UserController())->showChangePasswordForm(),
+    'form_update_password' => (new UserController())->showUpdateInfoForm(),
     default => require PATH_VIEW_CLIENT . "pages/site/404.php",
 };

@@ -254,7 +254,7 @@ class OrderController
             $_SESSION['msg'] = "Sai chữ ký bảo mật từ VNPay!";
         }
         // debug(($orderId));
-        
+
         $order = $this->orderModel->getOrderById($orderId);
         $listOrderDetail = $this->orderModel->getOrderDetails($orderId);
         // debug($listOrderDetail);
@@ -310,5 +310,17 @@ class OrderController
 
         $view = 'receivedOrders';
         require_once PATH_VIEW_CLIENT . $view . '.php';
+    }
+
+    public function userOrderDetail()
+    {
+
+        $orderId = isset($_GET["orderId"]) ? $_GET["orderId"] : null;
+        $listOrderDetail = $this->orderModel->getOrderDetails($orderId);
+        $order = $this->orderModel->getOrderById($orderId);
+
+        $view = "pages/user/order-detail/order-detail";
+        $title = "Chi tiết đơn hàng";
+        require PATH_VIEW_CLIENT . $view . ".php";
     }
 }
