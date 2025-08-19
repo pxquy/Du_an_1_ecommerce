@@ -25,8 +25,6 @@ class SigninController
 
             if (empty($email) || empty($password)) {
                 throw new Exception("Email và mật khẩu không được bỏ trống");
-                header('Location: ' . BASE_URL . "?action=form_signin");
-                exit();
             }
 
             // Lấy người dùng theo email
