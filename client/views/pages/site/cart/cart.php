@@ -71,7 +71,7 @@
                                 <div class="cart-item">
                                     <!-- Checkbox chọn sản phẩm -->
                                     <div>
-                                        <input type="checkbox" name="selected[]" value="<?= $item['cartProductId'] ?>">
+                                        <input type="checkbox" name="selected[]" value="<?= $item['cartProductId'] ?>" checked>
                                         <input type="hidden" name="product_id[]" value="<?= $item['cartId'] ?>">
                                     </div>
 
