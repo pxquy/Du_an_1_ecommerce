@@ -59,9 +59,8 @@
                                 <div>#</div>
                                 <div class="cart-header-product">Sản phẩm</div>
                                 <div class="cart-header-price">Đơn giá</div>
-                                <div class="cart-header-quantity">Số lượng</div>
                                 <div class="cart-header-subtotal">Thành tiền</div>
-                                <div class="cart-header-action"></div>
+                                <div class="cart-header-action">Hành động</div>
                             </div>
 
                             <?php $total = 0; ?>
@@ -83,7 +82,7 @@
                                     <div class="cart-item-product">
                                         <div class="cart-item-image">
                                             <a href="<?= BASE_URL ?>?action=product_detail&id=<?= $item['cartId'] ?>">
-                                                <img src="./assets/uploads/product/<?= htmlspecialchars($item['thumbnail']) ?>" alt="<?= htmlspecialchars($item['title']) ?>">
+                                                <img src="<?= BASE_ASSETS_UPLOADS . htmlspecialchars($item['thumbnail']) ?>" alt="<?= htmlspecialchars($item['title']) ?>">
                                             </a>
                                         </div>
                                         <div class="cart-item-details">
@@ -93,6 +92,7 @@
                                                 </a>
                                             </h3>
                                             <small><?= htmlspecialchars($item['variantAttributes'] ?: '-') ?></small>
+                                            <small>x số lượng: <?= $item['quantity'] ?></small>
                                         </div>
                                     </div>
 
@@ -100,11 +100,11 @@
                                     <div class="cart-item-price"><?= formatCurrency($item['price'], 'vn') ?></div>
 
                                     <!-- Số lượng -->
-                                    <div class="cart-item-quantity">
+                                    <!-- <div class="cart-item-quantity">
                                         <div class="quantity-selector">
                                             <span><?= $item['quantity'] ?></span>
                                         </div>
-                                    </div>
+                                    </div> -->
 
                                     <!-- Thành tiền -->
                                     <div class="cart-item-subtotal"><?= formatCurrency($subtotal, 'vn') ?></div>

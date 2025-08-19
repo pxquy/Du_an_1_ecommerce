@@ -25,7 +25,7 @@
     <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-    
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
@@ -63,7 +63,7 @@
                 <div class="brand-list">
                     <?php isset($brands) ?>
                     <?php foreach ($brands as $brand) : ?>
-                        <a href="<?= BASE_URL . '?action=product-brand' ?>" class="brand-box">
+                        <a href="<?= BASE_URL . '?action=product-brand&brandId=' . $brand['id'] ?>" class="brand-box">
                             <span class="brand-link"><?= $brand['title'] ?></span>
                             <i class="fa-solid fa-arrow-right"></i>
                         </a>
@@ -95,7 +95,7 @@
         <!-- Featured Products -->
         <section class="featured-products">
             <div class="container">
-                <h2 class="section-title">SẢN PHẨM BÁN CHẠY</h2>
+                <h2 class="section-title">TOP 4 SẢN PHẨM BÁN CHẠY</h2>
 
                 <div class="product-grid">
                     <!-- Product -->
@@ -104,7 +104,7 @@
                             <a class="product-card" href="<?= BASE_URL . '?action=product_detail&slug=' . $product['slug'] ?>">
                                 <!-- <div class="product-badge">-16%</div> -->
                                 <div class="product-image">
-                                    <img src="./assets/uploads/product/<?= $product['thumbnail'] ?>" he alt="<?= $product['title'] ?>">
+                                    <img src="<?= BASE_ASSETS_UPLOADS . $product['thumbnail'] ?>" he alt="<?= $product['title'] ?>">
                                     <button class="wishlist-button"><i class="far fa-heart"></i></button>
                                 </div>
                                 <div class="product-info">
@@ -122,7 +122,7 @@
         </section>
         <section class="featured-products">
             <div class="container">
-                <h2 class="section-title">SẢN PHẨM THƯƠNG HIỆU HOT</h2>
+                <h2 class="section-title">TOP 4 SẢN PHẨN THƯƠNG HIỆU HOT</h2>
 
                 <div class="product-grid">
                     <!-- Product -->
@@ -135,7 +135,7 @@
                             <a class="product-card" href="<?= BASE_URL . '?action=product_detail&slug=' . $product['slug'] ?>">
                                 <!-- <div class="product-badge">-16%</div> -->
                                 <div class="product-image">
-                                    <img src="./assets/uploads/product/<?= $product['thumbnail'] ?>" he alt="<?= $product['title'] ?>">
+                                    <img src="<?= BASE_ASSETS_UPLOADS . $product['thumbnail'] ?>" he alt="<?= $product['title'] ?>">
                                     <button class="wishlist-button"><i class="far fa-heart"></i></button>
                                 </div>
                                 <div class="product-info">

@@ -160,7 +160,7 @@
                                     <?php $total += $subtotal; ?>
                                     <div class="summary-product-item">
                                         <div class="product-image">
-                                            <img src="./assets/uploads/product/<?= $item['thumbnail'] ?>" alt="<?= $item['title'] ?>">
+                                            <img src="<?= BASE_URL . $item['thumbnail'] ?>" alt="<?= $item['title'] ?>">
                                         </div>
                                         <div class="product-details">
                                             <h3 class="product-title"><?= $item['title'] ?></h3>

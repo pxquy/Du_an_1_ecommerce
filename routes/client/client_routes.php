@@ -49,4 +49,5 @@ match ($action) {
         : (new UserController())->showChangePasswordForm(),
     'form_update_profile' => (new UserController())->showUpdateInfoForm(),
     'form_update_password' => (new UserController())->showChangePasswordForm(),
+    default => require PATH_VIEW_CLIENT . "pages/site/404.php",
 };

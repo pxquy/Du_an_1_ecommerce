@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arrowwai - Thương hiệu giày da nam cao cấp</title>
+    <title>Arrowwai - Giày thể thao cao cấp</title>
     <link rel="stylesheet" href="./client/views/layout/site/layout-site.css">
     <link rel="stylesheet" href="./client/views/layout/site/header-site/header-site.css">
     <link rel="stylesheet" href="./client/views/layout/site/footer-site/footer-site.css">

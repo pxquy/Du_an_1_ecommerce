@@ -58,13 +58,12 @@ class Product extends BaseModel
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getProductsByBrand($brandId = null)
+    public function getProductsByBrand($brandId = null, $limit = 10, $offset = 0)
     {
         $sql = "SELECT p.*, b.title AS brand_title 
             FROM products p
             JOIN brands b ON p.brandId = b.id 
             WHERE p.isActive = 1";
-
         $params = [];
 
         if ($brandId !== null) {
@@ -72,13 +71,34 @@ class Product extends BaseModel
             $params['brandId'] = (int)$brandId;
         }
 
+        $sql .= " LIMIT :limit OFFSET :offset";
         $stmt = $this->pdo->prepare($sql);
 
-        foreach ($params as $key => $value) {
-            $stmt->bindValue(':' . $key, $value, PDO::PARAM_INT);
+        foreach ($params as $key => $val) {
+            $stmt->bindValue(":$key", $val, PDO::PARAM_INT);
         }
+        $stmt->bindValue(":limit", (int)$limit, PDO::PARAM_INT);
+        $stmt->bindValue(":offset", (int)$offset, PDO::PARAM_INT);
 
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function countProductsByBrand($brandId = null)
+    {
+        $sql = "SELECT COUNT(*) FROM products WHERE isActive = 1";
+        $params = [];
+
+        if ($brandId !== null) {
+            $sql .= " AND brandId = :brandId";
+            $params['brandId'] = (int)$brandId;
+        }
+
+        $stmt = $this->pdo->prepare($sql);
+        foreach ($params as $key => $val) {
+            $stmt->bindValue(":$key", $val, PDO::PARAM_INT);
+        }
+        $stmt->execute();
+        return (int)$stmt->fetchColumn();
     }
 }

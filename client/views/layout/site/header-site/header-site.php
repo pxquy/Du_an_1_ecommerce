@@ -9,12 +9,11 @@ $brands = $this->brands->select("*", "isActive = :isActive", ["isActive" => 1]);
     <div class="container">
         <div class="top-bar-content">
             <div class="top-bar-left">
-                <span>DANH SÁCH CỬA HÀNG</span>
             </div>
             <div class="top-bar-right">
                 <span>Hotline liên hệ: 1900 1234</span>
                 <span class="divider">|</span>
-                <span>cskh@quisupershoes.com</span>
+                <span>cskh@arrowwai.com</span>
             </div>
         </div>
     </div>

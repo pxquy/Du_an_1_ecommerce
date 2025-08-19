@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quí Super Shoes - Bảng điều khiển</title>
+    <title>Arrowwai - Bảng điều khiển</title>
     <link rel="stylesheet" href="./client/views/layout/user/layout-user.css">
     <link rel="stylesheet" href="./client/views/layout/user/sidebar-user/sidebar-user.css">
     <link rel="stylesheet" href="./client/views/layout/user/header-user/header-user.css">
@@ -30,11 +30,11 @@
                     <div class="breadcrumb">
                         <i class="fas fa-home breadcrumb-separator"></i>
                         <i class="fas fa-chevron-right breadcrumb-separator"></i>
-                        <span class="breadcrumb-current">Bảng điểu khiển</span>
+                        <span class="breadcrumb-current">Thông tin cá nhân</span>
                     </div>
                     <div class="content-wrapper">
                         <div class="content-text">
-                            <h1 class="content-title">Bảng điểu khiển</h1>
+                            <h1 class="content-title">Bảng tin cá nhân</h1>
                             <!-- <p class="content-description">Welcome back! Here's an overview of your admin dashboard.</p> -->
                         </div>
                     </div>
@@ -99,6 +99,7 @@
     </div>
 
     <script src="./client/views/layout/user/layout-user.js"></script>
+    <script src="./client/views/layout/site/layout-site.js"></script>
 
 </body>
 

@@ -114,35 +114,49 @@
   background-color: #4338ca;
 }
 
-/* Table Styles */
-.table-container {
-  overflow-x: auto;
-  margin-bottom: 1.5rem;
-  border-radius: 0.5rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+.orders-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
 }
 
-.products-table {
-  width: 100%;
-  border-collapse: collapse;
-  background-color: #fff;
-}
-
-.products-table th,
-.products-table td {
+.order-card {
+  background: #fff;
+  border-radius: 8px;
   padding: 1rem;
-  text-align: left;
-  border-bottom: 1px solid #e2e8f0;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.products-table th {
-  font-weight: 600;
-  color: #64748b;
-  background-color: #f8fafc;
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
 }
 
-.products-table tr:last-child td {
-  border-bottom: none;
+.order-id {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.order-info p {
+  margin: 0.25rem 0;
+  font-size: 0.9rem;
+}
+
+.order-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.no-orders {
+  text-align: center;
+  color: #666;
+  grid-column: 1 / -1;
 }
 
 .checkbox-container {
@@ -282,6 +296,35 @@
   cursor: pointer;
   text-decoration: none;
   transition: all 0.2s ease;
+}
+
+.btn-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+  color: #fff;
+}
+
+.btn-detail {
+  background-color: #3b82f6; /* xanh dương */
+}
+
+.btn-cancel {
+  background-color: #ef4444; /* đỏ */
+}
+
+.btn-confirm {
+  background-color: #16a34a; /* xanh lá */
+}
+
+.btn-action:hover {
+  opacity: 0.9;
 }
 
 .action-btn:hover {

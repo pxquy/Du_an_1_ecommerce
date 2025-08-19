@@ -37,51 +37,14 @@
         <!-- Hero Banner Slider -->
         <section class="container box-welcome">
             <div class="welcome">
-                <span>Chào mừng bạn đến với thương hiệu <?= $title ?></span>
+                <span>Khám phá bộ sưu tập <?= $title ?> cao cấp, thiết kế tinh tế và chất lượng vượt trội từ Arrowwai</span>
             </div>
         </section>
-
-        <!-- <section class="brand-content">
-            <div class="container">
-                <div class="title-brand">
-                    <h2>DANH SÁCH THƯƠNG HIỆU</h2>
-                </div>
-                <div class="brand-list">
-                    <?php isset($brands) ?>
-                    <?php foreach ($brands as $brand) : ?>
-                        <a href="#" class="brand-box">
-                            <span class="brand-link"><?= $brand['title'] ?></span>
-                            <i class="fa-solid fa-arrow-right"></i>
-                        </a>
-                    <?php endforeach; ?>
-                    <!-- <a class="brand-box">
-                        <span class="brand-link">Thương hiệu 1</span>
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </a>
-                    <a class="brand-box">
-                        <span class="brand-link">Thương hiệu 1</span>
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </a>
-                    <a class="brand-box">
-                        <span class="brand-link">Thương hiệu 1</span>
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </a>
-                    <a class="brand-box">
-                        <span class="brand-link">Thương hiệu 1</span>
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </a>
-                    <a class="brand-box">
-                        <span class="brand-link">Thương hiệu 1</span>
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </a> -->
-        </div>
-        </div>
-        </section> -->
 
         <!-- Featured Products -->
         <section class="featured-products">
             <div class="container">
-                <h2 class="section-title">SẢN PHẨM THƯƠNG HIỆU HOT</h2>
+                <h2 class="section-title">SẢN PHẨM THƯƠNG HIỆU <?= $title ?></h2>
 
                 <div class="product-grid">
                     <?php
@@ -91,7 +54,7 @@
                     ?>
                             <a class="product-card" href="<?= BASE_URL . '?action=product_detail&slug=' . $product['slug'] ?>">
                                 <div class="product-image">
-                                    <img src="./assets/uploads/product/<?= $product['thumbnail'] ?>" alt="<?= $product['title'] ?>">
+                                    <img src="<?= BASE_ASSETS_UPLOADS . $product['thumbnail'] ?>" alt="<?= $product['title'] ?>">
                                     <button class="wishlist-button"><i class="far fa-heart"></i></button>
                                 </div>
                                 <div class="product-info">
@@ -108,6 +71,62 @@
                 </div>
             </div>
         </section>
+        <div class="reviews-pagination">
+            <?php if ($page > 1): ?>
+                <a class="pagination-btn prev"
+                    href="?action=product-brand&brandId=<?= $brandId ?>&page=<?= $page - 1 ?>">
+                    <i class="fas fa-chevron-left"></i>
+                </a>
+            <?php else: ?>
+                <button class="pagination-btn prev" disabled>
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+            <?php endif; ?>
+
+            <div class="pagination-numbers">
+                <?php if ($totalPages > 1): ?>
+                    <!-- Trang 1 -->
+                    <a href="?action=product-brand&brandId=<?= $brandId ?>&page=1"
+                        class="pagination-number <?= ($page == 1) ? 'active' : '' ?>">1</a>
+
+                    <!-- Dấu ... phía trước -->
+                    <?php if ($page > 4): ?>
+                        <span class="pagination-ellipsis">...</span>
+                    <?php endif; ?>
+
+                    <!-- Các trang ở giữa -->
+                    <?php for ($i = max(2, $page - 2); $i <= min($totalPages - 1, $page + 2); $i++): ?>
+                        <a href="?action=product-brand&brandId=<?= $brandId ?>&page=<?= $i ?>"
+                            class="pagination-number <?= ($page == $i) ? 'active' : '' ?>">
+                            <?= $i ?>
+                        </a>
+                    <?php endfor; ?>
+
+                    <!-- Dấu ... phía sau -->
+                    <?php if ($page < $totalPages - 3): ?>
+                        <span class="pagination-ellipsis">...</span>
+                    <?php endif; ?>
+
+                    <!-- Trang cuối -->
+                    <a href="?action=product-brand&brandId=<?= $brandId ?>&page=<?= $totalPages ?>"
+                        class="pagination-number <?= ($page == $totalPages) ? 'active' : '' ?>">
+                        <?= $totalPages ?>
+                    </a>
+                <?php endif; ?>
+            </div>
+
+            <?php if ($page < $totalPages): ?>
+                <a class="pagination-btn next"
+                    href="?action=product-brand&brandId=<?= $brandId ?>&page=<?= $page + 1 ?>">
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+            <?php else: ?>
+                <button class="pagination-btn next" disabled>
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            <?php endif; ?>
+        </div>
+
     </main>
     <?php include_once("./client/views/layout/site/footer-site/footer-site.php") ?>
 

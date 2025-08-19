@@ -59,7 +59,7 @@
                                     <div class="swiper-wrapper">
                                         <div class="swiper-slide">
                                             <div class="gallery-image">
-                                                <img src="./assets/uploads/products/<?= $productDetail["thumbnail"] ?>" alt="<?= $title ?>" id="zoom-image">
+                                                <img src="<?= BASE_ASSETS_UPLOADS . $productDetail["thumbnail"] ?>" alt="<?= $title ?>" id="zoom-image">
                                             </div>
                                         </div>
                                     </div>
@@ -75,7 +75,7 @@
                                         <div class="swiper-slide">
                                             <div class="thumb-image">
                                                 <img
-                                                    src="./assets/upload/products/<?= $image ?>"
+                                                    src="<?= BASE_ASSETS_UPLOADS . $image ?>"
                                                     alt="<?= $title ?>" />
                                             </div>
                                         </div>
@@ -589,7 +589,7 @@
                                         <div class="product-card">
                                             <div class="product-image">
                                                 <a href="?action=product_detail&slug=<?= $related['slug'] ?>">
-                                                    <img src="./assets/uploads/product/<?= $related['thumbnail'] ?>" alt="<?= $related['title'] ?>" width="300">
+                                                    <img src="<?= BASE_ASSETS_UPLOADS . $related['thumbnail'] ?>" alt="<?= $related['title'] ?>" width="300">
                                                 </a>
                                                 <div class="product-actions">
                                                     <button class="quick-view-btn" title="Xem nhanh">

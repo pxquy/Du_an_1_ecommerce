@@ -138,7 +138,7 @@
                                         <div class="order-item">
                                             <div class="item-product">
                                                 <div class="item-image">
-                                                    <img src="./assets/uploads/product/<?= $item['thumbnail'] ?>" alt="<?= $item['title'] ?>">
+                                                    <img src="<?= BASE_ASSETS_UPLOADS . $item['thumbnail'] ?>" alt="<?= $item['title'] ?>">
                                                 </div>
                                                 <div class="item-details">
                                                     <h4 class="item-title"><?= $item['title'] ?></h4>
@@ -215,7 +215,7 @@
                             </div>
                             <div class="support-contact">
                                 <i class="fas fa-envelope"></i>
-                                <span>cskh@quisupershoes.com</span>
+                                <span>cskh@arrowwai.com</span>
                             </div>
                         </div>
                     </div>

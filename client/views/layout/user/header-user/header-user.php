@@ -1,21 +1,121 @@
-<!-- Header -->
+<?php
+$this->brands = new Brand();
+$brands = $this->brands->select("*", "isActive = :isActive", ["isActive" => 1]);
+?>
+
+<!-- Header - Now Sticky with Mobile Menu and User Dropdown -->
 <header class="header">
-    <button class="sidebar-toggle" id="sidebarToggle">
-        <i class="fas fa-bars"></i>
-    </button>
-    <div class="header-right">
-        <div class="search-container">
-            <i class="fas fa-search search-icon"></i>
-            <input type="search" class="search-input" placeholder="Tìm kiếm...">
+    <div class="container">
+        <div class="header-content">
+            <div class="logo">
+                <a href="<?= BASE_URL ?>">
+                    <img src="./assets/images/logoShop.png" width="150" alt="Arrowwai">
+                </a>
+            </div>
+
+            <!-- Desktop Navigation -->
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <?php if (isset($brands)): ?>
+                        <?php foreach ($brands as $brand): ?>
+                            <li class="nav-item"><a href="<?= BASE_URL ?> ?action=product&category_id=<?= $brand["title"] ?>"><a href="<?= BASE_URL . '?action=product-brand&brandId=' . $brand['id'] ?>"><?= $brand['title'] ?></a></a></li>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="header-actions">
+                <!-- Search Icon with Dropdown -->
+                <div class="search-dropdown">
+                    <button class="search-icon-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <div class="search-dropdown-content">
+                        <form class="search-form" method="GET" action="<?= BASE_URL ?>">
+                            <input type="hidden" name="action" value="search">
+
+                            <div class="col-md-3">
+                                <input type="text" name="keyword" class="search-input"
+                                    placeholder="Nhập từ khoá tìm kiếm..."
+                                    value="<?= htmlspecialchars($_GET['keyword'] ?? '') ?>">
+                            </div>
+
+                            <button type="submit" class="search-submit">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </form>
+
+                        <div class="search-suggestions">
+                            <h4>Tìm kiếm phổ biến:</h4>
+                            <div class="suggestion-tags">
+                                <a href="#" class="suggestion-tag">Giày thể thao nike</a>
+                                <a href="#" class="suggestion-tag">Giày chạy bộ puma</a>
+                                <a href="#" class="suggestion-tag">Giày bóng rổ</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- User Account Dropdown -->
+
+                <!-- Mobile Menu Toggle Button -->
+                <button class="mobile-menu-toggle">
+                    <span class="hamburger-icon">
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                    </span>
+                </button>
+            </div>
         </div>
-        <div class="notification-container">
-            <button class="notification-button">
-                <i class="fas fa-bell"></i>
-                <span class="notification-badge"></span>
-            </button>
-        </div>
-        <!-- <div class="mobile-avatar">
-                        <img src="https://via.placeholder.com/32" alt="User">
-                    </div> -->
     </div>
 </header>
+
+<!-- Search Overlay for Mobile -->
+<div class="search-overlay"></div>
+
+<!-- Mobile Navigation Menu -->
+<div class="mobile-menu">
+    <div class="mobile-menu-header">
+        <div class="logo">
+            <img src="./assets/images/logo-shop.webp" width="120" alt="Arrowwai">
+        </div>
+        <button class="mobile-menu-close">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    <nav class="mobile-nav">
+        <ul class="mobile-nav-list">
+            <?php if (isset($brands)): ?>
+                <?php foreach ($brands as $brand): ?>
+                    <li class="mobile-nav-item"><a href="action=brands&brandId=<?= $brand["id"] ?>"><?= $brand['title'] ?></a></li>
+                <?php endforeach; ?>
+            <?php endif; ?>
+            <!-- <li class="mobile-nav-item mobile-dropdown">
+                    <a href="#" class="mobile-dropdown-toggle">
+                        PHỤ KIỆN <i class="fas fa-chevron-down"></i>
+                    </a>
+                    <ul class="mobile-dropdown-menu">
+                        <li><a href="#">Thắt Lưng</a></li>
+                        <li><a href="#">Ví Da</a></li>
+                        <li><a href="#">Túi Xách</a></li>
+                    </ul>
+                </li> -->
+        </ul>
+    </nav>
+    <div class="mobile-menu-footer">
+        <div class="mobile-contact">
+            <p><i class="fas fa-phone"></i> 1900 1234</p>
+            <p><i class="fas fa-envelope"></i> cskh@quisupershoes.com</p>
+        </div>
+        <div class="mobile-social">
+            <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+        </div>
+    </div>
+</div>
+
+<!-- Overlay for Mobile Menu -->
+<div class="mobile-menu-overlay"></div>

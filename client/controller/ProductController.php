@@ -37,11 +37,21 @@ class ProductController
 
         require_once PATH_VIEW_CLIENT . $view . '.php';
     }
-
     public function productBrandList()
     {
         $brandId = isset($_GET['brandId']) ? (int)$_GET['brandId'] : null;
-        $brandList = $this->client->getProductsByBrand($brandId);
+
+        // Lấy page hiện tại (mặc định 1)
+        $page = isset($_GET['page']) ? max(1, (int)$_GET['page']) : 1;
+        $limit = 8; // số sản phẩm mỗi trang
+        $offset = ($page - 1) * $limit;
+
+        // Lấy danh sách sản phẩm theo brand có phân trang
+        $brandList = $this->client->getProductsByBrand($brandId, $limit, $offset);
+
+        // Đếm tổng số sản phẩm để tính tổng số trang
+        $totalProducts = $this->client->countProductsByBrand($brandId);
+        $totalPages = ceil($totalProducts / $limit);
 
         $brandTitle = !empty($brandList) ? $brandList[0]['brand_title'] : "Sản phẩm thương hiệu";
 
@@ -50,6 +60,7 @@ class ProductController
 
         require_once PATH_VIEW_CLIENT . $view . '.php';
     }
+
 
 
     public function productDetail()

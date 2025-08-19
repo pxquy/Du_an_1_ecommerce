@@ -12,10 +12,10 @@
                 <h3 class="menu-title">Menu chính</h3>
                 <ul class="menu-list">
                     <li
-                        class="menu-item <?= ($_GET['action'] == 'user/dashboard' || $_GET['action'] == 'user') ? 'active' : '' ?>">
-                        <a href="?action=user/dashboard" class="menu-link">
+                        class="menu-item <?= ($_GET['action'] == 'userDashboardPage' || $_GET['action'] == 'userDashboardPage') ? 'active' : '' ?>">
+                        <a href="?action=userDashboardPage" class="menu-link">
                             <i class="fas fa-home"></i>
-                            <span class="menu-text">Bảng điều khiển</span>
+                            <span class="menu-text">Thông tin cá nhân</span>
                         </a>
                     </li>
                     <li class="menu-item <?= ($_GET['action'] == 'update_info') ? 'active' : '' ?>">
@@ -62,7 +62,7 @@
                     <?= isset($_SESSION['user']) ? ($_SESSION['user']['role'] == 1 ? 'Admin' : 'User') : '' ?>
                 </span>
             </div>
-            <a href="<? BASE_URL . '?action=logout' ?>"><i class="fas fa-sign-out-alt logout-icon"></i></a>
+            <a href="<?= BASE_URL . '?action=logout' ?>"><i class="fas fa-sign-out-alt logout-icon"></i></a>
         </div>
 
     </div>

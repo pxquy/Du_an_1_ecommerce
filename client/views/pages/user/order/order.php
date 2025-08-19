@@ -52,7 +52,7 @@
                     </div>
 
                 </div>
-                <!-- Product Actions -->
+                <!-- Product Actions
                 <div class="product-actions">
                     <form method="GET" action="index.php" class="product-filters">
                         <input type="hidden" name="router" value="user/orders">
@@ -90,88 +90,50 @@
                         </button>
                     </form>
 
-                </div>
+                </div> -->
 
                 <!-- Products Table -->
-                <div class="table-container">
-                    <table class="products-table">
-                        <thead>
-                            <tr>
-                                <th>
-                                    <div class="checkbox-container">
-                                        <input type="checkbox" id="selectAll">
-                                        <label for="selectAll"></label>
-                                    </div>
-                                </th>
-                                <th>Mã đơn hàng</th>
-                                <th>Tên khách hàng</th>
-                                <th>Ngày đặt</th>
-                                <th>Tổng tiền</th>
-                                <th>Trạng thái</th>
-                                <th>Hành động</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php if ($orders): ?>
-                                <?php foreach ($orders as $row): ?>
-                                    <tr>
-                                        <td>
-                                            <div class="checkbox-container">
-                                                <input type="checkbox" id="product1">
-                                                <label for="product1"></label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="product-details">
-                                                <p class="product-name">#QSS<?= $row["id"] ?></p>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="product-details">
-                                                <p class="product-name"><?= $row["fullName"] ?></p>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="product-details">
-                                                <p class="product-name"><?= date("d/m/Y", strtotime($row["createdAt"])) ?></p>
-                                            </div>
-                                        </td>
-                                        <td><?= formatCurrency($row["total"], "vn") ?></td>
-                                        <td><span
-                                                class="status-badge <?= formatClassOrderStatus($row["status"]) ?>"><?= formatOrderStatus($row["status"]) ?></span>
-                                        </td>
-                                        <td>
-                                            <div class="action-buttons">
-                                                <a href="index.php?router=user/orders/detail&id=<?= $row["id"] ?>"
-                                                    class="action-btn edit-btn" data-id="<?= $row["id"] ?>">
-                                                    <i class="fas fa-edit"></i>
-                                                </a>
-                                                <?php if ($row["status"] == 1 || $row["status"] == 2) : ?>
-                                                    <a href="index.php?router=user/orders/cancel&id=<?= $row["id"] ?>"
-                                                        class="action-btn delete-btn"
-                                                        onclick="return confirm('Bạn có chắc chắn huỷ đơn hàng này không?')">
-                                                        <i class="fas fa-trash"></i>
-                                                    </a>
-                                                <?php endif; ?>
-                                                <?php if ($row["status"] == 3) : ?>
-                                                    <a href="index.php?router=user/orders/confirm&id=<?= $row["id"] ?>"
-                                                        class="action-btn confirm-btn"
-                                                        onclick="return confirm('Bạn đã nhận được hàng và trả tiền cho người bán?')">
-                                                        <i class="fa-solid fa-circle-check"></i>
-                                                    </a>
-                                                <?php endif; ?>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            <?php else: ?>
-                                <tr>
-                                    <td colspan="6" class="text-center">Không có đơn hàng nào.</td>
-                                </tr>
-                            <?php endif; ?>
-                        </tbody>
-                    </table>
+                <div class="orders-container">
+                    <?php if ($orders): ?>
+                        <?php foreach ($orders as $row): ?>
+                            <div class="order-card">
+                                <div class="order-header">
+                                    <span class="order-id">#QSS<?= $row["id"] ?></span>
+                                    <span class="status-badge <?= formatClassOrderStatus($row["status"]) ?>">
+                                        <?= formatOrderStatus($row["status"]) ?>
+                                    </span>
+                                </div>
+                                <div class="order-info">
+                                    <p><strong>Khách hàng:</strong> <?= $row["fullName"] ?></p>
+                                    <p><strong>Ngày đặt:</strong> <?= date("d/m/Y", strtotime($row["createdAt"])) ?></p>
+                                    <p><strong>Tổng tiền:</strong> <?= formatCurrency($row["total"], "vn") ?></p>
+                                </div>
+                                <div class="order-actions">
+                                    <a href="index.php?router=user/orders/detail&id=<?= $row["id"] ?>" class="btn-action btn-detail">
+                                        <i class="fas fa-eye"></i> Xem chi tiết đơn hàng
+                                    </a>
+                                    <?php if ($row["status"] == 1 || $row["status"] == 2): ?>
+                                        <a href="index.php?router=user/orders/cancel&id=<?= $row["id"] ?>"
+                                            class="btn-action btn-cancel"
+                                            onclick="return confirm('Bạn có chắc chắn huỷ đơn hàng này không?')">
+                                            <i class="fas fa-times-circle"></i> Huỷ
+                                        </a>
+                                    <?php endif; ?>
+                                    <?php if ($row["status"] == 3): ?>
+                                        <a href="index.php?router=user/orders/confirm&id=<?= $row["id"] ?>"
+                                            class="btn-action btn-confirm"
+                                            onclick="return confirm('Bạn đã nhận được hàng và trả tiền cho người bán?')">
+                                            <i class="fa-solid fa-circle-check"></i> Đã nhận hàng
+                                        </a>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <p class="no-orders">Không có đơn hàng nào.</p>
+                    <?php endif; ?>
                 </div>
+
 
             </div>
         </main>

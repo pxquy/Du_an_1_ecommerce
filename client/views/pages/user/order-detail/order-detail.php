@@ -97,7 +97,7 @@
                                     <div class="order-item">
                                         <div class="item-product">
                                             <div class="item-image">
-                                                <img src="./assets/uploads/product/<?= $orderDetail['hinh'] ?>" alt="<?= $orderDetail['ten_san_pham'] ?>">
+                                                <img src="<?= BASE_ASSETS_UPLOADS . $orderDetail['hinh'] ?>" alt="<?= $orderDetail['ten_san_pham'] ?>">
                                             </div>
                                             <div class="item-details">
                                                 <h4 class="item-title"><?= $orderDetail['ten_san_pham'] ?></h4>

@@ -85,16 +85,13 @@
 
 .cart-header-price,
 .cart-header-quantity,
-.cart-header-subtotal {
+.cart-header-subtotal,
+.cart-header-action {
   width: 15%;
   font-size: 14px;
   font-weight: 600;
   color: #333;
   text-align: center;
-}
-
-.cart-header-action {
-  width: 5%;
 }
 
 .cart-item {
@@ -165,7 +162,8 @@
 
 .cart-item-price,
 .cart-item-quantity,
-.cart-item-subtotal {
+.cart-item-subtotal,
+.cart-item-action {
   width: 15%;
   text-align: center;
 }
@@ -183,8 +181,9 @@
 }
 
 .cart-item-action {
-  width: 5%;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .remove-item-btn {
