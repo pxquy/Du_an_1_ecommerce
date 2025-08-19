@@ -71,7 +71,7 @@ class SignupController
             if ($data['avatarUrl']['size'] > 0) {
                 $data['avatarUrl'] = upload_file('users', $data['avatarUrl']);
             } else {
-                $data['avatarUrl'] = null;
+                $data['avatarUrl'] = "https://bayotech.vn/wp-content/uploads/2025/04/avatar-trang-40.jpeg?v=1751861753";
             }
 
             // Chèn dữ liệu user

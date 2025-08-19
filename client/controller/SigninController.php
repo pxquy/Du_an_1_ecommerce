@@ -25,6 +25,8 @@ class SigninController
 
             if (empty($email) || empty($password)) {
                 throw new Exception("Email và mật khẩu không được bỏ trống");
+                header('Location: ' . BASE_URL . "?action=form_signin");
+                exit();
             }
 
             // Lấy người dùng theo email
@@ -36,18 +38,15 @@ class SigninController
 
             if (empty($user)) {
                 $_SESSION['error_message'] = "Email không tồn tại";
+                header('Location: ' . BASE_URL . "?action=form_signin");
+                exit();
             }
-            // echo 'Nhập: ' . $password . "<br>";
-            // echo 'Trong DB: ' . $user['password'] . "<br>";
-            // var_dump(password_verify($password, $user['password']));
-            // die();
-
-            // $user = $user[0];
-            // debug($user);
 
             // Kiểm tra password
             if (!password_verify($password, $user['password'])) {
                 $_SESSION['error_message'] = "Mật khẩu không chính xác";
+                header('Location: ' . BASE_URL . "?action=form_signin");
+                exit();
             }
 
 

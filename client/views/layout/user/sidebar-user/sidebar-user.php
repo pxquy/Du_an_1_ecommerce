@@ -54,7 +54,7 @@
     <div class="sidebar-footer">
         <div class="user-profile">
             <div class="avatar">
-                <img src="<?= isset($_SESSION['user']) ? './assets/uploads/user/' . $_SESSION['user']['avatarUrl'] : '' ?>" alt="User">
+                <img src="<?= isset($_SESSION['user']) ? $_SESSION['user']['avatarUrl'] : '' ?>" alt="User">
             </div>
             <div class="user-info">
                 <span class="user-name"><?= isset($_SESSION['user']) ? $_SESSION['user']['fullname'] : '' ?></span>

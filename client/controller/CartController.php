@@ -78,4 +78,8 @@ class CartController
         header('Location:' . BASE_URL . '?action=my_cart');
         exit();
     }
+    public function getCartCount($userId)
+    {
+        return $this->cartModel->getTotalItems($userId);
+    }
 }
