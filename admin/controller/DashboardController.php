@@ -18,6 +18,8 @@ class DashboardController
         $newUser = $this->dashBoard->newUsers();
         $totalOrder = $this->dashBoard->totalOrders();
         $recentOrders = $this->dashBoard->recentOrders();
+        $ongoingOrder = $this->dashBoard->ongoingOrder();
+        // debug($ongoingOrder);
 
         // Chuẩn hóa dữ liệu cho chart
         $monthsLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];

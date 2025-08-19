@@ -11,8 +11,8 @@
                 <?= number_format($revenue ?? 0, 0, ',', '.') ?>₫
             </div>
             <p class="stats-description">
-                <i class="fas fa-arrow-up trend-up"></i>
-                <span class="trend-text trend-up">+20.1%</span> so với tháng trước
+                <!-- <i class="fas fa-arrow-up trend-up"></i> -->
+                <!-- <span class="trend-text trend-up">+20.1%</span> so với tháng trước -->
             </p>
         </div>
     </div>
@@ -26,8 +26,8 @@
         <div class="stats-content">
             <div class="stats-value"><?= $newUser ?></div>
             <p class="stats-description">
-                <i class="fas fa-arrow-up trend-up"></i>
-                <span class="trend-text trend-up">+180.1%</span> so với tháng trước
+                <!-- <i class="fas fa-arrow-up trend-up"></i> -->
+                <!-- <span class="trend-text trend-up">+180.1%</span> so với tháng trước -->
             </p>
         </div>
     </div>
@@ -41,8 +41,23 @@
         <div class="stats-content">
             <div class="stats-value"><?= $totalOrder ?></div>
             <p class="stats-description">
-                <i class="fas fa-arrow-up trend-up"></i>
-                <span class="trend-text trend-up">+19%</span> so với tháng trước
+                <!-- <i class="fas fa-arrow-up trend-up"></i> -->
+                <!-- <span class="trend-text trend-up">+19%</span> so với tháng trước -->
+            </p>
+        </div>
+    </div>
+    <div class="stats-card">
+        <div class="stats-header">
+            <h3 class="stats-title">Đơn hàng đang chờ xử lý</h3>
+            <div class="stats-icon">
+                <i class="fas fa-shopping-cart"></i>
+            </div>
+        </div>
+        <div class="stats-content">
+            <div class="stats-value"><?= $ongoingOrder ?></div>
+            <p class="stats-description">
+                <!-- <i class="fas fa-arrow-up trend-up"></i> -->
+                <!-- <span class="trend-text trend-up">+19%</span> so với tháng trước -->
             </p>
         </div>
     </div>
@@ -92,6 +107,7 @@
     const ordersData = <?= json_encode($seriesOrders, JSON_UNESCAPED_UNICODE) ?>;
     const categories = <?= json_encode($monthsLabels, JSON_UNESCAPED_UNICODE) ?>;
     const yearLabel = <?= json_encode($year) ?>;
+    // console.log(revenueData);
 
     const options = {
         series: [

@@ -54,6 +54,20 @@ class DashBoard extends BaseModel
         return $stmt->fetchAll();
     }
 
+    public function ongoingOrder()
+    {
+        $sql = "
+                SELECT COUNT(*)
+                FROM orders o
+             
+                WHERE o.status <= 4
+            
+        ";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchColumn();
+    }
+
     /**
      * Doanh thu theo tháng trong năm (đủ 12 tháng).
      * @param int|null $year  Năm cần lấy (mặc định: năm hiện tại)
@@ -83,7 +97,7 @@ class DashBoard extends BaseModel
             LEFT JOIN orders o
                 ON MONTH(o.createdAt) = m
                AND YEAR(o.createdAt) = :year
-               " . ($onlyCompleted ? "AND o.status = '5'" : "") . "
+               " . ($onlyCompleted ? "AND o.status = '4'" : "") . "
             GROUP BY m
             ORDER BY m;
         ";
