@@ -1,6 +1,4 @@
 <?php
-// require_once("./client/controller/client/product-controller/products.php");
-// require_once './client/controller/CartController.php';
 require_once "./client/controller/SignupController.php";
 require_once "./client/controller/SigninController.php";
 require_once "./client/controller/UserController.php";

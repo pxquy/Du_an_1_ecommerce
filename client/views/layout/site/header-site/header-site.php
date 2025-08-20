@@ -1,6 +1,13 @@
 <?php
+require_once("./client/controller/CartController.php");
 $this->brands = new Brand();
 $brands = $this->brands->select("*", "isActive = :isActive", ["isActive" => 1]);
+$cartController = new CartController();
+$cartCount = 0;
+
+if (isset($_SESSION['user'])) {
+    $cartCount = $cartController->getCartCount($_SESSION['user']['id']);
+}
 ?>
 
 
@@ -34,7 +41,9 @@ $brands = $this->brands->select("*", "isActive = :isActive", ["isActive" => 1]);
                 <ul class="nav-list">
                     <?php if (isset($brands)): ?>
                         <?php foreach ($brands as $brand): ?>
-                            <li class="nav-item"><a href="<?= BASE_URL ?> ?action=product&category_id=<?= $brand["title"] ?>"><a href="<?= BASE_URL . '?action=product-brand&brandId=' . $brand['id'] ?>"><?= $brand['title'] ?></a></a></li>
+                            <li class="nav-item"><a href="<?= BASE_URL ?> ?action=product&category_id=<?= $brand["title"] ?>"><a
+                                        href="<?= BASE_URL . '?action=product-brand&brandId=' . $brand['id'] ?>"><?= $brand['title'] ?></a></a>
+                            </li>
                         <?php endforeach; ?>
                     <?php endif; ?>
                     <li class="nav-item"><a href="<?= BASE_URL . "?action=products" ?>">All products</a></li>
@@ -79,7 +88,7 @@ $brands = $this->brands->select("*", "isActive = :isActive", ["isActive" => 1]);
                         <?php if (isset($_SESSION['user'])) : ?>
                             <!-- User avatar for logged in state (hidden by default) -->
                             <div class="user-avatar logged-in">
-                                <img src="./assets/upload/users/<?= $_SESSION['user']['avatarUrl'] ?>" height="40" width="40" alt="User Avatar">
+                                <img src="<?= $_SESSION['user']['avatarUrl'] ?>" height="40" width="40" alt="User Avatar">
                             </div>
                         <?php else : ?>
                             <!-- User icon for logged out state (default) -->
@@ -92,8 +101,10 @@ $brands = $this->brands->select("*", "isActive = :isActive", ["isActive" => 1]);
                     <?php if (isset($_SESSION['user'])) : ?>
                         <!-- Dropdown Menu - Logged In State (hidden by default) -->
                         <div class="user-dropdown-menu logged-in">
-                            <div class="user-greeting">Xin chào, <span class="user-name"><?= $_SESSION['user']['fullname'] ?></span></div>
-                            <a href="<?= isset($_SESSION['user']) &&  $_SESSION['user']['role'] == 1 ? BASE_URL_ADMIN : BASE_URL . '?action=userDashboardPage' ?>" class="dropdown-item">Trang quản trị</a>
+                            <div class="user-greeting">Xin chào, <span
+                                    class="user-name"><?= $_SESSION['user']['fullname'] ?></span></div>
+                            <a href="<?= isset($_SESSION['user']) &&  $_SESSION['user']['role'] == 1 ? BASE_URL_ADMIN : BASE_URL . '?action=userDashboardPage' ?>"
+                                class="dropdown-item">Trang quản trị</a>
                             <a href="<?= BASE_URL . '?action=logout' ?>" class="dropdown-item logout-btn">Đăng xuất</a>
                         </div>
                     <?php else : ?>
@@ -143,7 +154,9 @@ $brands = $this->brands->select("*", "isActive = :isActive", ["isActive" => 1]);
         <ul class="mobile-nav-list">
             <?php if (isset($categories)): ?>
                 <?php foreach ($categories as $category): ?>
-                    <li class="mobile-nav-item"><a href="index.php?router=product&category_id=<?= $category["danh_muc_id"] ?>"><?= $category['ten_danh_muc'] ?></a></li>
+                    <li class="mobile-nav-item"><a
+                            href="index.php?router=product&category_id=<?= $category["danh_muc_id"] ?>"><?= $category['ten_danh_muc'] ?></a>
+                    </li>
                 <?php endforeach; ?>
             <?php endif; ?>
             <!-- <li class="mobile-nav-item mobile-dropdown">

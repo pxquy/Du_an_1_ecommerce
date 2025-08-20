@@ -207,7 +207,6 @@ class OrderController
         unset($inputData['vnp_SecureHash'], $inputData['vnp_SecureHashType']);
 
         ksort($inputData);
-
         $hashDataArr = [];
         foreach ($inputData as $key => $value) {
             $hashDataArr[] = urlencode($key) . "=" . urlencode($value);
@@ -216,10 +215,11 @@ class OrderController
 
         $secureHash = hash_hmac('sha512', $hashData, $vnp_HashSecret);
 
-        // var_dump($hashData, $secureHash, $vnp_SecureHash); die;
-        // debug($_SESSION['vnpay_order']);
+        $orderId = null;
+
         if ($secureHash === $vnp_SecureHash) {
             if ($inputData['vnp_ResponseCode'] == '00') {
+                // Thanh toán thành công
                 $orderInfo = $_SESSION['vnpay_order'] ?? null;
                 if ($orderInfo) {
                     $orderId = $this->orderModel->createOrderVnPay(
@@ -240,12 +240,21 @@ class OrderController
                         $this->cartModel->removeProduct($item['cartProductId'], $item['cartId']);
                     }
 
-
                     unset($_SESSION['vnpay_order']);
                     $_SESSION['success'] = true;
                     $_SESSION['msg'] = "Thanh toán VNPay thành công! Mã đơn #$orderId";
+
+                    // Hiển thị trang xác nhận đơn hàng
+                    $order = $this->orderModel->getOrderById($orderId);
+                    $listOrderDetail = $this->orderModel->getOrderDetails($orderId);
+
+                    $view = 'pages/site/order-complete/order-complete';
+                    $title = "Xác thực đơn hàng";
+                    require_once PATH_VIEW_CLIENT . $view . '.php';
+                    return;
                 }
             } else {
+                // Trường hợp thất bại hoặc hủy
                 $_SESSION['success'] = false;
                 $_SESSION['msg'] = "Thanh toán VNPay thất bại! Mã lỗi: " . $inputData['vnp_ResponseCode'];
             }
@@ -253,17 +262,12 @@ class OrderController
             $_SESSION['success'] = false;
             $_SESSION['msg'] = "Sai chữ ký bảo mật từ VNPay!";
         }
-        // debug(($orderId));
 
-        $order = $this->orderModel->getOrderById($orderId);
-        $listOrderDetail = $this->orderModel->getOrderDetails($orderId);
-        // debug($listOrderDetail);
-        $view = 'pages/site/order-complete/order-complete';
-        $title = "Xác thực đơn hàng";
-        require_once PATH_VIEW_CLIENT . $view . '.php';
-        // header('Location: ' . BASE_URL . '?action=my_order');
-        // exit;
+        // Nếu thất bại hoặc hủy thì quay về trang danh sách đơn hàng
+        header('Location: ' . BASE_URL . '?action=my_order');
+        exit;
     }
+
 
     //tất cả đơn hàng
     public function orderHistory()

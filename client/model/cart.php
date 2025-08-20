@@ -99,4 +99,16 @@ class Cart extends BaseModel
         // Cập nhật tổng tiền giỏ
         $this->updateCartTotal($cartId);
     }
+    public function getTotalItems($userId)
+    {
+        $sql = "
+        SELECT SUM(cp.quantity) 
+        FROM cart_products cp
+        INNER JOIN carts c ON cp.cartId = c.id
+        WHERE c.userId = :userId
+    ";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute(['userId' => $userId]);
+        return (int) $stmt->fetchColumn();
+    }
 }
