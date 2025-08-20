@@ -66,7 +66,6 @@ class ProductController
     public function productDetail()
     {
         $slug = $_GET['slug'] ?? null;
-        $title = "Chi tiết sản phẩm";
         $view = 'pages/site/product-detail/product-detail';
 
         // ===== 1. Lấy thông tin sản phẩm + các ảnh =====
@@ -80,6 +79,10 @@ class ProductController
             'p.slug = ? GROUP BY p.id',
             [$slug]
         );
+        // debug($productDetailRaw);
+
+
+
 
         $productDetail = $productDetailRaw[0] ?? [];
         $images = explode(',', $productDetail['imageUrls'] ?? '');
@@ -134,7 +137,8 @@ class ProductController
         $comments    = $commentResult['data'];   // danh sách bình luận
         $total       = $commentResult['total'];  // tổng số bình luận
         $totalPages  = ceil($total / $limit);
-
+        $title = $productDetail['seoTitle'] ? $productDetail['seoTitle'] : 'Chi tiết sản phẩm';
+        $description = $productDetail['seoDescription'] ? $productDetail['seoDescription'] : '';
         require_once PATH_VIEW_CLIENT . $view . ".php";
     }
 

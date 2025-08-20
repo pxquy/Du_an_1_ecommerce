@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="./client/views/layout/site/header-site/header-site.css">
     <link rel="stylesheet" href="./client/views/layout/site/footer-site/footer-site.css">
     <link rel="stylesheet" href="./client/views/pages/site/product-detail/product-detail.css">
-
+    <meta name="description" content="<?= $description ?>">
     <!-- SEO -->
     <link rel="icon" type="image/png" href="./assets/images/favicon/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="./assets/images/favicon/favicon.svg" />
