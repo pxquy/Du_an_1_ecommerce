@@ -45,7 +45,7 @@ class Order extends BaseModel
      * @param int $status - 1: Chờ xác nhận, 2: Đã xác nhận,...
      * @param int $paymentStatus - 0: Chưa thanh toán, 1: Đã thanh toán
      */
-    public function updateStatus($orderId, $status = 1, $paymentStatus = 0)
+    public function updateStatus($orderId, $status = 4, $paymentStatus = 0)
     {
         $this->setTable($this->table);
         return $this->update([
@@ -114,7 +114,7 @@ class Order extends BaseModel
     {
         // Chỉ huỷ khi đơn thuộc user đó và status = 1 hoặc 2
         $sql = "UPDATE orders
-            SET status = '0'
+            SET status = '5'
             WHERE id = :orderId AND userId = :userId AND status IN (1, 2)";
 
         $stmt = $this->pdo->prepare($sql);
@@ -202,4 +202,13 @@ class Order extends BaseModel
             'updatedAt'     => date('Y-m-d H:i:s'),
         ]);
     }
+    // public function updateStatusOrder($orderId, $userId, $newStatus)
+    // {
+    //     $sql = "UPDATE orders SET status = :status WHERE id = :id AND userId = :userId";
+    //     $stmt = $this->pdo->prepare($sql);
+    //     $stmt->bindValue(':status', (int)$newStatus, PDO::PARAM_INT);
+    //     $stmt->bindValue(':id', (int)$orderId, PDO::PARAM_INT);
+    //     $stmt->bindValue(':userId', (int)$userId, PDO::PARAM_INT);
+    //     return $stmt->execute();
+    // }
 }

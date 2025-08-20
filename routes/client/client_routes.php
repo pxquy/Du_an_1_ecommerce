@@ -30,6 +30,8 @@ match ($action) {
     'create_order' => (new OrderController())->createOrder(), //Hiển thị form tạo đơn hàng
     'store_order' => (new OrderController())->storeOrder(), //tạo đơn hàng
     'order-detail' => (new OrderController())->userOrderDetail(), //Chi tiết đơn hàng
+    'order-cancel' => (new OrderController())->cancel(), //Chi tiết đơn hàng
+    'order-confirm' => (new OrderController())->confirm(), //Chi tiết đơn hàng
     'pay_vnpay' => (new OrderController())->confirm_vnpay(), // chọn thanh toán qua vnpay
     'vnpay_return' => (new OrderController())->vnpayReturn(), // xử lý logic trả về sau khi thanh toán vnpay
     'vnpay_post' => (new OrderController())->vnpayReturn(), // xử lý logic trả về sau khi thanh toán vnpay

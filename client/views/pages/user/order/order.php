@@ -113,14 +113,14 @@
                                         <i class="fas fa-eye"></i> Xem chi tiết đơn hàng
                                     </a>
                                     <?php if ($row["status"] == 1 || $row["status"] == 2): ?>
-                                        <a href="index.php?router=user/orders/cancel&id=<?= $row["id"] ?>"
+                                        <a href="<?= BASE_URL . '?action=order-cancel&orderId=' . $row["id"] ?>"
                                             class="btn-action btn-cancel"
                                             onclick="return confirm('Bạn có chắc chắn huỷ đơn hàng này không?')">
                                             <i class="fas fa-times-circle"></i> Huỷ
                                         </a>
                                     <?php endif; ?>
                                     <?php if ($row["status"] == 3): ?>
-                                        <a href="index.php?router=user/orders/confirm&id=<?= $row["id"] ?>"
+                                        <a href="<?= BASE_URL . '?action=order-confirm&orderId=' . $row["id"] ?>"
                                             class="btn-action btn-confirm"
                                             onclick="return confirm('Bạn đã nhận được hàng và trả tiền cho người bán?')">
                                             <i class="fa-solid fa-circle-check"></i> Đã nhận hàng

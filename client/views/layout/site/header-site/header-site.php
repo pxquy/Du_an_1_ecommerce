@@ -39,6 +39,7 @@ if (isset($_SESSION['user'])) {
             <!-- Desktop Navigation -->
             <nav class="main-nav">
                 <ul class="nav-list">
+                    <li class="nav-item"><a href="<?= BASE_URL . "?action=products" ?>">All products</a></li>
                     <?php if (isset($brands)): ?>
                         <?php foreach ($brands as $brand): ?>
                             <li class="nav-item"><a href="<?= BASE_URL ?> ?action=product&category_id=<?= $brand["title"] ?>"><a
@@ -46,7 +47,7 @@ if (isset($_SESSION['user'])) {
                             </li>
                         <?php endforeach; ?>
                     <?php endif; ?>
-                    <li class="nav-item"><a href="<?= BASE_URL . "?action=products" ?>">All products</a></li>
+
                 </ul>
             </nav>
 
@@ -104,7 +105,7 @@ if (isset($_SESSION['user'])) {
                             <div class="user-greeting">Xin chào, <span
                                     class="user-name"><?= $_SESSION['user']['fullname'] ?></span></div>
                             <a href="<?= isset($_SESSION['user']) &&  $_SESSION['user']['role'] == 1 ? BASE_URL_ADMIN : BASE_URL . '?action=userDashboardPage' ?>"
-                                class="dropdown-item">Trang quản trị</a>
+                                class="dropdown-item"><?= $_SESSION['user']['role'] == 1 ? "Trang quản trị" : "Hồ sơ của tôi" ?></a>
                             <a href="<?= BASE_URL . '?action=logout' ?>" class="dropdown-item logout-btn">Đăng xuất</a>
                         </div>
                     <?php else : ?>

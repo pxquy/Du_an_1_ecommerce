@@ -327,4 +327,51 @@ class OrderController
         $title = "Chi tiết đơn hàng";
         require PATH_VIEW_CLIENT . $view . ".php";
     }
+
+    public function cancel()
+    {
+        require_Login();
+
+        $userId = $_SESSION['user']['id'] ?? null;
+        if (!$userId) {
+            header("Location: " . BASE_URL . "?action=form_signin");
+            exit();
+        }
+        $orderId = isset($_GET["orderId"]) ? $_GET["orderId"] : null;
+        // Cập nhật trạng thái đơn hàng thành 0 = huỷ
+        $res = $this->orderModel->cancelOrder($orderId, $userId);
+        if ($res) {
+            $_SESSION['success_message'] = "Huỷ đơn hàng thành công.";
+        } else {
+            $_SESSION['error_message'] = "Không thể huỷ đơn hàng này.";
+        }
+
+        header("Location: " . BASE_URL . "?action=userOrderPage");
+        exit();
+    }
+
+    // Xác nhận đã nhận hàng
+    public function confirm()
+    {
+        require_Login();
+
+        $userId = $_SESSION['user']['id'] ?? null;
+        if (!$userId) {
+            header("Location: " . BASE_URL . "?action=form_signin");
+            exit();
+        }
+
+        $orderId = isset($_GET["orderId"]) ? $_GET["orderId"] : null;
+
+        // Cập nhật trạng thái đơn hàng thành 4 = đã giao thành công
+        $res = $this->orderModel->updateStatus($orderId);
+        if ($res) {
+            $_SESSION['success_message'] = "Xác nhận nhận hàng thành công.";
+        } else {
+            $_SESSION['error_message'] = "Không thể xác nhận đơn hàng này.";
+        }
+
+        header("Location: " . BASE_URL . "?action=userOrderPage");
+        exit();
+    }
 }

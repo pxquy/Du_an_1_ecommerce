@@ -64,16 +64,16 @@ function formatGender($gioi_tinh)
 function formatPaymentMethod($paymentMethod)
 {
     switch ($paymentMethod) {
-        case 1:
+        case "cod":
             return "Thanh toán khi nhận hàng (COD)";
-        case 2:
+        case "vnpay":
             return "Chuyển khoản ngân hàng";
     }
 }
 
-function formatOrderStatus($trang_thai)
+function formatOrderStatus($status)
 {
-    switch ($trang_thai) {
+    switch ($status) {
         case 1:
             return "Chờ xác nhận";
         case 2:
@@ -88,9 +88,9 @@ function formatOrderStatus($trang_thai)
 }
 
 
-function formatClassOrderStatus($trang_thai)
+function formatClassOrderStatus($status)
 {
-    switch ($trang_thai) {
+    switch ($status) {
         case 1:
             return "confirm";
         case 2:

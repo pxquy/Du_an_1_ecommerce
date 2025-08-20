@@ -17,9 +17,8 @@
 }
 
 .logo img {
-  height: 80px;
+  width: 220px;
 }
-
 /* Desktop Navigation */
 .nav-list {
   display: flex;
