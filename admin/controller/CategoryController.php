@@ -31,7 +31,7 @@ class CategoryController
             }
 
             $view = 'categories/show';
-            $title = "Chi tiết danh mục có ID = $id";
+            $title = "";
 
             require_once PATH_VIEW_ADMIN_MAIN;
 
@@ -119,7 +119,7 @@ class CategoryController
             }
 
             $view = 'categories/edit';
-            $title = "Cập nhật danh mục có ID = $id";
+            $title = "";
 
             require_once PATH_VIEW_ADMIN_MAIN;
 

@@ -10,49 +10,43 @@
             <div class="menu-group">
                 <h3 class="menu-title">DANH MỤC</h3>
                 <ul class="menu-list">
-                    <li class="menu-item <?= !$view ? 'active' : "" ?>">
+                    <li class="menu-item">
                         <a href="<?= BASE_URL_ADMIN ?>" class="menu-link">
                             <i class="fas fa-home"></i>
                             <span class="menu-text">Dashboard</span>
                         </a>
                     </li>
-                    <li class="menu-item <?= $view == 'users/index' ? 'active' : "" ?>">
+                    <li class="menu-item">
                         <a href="<?= BASE_URL_ADMIN . '&action=users-index' ?>" class="menu-link">
                             <i class="fas fa-users"></i>
                             <span class="menu-text">Người dùng</span>
                         </a>
                     </li>
-                    <li class="menu-item <?= $view == 'categories/index' ? 'active' : "" ?> ">
+                    <li class="menu-item ">
                         <a href="<?= BASE_URL_ADMIN . '&action=categories-index' ?>" class="menu-link">
                             <i class="fa-regular fa-rectangle-list"></i>
                             <span class="menu-text">Danh mục</span>
                         </a>
                     </li>
-                    <li class="menu-item <?= $view == 'brands/index' ? 'active' : "" ?> ">
+                    <li class="menu-item ">
                         <a href="<?= BASE_URL_ADMIN . '&action=brands-index' ?>" class="menu-link">
                             <i class="fa-regular fa-copyright"></i>
                             <span class="menu-text">Thương hiệu</span>
                         </a>
                     </li>
-                    <!-- <li class="menu-item <?= $view == 'vouchers/index' ? 'active' : "" ?>">
-                        <a href="<?= BASE_URL_ADMIN . '&action=vouchers-index' ?>" class="menu-link">
-                            <i class="fa-regular fa-file-powerpoint"></i>
-                            <span class="menu-text">Khuyến mãi</span>
-                        </a>
-                    </li> -->
-                    <li class="menu-item <?= $view == 'products/index' ? 'active' : "" ?>">
+                    <li class="menu-item <">
                         <a href="<?= BASE_URL_ADMIN . '&action=products-index' ?>" class="menu-link">
                             <i class="fas fa-shopping-cart"></i>
                             <span class="menu-text">Sản phẩm</span>
                         </a>
                     </li>
-                    <li class="menu-item <?= $view == 'orders/index' ? 'active' : "" ?>">
+                    <li class="menu-item">
                         <a href="<?= BASE_URL_ADMIN . '&action=orders-index' ?>" class="menu-link">
                             <i class="fas fa-file-alt"></i>
                             <span class="menu-text">Đơn hàng</span>
                         </a>
                     </li>
-                    <li class="menu-item <?= $view == 'comments/index' ? 'active' : "" ?>">
+                    <li class="menu-item ">
                         <a href="<?= BASE_URL_ADMIN . '&action=comments-index' ?>" class="menu-link">
                             <i class="fas fa-file-alt"></i>
                             <span class="menu-text">Đánh giá</span>
@@ -104,3 +98,49 @@
         </div>
     </div>
 </aside>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const action = urlParams.get('action') || '';
+
+        // Danh sách keyword tương ứng với menu
+        const actionMap = [
+            'users',
+            'categories',
+            'brands',
+            'products',
+            'orders',
+            'comments',
+            'attributes'
+        ];
+
+        let matched = false;
+
+        for (const key of actionMap) {
+            if (action.includes(key)) {
+                const selector = `a[href*="action=${key}"]`;
+                const link = document.querySelector(selector);
+                if (link) {
+                    const menuItem = link.closest('.menu-item');
+                    if (menuItem) {
+                        menuItem.classList.add('active');
+                        matched = true;
+                    }
+                }
+                break;
+            }
+        }
+
+        // Nếu không khớp action nào → Active Dashboard
+        if (!matched) {
+            const dashboardLink = document.querySelector(`a[href="<?= BASE_URL_ADMIN ?>"]`);
+            if (dashboardLink) {
+                const menuItem = dashboardLink.closest('li');
+                if (menuItem) {
+                    menuItem.classList.add('active');
+                }
+            }
+        }
+    });
+</script>

@@ -201,7 +201,7 @@ if (isset($_SESSION['success'])) {
                         <?= htmlspecialchars($variant[$attrName] ?? '') ?>
                     <?php endforeach; ?>
                 </td>
-                <td><?= $variant['price'] ?></td>
+                <td><?= number_format($variant['price'], 0, ',', '.') ?></td>
                 <td><?= $variant['stock'] ?></td>
             </tr>
         <?php endforeach; ?>

@@ -41,16 +41,16 @@
                     <table class="min-w-full text-sm bg-white">
                         <thead class="bg-gray-50 text-gray-600 text-left">
                             <tr>
-                                <th class="px-3 py-2 w-20">ID</th>
+                                <th class="px-3 py-2 w-20">STT</th>
                                 <th class="px-3 py-2">Name</th>
                                 <th class="px-3 py-2 w-28">Action</th>
                             </tr>
                         </thead>
                         <!-- Bảng Thuộc tính -->
                         <tbody class="divide-y divide-gray-100">
-                            <?php foreach ($attributes as $attr): ?>
+                            <?php foreach ($attributes as $index => $attr): ?>
                                 <tr class="hover:bg-gray-50">
-                                    <td class="px-3 py-2 text-gray-700"><?= $attr['id'] ?></td>
+                                    <td class="px-3 py-2 text-gray-700"><?= $index + 1 ?></td>
                                     <td class="px-3 py-2 text-gray-900"><?= htmlspecialchars($attr['name']) ?></td>
                                     <td class="px-3 py-2">
                                         <div class="flex items-center gap-2">
@@ -106,7 +106,7 @@
                     <?php endforeach; ?>
                 </select>
                 <button id="clearFilter"
-                    class="inline-flex items-center rounded-md border border-gray-300 text-gray-700 text-sm px-3 py-2 hover:bg-gray-50 hover:text-gray-900 transition-colors">
+                    class="inline-flex items-center rounded-md border border-gray-300 text-gray-700 px-2 py-1 hover:bg-gray-50 hover:text-gray-900 transition-colors">
                     Xóa lọc
                 </button>
             </div>
@@ -137,18 +137,18 @@
                     <table class="min-w-full text-sm bg-white" id="valueTable">
                         <thead class="bg-gray-50 text-gray-600 text-left">
                             <tr>
-                                <th class="px-3 py-2 w-20">ID</th>
+                                <th class="px-3 py-2 w-20">STT</th>
                                 <th class="px-3 py-2">Value</th>
                                 <th class="px-3 py-2">Thuộc tính</th>
                                 <th class="px-3 py-2 w-28">Action</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-100">
-                            <?php foreach ($attributeValues as $v): ?>
+                            <?php foreach ($attributeValues as $index => $v): ?>
                                 <?php $attrId = $v['attributeId'];
                                 $attrName = $attributePluck[$attrId] ?? '—'; ?>
                                 <tr class="hover:bg-gray-50" data-attr-id="<?= (int) $attrId ?>">
-                                    <td class="px-3 py-2 text-gray-700"><?= $v['id'] ?></td>
+                                    <td class="px-3 py-2 text-gray-700"><?= $index + 1 ?></td>
                                     <td class="px-3 py-2 text-gray-900"><?= htmlspecialchars($v['value']) ?></td>
                                     <td class="px-3 py-2 text-gray-600"><?= htmlspecialchars($attrName) ?></td>
                                     <td class="px-3 py-2">
