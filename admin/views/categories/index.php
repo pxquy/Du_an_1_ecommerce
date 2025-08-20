@@ -1,4 +1,4 @@
-<a href="<?= BASE_URL_ADMIN . '&action=categories-create' ?>" class="btn btn-primary mb-3">Them moi</a>
+<a href="<?= BASE_URL_ADMIN . '&action=categories-create' ?>" class="btn btn-primary mb-3">Thêm mới</a>
 
 <?php
 if (isset($_SESSION['success'])) {

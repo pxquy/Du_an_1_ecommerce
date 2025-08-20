@@ -8,12 +8,17 @@ if (isset($_SESSION['success'])) {
 }
 ?>
 
-<?php
-if (!empty($_SESSION['errors'])): ?>
+<?php if (!empty($_SESSION['errors'])): ?>
     <div class="alert alert-danger">
         <ul>
-            <?php foreach ($_SESSION['errors'] as $value): ?>
-                <li><?= $value ?></li>
+            <?php foreach ($_SESSION['errors'] as $key => $value): ?>
+                <?php if (is_array($value)): ?>
+                    <?php foreach ($value as $sub): ?>
+                        <li><?= htmlspecialchars($sub) ?></li>
+                    <?php endforeach ?>
+                <?php else: ?>
+                    <li><?= htmlspecialchars($value) ?></li>
+                <?php endif ?>
             <?php endforeach ?>
         </ul>
     </div>
@@ -103,29 +108,47 @@ if (!empty($_SESSION['errors'])): ?>
     <div class="bg-white p-4 rounded mt-3">
         <h5 class="mb-3 mt-3">Chỉnh sửa hình ảnh</h5>
 
+        <!-- Ảnh đại diện -->
         <div class="mb-3 mt-3">
             <label for="thumbnail" class="form-label">Ảnh đại diện:</label>
             <input type="file" class="form-control" id="thumbnail" name="thumbnail" accept="image/*">
             <div id="preview-thumbnail" class="mt-2">
                 <?php if (!empty($product['thumbnail'])): ?>
-                    <img src="<?= BASE_ASSETS_UPLOADS . $product['thumbnail'] ?>" class="h-32 rounded border" />
+                    <div class="relative inline-block" id="thumbnail-wrapper">
+                        <img src="<?= BASE_ASSETS_UPLOADS . $product['thumbnail'] ?>"
+                            class="h-32 w-32 object-cover rounded border" />
+                        <button type="button"
+                            class="absolute top-0 right-0 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm hover:bg-red-600"
+                            onclick="deleteThumbnail()">
+                            ×
+                        </button>
+                    </div>
                 <?php endif ?>
             </div>
         </div>
 
+        <!-- Ảnh khác -->
         <div class="mb-3 mt-3">
             <label for="images" class="form-label">Ảnh khác:</label>
             <input type="file" class="form-control" id="images" name="images[]" multiple accept="image/*">
-            <div id="preview-images" class="mt-2 flex flex-wrap gap-2">
+            <div id="preview-images" class="mt-2 flex flex-wrap gap-3">
                 <?php if (!empty($productImages)): ?>
                     <?php foreach ($productImages as $img): ?>
-                        <img src="<?= BASE_ASSETS_UPLOADS . $img['imageUrl'] ?>" class="h-32 object-cover rounded border" />
+                        <div class="relative inline-block" id="img-<?= $img['id'] ?>">
+                            <img src="<?= BASE_ASSETS_UPLOADS . $img['imageUrl'] ?>"
+                                class="h-32 w-32 object-cover rounded border" />
+                            <button type="button"
+                                class="absolute top-0 right-0 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm hover:bg-red-600"
+                                onclick="deleteImage(<?= $img['id'] ?>)">
+                                ×
+                            </button>
+                        </div>
                     <?php endforeach; ?>
                 <?php endif; ?>
-
             </div>
         </div>
     </div>
+
     <button type="submit" class="btn btn-primary">Submit</button>
 
     <a href="<?= BASE_URL_ADMIN . '&action=products-index' ?>" class="btn btn-secondary">Quay lai</a>
@@ -168,4 +191,37 @@ if (!empty($_SESSION['errors'])): ?>
             }
         });
     });
+
+    function deleteThumbnail() {
+        const wrapper = document.getElementById('thumbnail-wrapper');
+        if (!wrapper) return;
+
+        if (!confirm("Bạn có chắc muốn xoá ảnh đại diện?")) return;
+
+        wrapper.remove();
+
+
+        const hidden = document.createElement('input');
+        hidden.type = 'hidden';
+        hidden.name = 'remove_thumbnail';
+        hidden.value = '1';
+        document.querySelector('form').appendChild(hidden);
+    }
+
+
+    function deleteImage(imageId) {
+        if (!confirm("Bạn có chắc muốn xoá ảnh này?")) return;
+
+        const wrapper = document.getElementById(`img-${imageId}`);
+        if (wrapper) wrapper.remove();
+
+
+        const hidden = document.createElement('input');
+        hidden.type = 'hidden';
+        hidden.name = 'remove_images[]';
+        hidden.value = imageId;
+        document.querySelector('form').appendChild(hidden);
+    }
+
+
 </script>
