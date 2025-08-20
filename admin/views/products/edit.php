@@ -56,7 +56,7 @@ if (isset($_SESSION['success'])) {
             <div class="col">
                 <label for="discount" class="form-label">Giảm giá:</label>
                 <input type="number" class="form-control" id="discount" name="discount" step="0.01" min="0"
-                    max="99999999.99" value="<?= $product['discount'] ?>">
+                    max="99999999.99" value="<?= $product['discount'] ? $product['discount'] : 0 ?>">
             </div>
         </div>
 
