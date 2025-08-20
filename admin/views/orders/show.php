@@ -4,7 +4,7 @@
             class="font-bold text-uppercase text-lg"><?= $order['fullName'] ?? 'N/A' ?></span>
     </p>
     <p><strong>Trạng thái:</strong>
-        <?php if ($order['status'] != 4): ?>
+        <?php if ($order['status'] != 4 && $order['status'] != 5): ?>
         <form method="post" action="<?= BASE_URL_ADMIN ?>&action=orders-updateStatus"
             onsubmit="return confirm('Xác nhận cập nhật trạng thái?')">
             <input type="hidden" name="id" value="<?= $order['id'] ?>">
@@ -18,9 +18,12 @@
             </select>
             <button type="submit" class="btn btn-sm btn-primary">Cập nhật</button>
         </form>
-    <?php else: ?>
+    <?php elseif ($order['status'] == 4): ?>
         <span class="inline-block px-2 py-1 rounded-full font-medium 
                                 bg-green-100 text-green-800">Thành công</span>
+    <?php elseif ($order['status'] == 5): ?>
+        <span class="inline-block px-2 py-1 rounded-full font-medium 
+                                bg-red-100 text-red-800">Hủy</span>
     <?php endif ?>
     </p>
 </div>
