@@ -6,7 +6,6 @@ if (isset($_SESSION['success'])) {
 }
 ?>
 
-<h2>Danh sách bình luận</h2>
 
 <!-- Bộ lọc -->
 <form id="commentFilter" class="d-flex align-items-end gap-2 mb-3" onsubmit="return false;">
@@ -114,7 +113,7 @@ if (isset($_SESSION['success'])) {
                 : `<a href="${BASE}&action=comments-restore&id=${comment.id}" onclick="return confirm('Khôi phục bình luận này?')" class="btn btn-success btn-sm">Khôi phục</a>`;
 
             const replyBtn = comment.isApproved && !comment.parentId
-                ? `<button class="btn btn-link btn-sm text-primary p-0" onclick="toggleReplyForm(${comment.id})">Trả lời</button>`
+                ? `<button class="btn btn-primary" onclick="toggleReplyForm(${comment.id})">Trả lời</button>`
                 : '';
 
             tr.innerHTML = `

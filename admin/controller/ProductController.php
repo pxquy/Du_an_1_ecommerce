@@ -267,7 +267,7 @@ class ProductController
             $categoryPluck = array_column($categories, 'title', 'id');
             $brandPluck = array_column($brands, 'title', 'id');
             $productImages = $this->productImages->select('*', 'productId = :productId', ['productId' => $id]);
-            
+
             require_once PATH_VIEW_ADMIN_MAIN;
         } catch (\Throwable $th) {
             $_SESSION['success'] = false;
@@ -300,7 +300,7 @@ class ProductController
             $_SESSION['errors'] = $this->validateProductData($data);
             $data['slug'] = slugify($data['title']);
 
-            // Kiểm tra slug trùng
+
             if (!empty($this->product->find('*', 'slug = :slug AND id != :id', ['slug' => $data['slug'], 'id' => $id]))) {
                 $_SESSION['errors']['slug'] = 'Tên sản phẩm đã tồn tại.';
             }
@@ -310,20 +310,54 @@ class ProductController
                 throw new Exception('Dữ liệu không hợp lệ');
             }
 
-            // Upload ảnh đại diện nếu có
-            if ($_FILES['thumbnail']['size'] > 0) {
-                $data['thumbnail'] = upload_file('products', $_FILES['thumbnail']);
+
+            if (!empty($_POST['remove_thumbnail'])) {
+                if (!empty($product['thumbnail'])) {
+                    $path = PATH_ASSETS_UPLOADS . 'products/' . $product['thumbnail'];
+                    if (file_exists($path)) {
+                        unlink($path);
+                    }
+                }
+                $data['thumbnail'] = null;
             } else {
-                unset($data['thumbnail']); // Không thay đổi ảnh nếu không upload mới
+
+                if ($_FILES['thumbnail']['size'] > 0) {
+                    $data['thumbnail'] = upload_file('products', $_FILES['thumbnail']);
+                } else {
+                    unset($data['thumbnail']);
+                }
             }
 
             $data['updatedAt'] = date('Y-m-d H:i:s');
-            $rowCount = $this->product->update($data, 'id = :id', ['id' => $id]);
 
-            // Upload ảnh khác nếu có
+
+            unset($data['remove_thumbnail']);
+            unset($data['remove_images']);
+
+
+            $this->product->update($data, 'id = :id', ['id' => $id]);
+
+
+            if (!empty($_POST['remove_images']) && is_array($_POST['remove_images'])) {
+                foreach ($_POST['remove_images'] as $imageId) {
+                    $image = $this->productImages->find('*', 'id = :id', ['id' => $imageId]);
+                    if ($image) {
+                        $imgPath = PATH_ASSETS_UPLOADS . 'products/' . $image['imageUrl'];
+                        if (file_exists($imgPath)) {
+                            unlink($imgPath);
+                        }
+                        $this->productImages->delete('id = :id', ['id' => $imageId]);
+                    }
+                }
+            }
+
+
             $allowedType = ['image/jpg', 'image/jpeg', 'image/png', 'image/gif', 'image/avif'];
             if (isset($_FILES['images'])) {
                 foreach ($_FILES['images']['name'] as $i => $name) {
+                    if ($_FILES['images']['error'][$i] === 4)
+                        continue;
+
                     $image = [
                         'name' => $name,
                         'full_path' => $_FILES['images']['full_path'][$i],
@@ -364,6 +398,7 @@ class ProductController
         header('Location: ' . BASE_URL_ADMIN . '&action=products-show&id=' . $id);
         exit();
     }
+
 
     public function softDelete()
     {

@@ -11,9 +11,9 @@ if (isset($_SESSION['success'])) {
     <div class="d-flex flex-row align-items-center gap-3 flex-grow-1">
         <select class="filter-select" id="roleFilter">
             <option value="">Tất cả vai trò</option>
-            <option value="0">Nhân viên</option>
+            <option value="0">Khách hàng</option>
             <option value="1">Quản lý</option>
-            <option value="2">Khách hàng</option>
+            <option value="2">Nhân viên</option>
         </select>
 
         <select class="filter-select" id="statusFilter">

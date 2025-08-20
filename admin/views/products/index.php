@@ -1,3 +1,20 @@
+<?php if (!empty($_SESSION['errors'])): ?>
+    <div class="alert alert-danger">
+        <ul>
+            <?php foreach ($_SESSION['errors'] as $key => $value): ?>
+                <?php if (is_array($value)): ?>
+                    <?php foreach ($value as $sub): ?>
+                        <li><?= htmlspecialchars($sub) ?></li>
+                    <?php endforeach ?>
+                <?php else: ?>
+                    <li><?= htmlspecialchars($value) ?></li>
+                <?php endif ?>
+            <?php endforeach ?>
+        </ul>
+    </div>
+    <?php unset($_SESSION['errors']); ?>
+<?php endif; ?>
+
 <!-- Bộ lọc & hành động -->
 <div class="d-flex align-items-center justify-content-between gap-4 mb-3">
     <div class="d-flex flex-row align-items-center gap-3 flex-grow-1">
