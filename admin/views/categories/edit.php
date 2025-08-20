@@ -20,7 +20,7 @@
 <form action="<?= BASE_URL_ADMIN . '&action=categories-update&id=' . $category['id'] ?>" method="post"
     enctype="multipart/form-data" class="space-y-6 bg-white rounded-md shadow-md p-4">
     <div class="mb-3 mt-3">
-        <h2 class="text-lg font-semibold mb-4">Cập nhật danh mục</h2>
+        <h2 class="text-lg font-semibold mb-4">Cập nhật danh mục <?= $category['title'] ?></h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
                 <label for="title" class="block text-sm font-medium mb-1">Tên danh mục:</label>

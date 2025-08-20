@@ -33,7 +33,7 @@ class BrandController
             }
 
             $view = 'brands/show';
-            $title = "Chi tiết thương hiệu có ID = $id";
+            $title = "";
 
             require_once PATH_VIEW_ADMIN_MAIN;
 
@@ -124,7 +124,7 @@ class BrandController
             }
 
             $view = 'brands/edit';
-            $title = "Cập nhật thương hiệu: " . $brand['title'];
+            $title = "" ;
 
             require_once PATH_VIEW_ADMIN_MAIN;
 
