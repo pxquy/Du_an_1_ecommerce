@@ -37,7 +37,7 @@ $brands = $this->brands->select("*", "isActive = :isActive", ["isActive" => 1]);
                             <li class="nav-item"><a href="<?= BASE_URL ?> ?action=product&category_id=<?= $brand["title"] ?>"><a href="<?= BASE_URL . '?action=product-brand&brandId=' . $brand['id'] ?>"><?= $brand['title'] ?></a></a></li>
                         <?php endforeach; ?>
                     <?php endif; ?>
-                    </li>
+                    <li class="nav-item"><a href="<?= BASE_URL . "?action=products" ?>">All products</a></li>
                 </ul>
             </nav>
 

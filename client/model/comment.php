@@ -63,4 +63,20 @@ class Comment extends BaseModel
             'total' => $total
         ];
     }
+
+    public function getRatingData(int $productId): array
+    {
+        $sql = "
+        SELECT
+            ROUND(AVG(rating), 1) AS averageRating,
+            COUNT(rating)         AS ratingCount
+        FROM comments
+        WHERE productId = ? AND isApproved = 1 AND rating IS NOT NULL
+    ";
+        $row = $this->selectRaw($sql, [$productId])[0] ?? [];
+        return [
+            'averageRating' => isset($row['averageRating']) ? (float)$row['averageRating'] : 0.0,
+            'ratingCount'   => isset($row['ratingCount'])   ? (int)$row['ratingCount']   : 0,
+        ];
+    }
 }

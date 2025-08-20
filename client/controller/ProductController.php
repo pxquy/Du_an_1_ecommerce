@@ -127,6 +127,8 @@ class ProductController
         $page = isset($_GET['cmt_page']) ? max(1, intval($_GET['cmt_page'])) : 1;
         $offset = ($page - 1) * $limit;
 
+        $ratingData = $commentModel->getRatingData((int)$productDetail['id']);
+
         $commentResult = $commentModel->getCommentsByProduct($productDetail['id'], $limit, $offset);
 
         $comments    = $commentResult['data'];   // danh sách bình luận
@@ -152,5 +154,22 @@ class ProductController
         $title = $keyword;
         $view  = 'pages/site/product-brand/product-brand';
         require_once PATH_VIEW_CLIENT . $view . '.php';
+    }
+
+    public function getAllProducts()
+    {
+
+        $limit = 8; // số sản phẩm mỗi trang
+        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        $offset = ($page - 1) * $limit;
+
+        $products = $this->client->getAllProductsPaginate($limit, $offset);
+        $totalProducts = $this->client->countAllProducts();
+        $totalPages = ceil($totalProducts / $limit);
+
+        $view = "pages/site/products/products";
+        $title = "Danh sách sản phẩm";
+
+        require_once PATH_VIEW_CLIENT . $view . ".php";
     }
 }

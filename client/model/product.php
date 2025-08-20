@@ -101,4 +101,27 @@ class Product extends BaseModel
         $stmt->execute();
         return (int)$stmt->fetchColumn();
     }
+
+    public function getAllProductsPaginate($limit = 10, $offset = 0)
+    {
+        $sql = "SELECT * FROM {$this->table} 
+            WHERE isActive = 1 
+            ORDER BY id DESC 
+            LIMIT :limit OFFSET :offset";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(":limit", (int)$limit, PDO::PARAM_INT);
+        $stmt->bindValue(":offset", (int)$offset, PDO::PARAM_INT);
+
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function countAllProducts()
+    {
+        $sql = "SELECT COUNT(*) FROM {$this->table} WHERE isActive = 1";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        return (int)$stmt->fetchColumn();
+    }
 }

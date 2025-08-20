@@ -124,27 +124,31 @@
                             </div>
                         </div>
                         <?php
-                        $trung_binh = $averageRating['trung_binh'] ?? 0;
-                        $tong_danh_gia = $averageRating['tong'] ?? 0;
-                        $nguyen = floor($trung_binh);
-                        $le = $trung_binh - $nguyen;
+                        $avgRating   = $ratingData['averageRating'] ?? 0;   // điểm trung bình
+                        $ratingCount = $ratingData['ratingCount'] ?? 0;     // tổng số lượt
+
+                        $ratingInt   = floor($avgRating);   // phần nguyên
+                        $ratingFrac  = $avgRating - $ratingInt; // phần lẻ
                         ?>
-                        <div class="product-rating">
-                            <div class="rating-stars">
+                        <div class="product-rating" style="display:flex; align-items:center; gap:8px;">
+                            <div class="rating-stars" style="color:#f5a623;">
                                 <?php for ($i = 1; $i <= 5; $i++): ?>
-                                    <?php if ($i <= $nguyen): ?>
+                                    <?php if ($i <= $ratingInt): ?>
                                         <i class="fas fa-star"></i>
-                                    <?php elseif ($le >= 0.25 && $le <= 0.75 && $i == $nguyen + 1): ?>
+                                    <?php elseif ($i == $ratingInt + 1 && $ratingFrac >= 0.25 && $ratingFrac <= 0.75): ?>
                                         <i class="fas fa-star-half-alt"></i>
                                     <?php else: ?>
                                         <i class="far fa-star"></i>
                                     <?php endif; ?>
                                 <?php endfor; ?>
                             </div>
-                            <div class="rating-count">
-                                <a href="#reviews-tab" onclick="handleClickOpenReview()"><?= $tong_danh_gia ?> đánh giá</a>
+                            <div class="rating-count" style="font-size:14px; color:#555;">
+                                <a href="#reviews-tab" onclick="handleClickOpenReview()" style="color:inherit; text-decoration:none;">
+                                    <?= number_format($avgRating, 1) ?>/5 (<?= $ratingCount ?> đánh giá)
+                                </a>
                             </div>
                         </div>
+
 
                         <div class="product-price">
                             <?php if (isset($variantId)) : ?>
@@ -796,7 +800,6 @@
             }
         });
 
-
         const variantsData = <?= json_encode($variants) ?>;
         const variantAttributes = <?= json_encode($variantAttributes) ?>;
 
@@ -901,6 +904,41 @@
                 quantityInput.value = value + 1;
             }
         });
+
+        const ratingStars = document.querySelectorAll('.rating-select i');
+        const ratingContainer = document.querySelector('.rating-select');
+        const ratingInput = document.getElementById('ratingInput');
+
+        ratingStars.forEach((star, index) => {
+            const ratingValue = index + 1;
+
+            star.addEventListener('mouseover', () => {
+                highlightStars(ratingValue);
+            });
+
+            star.addEventListener('mouseout', () => {
+                const selectedRating = parseInt(ratingContainer.getAttribute('data-selected')) || 0;
+                highlightStars(selectedRating);
+            });
+
+            star.addEventListener('click', () => {
+                ratingContainer.setAttribute('data-selected', ratingValue);
+                ratingInput.value = ratingValue;
+                highlightStars(ratingValue);
+            });
+        });
+
+        function highlightStars(rating) {
+            ratingStars.forEach((star, index) => {
+                if (index < rating) {
+                    star.classList.remove('far');
+                    star.classList.add('fas');
+                } else {
+                    star.classList.remove('fas');
+                    star.classList.add('far');
+                }
+            });
+        }
     </script>
 
 </body>
