@@ -47,7 +47,7 @@ if (isset($_SESSION['success'])) {
                                     class="fas fa-edit text-slate-500 group-hover:text-yellow-500"></i></a>
                             <?php if ($category['isActive'] == 1): ?>
                                 <a href="<?= BASE_URL_ADMIN . '&action=categories-softDelete&id=' . $category['id'] ?>"
-                                    onclick="return confirm('co chac xoa khong?')"
+                                    onclick="return confirm('Có chắc xóa danh mục này?')"
                                     class="group w-8 h-8 flex items-center justify-center rounded transition-all duration-200 text-slate-500 hover:bg-slate-100"><i
                                         class="fas fa-trash text-slate-500 group-hover:text-red-500"></i></a>
                             <?php else: ?>

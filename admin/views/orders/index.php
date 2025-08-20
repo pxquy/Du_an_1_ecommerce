@@ -121,7 +121,7 @@ if (isset($_SESSION['success'])) {
                 let statusOptions = '';
                 Object.entries(statusText).forEach(([key, label]) => {
                     key = parseInt(key);
-                    if (key >= currentStatus && key !== 5) {
+                    if (key >= currentStatus && key !== 5 ) {
                         const selected = key === currentStatus ? 'selected' : '';
                         statusOptions += `<option value="${key}" ${selected}>${label}</option>`;
                     }
