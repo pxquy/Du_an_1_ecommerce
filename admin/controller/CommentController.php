@@ -11,7 +11,7 @@ class CommentController
     public function index()
     {
         $view = 'comment/index';
-        $title = 'Danh sách bình luận';
+        $title = 'Danh sách đánh giá';
 
         // Lấy tham số filter/sort/pagination từ query
         $page = isset($_GET['page']) ? max(1, (int) $_GET['page']) : 1;

@@ -55,7 +55,7 @@
                     <li class="menu-item <?= $view == 'comments/index' ? 'active' : "" ?>">
                         <a href="<?= BASE_URL_ADMIN . '&action=comments-index' ?>" class="menu-link">
                             <i class="fas fa-file-alt"></i>
-                            <span class="menu-text">Bình luận</span>
+                            <span class="menu-text">Đánh giá</span>
                         </a>
                     </li>
                     <li class="menu-item">

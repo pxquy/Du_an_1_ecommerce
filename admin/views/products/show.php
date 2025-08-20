@@ -1,6 +1,11 @@
 <?php
-// debug($_SESSION['user'])
+if (isset($_SESSION['success'])) {
+    $class = $_SESSION['success'] ? 'alert-success' : 'alert-danger';
+    echo "<div class='alert $class'>{$_SESSION['msg']}</div>";
 
+    unset($_SESSION['success']);
+    unset($_SESSION['msg']);
+}
 ?>
 
 
@@ -48,10 +53,34 @@
             <h2 class="fw-bold mb-2"><?= $productDetail['title'] ?></h2>
 
             <div class="d-flex align-items-center text-warning mb-3 fs-5">
-                <span class="me-2">★★★★★</span>
-                <span class="text-dark"><?= $productDetail['averageRating'] ?> (<?= $productDetail['ratingCount'] ?>
-                    đánh giá)</span>
+                <span class="me-2">
+                    <?php
+                    $averageRating = $productDetail['averageRating'];
+                    $fullStars = floor($averageRating);
+                    $halfStar = ($averageRating - $fullStars) >= 0.5 ? 1 : 0;
+                    $emptyStars = 5 - $fullStars - $halfStar;
+
+                    // Hiển thị sao đầy
+                    for ($i = 0; $i < $fullStars; $i++) {
+                        echo '★';
+                    }
+
+                    // Hiển thị nửa sao
+                    if ($halfStar) {
+                        echo '⯪';
+                    }
+
+                    // Hiển thị sao rỗng
+                    for ($i = 0; $i < $emptyStars; $i++) {
+                        echo '☆';
+                    }
+                    ?>
+                </span>
+                <span class="text-dark">
+                    <?= number_format($averageRating, 1) ?> (<?= $productDetail['ratingCount'] ?> đánh giá)
+                </span>
             </div>
+
 
             <div class="d-flex align-items-center gap-3 mb-4">
                 <h2 class="fw-bold text-danger mb-0">
@@ -143,10 +172,10 @@
 
 
 
-<h3 class="mt-5 mb-3">📦 Biến thể của sản phẩm</h3>
+<h3 class="mt-5 mb-3"> Biến thể của sản phẩm</h3>
 <a href="<?= BASE_URL_ADMIN . '&action=variants-create&productId=' . $productDetail['id'] ?>"
     class="btn btn-primary mb-3">
-    ➕ Thêm mới biến thể
+    Thêm mới biến thể
 </a>
 <a href="<?= BASE_URL_ADMIN . '&action=variants-edit&productId=' . $productDetail['id'] ?>"
     class="btn btn-warning mb-3">
@@ -181,12 +210,12 @@
 
 <!-- Nút quay lại -->
 <div class="mt-4">
-    <a href="<?= BASE_URL_ADMIN . '&action=products-edit&id=' . $productDetail['id'] ?>" class="btn btn-warning">✏️ Sửa
+    <a href="<?= BASE_URL_ADMIN . '&action=products-edit&id=' . $productDetail['id'] ?>" class="btn btn-warning">Sửa
         sản
         phẩm</a>
     <a href="<?= BASE_URL_ADMIN . '&action=products-delete&id=' . $productDetail['id'] ?>"
-        onclick="return confirm('Bạn có chắc muốn xoá sản phẩm này?')" class="btn btn-danger">🗑️ Xoá</a>
-    <a href="<?= BASE_URL_ADMIN . '&action=products-index' ?>" class="btn btn-secondary">⬅️ Quay lại danh sách</a>
+        onclick="return confirm('Bạn có chắc muốn xoá sản phẩm này?')" class="btn btn-danger">Xoá</a>
+    <a href="<?= BASE_URL_ADMIN . '&action=products-index' ?>" class="btn btn-secondary">Quay lại danh sách</a>
 </div>
 
 <!-- CSS thêm để đánh dấu thumbnail đang chọn -->
