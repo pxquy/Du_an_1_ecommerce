@@ -71,15 +71,20 @@
                         <div class="gallery-thumbs">
                             <div class="swiper gallery-thumbs-swiper">
                                 <div class="swiper-box">
-                                    <?php foreach ($images as $image) : ?>
-                                        <div class="swiper-slide">
+                                    <div class="swiper-slide">
+                                        <div class="thumb-image">
+                                            <img
+                                                src="<?= BASE_ASSETS_UPLOADS . $productDetail["thumbnail"] ?>" alt="<?= $title ?>">
+                                        </div>
+                                        <?php foreach ($images as $image) : ?>
                                             <div class="thumb-image">
                                                 <img
                                                     src="<?= BASE_ASSETS_UPLOADS . $image ?>"
                                                     alt="<?= $title ?>" />
                                             </div>
-                                        </div>
-                                    <?php endforeach; ?>
+
+                                        <?php endforeach; ?>
+                                    </div>
                                     <!-- <div class="swiper-slide">
                                         <div class="thumb-image">
                                             <img
@@ -591,7 +596,7 @@
                                     <div class="swiper-slide">
 
                                         <div class="product-card">
-                                            <div class="product-image">
+                                            <div class="product-images">
                                                 <a href="?action=product_detail&slug=<?= $related['slug'] ?>">
                                                     <img src="<?= BASE_ASSETS_UPLOADS . $related['thumbnail'] ?>" alt="<?= $related['title'] ?>" width="300">
                                                 </a>
@@ -939,6 +944,16 @@
                 }
             });
         }
+
+        const mainImage = document.querySelector(".gallery-main img");
+        const thumbs = document.querySelectorAll(".gallery-thumbs .thumb-image img");
+
+        thumbs.forEach((thumb) => {
+            thumb.addEventListener("click", function() {
+                mainImage.src = this.src; // đổi ảnh to
+                mainImage.alt = this.alt;
+            });
+        })
     </script>
 
 </body>
