@@ -105,7 +105,8 @@
                             <a class="product-card" href="<?= BASE_URL . '?action=product_detail&slug=' . $product['slug'] ?>">
                                 <!-- <div class="product-badge">-16%</div> -->
                                 <div class="product-image">
-                                    <img src="<?= BASE_ASSETS_UPLOADS . $product['thumbnail'] ?>" he alt="<?= $product['title'] ?>">
+                                    <img src="<?= BASE_ASSETS_UPLOADS . $product['thumbnail'] ?>" he
+                                        alt="<?= $product['title'] ?>">
                                     <button class="wishlist-button"><i class="far fa-heart"></i></button>
                                 </div>
                                 <div class="product-info">
@@ -136,7 +137,8 @@
                             <a class="product-card" href="<?= BASE_URL . '?action=product_detail&slug=' . $product['slug'] ?>">
                                 <!-- <div class="product-badge">-16%</div> -->
                                 <div class="product-image">
-                                    <img src="<?= BASE_ASSETS_UPLOADS . $product['thumbnail'] ?>" he alt="<?= $product['title'] ?>">
+                                    <img src="<?= BASE_ASSETS_UPLOADS . $product['thumbnail'] ?>" he
+                                        alt="<?= $product['title'] ?>">
                                     <button class="wishlist-button"><i class="far fa-heart"></i></button>
                                 </div>
                                 <div class="product-info">
@@ -171,7 +173,7 @@
 
     <script src="./client/views/layout/site/layout-site.js"></script>
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             $(".slider").slick({
                 slidesToShow: 1,
                 slidesToScroll: 1,
