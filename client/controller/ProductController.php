@@ -1,6 +1,6 @@
 <?php
-require_once './client/model/Product.php';
-require_once './client/model/Comment.php';
+require_once './client/model/product.php';
+require_once './client/model/comment.php';
 class ProductController
 {
     private $client, $brands;
@@ -86,8 +86,7 @@ class ProductController
 
         $productDetail = $productDetailRaw[0] ?? [];
         $images = explode(',', $productDetail['imageUrls'] ?? '');
-        $relatedProducts = $this->client->paginate(1, 4, "*", 'brandId = :brandId', ["brandId" => $productDetail['brandId']]);
-
+        $relatedProducts = $this->client->getRelatedProducts($productDetail['brandId'], $productDetail['id'], 4);
         if (empty($productDetail)) {
             header("Location: " . BASE_URL);
             exit;

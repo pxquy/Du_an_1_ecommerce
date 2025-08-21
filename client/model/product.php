@@ -124,4 +124,24 @@ class Product extends BaseModel
         $stmt->execute();
         return (int)$stmt->fetchColumn();
     }
+    public function getRelatedProducts(int $brandId, int $currentId, int $limit = 4)
+    {
+        $sql = "SELECT p.*, pi.imageUrl AS firstImage
+            FROM products AS p
+            LEFT JOIN product_images AS pi
+              ON pi.productId = p.id AND pi.sortOrder = 1
+          
+            WHERE p.brandId = :brandId
+              AND p.id <> :currentId
+            ORDER BY p.id DESC
+            LIMIT :limit";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(':brandId', $brandId, \PDO::PARAM_INT);
+        $stmt->bindValue(':currentId', $currentId, \PDO::PARAM_INT);
+        $stmt->bindValue(':limit', $limit, \PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+    }
 }
