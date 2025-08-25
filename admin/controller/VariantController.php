@@ -39,7 +39,6 @@ class VariantController
             $name = "Chi tiet biến thể co Id = $id";
 
             require_once PATH_VIEW_ADMIN_MAIN;
-
         } catch (\Throwable $th) {
             $_SESSION['success'] = false;
             $_SESSION['msg'] = $th->getMessage();
@@ -104,8 +103,8 @@ class VariantController
                     foreach ($valueIds as $valueId) {
                         // Kiểm tra xem biến thể đã có valueId cùng attribute chưa
                         $isUsed = $this->variantValue->isAttributeUsedInVariant($variantId, $valueId);
-                        echo "Variant: $variantId, valueId: $valueId, isUsed: ";
-                        var_dump($isUsed);
+                        // echo "Variant: $variantId, valueId: $valueId, isUsed: ";
+                        // var_dump($isUsed);
                         if (!$isUsed) {
                             $this->variantValue->insert([
                                 'variantId' => $variantId,
@@ -114,7 +113,6 @@ class VariantController
                         }
                     }
                 } else {
-
                 }
             }
             $_SESSION['success'] = true;
@@ -342,6 +340,4 @@ class VariantController
         header('Location: ' . BASE_URL_ADMIN . '&action=variants-update&productId=' . $productId);
         exit();
     }
-
-
 }

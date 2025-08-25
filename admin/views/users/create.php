@@ -69,7 +69,7 @@ if (!empty($_SESSION['errors'])): ?>
             <select name="role" id="role" class="form-select">
                 <option value="0">Người dùng</option>
                 <option value="1">Quản lý</option>
-                <option value="2">Nhân viên</option>
+                <!-- <option value="2">Nhân viên</option> -->
             </select>
         </div>
         <div class="mb-3">

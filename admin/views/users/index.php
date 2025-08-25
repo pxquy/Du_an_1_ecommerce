@@ -13,7 +13,7 @@ if (isset($_SESSION['success'])) {
             <option value="">Tất cả vai trò</option>
             <option value="0">Khách hàng</option>
             <option value="1">Quản lý</option>
-            <option value="2">Nhân viên</option>
+            <!-- <option value="2">Nhân viên</option> -->
         </select>
 
         <select class="filter-select" id="statusFilter">
@@ -68,7 +68,13 @@ if (isset($_SESSION['success'])) {
         const status = document.getElementById('statusFilter').value;
         const search = document.getElementById('userSearch').value;
 
-        const params = new URLSearchParams({ ajax: 1, page, role, status, search });
+        const params = new URLSearchParams({
+            ajax: 1,
+            page,
+            role,
+            status,
+            search
+        });
 
         fetch(`${BASE}&action=users-index&${params}`)
             .then(res => res.json())
@@ -130,7 +136,7 @@ if (isset($_SESSION['success'])) {
         if (oldTbody) oldTbody.remove();
         document.querySelector('.users-table').appendChild(newTbody);
 
-        document.getElementById('selectAll')?.addEventListener('change', function () {
+        document.getElementById('selectAll')?.addEventListener('change', function() {
             document.querySelectorAll('.user-checkbox').forEach(cb => cb.checked = this.checked);
         });
     }
@@ -150,10 +156,14 @@ if (isset($_SESSION['success'])) {
         if (!confirm(`Bạn có chắc muốn khóa mềm ${ids.length} người dùng đã chọn?`)) return;
 
         fetch(`${BASE}&action=users-softDeleteMany`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ ids })
-        })
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    ids
+                })
+            })
             .then(res => res.json())
             .then(res => {
                 alert(res.message || 'Xóa mềm thành công');
@@ -168,10 +178,14 @@ if (isset($_SESSION['success'])) {
     // document.getElementById('deleteSelected').addEventListener('click', deleteSelectedUsers);
     document.addEventListener('DOMContentLoaded', () => {
         loadUsers(), fetch(`${BASE}&action=users-softDeleteMany`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ ids })
-        })
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    ids
+                })
+            })
             .then(res => res.json())
             .then(res => {
                 alert(res.message || 'Xóa mềm thành công');

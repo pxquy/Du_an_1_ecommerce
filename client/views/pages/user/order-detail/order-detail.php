@@ -97,7 +97,7 @@
                                     <div class="order-item">
                                         <div class="item-product">
                                             <div class="item-image">
-                                                <img src="<?= BASE_ASSETS_UPLOADS . $orderDetail['thumbnail'] ?>" alt="<?= $orderDetail['title'] ?>">
+                                                <img src="<?= BASE_ASSETS_UPLOADS . $orderDetail['image'] ?>" alt="<?= $orderDetail['title'] ?>">
                                             </div>
                                             <div class="item-details">
                                                 <h4 class="item-title"><?= $orderDetail['title'] ?></h4>

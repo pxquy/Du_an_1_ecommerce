@@ -235,6 +235,7 @@
 
 
                         <form action="?action=add_to_cart" method="POST" id="addCartForm">
+                            <input type="hidden" name="current_url" value="<?= $_SERVER['REQUEST_URI'] ?>">
                             <input type="hidden" name="productId" value="<?= $productDetail['id'] ?>">
                             <input type="hidden" name="variantId" id="variantId">
                             <input type="hidden" name="price" id="variantPriceInput">
@@ -522,7 +523,6 @@
                                         style="color:blue; text-decoration: underline;">đăng nhập</a> để viết đánh giá.
                                 </p>
                                 <?php endif; ?>
-
 
 
                             </div>
