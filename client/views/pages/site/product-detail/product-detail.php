@@ -21,7 +21,8 @@
     <!-- Add Slick Slider CSS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
     <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
@@ -39,7 +40,9 @@
                 <ul class="breadcrumb-list">
                     <li><a href="index.php?router=home">Trang chủ</a></li>
                     <li><i class="fas fa-chevron-right"></i></li>
-                    <li><a href="index.php?router=product&category_id=<?= $productDetail['categoryId'] ?>"><?= $productDetail["title"] ?></a></li>
+                    <li><a
+                            href="index.php?router=product&category_id=<?= $productDetail['categoryId'] ?>"><?= $productDetail["title"] ?></a>
+                    </li>
                     <li><i class="fas fa-chevron-right"></i></li>
                     <li><?= $title ?></li>
                 </ul>
@@ -59,7 +62,8 @@
                                     <div class="swiper-wrapper">
                                         <div class="swiper-slide">
                                             <div class="gallery-image">
-                                                <img src="<?= BASE_ASSETS_UPLOADS . $productDetail["thumbnail"] ?>" alt="<?= $title ?>" id="zoom-image">
+                                                <img src="<?= BASE_ASSETS_UPLOADS . $productDetail["thumbnail"] ?>"
+                                                    alt="<?= $title ?>" id="zoom-image">
                                             </div>
                                         </div>
                                     </div>
@@ -73,15 +77,13 @@
                                 <div class="swiper-box">
                                     <div class="swiper-slide">
                                         <div class="thumb-image">
-                                            <img
-                                                src="<?= BASE_ASSETS_UPLOADS . $productDetail["thumbnail"] ?>" alt="<?= $title ?>">
+                                            <img src="<?= BASE_ASSETS_UPLOADS . $productDetail["thumbnail"] ?>"
+                                                alt="<?= $title ?>">
                                         </div>
                                         <?php foreach ($images as $image) : ?>
-                                            <div class="thumb-image">
-                                                <img
-                                                    src="<?= BASE_ASSETS_UPLOADS . $image ?>"
-                                                    alt="<?= $title ?>" />
-                                            </div>
+                                        <div class="thumb-image">
+                                            <img src="<?= BASE_ASSETS_UPLOADS . $image ?>" alt="<?= $title ?>" />
+                                        </div>
 
                                         <?php endforeach; ?>
                                     </div>
@@ -125,7 +127,8 @@
                         <div class="product-meta">
                             <div class="product-sku">Mã sản phẩm: <span><?= $productDetail["sku"] ?></span></div>
                             <div class="product-availability <?= $productDetail["isActive"] ?>">
-                                <i class="fas fa-check-circle"></i> <?= formatProductStatus($productDetail["isActive"]) ?>
+                                <i class="fas fa-check-circle"></i>
+                                <?= formatProductStatus($productDetail["isActive"]) ?>
                             </div>
                         </div>
                         <?php
@@ -138,17 +141,18 @@
                         <div class="product-rating" style="display:flex; align-items:center; gap:8px;">
                             <div class="rating-stars" style="color:#f5a623;">
                                 <?php for ($i = 1; $i <= 5; $i++): ?>
-                                    <?php if ($i <= $ratingInt): ?>
-                                        <i class="fas fa-star"></i>
-                                    <?php elseif ($i == $ratingInt + 1 && $ratingFrac >= 0.25 && $ratingFrac <= 0.75): ?>
-                                        <i class="fas fa-star-half-alt"></i>
-                                    <?php else: ?>
-                                        <i class="far fa-star"></i>
-                                    <?php endif; ?>
+                                <?php if ($i <= $ratingInt): ?>
+                                <i class="fas fa-star"></i>
+                                <?php elseif ($i == $ratingInt + 1 && $ratingFrac >= 0.25 && $ratingFrac <= 0.75): ?>
+                                <i class="fas fa-star-half-alt"></i>
+                                <?php else: ?>
+                                <i class="far fa-star"></i>
+                                <?php endif; ?>
                                 <?php endfor; ?>
                             </div>
                             <div class="rating-count" style="font-size:14px; color:#555;">
-                                <a href="#reviews-tab" onclick="handleClickOpenReview()" style="color:inherit; text-decoration:none;">
+                                <a href="#reviews-tab" onclick="handleClickOpenReview()"
+                                    style="color:inherit; text-decoration:none;">
                                     <?= number_format($avgRating, 1) ?>/5 (<?= $ratingCount ?> đánh giá)
                                 </a>
                             </div>
@@ -157,17 +161,17 @@
 
                         <div class="product-price">
                             <?php if (isset($variantId)) : ?>
-                                <p class="current-price">
-                                    <strong>Giá:</strong>
-                                    <span id="variant-price">--</span>
-                                </p>
+                            <p class="current-price">
+                                <strong>Giá:</strong>
+                                <span id="variant-price">--</span>
+                            </p>
                             <?php else: ?>
-                                <p class="current-price">
-                                    <strong>Giá:</strong>
-                                    <span class="current-price">
-                                        <?= formatCurrency($productDetail["priceDefault"], 'vn') ?>
-                                    </span>
-                                </p>
+                            <p class="current-price">
+                                <strong>Giá:</strong>
+                                <span class="current-price">
+                                    <?= formatCurrency($productDetail["priceDefault"], 'vn') ?>
+                                </span>
+                            </p>
                             <?php endif; ?>
                         </div>
 
@@ -186,10 +190,10 @@
                         ?>
 
                         <?php if (!empty($attributesGrouped['Color'])): ?>
-                            <div class="product-colors">
-                                <h3>Màu sắc:</h3>
-                                <?php foreach ($attributesGrouped['Color'] as $valueId => $colorName): ?>
-                                    <?php
+                        <div class="product-colors">
+                            <h3>Màu sắc:</h3>
+                            <?php foreach ($attributesGrouped['Color'] as $valueId => $colorName): ?>
+                            <?php
                                     $colorMap = [
                                         'đen' => '#000',
                                         'nâu' => '#5d4037',
@@ -201,28 +205,28 @@
                                     ];
                                     $colorHex = $colorMap[strtolower($colorName)] ?? '#ccc';
                                     ?>
-                                    <label class="color-option">
-                                        <input type="radio" name="color" value="<?= $valueId ?>">
-                                        <span class="color-swatch" style="background-color: <?= $colorHex ?>;"
-                                            data-color-name="<?= $colorName ?>"></span>
-                                    </label>
-                                <?php endforeach; ?>
-                                <div>Đã chọn: <span id="selectedColor">---</span></div>
-                            </div>
+                            <label class="color-option">
+                                <input type="radio" name="color" value="<?= $valueId ?>">
+                                <span class="color-swatch" style="background-color: <?= $colorHex ?>;"
+                                    data-color-name="<?= $colorName ?>"></span>
+                            </label>
+                            <?php endforeach; ?>
+                            <div>Đã chọn: <span id="selectedColor">---</span></div>
+                        </div>
                         <?php endif; ?>
 
                         <!-- Chọn thuộc tính Size -->
                         <?php if (!empty($attributesGrouped['Size'])): ?>
-                            <div class="product-sizes">
-                                <h3>Kích cỡ:</h3>
-                                <?php foreach ($attributesGrouped['Size'] as $valueId => $size): ?>
-                                    <label class="size-option">
-                                        <input type="radio" name="size" value="<?= $valueId ?>">
-                                        <span class="size-box"><?= $size ?></span>
-                                    </label>
-                                <?php endforeach; ?>
-                                <div>Đã chọn: <span id="selectedSize">---</span></div>
-                            </div>
+                        <div class="product-sizes">
+                            <h3>Kích cỡ:</h3>
+                            <?php foreach ($attributesGrouped['Size'] as $valueId => $size): ?>
+                            <label class="size-option">
+                                <input type="radio" name="size" value="<?= $valueId ?>">
+                                <span class="size-box"><?= $size ?></span>
+                            </label>
+                            <?php endforeach; ?>
+                            <div>Đã chọn: <span id="selectedSize">---</span></div>
+                        </div>
                         <?php endif; ?>
 
                         <div id="variant-info" style="margin-top: 10px;">
@@ -239,7 +243,8 @@
                                 <h3 class="option-title">Số lượng:</h3>
                                 <div class="quantity-selector">
                                     <button type="button" class="quantity-btn minus" id="quantityMinus">-</button>
-                                    <input type="number" name="quantity" id="quantityInput" value="1" min="1" class="quantity-input">
+                                    <input type="number" name="quantity" id="quantityInput" value="1" min="1"
+                                        class="quantity-input">
                                     <button type="button" class="quantity-btn plus" id="quantityPlus">+</button>
                                 </div>
                             </div>
@@ -318,7 +323,8 @@
                     <div class="tabs-header">
                         <button class="tab-btn active" data-tab="description">Mô tả sản phẩm</button>
                         <button class="tab-btn" data-tab="reviews" id="reviews-tab">
-                            Đánh giá <?= isset($productDetail['averageRating']) && $productDetail['averageRating'] > 0 ? '(' . $productDetail['ratingCount'] . ')' : '' ?>
+                            Đánh giá
+                            <?= isset($productDetail['averageRating']) && $productDetail['averageRating'] > 0 ? '(' . $productDetail['ratingCount'] . ')' : '' ?>
                         </button>
                         <button class="tab-btn" data-tab="shipping">Vận chuyển & Đổi trả</button>
                     </div>
@@ -336,7 +342,8 @@
                             <div class="tab-content-inner">
                                 <div class="reviews-summary">
                                     <div class="reviews-average">
-                                        <div class="average-rating"><?= round($productDetail['averageRating'], 1) ?></div>
+                                        <div class="average-rating"><?= round($productDetail['averageRating'], 1) ?>
+                                        </div>
                                         <div class="rating-stars">
                                             <?php
                                             $fullStars = floor($productDetail['averageRating']);
@@ -346,7 +353,8 @@
                                             for ($i = $fullStars + $halfStar; $i < 5; $i++) echo '<i class="far fa-star"></i>';
                                             ?>
                                         </div>
-                                        <div class="total-reviews">Dựa trên <?= $productDetail['ratingCount'] ?> đánh giá</div>
+                                        <div class="total-reviews">Dựa trên <?= $productDetail['ratingCount'] ?> đánh
+                                            giá</div>
                                     </div>
 
                                     <div class="reviews-breakdown">
@@ -374,135 +382,145 @@
 
                                 <div class="reviews-list">
                                     <?php if ($comments) : ?>
-                                        <?php foreach ($comments as $comment): ?>
-                                            <?php if (!$comment['parentId']): ?>
-                                                <div class="review-item">
-                                                    <div class="review-header">
-                                                        <div class="reviewer-info">
-                                                            <div class="reviewer-avatar">
-                                                                <img src="./assets/uploads/user/<?= $comment['thumbnail'] ?>" width="50" height="50" alt="<?= htmlspecialchars($comment['fullname']) ?>">
-                                                            </div>
-                                                            <div class="reviewer-details">
-                                                                <div class="reviewer-name"><?= htmlspecialchars($comment['fullname']) ?></div>
-                                                                <div class="review-date" data-date="<?= htmlspecialchars($comment['createdAt']) ?>"></div>
+                                    <?php foreach ($comments as $comment): ?>
+                                    <?php if (!$comment['parentId']): ?>
+                                    <div class="review-item">
+                                        <div class="review-header">
+                                            <div class="reviewer-info">
+                                                <div class="reviewer-avatar">
+                                                    <img src="./assets/uploads/user/<?= $comment['thumbnail'] ?>"
+                                                        width="50" height="50"
+                                                        alt="<?= htmlspecialchars($comment['fullname']) ?>">
+                                                </div>
+                                                <div class="reviewer-details">
+                                                    <div class="reviewer-name">
+                                                        <?= htmlspecialchars($comment['fullname']) ?></div>
+                                                    <div class="review-date"
+                                                        data-date="<?= htmlspecialchars($comment['createdAt']) ?>">
+                                                    </div>
 
-                                                            </div>
-                                                        </div>
-                                                        <div class="review-rating">
-                                                            <?php
+                                                </div>
+                                            </div>
+                                            <div class="review-rating">
+                                                <?php
                                                             for ($i = 0; $i < $comment['rating']; $i++) echo '<i class="fas fa-star"></i>';
                                                             for ($i = $comment['rating']; $i < 5; $i++) echo '<i class="far fa-star"></i>';
                                                             ?>
-                                                        </div>
-                                                    </div>
-                                                    <div class="review-content">
-                                                        <p class="review-text"><?= htmlspecialchars($comment['content']) ?></p>
-                                                    </div>
-                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="review-content">
+                                            <p class="review-text"><?= htmlspecialchars($comment['content']) ?></p>
+                                        </div>
+                                    </div>
 
-                                                <?php foreach ($comments as $reply): ?>
-                                                    <?php if ($reply['parentId'] == $comment['id']): ?>
-                                                        <div class="reply border rounded p-2 ms-4 bg-white">
-                                                            <p><strong><?= htmlspecialchars($reply['fullname']) ?></strong> - <?= $reply['createdAt'] ?></p>
-                                                            <p><?= nl2br(htmlspecialchars($reply['content'])) ?></p>
-                                                        </div>
-                                                    <?php endif; ?>
-                                                <?php endforeach; ?>
-                                            <?php endif; ?>
-                                        <?php endforeach; ?>
+                                    <?php foreach ($comments as $reply): ?>
+                                    <?php if ($reply['parentId'] == $comment['id']): ?>
+                                    <div class="reply border rounded p-2 ms-4 bg-white">
+                                        <p><strong><?= htmlspecialchars($reply['fullname']) ?></strong> -
+                                            <?= $reply['createdAt'] ?></p>
+                                        <p><?= nl2br(htmlspecialchars($reply['content'])) ?></p>
+                                    </div>
+                                    <?php endif; ?>
+                                    <?php endforeach; ?>
+                                    <?php endif; ?>
+                                    <?php endforeach; ?>
                                     <?php else: ?>
-                                        <p style="text-align: center;">Không có bình luận nào.</p>
+                                    <p style="text-align: center;">Không có bình luận nào.</p>
                                     <?php endif; ?>
                                 </div>
 
 
                                 <div class="reviews-pagination">
                                     <?php if ($page > 1): ?>
-                                        <a class="pagination-btn prev"
-                                            href="?action=product_detail&slug=<?= urlencode($productDetail['slug']) ?>&cmt_page=<?= $page - 1 ?>">
-                                            <i class="fas fa-chevron-left"></i>
-                                        </a>
+                                    <a class="pagination-btn prev"
+                                        href="?action=product_detail&slug=<?= urlencode($productDetail['slug']) ?>&cmt_page=<?= $page - 1 ?>">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </a>
                                     <?php else: ?>
-                                        <button class="pagination-btn prev" disabled>
-                                            <i class="fas fa-chevron-left"></i>
-                                        </button>
+                                    <button class="pagination-btn prev" disabled>
+                                        <i class="fas fa-chevron-left"></i>
+                                    </button>
                                     <?php endif; ?>
 
                                     <div class="pagination-numbers">
                                         <?php if ($totalPages > 1): ?>
-                                            <!-- Trang 1 -->
-                                            <a href="?action=product_detail&slug=<?= urlencode($productDetail['slug']) ?>&cmt_page=1"
-                                                class="pagination-number <?= ($page == 1) ? 'active' : '' ?>">1</a>
+                                        <!-- Trang 1 -->
+                                        <a href="?action=product_detail&slug=<?= urlencode($productDetail['slug']) ?>&cmt_page=1"
+                                            class="pagination-number <?= ($page == 1) ? 'active' : '' ?>">1</a>
 
-                                            <!-- Dấu ... phía trước -->
-                                            <?php if ($page > 4): ?>
-                                                <span class="pagination-ellipsis">...</span>
-                                            <?php endif; ?>
+                                        <!-- Dấu ... phía trước -->
+                                        <?php if ($page > 4): ?>
+                                        <span class="pagination-ellipsis">...</span>
+                                        <?php endif; ?>
 
-                                            <!-- Các trang ở giữa -->
-                                            <?php for ($i = max(2, $page - 2); $i <= min($totalPages - 1, $page + 2); $i++): ?>
-                                                <a href="?action=product_detail&slug=<?= urlencode($productDetail['slug']) ?>&cmt_page=<?= $i ?>"
-                                                    class="pagination-number <?= ($page == $i) ? 'active' : '' ?>">
-                                                    <?= $i ?>
-                                                </a>
-                                            <?php endfor; ?>
+                                        <!-- Các trang ở giữa -->
+                                        <?php for ($i = max(2, $page - 2); $i <= min($totalPages - 1, $page + 2); $i++): ?>
+                                        <a href="?action=product_detail&slug=<?= urlencode($productDetail['slug']) ?>&cmt_page=<?= $i ?>"
+                                            class="pagination-number <?= ($page == $i) ? 'active' : '' ?>">
+                                            <?= $i ?>
+                                        </a>
+                                        <?php endfor; ?>
 
-                                            <!-- Dấu ... phía sau -->
-                                            <?php if ($page < $totalPages - 3): ?>
-                                                <span class="pagination-ellipsis">...</span>
-                                            <?php endif; ?>
+                                        <!-- Dấu ... phía sau -->
+                                        <?php if ($page < $totalPages - 3): ?>
+                                        <span class="pagination-ellipsis">...</span>
+                                        <?php endif; ?>
 
-                                            <!-- Trang cuối -->
-                                            <a href="?action=product_detail&slug=<?= urlencode($productDetail['slug']) ?>&cmt_page=<?= $totalPages ?>"
-                                                class="pagination-number <?= ($page == $totalPages) ? 'active' : '' ?>">
-                                                <?= $totalPages ?>
-                                            </a>
+                                        <!-- Trang cuối -->
+                                        <a href="?action=product_detail&slug=<?= urlencode($productDetail['slug']) ?>&cmt_page=<?= $totalPages ?>"
+                                            class="pagination-number <?= ($page == $totalPages) ? 'active' : '' ?>">
+                                            <?= $totalPages ?>
+                                        </a>
                                         <?php endif; ?>
                                     </div>
 
                                     <?php if ($page < $totalPages): ?>
-                                        <a class="pagination-btn next"
-                                            href="?action=product_detail&slug=<?= urlencode($productDetail['slug']) ?>&cmt_page=<?= $page + 1 ?>">
-                                            <i class="fas fa-chevron-right"></i>
-                                        </a>
+                                    <a class="pagination-btn next"
+                                        href="?action=product_detail&slug=<?= urlencode($productDetail['slug']) ?>&cmt_page=<?= $page + 1 ?>">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </a>
                                     <?php else: ?>
-                                        <button class="pagination-btn next" disabled>
-                                            <i class="fas fa-chevron-right"></i>
-                                        </button>
+                                    <button class="pagination-btn next" disabled>
+                                        <i class="fas fa-chevron-right"></i>
+                                    </button>
                                     <?php endif; ?>
                                 </div>
 
 
 
                                 <?php if (isset($_SESSION['user'])): ?>
-                                    <!-- Hiển thị form đánh giá nếu đã đăng nhập -->
-                                    <div class="write-review">
-                                        <h3>Viết đánh giá của bạn</h3>
-                                        <form class="review-form" method="POST" action="?action=add_comment">
-                                            <div class="form-group">
-                                                <label>Đánh giá của bạn:</label>
-                                                <div class="rating-select" data-selected="0">
-                                                    <i class="far fa-star" data-rating="1"></i>
-                                                    <i class="far fa-star" data-rating="2"></i>
-                                                    <i class="far fa-star" data-rating="3"></i>
-                                                    <i class="far fa-star" data-rating="4"></i>
-                                                    <i class="far fa-star" data-rating="5"></i>
-                                                    <input type="hidden" name="rating" id="ratingInput" value="0">
-                                                </div>
+                                <!-- Hiển thị form đánh giá nếu đã đăng nhập -->
+                                <div class="write-review">
+                                    <h3>Viết đánh giá của bạn</h3>
+                                    <form class="review-form" method="POST" action="?action=add_comment">
+                                        <div class="form-group">
+                                            <label>Đánh giá của bạn:</label>
+                                            <div class="rating-select" data-selected="0">
+                                                <i class="far fa-star" data-rating="1"></i>
+                                                <i class="far fa-star" data-rating="2"></i>
+                                                <i class="far fa-star" data-rating="3"></i>
+                                                <i class="far fa-star" data-rating="4"></i>
+                                                <i class="far fa-star" data-rating="5"></i>
+                                                <input type="hidden" name="rating" id="ratingInput" value="0">
+                                            </div>
 
-                                            </div>
-                                            <div class="form-group">
-                                                <input type="hidden" name="productId" value="<?= $productDetail['id'] ?>">
-                                                <input type="hidden" name="slug" value="<?= $productDetail['slug'] ?>">
-                                                <label for="reviewContent">Nội dung:</label>
-                                                <textarea name="content" id="reviewContent" rows="5" placeholder="Chia sẻ trải nghiệm của bạn với sản phẩm này"></textarea>
-                                            </div>
-                                            <button type="submit" name="submit-review-btn" class="submit-review-btn">Gửi đánh giá</button>
-                                        </form>
-                                    </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="hidden" name="productId" value="<?= $productDetail['id'] ?>">
+                                            <input type="hidden" name="slug" value="<?= $productDetail['slug'] ?>">
+                                            <label for="reviewContent">Nội dung:</label>
+                                            <textarea name="content" id="reviewContent" rows="5"
+                                                placeholder="Chia sẻ trải nghiệm của bạn với sản phẩm này"></textarea>
+                                        </div>
+                                        <button type="submit" name="submit-review-btn" class="submit-review-btn">Gửi
+                                            đánh giá</button>
+                                    </form>
+                                </div>
                                 <?php else: ?>
-                                    <!-- Nếu chưa đăng nhập -->
-                                    <p style="text-align:center;">Bạn cần <a href="<?= BASE_URL . '?action=form_signin' ?>" style="color:blue; text-decoration: underline;">đăng nhập</a> để viết đánh giá.</p>
+                                <!-- Nếu chưa đăng nhập -->
+                                <p style="text-align:center;">Bạn cần <a href="<?= BASE_URL . '?action=form_signin' ?>"
+                                        style="color:blue; text-decoration: underline;">đăng nhập</a> để viết đánh giá.
+                                </p>
                                 <?php endif; ?>
 
 
@@ -519,14 +537,17 @@
                                 <div class="shipping-info">
                                     <div class="info-item">
                                         <h4><i class="fas fa-truck"></i> Phương thức vận chuyển</h4>
-                                        <p>Arrowwai sử dụng các đơn vị vận chuyển uy tín như Giao Hàng Nhanh, Giao Hàng Tiết Kiệm, Viettel Post để đảm bảo sản phẩm đến tay khách hàng an toàn và nhanh chóng.</p>
+                                        <p>Arrowwai sử dụng các đơn vị vận chuyển uy tín như Giao Hàng Nhanh, Giao Hàng
+                                            Tiết Kiệm, Viettel Post để đảm bảo sản phẩm đến tay khách hàng an toàn và
+                                            nhanh chóng.</p>
                                     </div>
 
                                     <div class="info-item">
                                         <h4><i class="fas fa-money-bill-wave"></i> Phí vận chuyển</h4>
                                         <ul>
                                             <li>Miễn phí vận chuyển với đơn hàng từ 1.000.000đ trở lên</li>
-                                            <li>Đơn hàng dưới 1.000.000đ: Phí vận chuyển từ 30.000đ - 50.000đ tùy khu vực</li>
+                                            <li>Đơn hàng dưới 1.000.000đ: Phí vận chuyển từ 30.000đ - 50.000đ tùy khu
+                                                vực</li>
                                         </ul>
                                     </div>
 
@@ -555,7 +576,8 @@
                                         <h4><i class="fas fa-calendar-alt"></i> Thời hạn đổi trả</h4>
                                         <ul>
                                             <li>Đổi size/màu: trong vòng 7 ngày kể từ ngày nhận hàng</li>
-                                            <li>Đổi sản phẩm lỗi do nhà sản xuất: trong vòng 30 ngày kể từ ngày nhận hàng</li>
+                                            <li>Đổi sản phẩm lỗi do nhà sản xuất: trong vòng 30 ngày kể từ ngày nhận
+                                                hàng</li>
                                             <li>Bảo hành sản phẩm: 12 tháng kể từ ngày mua hàng</li>
                                         </ul>
                                     </div>
@@ -563,7 +585,8 @@
                                     <div class="info-item">
                                         <h4><i class="fas fa-info-circle"></i> Quy trình đổi trả</h4>
                                         <ol>
-                                            <li>Liên hệ với Arrowwai qua hotline 1900 4510 hoặc email cskh@Arrowwai.com để được hướng dẫn</li>
+                                            <li>Liên hệ với Arrowwai qua hotline 1900 4510 hoặc email cskh@Arrowwai.com
+                                                để được hướng dẫn</li>
                                             <li>Đóng gói sản phẩm cần đổi trả kèm hóa đơn/phiếu bảo hành</li>
                                             <li>Gửi sản phẩm về địa chỉ của Arrowwai theo hướng dẫn</li>
                                             <li>Arrowwai sẽ kiểm tra và xử lý yêu cầu trong vòng 3-5 ngày làm việc</li>
@@ -572,11 +595,13 @@
                                     </div>
 
                                     <div class="info-item">
-                                        <h4><i class="fas fa-exclamation-triangle"></i> Trường hợp không áp dụng đổi trả</h4>
+                                        <h4><i class="fas fa-exclamation-triangle"></i> Trường hợp không áp dụng đổi trả
+                                        </h4>
                                         <ul>
                                             <li>Sản phẩm đã qua sử dụng, có dấu hiệu hư hỏng do người dùng</li>
                                             <li>Sản phẩm không còn nguyên vẹn tem, nhãn, hộp đóng gói</li>
-                                            <li>Sản phẩm thuộc chương trình khuyến mãi, giảm giá đặc biệt (trừ trường hợp lỗi nhà sản xuất)</li>
+                                            <li>Sản phẩm thuộc chương trình khuyến mãi, giảm giá đặc biệt (trừ trường
+                                                hợp lỗi nhà sản xuất)</li>
                                             <li>Quá thời hạn đổi trả quy định</li>
                                         </ul>
                                     </div>
@@ -593,36 +618,39 @@
                         <div class="swiper related-products-swiper">
                             <div class="swiper-wrapper">
                                 <?php foreach ($relatedProducts as $related): ?>
-                                    <div class="swiper-slide">
+                                <div class="swiper-slide">
 
-                                        <div class="product-card">
-                                            <div class="product-images">
-                                                <a href="?action=product_detail&slug=<?= $related['slug'] ?>">
-                                                    <img src="<?= BASE_ASSETS_UPLOADS . $related['thumbnail'] ?>" alt="<?= $related['title'] ?>" width="300">
-                                                </a>
-                                                <div class="product-actions">
-                                                    <button class="quick-view-btn" title="Xem nhanh">
-                                                        <i class="fas fa-eye"></i>
-                                                    </button>
-                                                    <button class="add-to-wishlist-btn" title="Thêm vào yêu thích">
-                                                        <i class="far fa-heart"></i>
-                                                    </button>
-                                                    <button class="add-to-cart-btn" title="Thêm vào giỏ hàng">
-                                                        <i class="fas fa-shopping-bag"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="product-info">
-                                                <h3 class="product-title">
-                                                    <a href="index.php?router=product-detail&id=<?= $related['id'] ?>"><?= $related['title'] ?></a>
-                                                </h3>
-                                                <div class="product-price">
-                                                    <span class="current-price"><?= formatCurrency($related['priceDefault'], 'vn') ?></span>
-                                                </div>
+                                    <div class="product-card">
+                                        <div class="product-images">
+                                            <a href="?action=product_detail&slug=<?= $related['slug'] ?>">
+                                                <img src="<?= BASE_ASSETS_UPLOADS . $related['thumbnail'] ?>"
+                                                    alt="<?= $related['title'] ?>" width="300">
+                                            </a>
+                                            <div class="product-actions">
+                                                <button class="quick-view-btn" title="Xem nhanh">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="add-to-wishlist-btn" title="Thêm vào yêu thích">
+                                                    <i class="far fa-heart"></i>
+                                                </button>
+                                                <button class="add-to-cart-btn" title="Thêm vào giỏ hàng">
+                                                    <i class="fas fa-shopping-bag"></i>
+                                                </button>
                                             </div>
                                         </div>
-
+                                        <div class="product-info">
+                                            <h3 class="product-title">
+                                                <a
+                                                    href="index.php?router=product-detail&id=<?= $related['id'] ?>"><?= $related['title'] ?></a>
+                                            </h3>
+                                            <div class="product-price">
+                                                <span
+                                                    class="current-price"><?= formatCurrency($related['priceDefault'], 'vn') ?></span>
+                                            </div>
+                                        </div>
                                     </div>
+
+                                </div>
                                 <?php endforeach; ?>
                             </div>
                         </div>
@@ -652,262 +680,125 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', () => {
 
-            const galleryMain = new Swiper('.gallery-main-swiper', {
-                spaceBetween: 10,
-                navigation: {
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev',
-                },
-            });
+        const galleryMain = new Swiper('.gallery-main-swiper', {
+            spaceBetween: 10,
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
 
-            // Related Products Swiper
-            const relatedProductsSwiper = new Swiper('.related-products-swiper', {
-                spaceBetween: 20,
-                slidesPerView: 4,
-                navigation: {
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev',
+        // Related Products Swiper
+        const relatedProductsSwiper = new Swiper('.related-products-swiper', {
+            spaceBetween: 20,
+            slidesPerView: 4,
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            breakpoints: {
+                320: {
+                    slidesPerView: 1,
                 },
-                breakpoints: {
-                    320: {
-                        slidesPerView: 1,
-                    },
-                    576: {
-                        slidesPerView: 2,
-                    },
-                    768: {
-                        slidesPerView: 3,
-                    },
-                    992: {
-                        slidesPerView: 4,
-                    }
+                576: {
+                    slidesPerView: 2,
+                },
+                768: {
+                    slidesPerView: 3,
+                },
+                992: {
+                    slidesPerView: 4,
                 }
-            });
+            }
+        });
 
-            // Recently Viewed Products Swiper
-            const recentlyViewedSwiper = new Swiper('.recently-viewed-swiper', {
-                spaceBetween: 20,
-                slidesPerView: 4,
-                navigation: {
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev',
+        // Recently Viewed Products Swiper
+        const recentlyViewedSwiper = new Swiper('.recently-viewed-swiper', {
+            spaceBetween: 20,
+            slidesPerView: 4,
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            breakpoints: {
+                320: {
+                    slidesPerView: 1,
                 },
-                breakpoints: {
-                    320: {
-                        slidesPerView: 1,
-                    },
-                    576: {
-                        slidesPerView: 2,
-                    },
-                    768: {
-                        slidesPerView: 3,
-                    },
-                    992: {
-                        slidesPerView: 4,
-                    }
+                576: {
+                    slidesPerView: 2,
+                },
+                768: {
+                    slidesPerView: 3,
+                },
+                992: {
+                    slidesPerView: 4,
                 }
-            });
+            }
+        });
 
-            // Product Tabs
-            const tabBtns = document.querySelectorAll('.tab-btn');
-            const tabPanes = document.querySelectorAll('.tab-pane');
+        // Product Tabs
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabPanes = document.querySelectorAll('.tab-pane');
 
-            tabBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    // Remove active class from all buttons and panes
-                    tabBtns.forEach(b => b.classList.remove('active'));
-                    tabPanes.forEach(p => p.classList.remove('active'));
-
-                    // Add active class to clicked button
-                    this.classList.add('active');
-
-                    // Show corresponding tab pane
-                    const tabId = this.getAttribute('data-tab');
-                    document.getElementById(tabId).classList.add('active');
-                });
-            });
-
-            function handleClickOpenReview() {
-                const tabReview = document.getElementById('reviews-tab');
-
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
                 // Remove active class from all buttons and panes
                 tabBtns.forEach(b => b.classList.remove('active'));
                 tabPanes.forEach(p => p.classList.remove('active'));
 
-                tabReview.classList.add('active');
+                // Add active class to clicked button
+                this.classList.add('active');
 
                 // Show corresponding tab pane
-                const tabId = tabReview.getAttribute('data-tab');
+                const tabId = this.getAttribute('data-tab');
                 document.getElementById(tabId).classList.add('active');
-            }
-
-            // Đảm bảo hàm này load sau DOM
-            window.handleClickOpenReview = handleClickOpenReview;
-
-            moment.locale('vi'); // Bật tiếng Việt
-
-            const reviewDates = document.querySelectorAll('.review-date');
-            reviewDates.forEach(el => {
-                const rawDate = el.getAttribute('data-date');
-                const formatted = moment(rawDate).fromNow(); // VD: "3 ngày trước"
-                el.textContent = formatted;
-            });
-
-            // Buy Now Button
-            const buyNowBtn = document.getElementById('buyNowBtn');
-
-            buyNowBtn.addEventListener('click', function() {
-                // Get selected options
-                const selectedColor = document.querySelector('.color-option input[name="color"]:checked').value;
-                const selectedSize = document.querySelector('.size-option input[name="size"]:checked').value;
-                const quantity = document.getElementById('quantityInput').value;
-
-                // Show confirmation message
-                alert(`Chuyển đến trang thanh toán!\nSản phẩm: Giày tây nam Arrowwai Classic\nMàu sắc: ${selectedColor === 'black' ? 'Đen' : 'Nâu'}\nKích cỡ: ${selectedSize}\nSố lượng: ${quantity}`);
-
-            });
-
-            const ratingStars = document.querySelectorAll('.rating-select i');
-            const ratingContainer = document.querySelector('.rating-select');
-            const ratingInput = document.getElementById('ratingInput');
-
-            ratingStars.forEach((star, index) => {
-                const ratingValue = index + 1;
-
-                star.addEventListener('mouseover', () => {
-                    highlightStars(ratingValue);
-                });
-
-                star.addEventListener('mouseout', () => {
-                    const selectedRating = parseInt(ratingContainer.getAttribute('data-selected')) || 0;
-                    highlightStars(selectedRating);
-                });
-
-                star.addEventListener('click', () => {
-                    ratingContainer.setAttribute('data-selected', ratingValue);
-                    ratingInput.value = ratingValue;
-                    highlightStars(ratingValue);
-                });
-            });
-
-            function highlightStars(rating) {
-                ratingStars.forEach((star, index) => {
-                    if (index < rating) {
-                        star.classList.remove('far');
-                        star.classList.add('fas');
-                    } else {
-                        star.classList.remove('fas');
-                        star.classList.add('far');
-                    }
-                });
-            }
-        });
-
-        const variantsData = <?= json_encode($variants) ?>;
-        const variantAttributes = <?= json_encode($variantAttributes) ?>;
-
-        let selectedColor = null;
-        let selectedSize = null;
-
-        // Lưu giá mặc định từ PHP để hiển thị ban đầu
-        const defaultPrice = "<?= formatCurrency($productDetail["priceDefault"], 'vn') ?>";
-        document.getElementById('variant-price').textContent = defaultPrice;
-
-        // Bắt sự kiện chọn màu
-        document.querySelectorAll('input[name="color"]').forEach(input => {
-            input.addEventListener('change', (e) => {
-                selectedColor = parseInt(e.target.value);
-                const name = e.target.closest('label').querySelector('.color-swatch').dataset.colorName;
-                document.getElementById('selectedColor').textContent = name;
-                updateVariantInfo();
             });
         });
 
-        // Bắt sự kiện chọn size
-        document.querySelectorAll('input[name="size"]').forEach(input => {
-            input.addEventListener('change', (e) => {
-                selectedSize = parseInt(e.target.value);
-                const size = e.target.closest('label').querySelector('.size-box').textContent;
-                document.getElementById('selectedSize').textContent = size;
-                updateVariantInfo();
-            });
-        });
+        function handleClickOpenReview() {
+            const tabReview = document.getElementById('reviews-tab');
 
-        function updateVariantInfo() {
-            if (!selectedColor || !selectedSize) return;
+            // Remove active class from all buttons and panes
+            tabBtns.forEach(b => b.classList.remove('active'));
+            tabPanes.forEach(p => p.classList.remove('active'));
 
-            let matched = false;
+            tabReview.classList.add('active');
 
-            for (const variant of variantsData) {
-                const attrValues = (variantAttributes[variant.id] || []).map(a => parseInt(a.valueId));
-                if (attrValues.includes(selectedColor) && attrValues.includes(selectedSize)) {
-
-                    document.getElementById('variant-price').textContent =
-                        Number(variant.price).toLocaleString() + 'đ';
-
-                    document.getElementById('variant-stock').textContent =
-                        variant.stock > 0 ? variant.stock : 'Hết hàng';
-
-                    document.getElementById('variantId').value = variant.id;
-                    document.getElementById('variantPriceInput').value = variant.price;
-
-                    // Lưu trạng thái vào attribute
-                    document.getElementById('btnAddCart').setAttribute('data-out-of-stock', variant.stock <= 0);
-
-                    matched = true;
-                    break;
-                }
-            }
-
-            if (!matched) {
-                document.getElementById('variant-price').textContent = defaultPrice;
-                document.getElementById('variant-stock').textContent = '--';
-                document.getElementById('variantId').value = '';
-                document.getElementById('variantPriceInput').value = '';
-                document.getElementById('btnAddCart').setAttribute('data-out-of-stock', true);
-            }
+            // Show corresponding tab pane
+            const tabId = tabReview.getAttribute('data-tab');
+            document.getElementById(tabId).classList.add('active');
         }
 
-        document.getElementById('btnAddCart').addEventListener('click', function(e) {
-            const outOfStock = this.getAttribute('data-out-of-stock') === 'true';
-            if (outOfStock) {
-                e.preventDefault();
-                alert('Sản phẩm đã hết hàng!');
-                return false;
-            }
+        // Đảm bảo hàm này load sau DOM
+        window.handleClickOpenReview = handleClickOpenReview;
+
+        moment.locale('vi'); // Bật tiếng Việt
+
+        const reviewDates = document.querySelectorAll('.review-date');
+        reviewDates.forEach(el => {
+            const rawDate = el.getAttribute('data-date');
+            const formatted = moment(rawDate).fromNow(); // VD: "3 ngày trước"
+            el.textContent = formatted;
         });
 
-        // Kiểm tra khi ấn Mua ngay
-        document.getElementById('buyNowBtn').addEventListener('click', function(e) {
-            const stockText = document.getElementById('variant-stock').textContent;
-            const stock = parseInt(stockText) || 0;
+        // Buy Now Button
+        const buyNowBtn = document.getElementById('buyNowBtn');
 
-            if (stock <= 0) {
-                e.preventDefault();
-                alert('Sản phẩm đã hết hàng!');
-                return false;
-            }
-        });
+        buyNowBtn.addEventListener('click', function() {
+            // Get selected options
+            const selectedColor = document.querySelector('.color-option input[name="color"]:checked')
+                .value;
+            const selectedSize = document.querySelector('.size-option input[name="size"]:checked')
+                .value;
+            const quantity = document.getElementById('quantityInput').value;
 
-        // Tăng giảm số lượng
-        const quantityMinus = document.getElementById('quantityMinus');
-        const quantityPlus = document.getElementById('quantityPlus');
-        const quantityInput = document.getElementById('quantityInput');
+            // Show confirmation message
+            alert(
+                `Chuyển đến trang thanh toán!\nSản phẩm: Giày tây nam Arrowwai Classic\nMàu sắc: ${selectedColor === 'black' ? 'Đen' : 'Nâu'}\nKích cỡ: ${selectedSize}\nSố lượng: ${quantity}`
+            );
 
-        quantityMinus.addEventListener('click', () => {
-            let value = parseInt(quantityInput.value);
-            if (value > 0) {
-                quantityInput.value = value - 1;
-            }
-        });
-
-        quantityPlus.addEventListener('click', function() {
-            let value = parseInt(quantityInput.value);
-            if (value < 10) {
-                quantityInput.value = value + 1;
-            }
         });
 
         const ratingStars = document.querySelectorAll('.rating-select i');
@@ -922,7 +813,8 @@
             });
 
             star.addEventListener('mouseout', () => {
-                const selectedRating = parseInt(ratingContainer.getAttribute('data-selected')) || 0;
+                const selectedRating = parseInt(ratingContainer.getAttribute(
+                    'data-selected')) || 0;
                 highlightStars(selectedRating);
             });
 
@@ -944,16 +836,157 @@
                 }
             });
         }
+    });
 
-        const mainImage = document.querySelector(".gallery-main img");
-        const thumbs = document.querySelectorAll(".gallery-thumbs .thumb-image img");
+    const variantsData = <?= json_encode($variants) ?>;
+    const variantAttributes = <?= json_encode($variantAttributes) ?>;
 
-        thumbs.forEach((thumb) => {
-            thumb.addEventListener("click", function() {
-                mainImage.src = this.src; // đổi ảnh to
-                mainImage.alt = this.alt;
-            });
-        })
+    let selectedColor = null;
+    let selectedSize = null;
+
+    // Lưu giá mặc định từ PHP để hiển thị ban đầu
+    const defaultPrice = "<?= formatCurrency($productDetail["priceDefault"], 'vn') ?>";
+    document.getElementById('variant-price').textContent = defaultPrice;
+
+    // Bắt sự kiện chọn màu
+    document.querySelectorAll('input[name="color"]').forEach(input => {
+        input.addEventListener('change', (e) => {
+            selectedColor = parseInt(e.target.value);
+            const name = e.target.closest('label').querySelector('.color-swatch').dataset.colorName;
+            document.getElementById('selectedColor').textContent = name;
+            updateVariantInfo();
+        });
+    });
+
+    // Bắt sự kiện chọn size
+    document.querySelectorAll('input[name="size"]').forEach(input => {
+        input.addEventListener('change', (e) => {
+            selectedSize = parseInt(e.target.value);
+            const size = e.target.closest('label').querySelector('.size-box').textContent;
+            document.getElementById('selectedSize').textContent = size;
+            updateVariantInfo();
+        });
+    });
+
+    function updateVariantInfo() {
+        if (!selectedColor || !selectedSize) return;
+
+        let matched = false;
+
+        for (const variant of variantsData) {
+            const attrValues = (variantAttributes[variant.id] || []).map(a => parseInt(a.valueId));
+            if (attrValues.includes(selectedColor) && attrValues.includes(selectedSize)) {
+
+                document.getElementById('variant-price').textContent =
+                    Number(variant.price).toLocaleString() + 'đ';
+
+                document.getElementById('variant-stock').textContent =
+                    variant.stock > 0 ? variant.stock : 'Hết hàng';
+
+                document.getElementById('variantId').value = variant.id;
+                document.getElementById('variantPriceInput').value = variant.price;
+
+                // Lưu trạng thái vào attribute
+                document.getElementById('btnAddCart').setAttribute('data-out-of-stock', variant.stock <= 0);
+
+                matched = true;
+                break;
+            }
+        }
+
+        if (!matched) {
+            document.getElementById('variant-price').textContent = defaultPrice;
+            document.getElementById('variant-stock').textContent = '--';
+            document.getElementById('variantId').value = '';
+            document.getElementById('variantPriceInput').value = '';
+            document.getElementById('btnAddCart').setAttribute('data-out-of-stock', true);
+        }
+    }
+
+    document.getElementById('btnAddCart').addEventListener('click', function(e) {
+        const outOfStock = this.getAttribute('data-out-of-stock') === 'true';
+        if (outOfStock) {
+            e.preventDefault();
+            alert('Sản phẩm đã hết hàng!');
+            return false;
+        }
+    });
+
+    // Kiểm tra khi ấn Mua ngay
+    document.getElementById('buyNowBtn').addEventListener('click', function(e) {
+        const stockText = document.getElementById('variant-stock').textContent;
+        const stock = parseInt(stockText) || 0;
+
+        if (stock <= 0) {
+            e.preventDefault();
+            alert('Sản phẩm đã hết hàng!');
+            return false;
+        }
+    });
+
+    // Tăng giảm số lượng
+    const quantityMinus = document.getElementById('quantityMinus');
+    const quantityPlus = document.getElementById('quantityPlus');
+    const quantityInput = document.getElementById('quantityInput');
+
+    quantityMinus.addEventListener('click', () => {
+        let value = parseInt(quantityInput.value);
+        if (value > 0) {
+            quantityInput.value = value - 1;
+        }
+    });
+
+    quantityPlus.addEventListener('click', function() {
+        let value = parseInt(quantityInput.value);
+        if (value < 10) {
+            quantityInput.value = value + 1;
+        }
+    });
+
+    const ratingStars = document.querySelectorAll('.rating-select i');
+    const ratingContainer = document.querySelector('.rating-select');
+    const ratingInput = document.getElementById('ratingInput');
+
+    ratingStars.forEach((star, index) => {
+        const ratingValue = index + 1;
+
+        star.addEventListener('mouseover', () => {
+            highlightStars(ratingValue);
+        });
+
+        star.addEventListener('mouseout', () => {
+            const selectedRating = parseInt(ratingContainer.getAttribute('data-selected')) || 0;
+            highlightStars(selectedRating);
+        });
+
+        star.addEventListener('click', () => {
+            ratingContainer.setAttribute('data-selected', ratingValue);
+            ratingInput.value = ratingValue;
+            highlightStars(ratingValue);
+        });
+    });
+
+    function highlightStars(rating) {
+        ratingStars.forEach((star, index) => {
+            if (index < rating) {
+                star.classList.remove('far');
+                star.classList.add('fas');
+            } else {
+                star.classList.remove('fas');
+                star.classList.add('far');
+            }
+        });
+    }
+
+    const mainImage = document.querySelector(".gallery-main img");
+    const thumbs = document.querySelectorAll(".gallery-thumbs .thumb-image img");
+
+    thumbs.forEach((thumb) => {
+        thumb.addEventListener("click", function() {
+            mainImage.src = this.src; // đổi ảnh to
+            mainImage.alt = this.alt;
+        });
+    })
     </script>
 
 </body>
