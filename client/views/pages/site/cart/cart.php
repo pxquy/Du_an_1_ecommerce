@@ -82,7 +82,8 @@
                                     <div class="cart-item-product">
                                         <div class="cart-item-image">
                                             <a href="<?= BASE_URL ?>?action=product_detail&id=<?= $item['cartId'] ?>">
-                                                <img src="<?= BASE_ASSETS_UPLOADS . htmlspecialchars($item['thumbnail']) ?>" alt="<?= htmlspecialchars($item['title']) ?>">
+                                                <img src="<?= BASE_ASSETS_UPLOADS . $item['image'] ?>" alt="<?= htmlspecialchars($item['title']) ?>">
+
                                             </a>
                                         </div>
                                         <div class="cart-item-details">

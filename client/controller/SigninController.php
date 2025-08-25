@@ -7,12 +7,14 @@ class SigninController
     {
         $this->client = new User();
     }
+
     public function locationSignin()
     {
         $views = "pages/site/login/login";
         $title = "Đăng nhập";
         require_once PATH_VIEW_CLIENT . $views . '.php';
     }
+
     public function signin()
     {
         try {
@@ -47,14 +49,21 @@ class SigninController
                 exit();
             }
 
-
-
+            // Đăng nhập thành công
             $_SESSION['user'] = $user;
-            // require_Login();
-            $_SESSION['success_message'] = 'Đăng nhập thành công';
+            $_SESSION['suscess_message'] = 'Đăng nhập thành công';
             $_SESSION['success'] = true;
             $_SESSION['msg'] = 'Đăng nhập thành công';
 
+            // Kiểm tra nếu có trang trước đó (từ require_Login)
+            if (!empty($_SESSION['redirect_back'])) {
+                $redirect = $_SESSION['redirect_back'];
+                unset($_SESSION['redirect_back']); // xóa tránh lặp
+                header("Location: " . $redirect);
+                exit();
+            }
+
+            // Nếu không có thì quay về trang chủ
             header("Location: " . BASE_URL);
             exit();
         } catch (\Throwable $th) {
@@ -64,6 +73,7 @@ class SigninController
             exit();
         }
     }
+
     public function logout()
     {
         session_destroy();

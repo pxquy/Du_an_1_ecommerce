@@ -68,7 +68,7 @@ if (isset($_SESSION['success'])) {
                 <select name="role" id="role" class="form-select">
                     <option value="0" <?= $user['role'] == 0 ? 'selected' : '' ?>>Người dùng</option>
                     <option value="1" <?= $user['role'] == 1 ? 'selected' : '' ?>>Quản lý</option>
-                    <option value="2" <?= $user['role'] == 2 ? 'selected' : '' ?>>Nhân viên</option>
+                    <!-- <option value="2" <?= $user['role'] == 2 ? 'selected' : '' ?>>Nhân viên</option> -->
                 </select>
             </div>
             <div class="mb-3">

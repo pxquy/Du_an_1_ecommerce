@@ -169,16 +169,23 @@ function dequy($arrays, $index = 0, $current = [], &$result = [])
 //hàm kiểm tra đăng nhập để thực hiện một số chức năng bắt buộc
 function require_Login()
 {
-
     if (empty($_SESSION['user'])) {
         $_SESSION['error_message'] = "Bạn phải đăng nhập để tiếp tục thao tác";
+
+        // Nếu có current_url từ POST thì ưu tiên
+        if (!empty($_POST['current_url'])) {
+            $_SESSION['redirect_back'] = $_POST['current_url'];
+        } else {
+            $_SESSION['redirect_back'] = $_SERVER['REQUEST_URI'];
+        }
+
         header("Location:" . BASE_URL . "?action=form_signin");
         exit();
     }
-    if ($_SESSION['user']['isActive'] == 0) {
-        $_SESSION['error_message'] = "Tài khoản cảu bạn đã bị khoá";
-        header("location:" . BASE_URL . "?action=form_signin");
+
+    if (isset($_SESSION['user']['isActive']) && $_SESSION['user']['isActive'] == 0) {
+        $_SESSION['error_message'] = "Tài khoản của bạn đã bị khoá";
+        header("Location:" . BASE_URL . "?action=form_signin");
         exit();
     }
 }
-

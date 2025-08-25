@@ -1,3 +1,11 @@
+<?php
+if (isset($_SESSION['success'])) {
+    $class = $_SESSION['success'] ? 'alert-success' : 'alert-danger';
+    echo "<div class='alert $class'>{$_SESSION['msg']}</div>";
+    unset($_SESSION['success'], $_SESSION['msg']);
+}
+?>
+
 <div class="stats-grid">
     <div class="stats-card">
         <div class="stats-header">
@@ -110,23 +118,47 @@
     // console.log(revenueData);
 
     const options = {
-        series: [
-            { name: 'Doanh thu ' + yearLabel, data: revenueData },
+        series: [{
+                name: 'Doanh thu ' + yearLabel,
+                data: revenueData
+            },
             // Nếu muốn hiển thị thêm số đơn theo tháng (trục phụ), có thể tách sang chart khác
             // { name: 'Số đơn', data: ordersData }
         ],
-        chart: { type: 'bar', height: 350 },
-        plotOptions: {
-            bar: { horizontal: false, columnWidth: '55%', borderRadius: 5, borderRadiusApplication: 'end' },
+        chart: {
+            type: 'bar',
+            height: 350
         },
-        dataLabels: { enabled: false },
-        stroke: { show: true, width: 2, colors: ['transparent'] },
-        xaxis: { categories: categories },
-        yaxis: { title: { text: 'VND' } },
-        fill: { opacity: 1 },
+        plotOptions: {
+            bar: {
+                horizontal: false,
+                columnWidth: '55%',
+                borderRadius: 5,
+                borderRadiusApplication: 'end'
+            },
+        },
+        dataLabels: {
+            enabled: false
+        },
+        stroke: {
+            show: true,
+            width: 2,
+            colors: ['transparent']
+        },
+        xaxis: {
+            categories: categories
+        },
+        yaxis: {
+            title: {
+                text: 'VND'
+            }
+        },
+        fill: {
+            opacity: 1
+        },
         tooltip: {
             y: {
-                formatter: function (val) {
+                formatter: function(val) {
                     // Format tiền VND cơ bản (có thể thay bằng Intl.NumberFormat)
                     return new Intl.NumberFormat('vi-VN').format(val) + ' ₫';
                 }

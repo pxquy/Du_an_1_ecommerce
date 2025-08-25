@@ -231,6 +231,7 @@
 
 
                         <form action="?action=add_to_cart" method="POST" id="addCartForm">
+                            <input type="hidden" name="current_url" value="<?= $_SERVER['REQUEST_URI'] ?>">
                             <input type="hidden" name="productId" value="<?= $productDetail['id'] ?>">
                             <input type="hidden" name="variantId" id="variantId">
                             <input type="hidden" name="price" id="variantPriceInput">
@@ -504,7 +505,6 @@
                                     <!-- Nếu chưa đăng nhập -->
                                     <p style="text-align:center;">Bạn cần <a href="<?= BASE_URL . '?action=form_signin' ?>" style="color:blue; text-decoration: underline;">đăng nhập</a> để viết đánh giá.</p>
                                 <?php endif; ?>
-
 
 
                             </div>
@@ -872,6 +872,14 @@
 
         document.getElementById('btnAddCart').addEventListener('click', function(e) {
             const outOfStock = this.getAttribute('data-out-of-stock') === 'true';
+            const variantId = document.getElementById('variantId').value;
+
+            if (!variantId) {
+                e.preventDefault();
+                alert('Vui lòng chọn màu sắc và kích thước trước khi thêm vào giỏ hàng!');
+                return false;
+            }
+
             if (outOfStock) {
                 e.preventDefault();
                 alert('Sản phẩm đã hết hàng!');
@@ -881,6 +889,13 @@
 
         // Kiểm tra khi ấn Mua ngay
         document.getElementById('buyNowBtn').addEventListener('click', function(e) {
+            const variantId = document.getElementById('variantId').value;
+            if (!variantId) {
+                e.preventDefault();
+                alert('Vui lòng chọn màu sắc và kích thước trước khi mua!');
+                return false;
+            }
+
             const stockText = document.getElementById('variant-stock').textContent;
             const stock = parseInt(stockText) || 0;
 
